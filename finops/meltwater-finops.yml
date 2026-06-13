@@ -1,0 +1,56 @@
+name: Meltwater FinOps
+description: Financial operations guidance for managing Meltwater API costs. Meltwater uses a contract-based pricing model where API access costs are bundled into enterprise agreements. Cost control focuses on managing mention quotas, API call volumes, and avoiding overages.
+url: https://www.meltwater.com/en/suite/data-api-integration
+cost_model:
+  type: subscription_plus_contract
+  description: Annual subscription with API access as a negotiated add-on. No pay-per-call public pricing; costs are fixed per contract terms.
+  billing_period: annual
+  currency: USD
+
+cost_drivers:
+  - name: Mention Quota
+    description: The number of media mentions returned per month is the primary cost driver for monitoring plans. Overages may trigger additional charges or hard stops.
+    unit: mentions_per_month
+    typical_range: "100,000 – 500,000+ per month depending on tier"
+
+  - name: API Call Volume
+    description: Daily or monthly API call allowances are specified in the contract. Exceeding contracted limits may be throttled or subject to overage billing.
+    unit: api_calls_per_day
+    typical_range: "100 calls/day baseline; higher by contract"
+
+  - name: Mira AI Prompts
+    description: AI-powered prompt executions via the Mira API are capped monthly. Additional prompt capacity may require contract amendment.
+    unit: prompts_per_month
+    typical_range: contract-specific
+
+  - name: Social Account Connections
+    description: The Social Analytics API charges may reflect the number of connected owned social accounts (LinkedIn, X/Twitter, Instagram, Facebook, etc.).
+    unit: connected_accounts
+
+optimization_strategies:
+  - strategy: Right-size mention quotas
+    description: Audit actual monthly mention volumes before renewal and negotiate quotas accordingly to avoid paying for unused capacity.
+
+  - strategy: Cache API responses
+    description: Cache frequently-accessed search results and analytics responses client-side to reduce redundant API calls within rate limit windows.
+
+  - strategy: Use export scheduling
+    description: Use recurring exports instead of polling endpoints repeatedly. Scheduled exports reduce call volume and are more efficient for bulk data retrieval.
+
+  - strategy: Filter at query time
+    description: Apply specific keyword filters, date ranges, and source filters in search queries to minimize the mention volume returned per call, preserving quota.
+
+  - strategy: Monitor daily quotas
+    description: Instrument your integration to track daily API call counts against your contracted limit and alert before thresholds are reached.
+
+  - strategy: Negotiate contract terms
+    description: API call limits and mention quotas are fully negotiable. Engage Meltwater account management before renewal with usage data to optimize contract terms.
+
+visibility:
+  - Meltwater does not provide a self-serve billing dashboard for API usage; usage must be tracked client-side or requested from account management.
+  - Usage limits documentation: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+
+sources:
+  - https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+  - https://www.meltwater.com/en/suite/data-api-integration
+  - https://www.vendr.com/marketplace/meltwater

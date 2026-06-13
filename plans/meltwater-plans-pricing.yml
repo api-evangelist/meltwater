@@ -1,0 +1,65 @@
+name: Meltwater Plans and Pricing
+description: Meltwater offers tiered subscription plans for its media intelligence platform and API access. Pricing is primarily enterprise-focused and negotiated per contract. API access is an add-on to platform subscriptions.
+url: https://www.meltwater.com/en/suite/data-api-integration
+plans:
+  - name: Essentials
+    description: Entry-level plan for small teams focused on media monitoring and basic analytics.
+    type: subscription
+    pricing_model: per_user
+    price_range:
+      min: 3000
+      max: 8000
+      currency: USD
+      period: per_user_per_year
+    features:
+      - Media monitoring
+      - News search and alerts
+      - Basic social listening
+      - Limited mention quota (100,000/month typical)
+    api_access: false
+
+  - name: Suite / Professional
+    description: Mid-tier plan for growing teams with social analytics, journalist outreach, and PR analytics.
+    type: subscription
+    pricing_model: per_user
+    price_range:
+      min: 1500
+      max: 3000
+      currency: USD
+      period: per_user_per_year
+    features:
+      - All Essentials features
+      - Social analytics (owned accounts)
+      - Journalist database and outreach
+      - PR analytics and brand reporting
+      - Expanded mention quota (up to 500,000/month)
+    api_access: false
+
+  - name: Enterprise / API Package
+    description: Full enterprise plan with API access add-on. API usage limits (e.g., calls per day) are specified in the customer contract.
+    type: subscription
+    pricing_model: custom
+    price_range:
+      min: null
+      max: null
+      currency: USD
+      period: annual
+    features:
+      - All Suite features
+      - REST API access
+      - Custom API call quotas (per contract)
+      - Webhook / streaming export support
+      - Dedicated account management
+      - SLA guarantees
+    api_access: true
+    api_notes: API access is a paid add-on; specific call limits are negotiated per contract (e.g., 100 calls/day baseline).
+
+notes:
+  - Pricing is not publicly listed; quotes obtained through sales.
+  - API access requires a separate API package agreement.
+  - Mention quotas and API call limits vary significantly by tier and contract.
+  - Sources reference $3,000–$8,000/user for smaller orgs and $1,500–$3,000/user for enterprise volume.
+sources:
+  - https://www.meltwater.com/en/suite/data-api-integration
+  - https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  - https://www.vendr.com/marketplace/meltwater

@@ -1,0 +1,57 @@
+name: Meltwater API Rate Limits
+description: Meltwater enforces rate limits at both the endpoint level and globally per IP address. Contract-specific limits may also apply to daily API call quotas depending on the customer's API package.
+url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+limits:
+  - name: Export Endpoints Rate Limit
+    description: Rate limit applied specifically to export-type endpoints (e.g., exporting mentions as CSV or JSON).
+    scope: per_endpoint_type
+    requests: 20
+    period: per_minute
+    applies_to: export endpoints
+
+  - name: General Endpoints Rate Limit
+    description: Default rate limit for all non-export API endpoints including search, analytics, and social metrics.
+    scope: per_endpoint
+    requests: 100
+    period: per_minute
+    applies_to: all other endpoints
+
+  - name: Global IP Rate Limit
+    description: Platform-wide rate limit applied across all requests from a single IP address.
+    scope: per_ip
+    requests: 2000
+    period: per_hour
+    applies_to: all endpoints
+
+  - name: Mira AI API Rate Limit
+    description: Rate limit for the Mira AI API which enables prompt-based AI insights.
+    scope: per_api_key
+    requests: 60
+    period: per_minute
+    applies_to: mira ai endpoints
+    notes: Mira API also enforces a monthly prompt quota specified in the customer contract.
+
+  - name: Contract-Based Daily Quota
+    description: Customers with an API package have a daily call limit defined in their contract.
+    scope: per_contract
+    requests: varies
+    period: per_day
+    applies_to: all endpoints
+    notes: Example baseline is 100 calls/day; higher quotas available by agreement.
+
+headers:
+  - name: apikey
+    description: API authentication token passed as a request header for all API calls.
+    type: authentication
+
+error_codes:
+  - code: 429
+    description: Too Many Requests — returned when rate limits are exceeded.
+
+notes:
+  - Export endpoints are more restrictive (20/min) than general endpoints (100/min).
+  - The 2,000 requests/hour global limit is the overarching ceiling for all requests from one IP.
+  - Mira AI prompt budgets reset monthly and are contract-specific.
+sources:
+  - https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+  - https://developer.meltwater.com/docs/meltwater-api/reference/usage-limits/

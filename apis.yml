@@ -1,0 +1,75 @@
+aid: meltwater
+name: Meltwater
+description: Meltwater is a media intelligence platform providing REST APIs for media monitoring, social listening, journalist outreach, PR analytics, and brand reputation management. The API enables programmatic access to billions of editorial, blog, and social media conversations across news sources and social networks, with capabilities for searching, exporting, streaming, and analyzing mentions, as well as fetching owned social account analytics.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/meltwater/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - Media Monitoring
+  - Social Listening
+  - PR Analytics
+  - Brand Intelligence
+  - News API
+  - Social Analytics
+  - Media Intelligence
+apis:
+  - aid: meltwater:meltwater-api
+    name: Meltwater API
+    description: The core Meltwater REST API providing access to media monitoring, social listening, and analytics capabilities. Supports searching and exporting mentions from news and social sources, streaming data via webhooks, and fetching analytics for owned social accounts across LinkedIn, X/Twitter, Instagram, Facebook, and YouTube.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+    baseURL: https://api.meltwater.com
+    tags:
+      - Media Monitoring
+      - Social Listening
+      - News Search
+      - Social Analytics
+      - PR Analytics
+    properties:
+      - type: Documentation
+        url: https://developer.meltwater.com/docs/
+      - type: OpenAPI
+        url: https://developer.meltwater.com/api-reference/api-reference-overview/
+      - type: GettingStarted
+        url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+      - type: Endpoints
+        url: https://developer.meltwater.com/docs/meltwater-api/reference/endpoints/
+      - type: Changelog
+        url: https://developer.meltwater.com/docs/meltwater-api/help/changelog/
+      - type: UsageLimits
+        url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+      - type: Concepts
+        url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
+      - type: HowToGuides
+        url: https://developer.meltwater.com/docs/meltwater-api/guides/
+    contact:
+      - FN: Meltwater Developer Support
+        url: https://developer.meltwater.com/docs/
+common:
+  - type: Website
+    url: https://www.meltwater.com
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: GitHubOrg
+    url: https://github.com/meltwater
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/meltwater
+  - type: Blog
+    url: https://www.meltwater.com/en/blog
+  - type: Pricing
+    url: https://www.meltwater.com/en/suite/data-api-integration
+  - type: StatusPage
+    url: https://status.api.meltwater.com
+  - type: X
+    url: https://x.com/Meltwater
+  - type: Plans
+    url: plans/meltwater-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/meltwater-rate-limits.yml
+  - type: FinOps
+    url: finops/meltwater-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
