@@ -1,0 +1,710 @@
+{
+  "title": "Meltwater API Vocabulary",
+  "description": "Terms, concepts, schemas, and operations from the Meltwater API",
+  "source": "https://developer.meltwater.com/v3.yaml",
+  "terms": {
+    "Listening Streaming": {
+      "type": "tag",
+      "description": "Streaming of Meltwater data to integrate with your internal systems and workflows.",
+      "parent": "Listening"
+    },
+    "Listening Analytics": {
+      "type": "tag",
+      "description": "Analyse multiple types of Meltwater data, run volume time series, top tags and sentiment counts.",
+      "parent": "Listening"
+    },
+    "Listening Exports": {
+      "type": "tag",
+      "description": "Data exports for onetime and recurring jobs.",
+      "parent": "Listening"
+    },
+    "Listening Search": {
+      "type": "tag",
+      "description": "Search Meltwater data using saved searches to integrate with your own API connectors and internal systems.",
+      "parent": "Listening"
+    },
+    "Listening Search Management": {
+      "type": "tag",
+      "description": "Manage Saved Searches",
+      "parent": "Listening"
+    },
+    "Account Management": {
+      "type": "tag",
+      "description": "Account Management API and Usage APIs",
+      "parent": null
+    },
+    "Owned Analytics": {
+      "type": "tag",
+      "description": "Retrieve owned social metrics and analytics.",
+      "parent": null
+    },
+    "Explore+ Assets": {
+      "type": "tag",
+      "description": "Manage your Explore+ assets including searches and custom fields.",
+      "parent": "Explore+"
+    },
+    "Explore+ Analytics": {
+      "type": "tag",
+      "description": "Fetch analytics on data within your private index.",
+      "parent": "Explore+"
+    },
+    "Explore+ Search": {
+      "type": "tag",
+      "description": "Export earned documents from your private index.",
+      "parent": "Explore+"
+    },
+    "Bring Your Own Content (BYOC)": {
+      "type": "tag",
+      "description": "Upload your own content into the Meltwater Platform.",
+      "parent": null
+    },
+    "Mira API": {
+      "type": "tag",
+      "description": "AI-powered chat completion and project listing features.",
+      "parent": null
+    },
+    "RateLimitedError": {
+      "type": "schema",
+      "description": "RateLimitedError",
+      "schemaType": "object"
+    },
+    "SingleSearchRequest": {
+      "type": "schema",
+      "description": "Search Resource",
+      "schemaType": "object"
+    },
+    "SearchRequestV2": {
+      "type": "schema",
+      "description": "Search",
+      "schemaType": "object"
+    },
+    "Query": {
+      "type": "schema",
+      "description": "Query associated with a search",
+      "schemaType": "object"
+    },
+    "FilterSet": {
+      "type": "schema",
+      "description": "The optional Filter Set to apply to this search",
+      "schemaType": "object"
+    },
+    "Errors": {
+      "type": "schema",
+      "description": "Errors",
+      "schemaType": "object"
+    },
+    "SingleSearch": {
+      "type": "schema",
+      "description": "Search Resource",
+      "schemaType": "object"
+    },
+    "SearchV2": {
+      "type": "schema",
+      "description": "Search",
+      "schemaType": "object"
+    },
+    "SearchListResponse": {
+      "type": "schema",
+      "description": "Search List Response",
+      "schemaType": "object"
+    },
+    "CompanyList": {
+      "type": "schema",
+      "description": "Company List",
+      "schemaType": "object"
+    },
+    "Company": {
+      "type": "schema",
+      "description": "Company",
+      "schemaType": "object"
+    },
+    "WorkspaceList": {
+      "type": "schema",
+      "description": "Workspace List",
+      "schemaType": "object"
+    },
+    "Workspace": {
+      "type": "schema",
+      "description": "Company",
+      "schemaType": "object"
+    },
+    "TokenList": {
+      "type": "schema",
+      "description": "Token List",
+      "schemaType": "object"
+    },
+    "Token": {
+      "type": "schema",
+      "description": "Token",
+      "schemaType": "object"
+    },
+    "TagList": {
+      "type": "schema",
+      "description": "Tag List",
+      "schemaType": "object"
+    },
+    "Tag": {
+      "type": "schema",
+      "description": "Tag",
+      "schemaType": "object"
+    },
+    "SearchCountResponse": {
+      "type": "schema",
+      "description": "Number of results for the search",
+      "schemaType": "object"
+    },
+    "Count": {
+      "type": "schema",
+      "description": "Number of results for the search",
+      "schemaType": "object"
+    },
+    "SummaryResponse": {
+      "type": "schema",
+      "description": "SummaryResponse",
+      "schemaType": "object"
+    },
+    "Volume": {
+      "type": "schema",
+      "description": "Volume",
+      "schemaType": "object"
+    },
+    "CountryStats": {
+      "type": "schema",
+      "description": "CountryStats",
+      "schemaType": "object"
+    },
+    "TopSharedResponse": {
+      "type": "schema",
+      "description": "TopSharedResponse",
+      "schemaType": "object"
+    },
+    "Twitter": {
+      "type": "schema",
+      "description": "Twitter",
+      "schemaType": "object"
+    },
+    "SentimentStats": {
+      "type": "schema",
+      "description": "SentimentStats",
+      "schemaType": "object"
+    },
+    "Entity": {
+      "type": "schema",
+      "description": "Entity",
+      "schemaType": "object"
+    },
+    "Day": {
+      "type": "schema",
+      "description": "Day",
+      "schemaType": "object"
+    },
+    "LanguageStats": {
+      "type": "schema",
+      "description": "LanguageStats",
+      "schemaType": "object"
+    },
+    "AnalyticsTag": {
+      "type": "schema",
+      "description": "Tag",
+      "schemaType": "object"
+    },
+    "AnalyticsServiceUnavailable": {
+      "type": "schema",
+      "description": "ServiceUnavailable",
+      "schemaType": "object"
+    },
+    "Hour": {
+      "type": "schema",
+      "description": "Hour",
+      "schemaType": "object"
+    },
+    "Result": {
+      "type": "schema",
+      "description": "Result",
+      "schemaType": "object"
+    },
+    "Document": {
+      "type": "schema",
+      "description": "Document",
+      "schemaType": "object"
+    },
+    "Author": {
+      "type": "schema",
+      "description": "Author",
+      "schemaType": "object"
+    },
+    "Shares": {
+      "type": "schema",
+      "description": "Shares",
+      "schemaType": "object"
+    },
+    "Keyphrase": {
+      "type": "schema",
+      "description": "Keyphrase",
+      "schemaType": "object"
+    },
+    "Link": {
+      "type": "schema",
+      "description": "Link",
+      "schemaType": "object"
+    },
+    "Mention": {
+      "type": "schema",
+      "description": "Mention",
+      "schemaType": "object"
+    },
+    "Topic": {
+      "type": "schema",
+      "description": "Topic",
+      "schemaType": "object"
+    },
+    "TopTagsResponse": {
+      "type": "schema",
+      "description": "TopTagsResponse",
+      "schemaType": "object"
+    },
+    "TopMentionsResponse": {
+      "type": "schema",
+      "description": "TopMentionsResponse",
+      "schemaType": "object"
+    },
+    "TopTopicsResponse": {
+      "type": "schema",
+      "description": "TopTopicsResponse",
+      "schemaType": "object"
+    },
+    "TopSharedLinksResponse": {
+      "type": "schema",
+      "description": "TopKeyphrasesResponse",
+      "schemaType": "object"
+    },
+    "TopKeyphrasesResponse": {
+      "type": "schema",
+      "description": "TopKeyphrasesResponse",
+      "schemaType": "object"
+    },
+    "Sentiments": {
+      "type": "schema",
+      "description": "Sentiments",
+      "schemaType": "object"
+    },
+    "TopEntitiesResponse": {
+      "type": "schema",
+      "description": "TopEntitiesResponse",
+      "schemaType": "object"
+    },
+    "TopSourcesResponse": {
+      "type": "schema",
+      "description": "TopSourcesResponse",
+      "schemaType": "object"
+    },
+    "ServiceUnavailable": {
+      "type": "schema",
+      "description": "Service Unavailable",
+      "schemaType": "object"
+    },
+    "RecurringExportResponse": {
+      "type": "schema",
+      "description": "Recurring export Response",
+      "schemaType": "object"
+    },
+    "RecurringExportShowResponse": {
+      "type": "schema",
+      "description": "Recurring export Response",
+      "schemaType": "object"
+    },
+    "RecurringExportPreviousRuns": {
+      "type": "schema",
+      "description": "Recurring export previous runs",
+      "schemaType": "object"
+    },
+    "RecurringExportRequest": {
+      "type": "schema",
+      "description": "POST body for creating a recurring export",
+      "schemaType": "object"
+    },
+    "RecurringExportListResponse": {
+      "type": "schema",
+      "description": "Recurring export list response",
+      "schemaType": "object"
+    },
+    "RecurringExportList": {
+      "type": "schema",
+      "description": "A collection of recurring export results",
+      "schemaType": "array"
+    },
+    "RecurringExport": {
+      "type": "schema",
+      "description": "A recurring export",
+      "schemaType": "object"
+    },
+    "OneTimeExportResponse": {
+      "type": "schema",
+      "description": "One-time export Response",
+      "schemaType": "object"
+    },
+    "OneTimeExportRequest": {
+      "type": "schema",
+      "description": "POST body for creating a one-time export",
+      "schemaType": "object"
+    },
+    "OneTimeExportListResponse": {
+      "type": "schema",
+      "description": "One-time export list response",
+      "schemaType": "object"
+    },
+    "OneTimeExportList": {
+      "type": "schema",
+      "description": "A collection of one-time export results",
+      "schemaType": "array"
+    },
+    "OneTimeExport": {
+      "type": "schema",
+      "description": "A one-time export",
+      "schemaType": "object"
+    },
+    "ValidationMetadata": {
+      "type": "schema",
+      "description": "Metadata for the error",
+      "schemaType": "object"
+    },
+    "UnprocessableEntityCompanyId": {
+      "type": "schema",
+      "description": "Invalid company id",
+      "schemaType": "object"
+    },
+    "MissingResourceResponse": {
+      "type": "schema",
+      "description": "Unknown resource",
+      "schemaType": "object"
+    },
+    "InvalidPermissionsResponse": {
+      "type": "schema",
+      "description": "Invalid Permissions",
+      "schemaType": "object"
+    },
+    "UnauthorizedResponse": {
+      "type": "schema",
+      "description": "Unauthorized request",
+      "schemaType": "object"
+    },
+    "InternalServerErrorResponse": {
+      "type": "schema",
+      "description": "Internal Server error",
+      "schemaType": "object"
+    },
+    "TopLocationsResponse": {
+      "type": "schema",
+      "description": "TopLocationsResponse",
+      "schemaType": "object"
+    },
+    "Location": {
+      "type": "schema",
+      "description": "Location",
+      "schemaType": "object"
+    },
+    "HooksCollection": {
+      "type": "schema",
+      "description": "List all hooks. Delivers all previously generated hooks.",
+      "schemaType": "object"
+    },
+    "Hook": {
+      "type": "schema",
+      "description": "Get an individual hook.\n Retrieves an existing hook.",
+      "schemaType": "object"
+    },
+    "postV2Hooks": {
+      "type": "schema",
+      "description": "Creates a hook for one of your predefined searches.",
+      "schemaType": "object"
+    },
+    "SingleHook": {
+      "type": "schema",
+      "description": "Get an individual hook.\n Retrieves an existing hook.",
+      "schemaType": "object"
+    },
+    "ByocAttachment": {
+      "type": "schema",
+      "description": "List of attachments associated with the document",
+      "schemaType": "object"
+    },
+    "ByocMetrics": {
+      "type": "schema",
+      "description": "Metrics associated with the document",
+      "schemaType": "object"
+    },
+    "ByocSource": {
+      "type": "schema",
+      "description": "Source details of the document",
+      "schemaType": "object"
+    },
+    "ByocContent": {
+      "type": "schema",
+      "description": "Content details of the document",
+      "schemaType": "object"
+    },
+    "ByocCoordinates": {
+      "type": "schema",
+      "description": "Coordinates of the location",
+      "schemaType": "object"
+    },
+    "ByocLocation": {
+      "type": "schema",
+      "description": "Location details of the user",
+      "schemaType": "object"
+    },
+    "ByocParent": {
+      "type": "schema",
+      "description": "Parent document details",
+      "schemaType": "object"
+    },
+    "ByocProduct": {
+      "type": "schema",
+      "description": "Product details",
+      "schemaType": "object"
+    },
+    "ByocUser": {
+      "type": "schema",
+      "description": "User / author / speaker / presenter details associated with the document",
+      "schemaType": "object"
+    },
+    "ByocCustomField": {
+      "type": "schema",
+      "description": "Custom fields associated with the document",
+      "schemaType": "object"
+    },
+    "ByocResultAPIValidationError": {
+      "type": "schema",
+      "description": "Bad Request",
+      "schemaType": "object"
+    },
+    "list_searches": {
+      "type": "operation",
+      "summary": "Get a list of all your searches",
+      "method": "GET",
+      "path": "/v3/searches"
+    },
+    "create_search": {
+      "type": "operation",
+      "summary": "Create a search",
+      "method": "POST",
+      "path": "/v3/searches"
+    },
+    "get_search": {
+      "type": "operation",
+      "summary": "Get an individual search",
+      "method": "GET",
+      "path": "/v3/searches/{id}"
+    },
+    "update_search": {
+      "type": "operation",
+      "summary": "Update an individual search",
+      "method": "PUT",
+      "path": "/v3/searches/{id}"
+    },
+    "delete_search": {
+      "type": "operation",
+      "summary": "Delete an individual search",
+      "method": "DELETE",
+      "path": "/v3/searches/{id}"
+    },
+    "list_companies": {
+      "type": "operation",
+      "summary": "Get a list of all your companies",
+      "method": "GET",
+      "path": "/v3/accounts/me/companies"
+    },
+    "list_workspaces": {
+      "type": "operation",
+      "summary": "Get a list of all your workspaces",
+      "method": "GET",
+      "path": "/v3/accounts/me/workspaces"
+    },
+    "list_tokens": {
+      "type": "operation",
+      "summary": "Get a list of all your API tokens",
+      "method": "GET",
+      "path": "/v3/accounts/me/tokens"
+    },
+    "search_count": {
+      "type": "operation",
+      "summary": "Get an approximate count of results for the search over a particular period",
+      "method": "GET",
+      "path": "/v3/searches/{id}/count"
+    },
+    "list_tags": {
+      "type": "operation",
+      "summary": "Get a list of all your tags",
+      "method": "GET",
+      "path": "/v3/tags"
+    },
+    "add_tags": {
+      "type": "operation",
+      "summary": "Add tags to documents",
+      "method": "POST",
+      "path": "/v3/documents/add_tags"
+    },
+    "remove_tags": {
+      "type": "operation",
+      "summary": "Remove tags from documents",
+      "method": "POST",
+      "path": "/v3/documents/remove_tags"
+    },
+    "list_filter_sets": {
+      "type": "operation",
+      "summary": "Get a list of all search filter sets",
+      "method": "GET",
+      "path": "/v3/filter_sets"
+    },
+    "list_custom_categories": {
+      "type": "operation",
+      "summary": "Get a list of all search custom categories",
+      "method": "GET",
+      "path": "/v3/custom_categories"
+    },
+    "getV3Analytics-searchId-start-end-tz-source-country-language-company_id": {
+      "type": "operation",
+      "summary": "A summary of analytics for a Saved Search.",
+      "method": "GET",
+      "path": "/v3/analytics/{searchId}"
+    },
+    "getV3AnalyticsTop_tags-searchId-start-end-tz-source-country-language-size-company_id": {
+      "type": "operation",
+      "summary": "The top tags that occur in a Saved Search.",
+      "method": "GET",
+      "path": "/v3/analytics/{searchId}/top_tags"
+    },
+    "getV3AnalyticsTop_locations-searchId-start-end-tz-source-country-language-size-level-company_id": {
+      "type": "operation",
+      "summary": "The top locations that occur in a Saved Search.",
+      "method": "GET",
+      "path": "/v3/analytics/{searchId}/top_locations"
+    },
+    "getV3AnalyticsTop_shared-searchId-start-end-tz-source-country-language-size-sort_by-company_id": {
+      "type": "operation",
+      "summary": "The top shared documents that occur in a Saved Search.",
+      "method": "GET",
+      "path": "/v3/analytics/{searchId}/top_shared"
+    },
+    "getV3AnalyticsTop_entities-searchId-start-end-tz-source-country-language-size-sentiment-company_id": {
+      "type": "operation",
+      "summary": "The top named entities that occur in a Saved Search.",
+      "method": "GET",
+      "path": "/v3/analytics/{searchId}/top_entities"
+    },
+    "getV3AnalyticsTop_sources-searchId-start-end-tz-source-country-language-size-min_authority-company_id": {
+      "type": "operation",
+      "summary": "The top sources that occur in a Saved Search.",
+      "method": "GET",
+      "path": "/v3/analytics/{searchId}/top_sources"
+    },
+    "getV3AnalyticsTop_keyphrases-searchId-start-end-tz-source-country-language-size-sentiment-company_id": {
+      "type": "operation",
+      "summary": "The top keyphrases that occur in a Saved Search.",
+      "method": "GET",
+      "path": "/v3/analytics/{searchId}/top_keyphrases"
+    },
+    "getV3AnalyticsTop_mentions-searchId-start-end-tz-source": {
+      "type": "operation",
+      "summary": "The top mentions that occur in a Saved Search.",
+      "method": "GET",
+      "path": "/v3/analytics/{searchId}/top_mentions"
+    },
+    "getV3AnalyticsTop_topics-searchId-start-end-tz-source": {
+      "type": "operation",
+      "summary": "The top topics that occur in a Saved Search.",
+      "method": "GET",
+      "path": "/v3/analytics/{searchId}/top_topics"
+    },
+    "getV3AnalyticsTop_sharedLinks-searchId-start-end-tz-source-country-language-size-sentiment-company_id": {
+      "type": "operation",
+      "summary": "The top shared links that occur in a Saved Search.",
+      "method": "GET",
+      "path": "/v3/analytics/{searchId}/top_shared_links"
+    },
+    "list_onetime_exports": {
+      "type": "operation",
+      "summary": "Get a list of all your one-time exports",
+      "method": "GET",
+      "path": "/v3/exports/one-time"
+    },
+    "create_onetime_export": {
+      "type": "operation",
+      "summary": "Creates a new one-time export",
+      "method": "POST",
+      "path": "/v3/exports/one-time"
+    },
+    "show_onetime_export": {
+      "type": "operation",
+      "summary": "Get details of a one-time export",
+      "method": "GET",
+      "path": "/v3/exports/one-time/{id}"
+    },
+    "delete_onetime_export": {
+      "type": "operation",
+      "summary": "Removes an existing one-time export",
+      "method": "DELETE",
+      "path": "/v3/exports/one-time/{id}"
+    },
+    "list_recurring_exports": {
+      "type": "operation",
+      "summary": "Get a list of all your recurring exports",
+      "method": "GET",
+      "path": "/v3/exports/recurring"
+    },
+    "create_recurring_export": {
+      "type": "operation",
+      "summary": "Creates a new recurring export",
+      "method": "POST",
+      "path": "/v3/exports/recurring"
+    },
+    "show_recurring_export": {
+      "type": "operation",
+      "summary": "Get details of a recurring export",
+      "method": "GET",
+      "path": "/v3/exports/recurring/{id}"
+    },
+    "delete_recurring_export": {
+      "type": "operation",
+      "summary": "Removes an existing recurring export",
+      "method": "DELETE",
+      "path": "/v3/exports/recurring/{id}"
+    },
+    "handleByocDocuments": {
+      "type": "operation",
+      "summary": "Ingest BYOC documents",
+      "method": "POST",
+      "path": "/v3/imports/documents"
+    },
+    "create-earned-search": {
+      "type": "operation",
+      "summary": "Search for Meltwater earned data using a saved search and optional filters.",
+      "method": "POST",
+      "path": "/v3/search/{id}"
+    },
+    "getAllHooks": {
+      "type": "operation",
+      "summary": "List all hooks.",
+      "method": "GET",
+      "path": "/v3/hooks"
+    },
+    "createHook": {
+      "type": "operation",
+      "summary": "Creates a hook",
+      "method": "POST",
+      "path": "/v3/hooks"
+    },
+    "getHook": {
+      "type": "operation",
+      "summary": "Get an individual hook.",
+      "method": "GET",
+      "path": "/v3/hooks/{hook_id}"
+    },
+    "deleteHook": {
+      "type": "operation",
+      "summary": "Delete an existing hook.",
+      "method": "DELETE",
+      "path": "/v3/hooks/{hook_id}"
+    }
+  }
+}

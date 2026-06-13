@@ -1,0 +1,1379 @@
+{
+  "list_searches": {
+    "summary": "Get a list of all your searches",
+    "description": "",
+    "method": "GET",
+    "path": "/v3/searches",
+    "tags": [
+      "Listening Search Management"
+    ]
+  },
+  "create_search": {
+    "summary": "Create a search",
+    "description": "",
+    "method": "POST",
+    "path": "/v3/searches",
+    "tags": [
+      "Listening Search Management"
+    ],
+    "request_examples": {
+      "Boolean Search": {
+        "search": {
+          "name": "Boolean Search",
+          "query": {
+            "filter_set": {
+              "id": 123,
+              "type": "saved"
+            },
+            "case_sensitivity": "yes",
+            "boolean": "Tesla OR (Volvo NEAR electric)",
+            "type": "boolean"
+          }
+        }
+      },
+      "Keyword Search": {
+        "search": {
+          "name": "Keyword Search",
+          "query": {
+            "filter_set": {
+              "id": 123,
+              "type": "saved"
+            },
+            "case_sensitivity": "hybrid",
+            "not_keywords": [
+              "Vodka"
+            ],
+            "any_keywords": [
+              "Tesla",
+              "Volvo"
+            ],
+            "all_keywords": [
+              "Car"
+            ],
+            "type": "keyword"
+          }
+        }
+      },
+      "Combined Search": {
+        "search": {
+          "name": "Combined Search",
+          "query": {
+            "filter_set": {
+              "id": 123,
+              "type": "saved"
+            },
+            "not_searches": [
+              1
+            ],
+            "any_searches": [
+              2
+            ],
+            "all_searches": [
+              3
+            ],
+            "type": "combined"
+          }
+        }
+      }
+    }
+  },
+  "get_search": {
+    "summary": "Get an individual search",
+    "description": "",
+    "method": "GET",
+    "path": "/v3/searches/{id}",
+    "tags": [
+      "Listening Search Management"
+    ]
+  },
+  "update_search": {
+    "summary": "Update an individual search",
+    "description": "",
+    "method": "PUT",
+    "path": "/v3/searches/{id}",
+    "tags": [
+      "Listening Search Management"
+    ],
+    "request_examples": {
+      "Keyword Search": {
+        "search": {
+          "name": "Keyword Search",
+          "query": {
+            "filter_set": null,
+            "case_sensitivity": false,
+            "not_keywords": [
+              "Tesla"
+            ],
+            "any_keywords": [
+              "Twitter"
+            ],
+            "all_keywords": [
+              "Musk"
+            ],
+            "type": "keyword"
+          }
+        }
+      },
+      "Boolean Search": {
+        "search": {
+          "name": "Boolean Search",
+          "query": {
+            "filter_set": {
+              "id": 123456,
+              "name": "my filter set",
+              "subtype": "custom",
+              "type": "saved"
+            },
+            "case_sensitivity": "yes",
+            "boolean": "Tesla OR (Volvo NEAR electric)",
+            "type": "boolean"
+          }
+        }
+      },
+      "Combined Search": {
+        "search": {
+          "name": "Combined Search",
+          "query": {
+            "filter_set": {
+              "id": 123,
+              "type": "saved"
+            },
+            "not_searches": [
+              1
+            ],
+            "any_searches": [
+              2
+            ],
+            "all_searches": [
+              3
+            ],
+            "type": "combined"
+          }
+        }
+      }
+    }
+  },
+  "delete_search": {
+    "summary": "Delete an individual search",
+    "description": "",
+    "method": "DELETE",
+    "path": "/v3/searches/{id}",
+    "tags": [
+      "Listening Search Management"
+    ]
+  },
+  "list_companies": {
+    "summary": "Get a list of all your companies",
+    "description": "",
+    "method": "GET",
+    "path": "/v3/accounts/me/companies",
+    "tags": [
+      "Account Management"
+    ],
+    "response_200_example": {
+      "companies": [
+        {
+          "name": "Meltwater",
+          "id": "61d07a1eb6b501051b5af3d7"
+        }
+      ]
+    }
+  },
+  "list_workspaces": {
+    "summary": "Get a list of all your workspaces",
+    "description": "",
+    "method": "GET",
+    "path": "/v3/accounts/me/workspaces",
+    "tags": [
+      "Account Management"
+    ],
+    "response_200_example": {
+      "count": 0,
+      "workspaces": [
+        {
+          "id": "61d07a1eb6b501051b5af3d7",
+          "name": "My Workspace",
+          "description": "My awesome workspace",
+          "created_at": "2023-09-19T14:54:38Z"
+        }
+      ]
+    }
+  },
+  "list_tokens": {
+    "summary": "Get a list of all your API tokens",
+    "description": "",
+    "method": "GET",
+    "path": "/v3/accounts/me/tokens",
+    "tags": [
+      "Account Management"
+    ],
+    "response_200_example": {
+      "count": 2,
+      "tokens": [
+        {
+          "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+          "label": "My API Token",
+          "created_at": "2024-01-15T10:30:00Z",
+          "created_by": "Alex Morgan"
+        },
+        {
+          "id": "f7e6d5c4-b3a2-1098-fedc-ba9876543210",
+          "label": "Token for New Project",
+          "created_at": "2024-02-20T14:45:00Z",
+          "created_by": "Sam Taylor"
+        }
+      ]
+    }
+  },
+  "search_count": {
+    "summary": "Get an approximate count of results for the search over a particular period",
+    "description": "",
+    "method": "GET",
+    "path": "/v3/searches/{id}/count",
+    "tags": [
+      "Listening Search Management"
+    ],
+    "response_200_example": {
+      "count": {
+        "total": 901382
+      }
+    }
+  },
+  "list_tags": {
+    "summary": "Get a list of all your tags",
+    "description": "",
+    "method": "GET",
+    "path": "/v3/tags",
+    "tags": [
+      "Listening Search Management"
+    ],
+    "response_200_example": {
+      "tags": [
+        {
+          "id": 123456,
+          "name": "my tag"
+        }
+      ]
+    }
+  },
+  "post_/v3/tags": {
+    "summary": "Create a new tag",
+    "description": "Create a new tag for tagging documents. Tag names must be unique and a maximum of 128 characters.",
+    "method": "POST",
+    "path": "/v3/tags",
+    "tags": [
+      "Listening Search Management"
+    ]
+  },
+  "delete_/v3/tags/{tag_id}": {
+    "summary": "Delete an existing tag.",
+    "description": "Deletes a given tag. Any documents that possess this tag will have it removed following tag deletion.",
+    "method": "DELETE",
+    "path": "/v3/tags/{tag_id}",
+    "tags": [
+      "Listening Search Management"
+    ]
+  },
+  "add_tags": {
+    "summary": "Add tags to documents",
+    "description": "Triggers a request to add a list of specified tags to a given set of documents. This is an asynchronous operation.",
+    "method": "POST",
+    "path": "/v3/documents/add_tags",
+    "tags": [
+      "Listening Search Management"
+    ]
+  },
+  "remove_tags": {
+    "summary": "Remove tags from documents",
+    "description": "Triggers a request to remove a list of specified tags from a given set of documents. This is an asynchronous operation.",
+    "method": "POST",
+    "path": "/v3/documents/remove_tags",
+    "tags": [
+      "Listening Search Management"
+    ]
+  },
+  "list_filter_sets": {
+    "summary": "Get a list of all search filter sets",
+    "description": "",
+    "method": "GET",
+    "path": "/v3/filter_sets",
+    "tags": [
+      "Listening Search Management"
+    ],
+    "response_200_example": {
+      "filter_sets": [
+        {
+          "id": 123,
+          "name": "English and from the UK",
+          "subtype": "custom",
+          "type": "saved"
+        },
+        {
+          "id": 456,
+          "name": "Well known french journalists",
+          "subtype": "quickpick",
+          "type": "saved"
+        }
+      ]
+    }
+  },
+  "list_custom_categories": {
+    "summary": "Get a list of all search custom categories",
+    "description": "",
+    "method": "GET",
+    "path": "/v3/custom_categories",
+    "tags": [
+      "Listening Search Management"
+    ],
+    "response_200_example": {
+      "count": 2,
+      "custom_categories": [
+        {
+          "id": 123,
+          "name": "Japanese cars",
+          "type": "include"
+        },
+        {
+          "id": 456,
+          "name": "German cars",
+          "type": "exclude"
+        }
+      ]
+    }
+  },
+  "getV3Analytics-searchId-start-end-tz-source-country-language-company_id": {
+    "summary": "A summary of analytics for a Saved Search.",
+    "description": "The summary is produced only for documents matching the Saved Search,\nfrom the specified document sources, and within the specified time-range.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents that are included in the analysis.\n\nThe `unique_authors` value can only be calculated for sources other than `news`.\nWhen run against `news` it will return 0.\n",
+    "method": "GET",
+    "path": "/v3/analytics/{searchId}",
+    "tags": [
+      "Listening Analytics"
+    ]
+  },
+  "getV3AnalyticsTop_tags-searchId-start-end-tz-source-country-language-size-company_id": {
+    "summary": "The top tags that occur in a Saved Search.",
+    "description": "Produces a ranked list of tags that occur in documents matching the\nSaved Search, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top tags produced,\ndefaulting to the top `10` tags.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents that have their tags included.\n\nThe type of tags included, such as Twitter \"hashtags\", will depend on the\nselected sources.",
+    "method": "GET",
+    "path": "/v3/analytics/{searchId}/top_tags",
+    "tags": [
+      "Listening Analytics"
+    ]
+  },
+  "getV3AnalyticsTop_locations-searchId-start-end-tz-source-country-language-size-level-company_id": {
+    "summary": "The top locations that occur in a Saved Search.",
+    "description": "Produces a ranked list of locations that occur in documents matching the\nSaved Search, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top locations produced,\ndefaulting to the top `100` locations.\n\nThe level parameter allows you to select the level of location you want from country, state or city.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents that have their keyphrases included.\n",
+    "method": "GET",
+    "path": "/v3/analytics/{searchId}/top_locations",
+    "tags": [
+      "Listening Analytics"
+    ]
+  },
+  "getV3AnalyticsTop_shared-searchId-start-end-tz-source-country-language-size-sort_by-company_id": {
+    "summary": "The top shared documents that occur in a Saved Search.",
+    "description": "Produces a ranked list of documents matching the Saved Search that were\nthe most shared, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top shared documents\nproduced, defaulting to the top `10` top shared documents.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents that are included.\n\nThe `sort_by` parameter controls the ranking of the results. For example,\nif `sort_by=retweets`, the results will be the top N documents by retweet\ncount. Retweet results are based on when the retweet occured, not the\ncreation date of the original tweet",
+    "method": "GET",
+    "path": "/v3/analytics/{searchId}/top_shared",
+    "tags": [
+      "Listening Analytics"
+    ]
+  },
+  "getV3AnalyticsTop_entities-searchId-start-end-tz-source-country-language-size-sentiment-company_id": {
+    "summary": "The top named entities that occur in a Saved Search.",
+    "description": "Produces a ranked list of entities that occur in documents matching the\nSaved Search, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top keyphrases produced,\ndefaulting to the top `100` keyphrases.\n\nThe sentiment parameter allows you to select the sentiment of the documents to analyze.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents that have their keyphrases included.\n",
+    "method": "GET",
+    "path": "/v3/analytics/{searchId}/top_entities",
+    "tags": [
+      "Listening Analytics"
+    ]
+  },
+  "getV3AnalyticsTop_sources-searchId-start-end-tz-source-country-language-size-min_authority-company_id": {
+    "summary": "The top sources that occur in a Saved Search.",
+    "description": "Produces a ranked list of \"sources\" that provided the documents matching the Saved Search.\n\nFor social sources, a \"source\" will be the author of that document.\n\nThe `size` parameter controls the maximum number of sources to produce, defaulting\nto the top `10` sources.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents whose sources will be produced.\n",
+    "method": "GET",
+    "path": "/v3/analytics/{searchId}/top_sources",
+    "tags": [
+      "Listening Analytics"
+    ]
+  },
+  "getV3AnalyticsTop_keyphrases-searchId-start-end-tz-source-country-language-size-sentiment-company_id": {
+    "summary": "The top keyphrases that occur in a Saved Search.",
+    "description": "Produces a ranked list of keyphrases that occur in documents matching the\nSaved Search, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top keyphrases produced,\ndefaulting to the top `100` keyphrases.\n\nThe sentiment parameter allows you to select the sentiment of the documents to analyze.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents that have their keyphrases included.\n",
+    "method": "GET",
+    "path": "/v3/analytics/{searchId}/top_keyphrases",
+    "tags": [
+      "Listening Analytics"
+    ]
+  },
+  "getV3AnalyticsTop_mentions-searchId-start-end-tz-source": {
+    "summary": "The top mentions that occur in a Saved Search.",
+    "description": "Produces a ranked list of mentions that occur in documents matching the\nSaved Search, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top tags produced,\ndefaulting to the top `10` mentions.",
+    "method": "GET",
+    "path": "/v3/analytics/{searchId}/top_mentions",
+    "tags": [
+      "Listening Analytics"
+    ]
+  },
+  "getV3AnalyticsTop_topics-searchId-start-end-tz-source": {
+    "summary": "The top topics that occur in a Saved Search.",
+    "description": "Produces a ranked list of topics and their sub topics that occur in documents matching the\nSaved Search, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top topics produced,\ndefaulting to the top `10` mentions.",
+    "method": "GET",
+    "path": "/v3/analytics/{searchId}/top_topics",
+    "tags": [
+      "Listening Analytics"
+    ]
+  },
+  "getV3AnalyticsTop_sharedLinks-searchId-start-end-tz-source-country-language-size-sentiment-company_id": {
+    "summary": "The top shared links that occur in a Saved Search.",
+    "description": "Produces a ranked list of links that occur in documents matching the\nSaved Search, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top shared links  produced,\ndefaulting to the top `100` links.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents that have their links included.\n",
+    "method": "GET",
+    "path": "/v3/analytics/{searchId}/top_shared_links",
+    "tags": [
+      "Listening Analytics"
+    ]
+  },
+  "post_/v3/analytics/{searchId}/custom": {
+    "summary": "Create a custom analytics request",
+    "description": "Create a custom analytics request with your choice of filters and analytic types and configuration.\n\nPlease see example requests/responses below or our guide on Custom Analytics [here](/guides/listening/analyzing-mentions) for more information.",
+    "method": "POST",
+    "path": "/v3/analytics/{searchId}/custom",
+    "tags": [
+      "Listening Analytics"
+    ],
+    "request_examples": {
+      "Document Count": {
+        "start": "2024-01-01T00:00:00",
+        "end": "2024-01-10T00:00:00",
+        "tz": "UTC",
+        "analysis": {
+          "type": "document_count"
+        }
+      },
+      "Top Terms": {
+        "start": "2024-01-01T00:00:00",
+        "end": "2024-01-10T00:00:00",
+        "tz": "UTC",
+        "analysis": {
+          "type": "top_terms",
+          "dimension": "language"
+        }
+      },
+      "Count Unique": {
+        "start": "2024-01-01T00:00:00",
+        "end": "2024-01-10T00:00:00",
+        "tz": "UTC",
+        "analysis": {
+          "type": "count_unique",
+          "dimension": "language"
+        }
+      },
+      "Measure Statistics": {
+        "start": "2024-01-01T00:00:00",
+        "end": "2024-01-10T00:00:00",
+        "tz": "UTC",
+        "analysis": {
+          "type": "measure_statistics",
+          "measures": [
+            "views"
+          ]
+        }
+      },
+      "Date Histogram": {
+        "start": "2024-01-01T00:00:00",
+        "end": "2024-01-10T00:00:00",
+        "tz": "UTC",
+        "analysis": {
+          "type": "date_histogram",
+          "granularity": "day"
+        }
+      },
+      "Date Histogram/Top Terms": {
+        "start": "2024-01-01T00:00:00",
+        "end": "2024-01-10T00:00:00",
+        "tz": "UTC",
+        "analysis": {
+          "type": "date_histogram",
+          "granularity": "day",
+          "analysis": {
+            "type": "top_terms",
+            "dimension": "language"
+          }
+        }
+      },
+      "Top Terms/Top Terms": {
+        "start": "2024-01-01T00:00:00",
+        "end": "2024-01-10T00:00:00",
+        "tz": "UTC",
+        "analysis": {
+          "type": "top_terms",
+          "dimension": "location_country",
+          "analysis": {
+            "type": "top_terms",
+            "dimension": "language"
+          }
+        }
+      }
+    }
+  },
+  "get_/v3/analytics/custom/catalog": {
+    "summary": "Fetch the latest custom analytics options",
+    "description": "Fetch the latest dimensions, measures, and analytic types you can use to create your custom analytic requests.",
+    "method": "GET",
+    "path": "/v3/analytics/custom/catalog",
+    "tags": [
+      "Listening Analytics"
+    ]
+  },
+  "list_onetime_exports": {
+    "summary": "Get a list of all your one-time exports",
+    "description": "",
+    "method": "GET",
+    "path": "/v3/exports/one-time",
+    "tags": [
+      "Listening Exports"
+    ]
+  },
+  "create_onetime_export": {
+    "summary": "Creates a new one-time export",
+    "description": "",
+    "method": "POST",
+    "path": "/v3/exports/one-time",
+    "tags": [
+      "Listening Exports"
+    ]
+  },
+  "show_onetime_export": {
+    "summary": "Get details of a one-time export",
+    "description": "",
+    "method": "GET",
+    "path": "/v3/exports/one-time/{id}",
+    "tags": [
+      "Listening Exports"
+    ]
+  },
+  "delete_onetime_export": {
+    "summary": "Removes an existing one-time export",
+    "description": "",
+    "method": "DELETE",
+    "path": "/v3/exports/one-time/{id}",
+    "tags": [
+      "Listening Exports"
+    ]
+  },
+  "list_recurring_exports": {
+    "summary": "Get a list of all your recurring exports",
+    "description": "",
+    "method": "GET",
+    "path": "/v3/exports/recurring",
+    "tags": [
+      "Listening Exports"
+    ]
+  },
+  "create_recurring_export": {
+    "summary": "Creates a new recurring export",
+    "description": "",
+    "method": "POST",
+    "path": "/v3/exports/recurring",
+    "tags": [
+      "Listening Exports"
+    ]
+  },
+  "show_recurring_export": {
+    "summary": "Get details of a recurring export",
+    "description": "",
+    "method": "GET",
+    "path": "/v3/exports/recurring/{id}",
+    "tags": [
+      "Listening Exports"
+    ]
+  },
+  "delete_recurring_export": {
+    "summary": "Removes an existing recurring export",
+    "description": "",
+    "method": "DELETE",
+    "path": "/v3/exports/recurring/{id}",
+    "tags": [
+      "Listening Exports"
+    ]
+  },
+  "handleByocDocuments": {
+    "summary": "Ingest BYOC documents",
+    "description": "Handles the import of documents into the Meltwater Platform.",
+    "method": "POST",
+    "path": "/v3/imports/documents",
+    "tags": [
+      "Bring Your Own Content (BYOC)"
+    ]
+  },
+  "get_/v3/imports/batches": {
+    "summary": "List import batches",
+    "description": "Retrieves a list of import batches. Supports filtering by date range (start/end) and batch status. Dates are interpreted in the specified timezone (defaults to UTC).",
+    "method": "GET",
+    "path": "/v3/imports/batches",
+    "tags": [
+      "Bring Your Own Content (BYOC)"
+    ]
+  },
+  "get_/v3/imports/batches/{batch_id}": {
+    "summary": "Get import batch",
+    "description": "Retrieves status and statistics about an import batch.",
+    "method": "GET",
+    "path": "/v3/imports/batches/{batch_id}",
+    "tags": [
+      "Bring Your Own Content (BYOC)"
+    ]
+  },
+  "get_/v3/imports/import_tags/{import_tag}": {
+    "summary": "Get import tag",
+    "description": "Retrieves status and statistics about an import tag.",
+    "method": "GET",
+    "path": "/v3/imports/import_tags/{import_tag}",
+    "tags": [
+      "Bring Your Own Content (BYOC)"
+    ]
+  },
+  "create-earned-search": {
+    "summary": "Search for Meltwater earned data using a saved search and optional filters.",
+    "description": "Search for Meltwater earned data using a saved search and optional filters.",
+    "method": "POST",
+    "path": "/v3/search/{id}",
+    "tags": [
+      "Listening Search"
+    ]
+  },
+  "get_/v3/usage/me/metrics/{metric}": {
+    "summary": "Get usage information on specific metric",
+    "description": "Get usage information on specific metric",
+    "method": "GET",
+    "path": "/v3/usage/me/metrics/{metric}",
+    "tags": [
+      "Account Management"
+    ]
+  },
+  "get_/v3/usage/me/requests": {
+    "summary": "Get usage statistics for your API calls",
+    "description": "Get usage statistics for your API calls",
+    "method": "GET",
+    "path": "/v3/usage/me/requests",
+    "tags": [
+      "Account Management"
+    ]
+  },
+  "get_/v3/owned/accounts": {
+    "summary": "Returns a list of social account connections for a given company/user account",
+    "description": "Returns a list of social account connections for a given company/user account",
+    "method": "GET",
+    "path": "/v3/owned/accounts",
+    "tags": [
+      "Owned Analytics"
+    ]
+  },
+  "get_/v3/owned/accounts/metrics/breakdown": {
+    "summary": "Returns a single-level breakdown by a category or concept",
+    "description": "A 'breakdown' metric is an analysis that provides a single-level breakdown by a category or concept. For example, the `demographics_audience_country` metric breaks down the audience for a Facebook page by country. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone).",
+    "method": "GET",
+    "path": "/v3/owned/accounts/metrics/breakdown",
+    "tags": [
+      "Owned Analytics"
+    ]
+  },
+  "get_/v3/owned/accounts/metrics/heatmap": {
+    "summary": "Returns a break-down over date and time",
+    "description": "A 'heatmap' metric is an analysis that provides a break-down over date and time. For example, the `page_fans_heatmap` metric breaks down the audience for a Facebook page by how active they are each day and hour. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone).",
+    "method": "GET",
+    "path": "/v3/owned/accounts/metrics/heatmap",
+    "tags": [
+      "Owned Analytics"
+    ]
+  },
+  "get_/v3/owned/accounts/metrics/nested_breakdown": {
+    "summary": "Returns a double-level breakdown by two categories or concepts",
+    "description": "A 'nested-breakdown' metric is an analysis that provides a double-level breakdown by two categories or concepts. For example, the `demographics_gender_age` metric breaks down the audience for a Facebook page by firstly gender, then age group. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone).",
+    "method": "GET",
+    "path": "/v3/owned/accounts/metrics/nested_breakdown",
+    "tags": [
+      "Owned Analytics"
+    ]
+  },
+  "get_/v3/owned/accounts/metrics/numeric": {
+    "summary": "Returns simple metrics for a social account",
+    "description": "A numeric metric is the most basic type of metrics you can get for your social media account, like the number of page fans. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone).",
+    "method": "GET",
+    "path": "/v3/owned/accounts/metrics/numeric",
+    "tags": [
+      "Owned Analytics"
+    ]
+  },
+  "get_/v3/owned/accounts/posts/top_posts": {
+    "summary": "Allows to fetch the top posts for owned social accounts",
+    "description": "Allows to fetch the top posts for owned social accounts. You might do this to report the most engaged with posts in a period of time for example. Timestamps in this endpoint for Facebook and Instagram sources work on PST timezone (Meta's preferred timezone).",
+    "method": "GET",
+    "path": "/v3/owned/accounts/posts/top_posts",
+    "tags": [
+      "Owned Analytics"
+    ]
+  },
+  "get_/v3/owned/supported_metrics": {
+    "summary": "Returns a list of supported metrics",
+    "description": "",
+    "method": "GET",
+    "path": "/v3/owned/supported_metrics",
+    "tags": [
+      "Owned Analytics"
+    ]
+  },
+  "getAllHooks": {
+    "summary": "List all hooks.",
+    "description": "List all hooks.\n\nDelivers all previously generated hooks.",
+    "method": "GET",
+    "path": "/v3/hooks",
+    "tags": [
+      "Listening Streaming"
+    ]
+  },
+  "createHook": {
+    "summary": "Creates a hook",
+    "description": "Creates a hook for one of your predefined searches.\n Delivers search results for the query referenced by the `search_id` to the `target_url` via HTTP POST. Note that a `hook_id` will be returned on successful creation, this id is needed to delete the hook.\n\n We are also returning the header: `X-Hook-Secret`, a shared secret used to sign the document body pushed to your `target_url`.\n\n\n Specify `company_id` if your `search_id` is not in your default company.",
+    "method": "POST",
+    "path": "/v3/hooks",
+    "tags": [
+      "Listening Streaming"
+    ]
+  },
+  "getHook": {
+    "summary": "Get an individual hook.",
+    "description": "Get an individual hook.\n\nRetrieves an existing hook.",
+    "method": "GET",
+    "path": "/v3/hooks/{hook_id}",
+    "tags": [
+      "Listening Streaming"
+    ]
+  },
+  "deleteHook": {
+    "summary": "Delete an existing hook.",
+    "description": "Delete an existing hook.\n Removes the hook and stops sending any search results to the target_url.",
+    "method": "DELETE",
+    "path": "/v3/hooks/{hook_id}",
+    "tags": [
+      "Listening Streaming"
+    ]
+  },
+  "get_/v3/explore_plus/assets/custom_fields": {
+    "summary": "List all custom fields.",
+    "description": "List all custom fields.",
+    "method": "GET",
+    "path": "/v3/explore_plus/assets/custom_fields",
+    "tags": [
+      "Explore+ Assets"
+    ]
+  },
+  "post_/v3/explore_plus/assets/custom_fields": {
+    "summary": "Create a new custom field.",
+    "description": "Create a new custom field.",
+    "method": "POST",
+    "path": "/v3/explore_plus/assets/custom_fields",
+    "tags": [
+      "Explore+ Assets"
+    ],
+    "request_examples": {
+      "Create Tag Custom Field": {
+        "custom_field": {
+          "name": "My Custom Field",
+          "description": "my new custom field",
+          "type": "tag"
+        }
+      },
+      "Create Multi-Value Custom Field": {
+        "custom_field": {
+          "name": "My Custom Field",
+          "description": "my new custom field",
+          "folder_id": 123,
+          "type": "multi_value"
+        }
+      }
+    }
+  },
+  "get_/v3/explore_plus/assets/custom_fields/{custom_field_id}": {
+    "summary": "Fetch a given custom field.",
+    "description": "Fetch a given custom field.",
+    "method": "GET",
+    "path": "/v3/explore_plus/assets/custom_fields/{custom_field_id}",
+    "tags": [
+      "Explore+ Assets"
+    ]
+  },
+  "put_/v3/explore_plus/assets/custom_fields/{custom_field_id}": {
+    "summary": "Update a given custom field.",
+    "description": "Update a given custom field.",
+    "method": "PUT",
+    "path": "/v3/explore_plus/assets/custom_fields/{custom_field_id}",
+    "tags": [
+      "Explore+ Assets"
+    ],
+    "request_examples": {
+      "Update Tag Custom Field": {
+        "custom_field": {
+          "name": "My Custom Field",
+          "description": "my new custom field",
+          "type": "tag"
+        }
+      },
+      "Update Multi-Value Custom Field": {
+        "custom_field": {
+          "name": "My Custom Field",
+          "description": "my new custom field",
+          "folder_id": 123,
+          "type": "multi_value"
+        }
+      }
+    }
+  },
+  "delete_/v3/explore_plus/assets/custom_fields/{custom_field_id}": {
+    "summary": "Delete a given custom field.",
+    "description": "Delete a given custom field.",
+    "method": "DELETE",
+    "path": "/v3/explore_plus/assets/custom_fields/{custom_field_id}",
+    "tags": [
+      "Explore+ Assets"
+    ]
+  },
+  "post_/v3/explore_plus/assets/custom_fields/{custom_field_id}/values": {
+    "summary": "Create a new custom field value.",
+    "description": "Create a new custom field value.",
+    "method": "POST",
+    "path": "/v3/explore_plus/assets/custom_fields/{custom_field_id}/values",
+    "tags": [
+      "Explore+ Assets"
+    ],
+    "request_examples": {
+      "Create Custom Field Value": {
+        "custom_field_value": {
+          "name": "My Custom Field Value",
+          "color": "#FFFFFF"
+        }
+      }
+    }
+  },
+  "get_/v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}": {
+    "summary": "Fetch a given custom field value.",
+    "description": "Fetch a given custom field value.",
+    "method": "GET",
+    "path": "/v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}",
+    "tags": [
+      "Explore+ Assets"
+    ]
+  },
+  "put_/v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}": {
+    "summary": "Update a given custom field value.",
+    "description": "Update a given custom field value.",
+    "method": "PUT",
+    "path": "/v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}",
+    "tags": [
+      "Explore+ Assets"
+    ],
+    "request_examples": {
+      "Update Custom Field Value": {
+        "custom_field_value": {
+          "name": "My Custom Field Value",
+          "color": "#FFFFFF"
+        }
+      }
+    }
+  },
+  "delete_/v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}": {
+    "summary": "Delete a given custom field value.",
+    "description": "Delete a given custom field value.",
+    "method": "DELETE",
+    "path": "/v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}",
+    "tags": [
+      "Explore+ Assets"
+    ]
+  },
+  "post_/v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules": {
+    "summary": "Create a new assignment rule.",
+    "description": "Create a new assignment rule.",
+    "method": "POST",
+    "path": "/v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules",
+    "tags": [
+      "Explore+ Assets"
+    ],
+    "request_examples": {
+      "Create Boolean Assignment Rule": {
+        "rule": {
+          "query": {
+            "case_sensitivity": "no",
+            "boolean": "honda OR mazda",
+            "type": "boolean"
+          }
+        }
+      },
+      "Create Keyword Assignment Rule": {
+        "rule": {
+          "query": {
+            "case_sensitivity": "no",
+            "all_keywords": [
+              "honda"
+            ],
+            "any_keywords": [
+              "mazda"
+            ],
+            "not_keywords": [
+              "nissan"
+            ],
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  },
+  "get_/v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules/{rule_id}": {
+    "summary": "Fetch a given assignment rule.",
+    "description": "Fetch a given assignment rule.",
+    "method": "GET",
+    "path": "/v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules/{rule_id}",
+    "tags": [
+      "Explore+ Assets"
+    ]
+  },
+  "put_/v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules/{rule_id}": {
+    "summary": "Update a given assignment rule.",
+    "description": "Update a given assignment rule.",
+    "method": "PUT",
+    "path": "/v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules/{rule_id}",
+    "tags": [
+      "Explore+ Assets"
+    ],
+    "request_examples": {
+      "Update Boolean Assignment Rule": {
+        "rule": {
+          "query": {
+            "case_sensitivity": "no",
+            "boolean": "honda OR mazda",
+            "type": "boolean"
+          }
+        }
+      },
+      "Update Keyword Assignment Rule": {
+        "rule": {
+          "query": {
+            "case_sensitivity": "no",
+            "all_keywords": [
+              "honda"
+            ],
+            "any_keywords": [
+              "mazda"
+            ],
+            "not_keywords": [
+              "nissan"
+            ],
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  },
+  "delete_/v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules/{rule_id}": {
+    "summary": "Delete a given assignment rule.",
+    "description": "Delete a given assignment rule.",
+    "method": "DELETE",
+    "path": "/v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules/{rule_id}",
+    "tags": [
+      "Explore+ Assets"
+    ]
+  },
+  "get_/v3/explore_plus/assets/custom_fields/folders": {
+    "summary": "List all custom field folders.",
+    "description": "List all custom field folders.",
+    "method": "GET",
+    "path": "/v3/explore_plus/assets/custom_fields/folders",
+    "tags": [
+      "Explore+ Assets"
+    ]
+  },
+  "get_/v3/explore_plus/assets/searches": {
+    "summary": "List all searches.",
+    "description": "List all searches.",
+    "method": "GET",
+    "path": "/v3/explore_plus/assets/searches",
+    "tags": [
+      "Explore+ Assets"
+    ]
+  },
+  "post_/v3/explore_plus/assets/searches": {
+    "summary": "Create a new search.",
+    "description": "Create a new search.",
+    "method": "POST",
+    "path": "/v3/explore_plus/assets/searches",
+    "tags": [
+      "Explore+ Assets"
+    ],
+    "request_examples": {
+      "Create Boolean Search": {
+        "search": {
+          "folder_id": null,
+          "name": "My Search",
+          "description": "my first search",
+          "color": "#FFFFFF",
+          "query": {
+            "case_sensitivity": "yes",
+            "boolean": "honda OR mazda",
+            "type": "boolean"
+          },
+          "data_collection": false
+        }
+      },
+      "Create Keyword Search": {
+        "search": {
+          "folder_id": null,
+          "name": "My Search",
+          "description": "my first search",
+          "color": "#FFFFFF",
+          "query": {
+            "case_sensitivity": "yes",
+            "all_keywords": [
+              "honda"
+            ],
+            "any_keywords": [
+              "mazda"
+            ],
+            "not_keywords": [
+              "nissan"
+            ],
+            "type": "keyword"
+          },
+          "data_collection": false
+        }
+      },
+      "Create Combined Search": {
+        "search": {
+          "folder_id": 123,
+          "name": "My Search",
+          "description": "my first search",
+          "color": "#FFFFFF",
+          "query": {
+            "all_searches": [
+              {
+                "id": 123,
+                "type": "SEARCH"
+              }
+            ],
+            "any_searches": [
+              {
+                "id": 456,
+                "type": "SEARCH"
+              }
+            ],
+            "not_searches": [
+              {
+                "id": 789,
+                "type": "SEARCH"
+              }
+            ],
+            "type": "combined"
+          },
+          "data_collection": false
+        }
+      }
+    }
+  },
+  "get_/v3/explore_plus/assets/searches/{search_id}": {
+    "summary": "Fetch a given search.",
+    "description": "Fetch a given search.",
+    "method": "GET",
+    "path": "/v3/explore_plus/assets/searches/{search_id}",
+    "tags": [
+      "Explore+ Assets"
+    ]
+  },
+  "put_/v3/explore_plus/assets/searches/{search_id}": {
+    "summary": "Update a given search.",
+    "description": "Update a given search.",
+    "method": "PUT",
+    "path": "/v3/explore_plus/assets/searches/{search_id}",
+    "tags": [
+      "Explore+ Assets"
+    ],
+    "request_examples": {
+      "Update Boolean Search": {
+        "search": {
+          "folder_id": null,
+          "name": "My Search",
+          "description": "my first search",
+          "color": "#FFFFFF",
+          "query": {
+            "case_sensitivity": "yes",
+            "boolean": "honda OR mazda",
+            "type": "boolean"
+          },
+          "data_collection": false
+        }
+      },
+      "Update Keyword Search": {
+        "search": {
+          "folder_id": null,
+          "name": "My Search",
+          "description": "my first search",
+          "color": "#FFFFFF",
+          "query": {
+            "case_sensitivity": "yes",
+            "all_keywords": [
+              "honda"
+            ],
+            "any_keywords": [
+              "mazda"
+            ],
+            "not_keywords": [
+              "nissan"
+            ],
+            "type": "keyword"
+          },
+          "data_collection": false
+        }
+      },
+      "Update Combined Search": {
+        "search": {
+          "folder_id": 123,
+          "name": "My Search",
+          "description": "my first search",
+          "color": "#FFFFFF",
+          "query": {
+            "all_searches": [
+              {
+                "id": 123,
+                "type": "SEARCH"
+              }
+            ],
+            "any_searches": [
+              {
+                "id": 456,
+                "type": "SEARCH"
+              }
+            ],
+            "not_searches": [
+              {
+                "id": 789,
+                "type": "SEARCH"
+              }
+            ],
+            "type": "combined"
+          },
+          "data_collection": false
+        }
+      }
+    }
+  },
+  "delete_/v3/explore_plus/assets/searches/{search_id}": {
+    "summary": "Delete a given search.",
+    "description": "Delete a given search.",
+    "method": "DELETE",
+    "path": "/v3/explore_plus/assets/searches/{search_id}",
+    "tags": [
+      "Explore+ Assets"
+    ]
+  },
+  "get_/v3/explore_plus/assets/searches/folders": {
+    "summary": "List all search folders.",
+    "description": "List all search folders.",
+    "method": "GET",
+    "path": "/v3/explore_plus/assets/searches/folders",
+    "tags": [
+      "Explore+ Assets"
+    ]
+  },
+  "post_/v3/explore_plus/analytics/custom": {
+    "summary": "Analyse earned data in your private index.",
+    "description": "Analyse earned data in your private index.",
+    "method": "POST",
+    "path": "/v3/explore_plus/analytics/custom",
+    "tags": [
+      "Explore+ Analytics"
+    ],
+    "request_examples": {
+      "Document Count": {
+        "searches": {
+          "all": [
+            123
+          ],
+          "any": [
+            456
+          ],
+          "none": [
+            789
+          ]
+        },
+        "start": "2025-01-01T00:00:00",
+        "end": "2025-01-01T00:00:00",
+        "tz": "UTC",
+        "analysis": {
+          "type": "document_count"
+        }
+      },
+      "Top Terms": {
+        "searches": {
+          "all": [
+            123
+          ]
+        },
+        "filters": {
+          "countries": {
+            "none": [
+              "gb"
+            ]
+          }
+        },
+        "start": "2025-01-01T00:00:00",
+        "end": "2025-01-01T00:00:00",
+        "tz": "UTC",
+        "analysis": {
+          "type": "top_terms",
+          "dimension": "location",
+          "limit": 1
+        }
+      },
+      "Measure Statistics": {
+        "searches": {
+          "all": [
+            123
+          ]
+        },
+        "start": "2025-01-01T00:00:00",
+        "end": "2025-01-01T00:00:00",
+        "tz": "UTC",
+        "analysis": {
+          "type": "measure_statistics",
+          "measure": "engagement"
+        }
+      },
+      "Date Histogram": {
+        "searches": {
+          "all": [
+            123
+          ]
+        },
+        "start": "2025-01-01T00:00:00",
+        "end": "2025-01-01T00:00:00",
+        "tz": "UTC",
+        "analysis": {
+          "type": "date_histogram",
+          "granularity": "day"
+        }
+      },
+      "Top Terms with Measure Statistics": {
+        "searches": {
+          "all": [
+            123
+          ]
+        },
+        "filters": {
+          "countries": {
+            "none": [
+              "gb"
+            ]
+          }
+        },
+        "start": "2025-01-01T00:00:00",
+        "end": "2025-01-01T00:00:00",
+        "tz": "UTC",
+        "analysis": {
+          "type": "top_terms",
+          "dimension": "location",
+          "limit": 1,
+          "analysis": {
+            "type": "measure_statistics",
+            "measure": "engagement"
+          }
+        }
+      }
+    }
+  },
+  "get_/v3/explore_plus/analytics/custom/catalog": {
+    "summary": "Fetch available analytics options.",
+    "description": "Fetch available analytics options.",
+    "method": "GET",
+    "path": "/v3/explore_plus/analytics/custom/catalog",
+    "tags": [
+      "Explore+ Analytics"
+    ]
+  },
+  "post_/v3/explore_plus/search": {
+    "summary": "Search for data in your private index.",
+    "description": "Search for data in your private index.",
+    "method": "POST",
+    "path": "/v3/explore_plus/search",
+    "tags": [
+      "Explore+ Search"
+    ],
+    "request_examples": {
+      "Search with Searches": {
+        "searches": {
+          "all": [
+            123
+          ],
+          "any": [
+            456
+          ],
+          "none": [
+            789
+          ]
+        },
+        "filters": {
+          "countries": {
+            "all": [
+              "gb"
+            ]
+          }
+        },
+        "start": "2025-01-01T00:00:00",
+        "end": "2025-01-01T00:00:00",
+        "page": 1,
+        "page_size": 10,
+        "sort_by": "date",
+        "sort_order": "desc",
+        "tz": "UTC",
+        "template": {
+          "name": "api.json"
+        }
+      },
+      "Search with Document IDs": {
+        "doc_ids": [
+          "document1",
+          "document2"
+        ],
+        "page": 1,
+        "page_size": 10,
+        "sort_by": "date",
+        "sort_order": "desc",
+        "tz": "UTC",
+        "template": {
+          "name": "api.json"
+        }
+      }
+    }
+  },
+  "post_/v3/mira/chat": {
+    "summary": "Chat completion endpoint",
+    "description": "Processes chat completion requests and returns responses in streaming or non-streaming mode.\nIf thread_id is provided, it will use that thread. If not, it will create a new thread or use the latest one.\nIf X-Project-ID header is provided, the thread will be associated with that project for enhanced context.\nThe thread ID is returned in the Thread-ID response header.",
+    "method": "POST",
+    "path": "/v3/mira/chat",
+    "tags": [
+      "Mira API"
+    ]
+  },
+  "post_/v3/mira/responses": {
+    "summary": "Chat responses endpoint",
+    "description": "Processes chat responses requests with multiple input messages and returns responses in streaming or non-streaming mode.\nIf Thread-ID header is provided, uses the existing thread; otherwise creates a new thread with all messages and passes only the last user message to Mira.\nThe thread ID is returned in the Thread-ID response header.",
+    "method": "POST",
+    "path": "/v3/mira/responses",
+    "tags": [
+      "Mira API"
+    ]
+  },
+  "get_/v3/mira/projects": {
+    "summary": "List available projects",
+    "description": "Retrieve all projects available to the authenticated user with pagination support",
+    "method": "GET",
+    "path": "/v3/mira/projects",
+    "tags": [
+      "Mira API"
+    ]
+  }
+}

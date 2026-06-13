@@ -1,0 +1,144 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "meltwater": "https://developer.meltwater.com/vocabulary#",
+    "api": "https://api.meltwater.com/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "DocModTag": "meltwater:DocModTag",
+    "DocumentTagsPayload": "meltwater:DocumentTagsPayload",
+    "MWAPIError": "meltwater:MWAPIError",
+    "RateLimitedError": "meltwater:RateLimitedError",
+    "SingleSearchRequest": "meltwater:SingleSearchRequest",
+    "SearchRequestV2": "meltwater:SearchRequestV2",
+    "Query": "meltwater:Query",
+    "BooleanQuery": "meltwater:BooleanQuery",
+    "FilterSet": "meltwater:FilterSet",
+    "SavedFilterSet": "meltwater:SavedFilterSet",
+    "EmbeddedFilterSet": "meltwater:EmbeddedFilterSet",
+    "KeywordQuery": "meltwater:KeywordQuery",
+    "CombinedQuery": "meltwater:CombinedQuery",
+    "Errors": "meltwater:Errors",
+    "ErrorDetails": "meltwater:ErrorDetails",
+    "SingleSearch": "meltwater:SingleSearch",
+    "SearchV2": "meltwater:SearchV2",
+    "Unit": "meltwater:Unit",
+    "SearchListResponse": "meltwater:SearchListResponse",
+    "CompanyList": "meltwater:CompanyList",
+    "Company": "meltwater:Company",
+    "WorkspaceList": "meltwater:WorkspaceList",
+    "Workspace": "meltwater:Workspace",
+    "TokenList": "meltwater:TokenList",
+    "Token": "meltwater:Token",
+    "TagList": "meltwater:TagList",
+    "Tag": "meltwater:Tag",
+    "SearchCountResponse": "meltwater:SearchCountResponse",
+    "Count": "meltwater:Count",
+    "FilterSetList": "meltwater:FilterSetList",
+    "CustomCategoriesList": "meltwater:CustomCategoriesList",
+    "CustomCategory": "meltwater:CustomCategory",
+    "ValidationFailed": "meltwater:ValidationFailed",
+    "SummaryResponse": "meltwater:SummaryResponse",
+    "Volume": "meltwater:Volume",
+    "CountryStats": "meltwater:CountryStats",
+    "TopSharedResponse": "meltwater:TopSharedResponse",
+    "Twitter": "meltwater:Twitter",
+    "NotFound": "meltwater:NotFound",
+    "SentimentStats": "meltwater:SentimentStats",
+    "Entity": "meltwater:Entity",
+    "Day": "meltwater:Day",
+    "LanguageStats": "meltwater:LanguageStats",
+    "AnalyticsTag": "meltwater:AnalyticsTag",
+    "AnalyticsServiceUnavailable": "meltwater:AnalyticsServiceUnavailable",
+    "Hour": "meltwater:Hour",
+    "Result": "meltwater:Result",
+    "Document": "meltwater:Document",
+    "Author": "meltwater:Author",
+    "Shares": "meltwater:Shares"
+  },
+  "@type": "schema:WebAPI",
+  "name": "Meltwater API",
+  "description": "The Meltwater Public API",
+  "url": "https://developer.meltwater.com/",
+  "documentation": "https://developer.meltwater.com/docs/",
+  "version": "1.0",
+  "provider": {
+    "@type": "schema:Organization",
+    "name": "Meltwater",
+    "url": "https://www.meltwater.com",
+    "contactPoint": {
+      "@type": "schema:ContactPoint",
+      "name": "Meltwater Support",
+      "url": "https://developer.meltwater.com/",
+      "email": "support@api.meltwater.com"
+    }
+  },
+  "endpointURL": "https://api.meltwater.com",
+  "availableChannel": [
+    {
+      "@type": "schema:ServiceChannel",
+      "name": "Listening Streaming",
+      "description": "Streaming of Meltwater data to integrate with your internal systems and workflows."
+    },
+    {
+      "@type": "schema:ServiceChannel",
+      "name": "Listening Analytics",
+      "description": "Analyse multiple types of Meltwater data, run volume time series, top tags and sentiment counts."
+    },
+    {
+      "@type": "schema:ServiceChannel",
+      "name": "Listening Exports",
+      "description": "Data exports for onetime and recurring jobs."
+    },
+    {
+      "@type": "schema:ServiceChannel",
+      "name": "Listening Search",
+      "description": "Search Meltwater data using saved searches to integrate with your own API connectors and internal systems."
+    },
+    {
+      "@type": "schema:ServiceChannel",
+      "name": "Listening Search Management",
+      "description": "Manage Saved Searches"
+    },
+    {
+      "@type": "schema:ServiceChannel",
+      "name": "Account Management",
+      "description": "Account Management API and Usage APIs"
+    },
+    {
+      "@type": "schema:ServiceChannel",
+      "name": "Owned Analytics",
+      "description": "Retrieve owned social metrics and analytics."
+    },
+    {
+      "@type": "schema:ServiceChannel",
+      "name": "Explore+ Assets",
+      "description": "Manage your Explore+ assets including searches and custom fields."
+    },
+    {
+      "@type": "schema:ServiceChannel",
+      "name": "Explore+ Analytics",
+      "description": "Fetch analytics on data within your private index."
+    },
+    {
+      "@type": "schema:ServiceChannel",
+      "name": "Explore+ Search",
+      "description": "Export earned documents from your private index."
+    },
+    {
+      "@type": "schema:ServiceChannel",
+      "name": "Bring Your Own Content (BYOC)",
+      "description": "Upload your own content into the Meltwater Platform."
+    },
+    {
+      "@type": "schema:ServiceChannel",
+      "name": "Mira API",
+      "description": "AI-powered chat completion and project listing features."
+    }
+  ]
+}

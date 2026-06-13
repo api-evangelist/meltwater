@@ -32,6 +32,8 @@ apis:
         url: https://developer.meltwater.com/docs/
       - type: OpenAPI
         url: https://developer.meltwater.com/api-reference/api-reference-overview/
+      - type: OpenAPI
+        url: openapi/meltwater-api-openapi.yaml
       - type: GettingStarted
         url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
       - type: Endpoints
