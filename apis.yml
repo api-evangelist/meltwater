@@ -1,7 +1,7 @@
 aid: meltwater
 name: Meltwater
 description: Meltwater is a media intelligence platform providing REST APIs for media monitoring, social listening, journalist outreach, PR analytics, and brand reputation management. The API enables programmatic access to billions of editorial, blog, and social media conversations across news sources and social networks, with capabilities for searching, exporting, streaming, and analyzing mentions, as well as fetching owned social account analytics.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/meltwater/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -18,7 +18,7 @@ apis:
   - aid: meltwater:meltwater-api
     name: Meltwater API
     description: The core Meltwater REST API providing access to media monitoring, social listening, and analytics capabilities. Supports searching and exporting mentions from news and social sources, streaming data via webhooks, and fetching analytics for owned social accounts across LinkedIn, X/Twitter, Instagram, Facebook, and YouTube.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
     baseURL: https://api.meltwater.com
     tags:
