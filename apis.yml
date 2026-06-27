@@ -38,9 +38,9 @@ apis:
         url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
       - type: Endpoints
         url: https://developer.meltwater.com/docs/meltwater-api/reference/endpoints/
-      - type: Changelog
+      - type: ChangeLog
         url: https://developer.meltwater.com/docs/meltwater-api/help/changelog/
-      - type: UsageLimits
+      - type: RateLimits
         url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
       - type: Concepts
         url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
