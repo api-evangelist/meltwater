@@ -50,6 +50,12 @@ apis:
       - FN: Meltwater Developer Support
         url: https://developer.meltwater.com/docs/
 common:
+  - type: VulnerabilityDisclosure
+    url: security/meltwater-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/meltwater-domain-security.yml
+  - type: Authentication
+    url: authentication/meltwater-authentication.yml
   - type: Website
     url: https://www.meltwater.com
   - type: Documentation

@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/meltwater-api-openapi.yaml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apikey
+  type: apiKey
+  in: header
+  parameter: apikey
+  sources:
+  - openapi/meltwater-api-openapi.yaml
