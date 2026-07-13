@@ -2,13 +2,14 @@
   "repo": "meltwater",
   "feeds": [
     {
-      "source": "https://www.meltwater.com/en/blog",
-      "feed_url": "",
-      "saved": 12,
-      "method": "agent-scrape"
+      "source": "https://www.linkedin.com/company/meltwater",
+      "feed_url": "https://www.linkedin.com/company/meltwater",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 24,
-  "fetched": "2026-06-27T12:53:24Z",
-  "agent_pulled": "2026-06-27"
+  "post_count": 34,
+  "fetched": "2026-07-11T11:50:51Z",
+  "agent_pulled": "2026-07-04"
 }
