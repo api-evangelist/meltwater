@@ -50,6 +50,8 @@ apis:
       - FN: Meltwater Developer Support
         url: https://developer.meltwater.com/docs/
 common:
+  - type: AgenticAccess
+    url: agentic-access/meltwater-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/meltwater-vulnerability-disclosure.yml
   - type: DomainSecurity
