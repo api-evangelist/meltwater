@@ -1,0 +1,3509 @@
+openapi: 3.0.3
+info:
+  title: Meltwater Account Management Listening Analytics API
+  description: The Meltwater Public API
+  contact:
+    name: Meltwater Support
+    url: https://developer.meltwater.com/
+    email: support@api.meltwater.com
+  version: '1.0'
+servers:
+- url: https://api.meltwater.com
+security:
+- apikey: []
+tags:
+- name: Listening Analytics
+  description: Analyse multiple types of Meltwater data, run volume time series, top tags and sentiment counts.
+  parent: Listening
+paths:
+  /v3/analytics/{searchId}:
+    get:
+      tags:
+      - Listening Analytics
+      summary: A summary of analytics for a Saved Search.
+      description: 'The summary is produced only for documents matching the Saved Search,
+
+        from the specified document sources, and within the specified time-range.
+
+
+        Any other parameters provided, such as language or country, will further
+
+        restrict the documents that are included in the analysis.
+
+
+        The `unique_authors` value can only be calculated for sources other than `news`.
+
+        When run against `news` it will return 0.
+
+        '
+      operationId: getV3Analytics-searchId-start-end-tz-source-country-language-company_id
+      parameters:
+      - name: searchId
+        in: path
+        description: The ID of the Saved Search.
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: 'The timestamp of the start of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-27T00:00:00'
+        example: '2021-09-27T00:00:00'
+      - name: end
+        in: query
+        description: 'The timestamp of the end of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-28T00:00:00'
+        example: '2021-09-28T00:00:00'
+      - name: tz
+        in: query
+        description: 'The timezone ID for all timestamps in the request and response.
+
+
+          An identifier from the IANA TimeZone Database (tzdb),
+
+          or a timezone offset, from UTC.
+
+
+          An offset, or `UTC`, will provide a stable timezone that remains
+
+          the same, year-round.
+
+
+          A location ID, such as `Europe/London`, will automatically
+
+          incorporate that location''s local timezone rules, including
+
+          daylight-savings (if applicable), and any other adjustments to
+
+          local time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+
+          As a consequence: when using a location ID, it is possible for
+
+          time-ranges that cross a timezone adjustment in that locale to be
+
+          longer or shorter than you might expect; e.g. a day with 23 or 25
+
+          hours when a daylight savings adjustment occurs.
+
+
+          The `start` and `end` parameters in your request will be interpreted
+
+          to be local to this timezone.
+
+
+          All timestamps, dates and times in the response will be generated
+
+          local to this timezone.'
+        required: true
+        schema:
+          type: string
+          example: Europe/London
+      - name: source
+        in: query
+        description: The data source to query. By default all available sources are included however you can also provide multiple source values to filter.
+        schema:
+          type: string
+          example: twitter
+          enum:
+          - forums
+          - blogs
+          - douyin
+          - sina_weibo
+          - twitch
+          - facebook
+          - reddit
+          - wechat
+          - news
+          - pinterest
+          - twitter
+          - instagram
+          - little_red_book
+          - bilibili
+          - youku
+          - kakaotalk
+          - linevoom
+          - tiktok
+          - broadcast
+      - name: country
+        in: query
+        description: 'The origin country of documents to include in the query.
+
+
+          The two-letter ISO 3166-1 Alpha-2 country code, or ''ZZ''.
+
+
+          Besides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)
+
+          of a country, ''ZZ'' may be used to indicate ''Unknown country of origin''.
+
+
+          This restricts the documents queried to include only those that
+
+          originated from a particular country.
+
+
+          If multiple countries are specified, documents that originated from any
+
+          of those countries will be included in results.
+
+
+          Documents that originated in some countries may be restricted from your
+
+          queries automatically, based on your jurisdiction and entitlements.'
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - US
+      - name: language
+        in: query
+        description: "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - en
+      - name: company_id
+        in: query
+        description: Company which owns the given searchId. If not specified your default company is used.
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationFailed'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsServiceUnavailable'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SummaryResponse'
+      deprecated: false
+  /v3/analytics/{searchId}/top_tags:
+    get:
+      tags:
+      - Listening Analytics
+      summary: The top tags that occur in a Saved Search.
+      description: 'Produces a ranked list of tags that occur in documents matching the
+
+        Saved Search, from the specified document sources, and within the
+
+        specified time-range.
+
+
+        The `size` parameter controls the number of top tags produced,
+
+        defaulting to the top `10` tags.
+
+
+        Any other parameters provided, such as language or country, will further
+
+        restrict the documents that have their tags included.
+
+
+        The type of tags included, such as Twitter "hashtags", will depend on the
+
+        selected sources.'
+      operationId: getV3AnalyticsTop_tags-searchId-start-end-tz-source-country-language-size-company_id
+      parameters:
+      - name: searchId
+        in: path
+        description: The ID of the Saved Search.
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: 'The timestamp of the start of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-27T00:00:00'
+        example: '2021-09-27T00:00:00'
+      - name: end
+        in: query
+        description: 'The timestamp of the end of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-28T00:00:00'
+        example: '2021-09-28T00:00:00'
+      - name: tz
+        in: query
+        description: 'The timezone ID for all timestamps in the request and response.
+
+
+          An identifier from the IANA TimeZone Database (tzdb),
+
+          or a timezone offset, from UTC.
+
+
+          An offset, or `UTC`, will provide a stable timezone that remains
+
+          the same, year-round.
+
+
+          A location ID, such as `Europe/London`, will automatically
+
+          incorporate that location''s local timezone rules, including
+
+          daylight-savings (if applicable), and any other adjustments to
+
+          local time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+
+          As a consequence: when using a location ID, it is possible for
+
+          time-ranges that cross a timezone adjustment in that locale to be
+
+          longer or shorter than you might expect; e.g. a day with 23 or 25
+
+          hours when a daylight savings adjustment occurs.
+
+
+          The `start` and `end` parameters in your request will be interpreted
+
+          to be local to this timezone.
+
+
+          All timestamps, dates and times in the response will be generated
+
+          local to this timezone.'
+        required: true
+        schema:
+          type: string
+          example: Europe/London
+      - name: source
+        in: query
+        description: The data source to query. By default all available sources are included however you can also provide multiple source values to filter.
+        schema:
+          type: string
+          example: twitter
+          enum:
+          - facebook
+          - instagram
+          - twitter
+          - tiktok
+      - name: country
+        in: query
+        description: 'The origin country of documents to include in the query.
+
+
+          The two-letter ISO 3166-1 Alpha-2 country code, or ''ZZ''.
+
+
+          Besides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)
+
+          of a country, ''ZZ'' may be used to indicate ''Unknown country of origin''.
+
+
+          This restricts the documents queried to include only those that
+
+          originated from a particular country.
+
+
+          If multiple countries are specified, documents that originated from any
+
+          of those countries will be included in results.
+
+
+          Documents that originated in some countries may be restricted from your
+
+          queries automatically, based on your jurisdiction and entitlements.'
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - US
+      - name: language
+        in: query
+        description: "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - en
+      - name: size
+        in: query
+        description: 'The maximum number of results to produce.
+
+
+          From 1 to 1000 inclusive.
+
+
+          Only the top/first results will be produced.'
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Company which owns the given searchId. If not specified your default company is used.
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationFailed'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsServiceUnavailable'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopTagsResponse'
+      deprecated: false
+  /v3/analytics/{searchId}/top_locations:
+    get:
+      tags:
+      - Listening Analytics
+      summary: The top locations that occur in a Saved Search.
+      description: 'Produces a ranked list of locations that occur in documents matching the
+
+        Saved Search, from the specified document sources, and within the
+
+        specified time-range.
+
+
+        The `size` parameter controls the number of top locations produced,
+
+        defaulting to the top `100` locations.
+
+
+        The level parameter allows you to select the level of location you want from country, state or city.
+
+
+        Any other parameters provided, such as language or country, will further
+
+        restrict the documents that have their keyphrases included.
+
+        '
+      operationId: getV3AnalyticsTop_locations-searchId-start-end-tz-source-country-language-size-level-company_id
+      parameters:
+      - name: searchId
+        in: path
+        description: The ID of the Saved Search.
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: 'The timestamp of the start of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-27T00:00:00'
+        example: '2021-09-27T00:00:00'
+      - name: end
+        in: query
+        description: 'The timestamp of the end of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-28T00:00:00'
+        example: '2021-09-28T00:00:00'
+      - name: tz
+        in: query
+        description: 'The timezone ID for all timestamps in the request and response.
+
+
+          An identifier from the IANA TimeZone Database (tzdb),
+
+          or a timezone offset, from UTC.
+
+
+          An offset, or `UTC`, will provide a stable timezone that remains
+
+          the same, year-round.
+
+
+          A location ID, such as `Europe/London`, will automatically
+
+          incorporate that location''s local timezone rules, including
+
+          daylight-savings (if applicable), and any other adjustments to
+
+          local time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+
+          As a consequence: when using a location ID, it is possible for
+
+          time-ranges that cross a timezone adjustment in that locale to be
+
+          longer or shorter than you might expect; e.g. a day with 23 or 25
+
+          hours when a daylight savings adjustment occurs.
+
+
+          The `start` and `end` parameters in your request will be interpreted
+
+          to be local to this timezone.
+
+
+          All timestamps, dates and times in the response will be generated
+
+          local to this timezone.'
+        required: true
+        schema:
+          type: string
+          example: Europe/London
+      - name: source
+        in: query
+        description: The data source to query. By default all available sources are included however you can also provide multiple source values to filter.
+        schema:
+          type: string
+          example: twitter
+          enum:
+          - forums
+          - blogs
+          - douyin
+          - sina_weibo
+          - twitch
+          - reddit
+          - wechat
+          - news
+          - pinterest
+          - twitter
+          - little_red_book
+          - bilibili
+          - youku
+          - kakaotalk
+          - linevoom
+          - broadcast
+      - name: country
+        in: query
+        description: 'The origin country of documents to include in the query.
+
+
+          The two-letter ISO 3166-1 Alpha-2 country code, or ''ZZ''.
+
+
+          Besides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)
+
+          of a country, ''ZZ'' may be used to indicate ''Unknown country of origin''.
+
+
+          This restricts the documents queried to include only those that
+
+          originated from a particular country.
+
+
+          If multiple countries are specified, documents that originated from any
+
+          of those countries will be included in results.
+
+
+          Documents that originated in some countries may be restricted from your
+
+          queries automatically, based on your jurisdiction and entitlements.'
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - US
+      - name: language
+        in: query
+        description: "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - en
+      - name: size
+        in: query
+        description: 'The maximum number of results to produce.
+
+
+          From 1 to 1000 inclusive.
+
+
+          Only the top/first results will be produced.'
+        schema:
+          type: string
+      - name: level
+        in: query
+        description: 'The level of location to be used, may be one of: country, state, city'
+        required: true
+        schema:
+          type: string
+          enum:
+          - city
+          - country
+          - state
+      - name: company_id
+        in: query
+        description: Company which owns the given searchId. If not specified your default company is used.
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationFailed'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsServiceUnavailable'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopLocationsResponse'
+      deprecated: false
+  /v3/analytics/{searchId}/top_shared:
+    get:
+      tags:
+      - Listening Analytics
+      summary: The top shared documents that occur in a Saved Search.
+      description: 'Produces a ranked list of documents matching the Saved Search that were
+
+        the most shared, from the specified document sources, and within the
+
+        specified time-range.
+
+
+        The `size` parameter controls the number of top shared documents
+
+        produced, defaulting to the top `10` top shared documents.
+
+
+        Any other parameters provided, such as language or country, will further
+
+        restrict the documents that are included.
+
+
+        The `sort_by` parameter controls the ranking of the results. For example,
+
+        if `sort_by=retweets`, the results will be the top N documents by retweet
+
+        count. Retweet results are based on when the retweet occured, not the
+
+        creation date of the original tweet'
+      operationId: getV3AnalyticsTop_shared-searchId-start-end-tz-source-country-language-size-sort_by-company_id
+      parameters:
+      - name: searchId
+        in: path
+        description: The ID of the Saved Search.
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: 'The timestamp of the start of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-27T00:00:00'
+        example: '2021-09-27T00:00:00'
+      - name: end
+        in: query
+        description: 'The timestamp of the end of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-28T00:00:00'
+        example: '2021-09-28T00:00:00'
+      - name: tz
+        in: query
+        description: 'The timezone ID for all timestamps in the request and response.
+
+
+          An identifier from the IANA TimeZone Database (tzdb),
+
+          or a timezone offset, from UTC.
+
+
+          An offset, or `UTC`, will provide a stable timezone that remains
+
+          the same, year-round.
+
+
+          A location ID, such as `Europe/London`, will automatically
+
+          incorporate that location''s local timezone rules, including
+
+          daylight-savings (if applicable), and any other adjustments to
+
+          local time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+
+          As a consequence: when using a location ID, it is possible for
+
+          time-ranges that cross a timezone adjustment in that locale to be
+
+          longer or shorter than you might expect; e.g. a day with 23 or 25
+
+          hours when a daylight savings adjustment occurs.
+
+
+          The `start` and `end` parameters in your request will be interpreted
+
+          to be local to this timezone.
+
+
+          All timestamps, dates and times in the response will be generated
+
+          local to this timezone.'
+        required: true
+        schema:
+          type: string
+          example: Europe/London
+      - name: source
+        in: query
+        description: The data source to query. By default all available sources are included however you can also provide multiple source values to filter.
+        schema:
+          type: string
+          example: twitter
+          enum:
+          - twitter
+      - name: country
+        in: query
+        description: 'The origin country of documents to include in the query.
+
+
+          The two-letter ISO 3166-1 Alpha-2 country code, or ''ZZ''.
+
+
+          Besides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)
+
+          of a country, ''ZZ'' may be used to indicate ''Unknown country of origin''.
+
+
+          This restricts the documents queried to include only those that
+
+          originated from a particular country.
+
+
+          If multiple countries are specified, documents that originated from any
+
+          of those countries will be included in results.
+
+
+          Documents that originated in some countries may be restricted from your
+
+          queries automatically, based on your jurisdiction and entitlements.'
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - US
+      - name: language
+        in: query
+        description: "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - en
+      - name: size
+        in: query
+        description: 'The maximum number of results to produce.
+
+
+          From 1 to 100 inclusive.
+
+
+          Only the top/first results will be produced.'
+        schema:
+          type: string
+      - name: sort_by
+        in: query
+        description: Field to rank results by.
+        required: true
+        schema:
+          type: string
+          example: retweets
+          enum:
+          - retweets
+      - name: company_id
+        in: query
+        description: Company which owns the given searchId. If not specified your default company is used.
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationFailed'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsServiceUnavailable'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopSharedResponse'
+      deprecated: false
+  /v3/analytics/{searchId}/top_entities:
+    get:
+      tags:
+      - Listening Analytics
+      summary: The top named entities that occur in a Saved Search.
+      description: 'Produces a ranked list of entities that occur in documents matching the
+
+        Saved Search, from the specified document sources, and within the
+
+        specified time-range.
+
+
+        The `size` parameter controls the number of top keyphrases produced,
+
+        defaulting to the top `100` keyphrases.
+
+
+        The sentiment parameter allows you to select the sentiment of the documents to analyze.
+
+
+        Any other parameters provided, such as language or country, will further
+
+        restrict the documents that have their keyphrases included.
+
+        '
+      operationId: getV3AnalyticsTop_entities-searchId-start-end-tz-source-country-language-size-sentiment-company_id
+      parameters:
+      - name: searchId
+        in: path
+        description: The ID of the Saved Search.
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: 'The timestamp of the start of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-27T00:00:00'
+        example: '2021-09-27T00:00:00'
+      - name: end
+        in: query
+        description: 'The timestamp of the end of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-28T00:00:00'
+        example: '2021-09-28T00:00:00'
+      - name: tz
+        in: query
+        description: 'The timezone ID for all timestamps in the request and response.
+
+
+          An identifier from the IANA TimeZone Database (tzdb),
+
+          or a timezone offset, from UTC.
+
+
+          An offset, or `UTC`, will provide a stable timezone that remains
+
+          the same, year-round.
+
+
+          A location ID, such as `Europe/London`, will automatically
+
+          incorporate that location''s local timezone rules, including
+
+          daylight-savings (if applicable), and any other adjustments to
+
+          local time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+
+          As a consequence: when using a location ID, it is possible for
+
+          time-ranges that cross a timezone adjustment in that locale to be
+
+          longer or shorter than you might expect; e.g. a day with 23 or 25
+
+          hours when a daylight savings adjustment occurs.
+
+
+          The `start` and `end` parameters in your request will be interpreted
+
+          to be local to this timezone.
+
+
+          All timestamps, dates and times in the response will be generated
+
+          local to this timezone.'
+        required: true
+        schema:
+          type: string
+          example: Europe/London
+      - name: source
+        in: query
+        description: The data source to query. By default all available sources are included however you can also provide multiple source values to filter.
+        schema:
+          type: string
+          example: twitter
+          enum:
+          - forums
+          - blogs
+          - douyin
+          - sina_weibo
+          - twitch
+          - facebook
+          - reddit
+          - wechat
+          - news
+          - pinterest
+          - twitter
+          - instagram
+          - little_red_book
+          - bilibili
+          - youku
+          - kakaotalk
+          - linevoom
+          - tiktok
+          - broadcast
+      - name: country
+        in: query
+        description: 'The origin country of documents to include in the query.
+
+
+          The two-letter ISO 3166-1 Alpha-2 country code, or ''ZZ''.
+
+
+          Besides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)
+
+          of a country, ''ZZ'' may be used to indicate ''Unknown country of origin''.
+
+
+          This restricts the documents queried to include only those that
+
+          originated from a particular country.
+
+
+          If multiple countries are specified, documents that originated from any
+
+          of those countries will be included in results.
+
+
+          Documents that originated in some countries may be restricted from your
+
+          queries automatically, based on your jurisdiction and entitlements.'
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - US
+      - name: language
+        in: query
+        description: "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - en
+      - name: size
+        in: query
+        description: 'The maximum number of results to produce.
+
+
+          From 1 to 1000 inclusive.
+
+
+          Only the top/first results will be produced.'
+        schema:
+          type: string
+      - name: sentiment
+        in: query
+        description: The overall sentiment of the document to filter on, positive, neutral or negative.
+        schema:
+          type: string
+          enum:
+          - negative
+          - neutral
+          - positive
+        example:
+        - positive
+      - name: company_id
+        in: query
+        description: Company which owns the given searchId. If not specified your default company is used.
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationFailed'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsServiceUnavailable'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopEntitiesResponse'
+      deprecated: false
+  /v3/analytics/{searchId}/top_sources:
+    get:
+      tags:
+      - Listening Analytics
+      summary: The top sources that occur in a Saved Search.
+      description: 'Produces a ranked list of "sources" that provided the documents matching the Saved Search.
+
+
+        For social sources, a "source" will be the author of that document.
+
+
+        The `size` parameter controls the maximum number of sources to produce, defaulting
+
+        to the top `10` sources.
+
+
+        Any other parameters provided, such as language or country, will further
+
+        restrict the documents whose sources will be produced.
+
+        '
+      operationId: getV3AnalyticsTop_sources-searchId-start-end-tz-source-country-language-size-min_authority-company_id
+      parameters:
+      - name: searchId
+        in: path
+        description: The ID of the Saved Search.
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: 'The timestamp of the start of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-27T00:00:00'
+        example: '2021-09-27T00:00:00'
+      - name: end
+        in: query
+        description: 'The timestamp of the end of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-28T00:00:00'
+        example: '2021-09-28T00:00:00'
+      - name: tz
+        in: query
+        description: 'The timezone ID for all timestamps in the request and response.
+
+
+          An identifier from the IANA TimeZone Database (tzdb),
+
+          or a timezone offset, from UTC.
+
+
+          An offset, or `UTC`, will provide a stable timezone that remains
+
+          the same, year-round.
+
+
+          A location ID, such as `Europe/London`, will automatically
+
+          incorporate that location''s local timezone rules, including
+
+          daylight-savings (if applicable), and any other adjustments to
+
+          local time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+
+          As a consequence: when using a location ID, it is possible for
+
+          time-ranges that cross a timezone adjustment in that locale to be
+
+          longer or shorter than you might expect; e.g. a day with 23 or 25
+
+          hours when a daylight savings adjustment occurs.
+
+
+          The `start` and `end` parameters in your request will be interpreted
+
+          to be local to this timezone.
+
+
+          All timestamps, dates and times in the response will be generated
+
+          local to this timezone.'
+        required: true
+        schema:
+          type: string
+          example: Europe/London
+      - name: source
+        in: query
+        description: The data source to query. By default all available sources are included however you can also provide multiple source values to filter.
+        schema:
+          type: string
+          example: twitter
+          enum:
+          - twitter
+      - name: country
+        in: query
+        description: 'The origin country of documents to include in the query.
+
+
+          The two-letter ISO 3166-1 Alpha-2 country code, or ''ZZ''.
+
+
+          Besides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)
+
+          of a country, ''ZZ'' may be used to indicate ''Unknown country of origin''.
+
+
+          This restricts the documents queried to include only those that
+
+          originated from a particular country.
+
+
+          If multiple countries are specified, documents that originated from any
+
+          of those countries will be included in results.
+
+
+          Documents that originated in some countries may be restricted from your
+
+          queries automatically, based on your jurisdiction and entitlements.'
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - US
+      - name: language
+        in: query
+        description: "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - en
+      - name: size
+        in: query
+        description: 'The maximum number of results to produce.
+
+
+          From 1 to 1000 inclusive.
+
+
+          Only the top/first results will be produced.'
+        schema:
+          type: string
+      - name: min_authority
+        in: query
+        description: 'The minimum authority score of sources to include.
+
+
+          When provided, sets a lower-bound on the authority score of sources produced
+
+          in the results.
+
+
+          From 0 to 10 inclusive.
+
+          '
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Company which owns the given searchId. If not specified your default company is used.
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationFailed'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsServiceUnavailable'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopSourcesResponse'
+      deprecated: false
+  /v3/analytics/{searchId}/top_keyphrases:
+    get:
+      tags:
+      - Listening Analytics
+      summary: The top keyphrases that occur in a Saved Search.
+      description: 'Produces a ranked list of keyphrases that occur in documents matching the
+
+        Saved Search, from the specified document sources, and within the
+
+        specified time-range.
+
+
+        The `size` parameter controls the number of top keyphrases produced,
+
+        defaulting to the top `100` keyphrases.
+
+
+        The sentiment parameter allows you to select the sentiment of the documents to analyze.
+
+
+        Any other parameters provided, such as language or country, will further
+
+        restrict the documents that have their keyphrases included.
+
+        '
+      operationId: getV3AnalyticsTop_keyphrases-searchId-start-end-tz-source-country-language-size-sentiment-company_id
+      parameters:
+      - name: searchId
+        in: path
+        description: The ID of the Saved Search.
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: 'The timestamp of the start of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-27T00:00:00'
+        example: '2021-09-27T00:00:00'
+      - name: end
+        in: query
+        description: 'The timestamp of the end of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-28T00:00:00'
+        example: '2021-09-28T00:00:00'
+      - name: tz
+        in: query
+        description: 'The timezone ID for all timestamps in the request and response.
+
+
+          An identifier from the IANA TimeZone Database (tzdb),
+
+          or a timezone offset, from UTC.
+
+
+          An offset, or `UTC`, will provide a stable timezone that remains
+
+          the same, year-round.
+
+
+          A location ID, such as `Europe/London`, will automatically
+
+          incorporate that location''s local timezone rules, including
+
+          daylight-savings (if applicable), and any other adjustments to
+
+          local time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+
+          As a consequence: when using a location ID, it is possible for
+
+          time-ranges that cross a timezone adjustment in that locale to be
+
+          longer or shorter than you might expect; e.g. a day with 23 or 25
+
+          hours when a daylight savings adjustment occurs.
+
+
+          The `start` and `end` parameters in your request will be interpreted
+
+          to be local to this timezone.
+
+
+          All timestamps, dates and times in the response will be generated
+
+          local to this timezone.'
+        required: true
+        schema:
+          type: string
+          example: Europe/London
+      - name: source
+        in: query
+        description: The data source to query. By default all available sources are included however you can also provide multiple source values to filter.
+        schema:
+          type: string
+          example: twitter
+          enum:
+          - forums
+          - blogs
+          - douyin
+          - sina_weibo
+          - twitch
+          - facebook
+          - reddit
+          - wechat
+          - news
+          - pinterest
+          - twitter
+          - instagram
+          - little_red_book
+          - bilibili
+          - youku
+          - kakaotalk
+          - linevoom
+          - tiktok
+          - broadcast
+      - name: country
+        in: query
+        description: 'The origin country of documents to include in the query.
+
+
+          The two-letter ISO 3166-1 Alpha-2 country code, or ''ZZ''.
+
+
+          Besides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)
+
+          of a country, ''ZZ'' may be used to indicate ''Unknown country of origin''.
+
+
+          This restricts the documents queried to include only those that
+
+          originated from a particular country.
+
+
+          If multiple countries are specified, documents that originated from any
+
+          of those countries will be included in results.
+
+
+          Documents that originated in some countries may be restricted from your
+
+          queries automatically, based on your jurisdiction and entitlements.'
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - US
+      - name: language
+        in: query
+        description: "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - en
+      - name: size
+        in: query
+        description: 'The maximum number of results to produce.
+
+
+          From 1 to 1000 inclusive.
+
+
+          Only the top/first results will be produced.'
+        schema:
+          type: string
+      - name: sentiment
+        in: query
+        description: The overall sentiment of the document to filter on, positive, neutral or negative.
+        schema:
+          type: string
+          enum:
+          - negative
+          - neutral
+          - positive
+        example:
+        - positive
+      - name: company_id
+        in: query
+        description: Company which owns the given searchId. If not specified your default company is used.
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationFailed'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsServiceUnavailable'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopKeyphrasesResponse'
+      deprecated: false
+  /v3/analytics/{searchId}/top_mentions:
+    get:
+      tags:
+      - Listening Analytics
+      summary: The top mentions that occur in a Saved Search.
+      description: 'Produces a ranked list of mentions that occur in documents matching the
+
+        Saved Search, from the specified document sources, and within the
+
+        specified time-range.
+
+
+        The `size` parameter controls the number of top tags produced,
+
+        defaulting to the top `10` mentions.'
+      operationId: getV3AnalyticsTop_mentions-searchId-start-end-tz-source
+      parameters:
+      - name: searchId
+        in: path
+        description: The ID of the Saved Search.
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: 'The timestamp of the start of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-27T00:00:00'
+        example: '2021-09-27T00:00:00'
+      - name: end
+        in: query
+        description: 'The timestamp of the end of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-28T00:00:00'
+        example: '2021-09-28T00:00:00'
+      - name: tz
+        in: query
+        description: 'The timezone ID for all timestamps in the request and response.
+
+
+          An identifier from the IANA TimeZone Database (tzdb),
+
+          or a timezone offset, from UTC.
+
+
+          An offset, or `UTC`, will provide a stable timezone that remains
+
+          the same, year-round.
+
+
+          A location ID, such as `Europe/London`, will automatically
+
+          incorporate that location''s local timezone rules, including
+
+          daylight-savings (if applicable), and any other adjustments to
+
+          local time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+
+          As a consequence: when using a location ID, it is possible for
+
+          time-ranges that cross a timezone adjustment in that locale to be
+
+          longer or shorter than you might expect; e.g. a day with 23 or 25
+
+          hours when a daylight savings adjustment occurs.
+
+
+          The `start` and `end` parameters in your request will be interpreted
+
+          to be local to this timezone.
+
+
+          All timestamps, dates and times in the response will be generated
+
+          local to this timezone.'
+        required: true
+        schema:
+          type: string
+          example: Europe/London
+      - name: source
+        in: query
+        description: The data source to query. By default all available sources are included however you can also provide multiple source values to filter.
+        schema:
+          type: string
+          example: twitter
+          enum:
+          - forums
+          - blogs
+          - douyin
+          - sina_weibo
+          - twitch
+          - facebook
+          - reddit
+          - wechat
+          - news
+          - pinterest
+          - twitter
+          - instagram
+          - little_red_book
+          - bilibili
+          - youku
+          - kakaotalk
+          - linevoom
+          - tiktok
+          - broadcast
+      - name: size
+        in: query
+        description: 'The maximum number of results to produce.
+
+
+          From 1 to 1000 inclusive.
+
+
+          Only the top/first results will be produced.'
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Company which owns the given searchId. If not specified your default company is used.
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationFailed'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsServiceUnavailable'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopMentionsResponse'
+      deprecated: false
+  /v3/analytics/{searchId}/top_topics:
+    get:
+      tags:
+      - Listening Analytics
+      summary: The top topics that occur in a Saved Search.
+      description: 'Produces a ranked list of topics and their sub topics that occur in documents matching the
+
+        Saved Search, from the specified document sources, and within the
+
+        specified time-range.
+
+
+        The `size` parameter controls the number of top topics produced,
+
+        defaulting to the top `10` mentions.'
+      operationId: getV3AnalyticsTop_topics-searchId-start-end-tz-source
+      parameters:
+      - name: searchId
+        in: path
+        description: The ID of the Saved Search.
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: 'The timestamp of the start of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-27T00:00:00'
+        example: '2021-09-27T00:00:00'
+      - name: end
+        in: query
+        description: 'The timestamp of the end of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-28T00:00:00'
+        example: '2021-09-28T00:00:00'
+      - name: tz
+        in: query
+        description: 'The timezone ID for all timestamps in the request and response.
+
+
+          An identifier from the IANA TimeZone Database (tzdb),
+
+          or a timezone offset, from UTC.
+
+
+          An offset, or `UTC`, will provide a stable timezone that remains
+
+          the same, year-round.
+
+
+          A location ID, such as `Europe/London`, will automatically
+
+          incorporate that location''s local timezone rules, including
+
+          daylight-savings (if applicable), and any other adjustments to
+
+          local time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+
+          As a consequence: when using a location ID, it is possible for
+
+          time-ranges that cross a timezone adjustment in that locale to be
+
+          longer or shorter than you might expect; e.g. a day with 23 or 25
+
+          hours when a daylight savings adjustment occurs.
+
+
+          The `start` and `end` parameters in your request will be interpreted
+
+          to be local to this timezone.
+
+
+          All timestamps, dates and times in the response will be generated
+
+          local to this timezone.'
+        required: true
+        schema:
+          type: string
+          example: Europe/London
+      - name: source
+        in: query
+        description: The data source to query. By default all available sources are included however you can also provide multiple source values to filter.
+        schema:
+          type: string
+          example: twitter
+          enum:
+          - forums
+          - blogs
+          - douyin
+          - sina_weibo
+          - twitch
+          - facebook
+          - reddit
+          - wechat
+          - news
+          - pinterest
+          - twitter
+          - instagram
+          - little_red_book
+          - bilibili
+          - youku
+          - kakaotalk
+          - linevoom
+          - tiktok
+          - broadcast
+      - name: size
+        in: query
+        description: 'The maximum number of results to produce.
+
+
+          From 1 to 1000 inclusive.
+
+
+          Only the top/first results will be produced.'
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Company which owns the given searchId. If not specified your default company is used.
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationFailed'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsServiceUnavailable'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopTopicsResponse'
+      deprecated: false
+  /v3/analytics/{searchId}/top_shared_links:
+    get:
+      tags:
+      - Listening Analytics
+      summary: The top shared links that occur in a Saved Search.
+      description: 'Produces a ranked list of links that occur in documents matching the
+
+        Saved Search, from the specified document sources, and within the
+
+        specified time-range.
+
+
+        The `size` parameter controls the number of top shared links  produced,
+
+        defaulting to the top `100` links.
+
+
+        Any other parameters provided, such as language or country, will further
+
+        restrict the documents that have their links included.
+
+        '
+      operationId: getV3AnalyticsTop_sharedLinks-searchId-start-end-tz-source-country-language-size-sentiment-company_id
+      parameters:
+      - name: searchId
+        in: path
+        description: The ID of the Saved Search.
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: 'The timestamp of the start of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-27T00:00:00'
+        example: '2021-09-27T00:00:00'
+      - name: end
+        in: query
+        description: 'The timestamp of the end of the time-range to query.
+
+
+          An ISO8601 timestamp, excluding timezone/offset.
+
+
+          Includes both the date and time components of the ISO8601 timestamp, but
+
+          _excludes_ the timezone offset component. The timestamp represents the
+
+          local time at the timezone given in the `tz` parameter.'
+        required: true
+        schema:
+          type: string
+          example: '2021-09-28T00:00:00'
+        example: '2021-09-28T00:00:00'
+      - name: tz
+        in: query
+        description: 'The timezone ID for all timestamps in the request and response.
+
+
+          An identifier from the IANA TimeZone Database (tzdb),
+
+          or a timezone offset, from UTC.
+
+
+          An offset, or `UTC`, will provide a stable timezone that remains
+
+          the same, year-round.
+
+
+          A location ID, such as `Europe/London`, will automatically
+
+          incorporate that location''s local timezone rules, including
+
+          daylight-savings (if applicable), and any other adjustments to
+
+          local time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+
+          As a consequence: when using a location ID, it is possible for
+
+          time-ranges that cross a timezone adjustment in that locale to be
+
+          longer or shorter than you might expect; e.g. a day with 23 or 25
+
+          hours when a daylight savings adjustment occurs.
+
+
+          The `start` and `end` parameters in your request will be interpreted
+
+          to be local to this timezone.
+
+
+          All timestamps, dates and times in the response will be generated
+
+          local to this timezone.'
+        required: true
+        schema:
+          type: string
+          example: Europe/London
+      - name: source
+        in: query
+        description: The data source to query. By default all available sources are included however you can also provide multiple source values to filter.
+        schema:
+          type: string
+          example: twitter
+          enum:
+          - forums
+          - blogs
+          - douyin
+          - sina_weibo
+          - twitch
+          - facebook
+          - reddit
+          - wechat
+          - news
+          - pinterest
+          - twitter
+          - instagram
+          - little_red_book
+          - bilibili
+          - youku
+          - kakaotalk
+          - linevoom
+          - tiktok
+          - broadcast
+      - name: country
+        in: query
+        description: 'The origin country of documents to include in the query.
+
+
+          The two-letter ISO 3166-1 Alpha-2 country code, or ''ZZ''.
+
+
+          Besides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)
+
+          of a country, ''ZZ'' may be used to indicate ''Unknown country of origin''.
+
+
+          This restricts the documents queried to include only those that
+
+          originated from a particular country.
+
+
+          If multiple countries are specified, documents that originated from any
+
+          of those countries will be included in results.
+
+
+          Documents that originated in some countries may be restricted from your
+
+          queries automatically, based on your jurisdiction and entitlements.'
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - US
+      - name: language
+        in: query
+        description: "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - en
+      - name: size
+        in: query
+        description: 'The maximum number of results to produce.
+
+          From 1 to 1000 inclusive.
+
+          Only the top/first results will be produced.'
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Company which owns the given searchId. If not specified your default company is used.
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationFailed'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsServiceUnavailable'
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopSharedLinksResponse'
+      deprecated: false
+  /v3/analytics/{searchId}/custom:
+    post:
+      tags:
+      - Listening Analytics
+      summary: Create a custom analytics request
+      description: 'Create a custom analytics request with your choice of filters and analytic types and configuration.
+
+
+        Please see example requests/responses below or our guide on Custom Analytics [here](/guides/listening/analyzing-mentions) for more information.'
+      parameters:
+      - name: searchId
+        in: path
+        description: The ID of the Saved Search
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomAnalyticsRequest'
+            examples:
+              Document Count:
+                summary: Document Count
+                value:
+                  start: '2024-01-01T00:00:00'
+                  end: '2024-01-10T00:00:00'
+                  tz: UTC
+                  analysis:
+                    type: document_count
+              Top Terms:
+                summary: Top Terms
+                value:
+                  start: '2024-01-01T00:00:00'
+                  end: '2024-01-10T00:00:00'
+                  tz: UTC
+                  analysis:
+                    type: top_terms
+                    dimension: language
+              Count Unique:
+                summary: Count Unique
+                value:
+                  start: '2024-01-01T00:00:00'
+                  end: '2024-01-10T00:00:00'
+                  tz: UTC
+                  analysis:
+                    type: count_unique
+                    dimension: language
+              Measure Statistics:
+                summary: Measure Statistics
+                value:
+                  start: '2024-01-01T00:00:00'
+                  end: '2024-01-10T00:00:00'
+                  tz: UTC
+                  analysis:
+                    type: measure_statistics
+                    measures:
+                    - views
+              Date Histogram:
+                summary: Date Histogram
+                value:
+                  start: '2024-01-01T00:00:00'
+                  end: '2024-01-10T00:00:00'
+                  tz: UTC
+                  analysis:
+                    type: date_histogram
+                    granularity: day
+              Date Histogram/Top Terms:
+                summary: Date Histogram / Top Terms
+                value:
+                  start: '2024-01-01T00:00:00'
+                  end: '2024-01-10T00:00:00'
+                  tz: UTC
+                  analysis:
+                    type: date_histogram
+                    granularity: day
+                    analysis:
+                      type: top_terms
+                      dimension: language
+              Top Terms/Top Terms:
+                summary: Top Terms / Top Terms
+                value:
+                  start: '2024-01-01T00:00:00'
+                  end: '2024-01-10T00:00:00'
+                  tz: UTC
+                  analysis:
+                    type: top_terms
+                    dimension: location_country
+                    analysis:
+                      type: top_terms
+                      dimension: language
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomAnalyticsResponse'
+              examples:
+                Document Count:
+                  summary: Document Count
+                  value:
+                    start: '2024-01-01T00:00:00'
+                    end: '2024-01-10T00:00:00'
+                    tz: UTC
+                    search_id: 987654
+                    analysis:
+                      type: document_count
+                    result:
+                      document_count: 123456
+                Top Terms:
+                  summary: Top Terms
+                  value:
+                    start: '2024-01-01T00:00:00'
+                    end: '2024-01-10T00:00:00'
+                    tz: UTC
+                    search_id: 987654
+                    analysis:
+                      type: top_terms
+                      dimension: language
+                    result:
+                      document_count: 123456
+                      analysis:
+                      - key: EN
+                        label: English
+                        document_count: 123456
+                        percentage: 50.1
+                      - key: JA
+                        label: Japanese
+                        document_count: 21
+                        percentage: 0.2
+                Count Unique:
+                  summary: Count Unique
+                  value:
+                    start: '2024-01-01T00:00:00'
+                    end: '2024-01-10T00:00:00'
+                    tz: UTC
+                    search_id: 987654
+                    analysis:
+                      type: count_unique
+                      dimension: language
+                    result:
+                      document_count: 123456
+                      analysis: 513
+                Measure Statistics:
+                  summary: Measure Statistics
+                  value:
+                    start: '2024-01-01T00:00:00'
+                    end: '2024-01-10T00:00:00'
+                    tz: UTC
+                    search_id: 987654
+                    analysis:
+                      type: measure_statistics
+                      measures:
+                      - views
+                    result:
+                      document_count: 123456
+                      analysis:
+                        views:
+                          avg: 8.45
+                          max: 110021.0
+                          min: 0.0
+                          sum: 215654.0
+                Date Histogram:
+                  summary: Date Histogram
+                  value:
+                    start: '2024-01-01T00:00:00'
+                    end: '2024-01-10T00:00:00'
+                    tz: UTC
+                    search_id: 987654
+                    analysis:
+                      type: date_histogram
+                      granularity: day
+                    result:
+                      document_count: 123456
+                      analysis:
+                      - key: '2024-01-01T00:00:00'
+                        document_count: 512
+                        percentage: 10.0
+                        change: 0
+                      - key: '2024-01-02T00:00:00'
+                        document_count: 943
+                        percentage: 25.3
+                        change: 431
+                Date Histogram/Top Terms:
+                  summary: Date Histogram / Top Terms
+                  value:
+                    start: '2024-01-01T00:00:00'
+                    end: '2024-01-10T00:00:00'
+                    tz: UTC
+                    search_id: 987654
+                    analysis:
+                      type: date_histogram
+                      granularity: day
+                      analysis:
+                        type: top_terms
+                        dimension: language
+                      result:
+                        document_count: 123456
+                        analysis:
+                        - key: '2024-01-01T00:00:00'
+                          document_count: 512
+                          percentage: 10.0
+                          change: 0
+                          analysis:
+                          - key: EN
+                            label: English
+                            document_count: 123456
+                            percentage: 50.1
+                          - key: JA
+                            label: Japanese
+                            document_count: 21
+                            percentage: 0.2
+                        - key: '2024-01-02T00:00:00'
+                          document_count: 943
+                          percentage: 25.3
+                          change: 431
+                          analysis:
+                          - key: EN
+                            label: English
+                            document_count: 123456
+                            percentage: 50.1
+                          - key: JA
+                            label: Japanese
+                            document_count: 21
+                            percentage: 0.2
+                Top Terms/Top Terms:
+                  summary: Top Terms / Top Terms
+                  value:
+                    start: '2024-01-01T00:00:00'
+                    end: '2024-01-10T00:00:00'
+                    tz: UTC
+                    search_id: 987654
+                    analysis:
+                      type: top_terms
+                      dimension: location_country
+                      analysis:
+                        type: top_terms
+                        dimension: language
+                      result:
+                        document_count: 123456
+                        analysis:
+                        - key: US
+                          label: United States
+                          document_count: 123456
+                          percentage: 50.1
+                          analysis:
+                          - key: EN
+                            label: English
+                            document_count: 123456
+                            percentage: 50.1
+                          - key: JA
+                            label: Japanese
+                            document_count: 21
+                            percentage: 0.2
+                        - key: JP
+                          label: Japan
+                          document_count: 21
+                          percentage: 0.2
+                          analysis:
+                          - key: EN
+                            label: English
+                            document_count: 123456
+                            percentage: 50.1
+                          - key: JA
+                            label: Japanese
+                            document_count: 21
+                            percentage: 0.2
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationFailed'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsServiceUnavailable'
+  /v3/analytics/custom/catalog:
+    get:
+      tags:
+      - Listening Analytics
+      summary: Fetch the latest custom analytics options
+      description: Fetch the latest dimensions, measures, and analytic types you can use to create your custom analytic requests.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomAnalyticsCatalogResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsServiceUnavailable'
+components:
+  schemas:
+    RateLimitedError:
+      description: RateLimitedError
+      example:
+        message: Service Overloaded
+        errors: {}
+      allOf:
+      - $ref: '#/components/schemas/Errors'
+      - required:
+        - message
+        type: object
+        properties:
+          message:
+            type: string
+        description: RateLimitedError
+    Entity:
+      required:
+      - document_count
+      - entity
+      - type
+      - percentage
+      type: object
+      properties:
+        entity:
+          type: string
+        type:
+          type: string
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Entity
+    Sentiments:
+      required:
+      - negative
+      - neutral
+      - positive
+      - unknown
+      type: object
+      properties:
+        positive:
+          $ref: '#/components/schemas/SentimentStats'
+        negative:
+          $ref: '#/components/schemas/SentimentStats'
+        neutral:
+          $ref: '#/components/schemas/SentimentStats'
+        unknown:
+          $ref: '#/components/schemas/SentimentStats'
+      description: Sentiments
+    Link:
+      required:
+      - document_count
+      - link
+      - percentage
+      type: object
+      properties:
+        link:
+          type: string
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Link
+    TopTopicsResponse:
+      required:
+      - document_count
+      - topics
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        mentions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Topic'
+      description: TopTopicsResponse
+    AnalyticsTag:
+      required:
+      - document_count
+      - percentage
+      - tag
+      type: object
+      properties:
+        tag:
+          type: string
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Tag
+    Topic:
+      required:
+      - document_count
+      - topic
+      - sub_topics
+      - percentage
+      type: object
+      properties:
+        topic:
+          type: string
+        sub_topics:
+          type: object
+          items:
+            $ref: '#/components/schemas/Topic'
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Topic
+    Keyphrase:
+      required:
+      - document_count
+      - keyphrase
+      - percentage
+      type: object
+      properties:
+        keyphrase:
+          type: string
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Keyphrase
+    Mention:
+      required:
+      - document_count
+      - mention
+      - percentage
+      type: object
+      properties:
+        mention:
+          type: string
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Mention
+    ValidationFailed:
+      required:
+      - errors
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing, in brief, the problem.
+        errors:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              description: A description of the problem encountered on this field.
+          description: A breakdown of each problem encountered, by field.
+      example:
+        message: Validation Failed
+        errors:
+          start:
+          - '''foo'' is not a valid ISO 8601 local timestamp'
+          end:
+          - Missing required parameter
+    Location:
+      required:
+      - document_count
+      - location_id
+      - location_name
+      - percentage
+      type: object
+      properties:
+        location_name:
+          type: string
+        location_id:
+          type: string
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Location
+    Hour:
+      required:
+      - document_count
+      - timestamp
+      type: object
+      properties:
+        timestamp:
+          title: An ISO8601 date-time.
+          type: string
+          description: 'An ISO8601 date-time, including timezone offset.
+
+
+            The timezone offset is an offset in minutes from UTC.'
+          format: date-time
+        document_count:
+          type: integer
+          format: int64
+      description: Hour
+    Unauthorized:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing, in brief, the problem.
+      example:
+        message: Unauthorized
+    TopEntitiesResponse:
+      required:
+      - document_count
+      - entities
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        entities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Entity'
+      description: TopEntitiesResponse
+    Author:
+      type: object
+      properties:
+        username:
+          type: string
+        display_name:
+          type: string
+        twitter:
+          $ref: '#/components/schemas/Twitter'
+        avatar_url:
+          type: string
+        authority:
+          type: integer
+          format: int64
+      description: Author
+    TopMentionsResponse:
+      required:
+      - document_count
+      - tags
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        mentions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Mention'
+      description: TopMentionsResponse
+    CustomAnalyticsRequest:
+      required:
+      - start_date
+      - end_date
+      - tz
+      type: object
+      properties:
+        start_date:
+          type: string
+          format: datetime
+          example: '2024-03-25T00:00:00'
+          description: 'Start date (UTC) in ISO 8601 Local standard.
+
+            E.g. "2024-03-25T00:00:00"'
+        end_date:
+          type: string
+          format: datetime
+          example: '2024-03-30T00:00:00'
+          description: 'End date (UTC) in ISO 8601 Local standard.
+
+            E.g. "2024-03-30T00:00:00"'
+        tz:
+          type: string
+          example: UTC
+        languages:
+          type: array
+          example:
+          - en
+          description: "The languages of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+        countries:
+          type: array
+          example:
+          - gb
+          description: 'The origin countries of documents to include in the query.
+
+
+            The two-letter ISO 3166-1 Alpha-2 country code, or ''ZZ''.
+
+
+            Besides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)
+
+            of a country, ''ZZ'' may be used to indicate ''Unknown country of origin''.
+
+
+            This restricts the documents queried to include only those that
+
+            originated from a particular country.
+
+
+            If multiple countries are specified, documents that originated from any
+
+            of those countries will be included in results.
+
+
+            Documents that originated in some countries may be restricted from your
+
+            queries automatically, based on your jurisdiction and entitlements.'
+        sources:
+          type: array
+          example:
+          - x
+          description: 'The origin sources of documents to include in the query. This restrictsthe documents queried to include only those that originated from these selected sources.
+
+
+            If multiple sources are selected, documents from any of those sources will be included in the results.
+
+
+            *Available values*: forums, blogs, douyin, sina_weibo, twitch, facebook, wechat, news, pinterest,x, instagram, little_red_book, bilibili, youku, kakotalk, broadcast and linevoom.'
+        sentiments:
+          type: array
+          example:
+          - positive
+          description: 'The overall sentiment of the document to filter on.
+
+
+            If multiple sentiments are specified, documents that match any of the sentiments will be included in the results.
+
+
+            *Available values*: positive, negative and neutral.'
+        analytic:
+          $ref: '#/components/schemas/CustomAnalyticsRequestAnalytic'
+        keywords:
+          type: array
+          example:
+          - USA
+          - UK
+          description: List of keywords to filter documents by.
+        emojis:
+          type: array
+          example:
+          - 😀
+          - 😢
+          description: List of emojis to filter documents by.
+        custom_categories:
+          type: array
+          example:
+          - '1234'
+          - '5678'
+          description: List of custom category IDs to filter documents by.
+        filter_set:
+          type: string
+          example: '"4321"'
+          description: ID of a filter set to apply.
+        author_lists:
+          type: array
+          example:
+          - '1111'
+          - '2222'
+          description: List of author list IDs to filter documents by.
+    Errors:
+      required:
+      - type
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+          description: List of problems with the request
+        type:
+          type: string
+          enum:
+          - NotFound
+          - ServiceUnavailable
+          - Unauthorized
+          - ValidationFailed
+      description: Errors
+      discriminator:
+        propertyName: type
+    Shares:
+      type: object
+      properties:
+        retweets:
+          type: integer
+          format: int64
+        likes:
+          type: integer
+          format: int64
+      description: Shares
+    Result:
+      required:
+      - author
+      - document_count
+      type: object
+      properties:
+        author:
+          $ref: '#/components/schemas/Author'
+        document_count:
+          type: integer
+          format: int64
+      description: Result
+    SummaryResponse:
+      required:
+      - sentiment
+      - time_series
+      - top_countries
+      - top_languages
+      - unique_authors
+      - volume
+      type: object
+      properties:
+        unique_authors:
+          type: integer
+          format: int64
+        top_countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/CountryStats'
+        sentiment:
+          $ref: '#/components/schemas/Sentiments'
+        top_languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/LanguageStats'
+        time_series:
+          type: array
+          items:
+            $ref: '#/components/schemas/Day'
+        volume:
+          $ref: '#/components/schemas/Volume'
+      description: SummaryResponse
+    AnalyticsServiceUnavailable:
+      description: ServiceUnavailable
+      example:
+        message: Service Unavailable
+        errors: {}
+      allOf:
+      - $ref: '#/components/schemas/Errors'
+      - type: object
+        properties:
+          message:
+            type: string
+        description: ServiceUnavailable
+    Day:
+      required:
+      - date
+      - document_count
+      - hours
+      type: object
+      properties:
+        date:
+          title: An ISO8601 date, excluding time and timezone/offset.
+          type: string
+          description: 'An ISO8601 date, excluding time and timezone/offset.
+
+
+            The year, month and day formatted according to ISO8601. The date
+
+            represents the local date at the timezone given in the `tz` parameter.'
+          format: date
+        document_count:
+          type: integer
+          format: int64
+        hours:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hour'
+      description: Day
+    TopLocationsResponse:
+      required:
+      - document_count
+      - locations
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+      description: TopLocationsResponse
+    CustomAnalyticsResponse:
+      type: object
+      properties:
+        start_date:
+          type: string
+          format: datetime
+          example: '2024-03-25T00:00:00'
+          description: Start date used in the request
+        end_date:
+          type: string
+          format: datetime
+          example: '2024-03-30T00:00:00'
+          description: End date used in the request
+        tz:
+          type: string
+          example: UTC
+          description: Timezone used in the request
+        languages:
+          type: array
+          example:
+          - en
+          description: Language filters used in the request
+        countries:
+          type: array
+          example:
+          - gb
+          description: Country filters used in the request
+        sources:
+          type: array
+          example:
+          - x
+          description: Source filters used in the request
+        sentiments:
+          type: array
+          example:
+          - positive
+          description: Sentiment filters used in the request
+        search_id:
+          type: number
+          example: 12393
+          description: Saved Search ID used in the request
+        analytic:
+          $ref: '#/components/schemas/CustomAnalyticsRequestAnalytic'
+        results:
+          type: object
+          properties:
+            document_count:
+              type: number
+              example: 12000
+              description: Total number of documents that matched the search and filters
+            analysis:
+              oneOf:
+              - type: array
+                items:
+                  type: object
+                  properties:
+                    document_count:
+                      type: number
+                      example: 12345
+                      description: Number of documents that are contained in either the `date_histogram` or `top_terms` bucket
+                    percentage:
+                      type: number
+                      example: 30.0
+                      description: Percentage of documents compared to the parent bucket. If the analysis has no parent, then the percentage is calculated from the total document count.
+                    key:
+                      type: string
+                      example: EN
+                    label:
+                      type: string
+                      example: English
+                      description: Some dimensions will include extra enriched information when used in a `top_terms` analytic type
+                    change:
+                      type: number
+                      example: 357
+                      description: Change in number of documents from the previous date histogram timeseries bucket
+                    analysis:
+                      type: object
+                      description: Any nested analysis is contained in the buckets of the parent analysis
+                      additionalProperties: {}
+                  additionalProperties: {}
+              - type: number
+                example: 12345
+                description: For analytic types (eg. `count_unique`) that don't involve buckets or statistic breakdowns, only the result is returned.
+      example:
+        start_date: '2024-01-01T00:00:00'
+        end_date: '2024-01-10T00:00:00'
+        tz: UTC
+        analysis:
+          type: document_count
+        results:
+          document_count: 123456
+    TopKeyphrasesResponse:
+      required:
+      - document_count
+      - keyphrases
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        keyphrases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Keyphrase'
+      description: TopKeyphrasesResponse
+    NotFound:
+      required:
+      - errors
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing, in brief, the problem.
+        errors:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              description: A description of the problem encountered on this field.
+          description: A breakdown of each problem encountered, by field.
+      example:
+        message: Not Found
+        errors:
+          :searchId:
+          - A Saved Search with that ID could not be found
+    TopSharedResponse:
+      required:
+      - document_count
+      - results
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Document'
+      description: TopSharedResponse
+    LanguageStats:
+      required:
+      - document_count
+      - language_code
+      - percentage
+      type: object
+      properties:
+        language_code:
+          type: string
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: LanguageStats
+    TopSharedLinksResponse:
+      required:
+      - document_count
+      - links
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+      description: TopKeyphrasesResponse
+    CustomAnalyticsCatalogResponse:
+      type: object
+      properties:
+        dimensions:
+          type: array
+          items:
+            type: string
+          description: All dimensions able to be used in `top_terms` and `count_unique` analytics
+        measures:
+          type: array
+          items:
+            type: string
+          description: All measures able to be used in `measure_statistics` analytics
+        types:
+          type: array
+          items:
+            type: string
+          description: All analytic types that can be used
+      example:
+        dimensions:
+        - keyphrase
+        - language
+        measures:
+        - engagement
+        - views
+        types:
+        - document_count
+        - top_terms
+        - date_histogram
+        - measure_statistics
+        - count_unique
+    TopSourcesResponse:
+      required:
+      - document_count
+      - sources
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      description: TopSourcesResponse
+    ErrorDetails:
+      required:
+      - type
+      - title
+      - details
+      type: object
+      properties:
+        type:
+          type: string
+          description: Category of error
+        title:
+          type: string
+          description: Title of error
+        details:
+          type: string
+          description: Details about the error
+    CustomAnalyticsRequestAnalytic:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          example: top_terms
+          description: The type of analytic to query with.
+          enum:
+          - document_count
+          - top_terms
+          - count_unique
+          - date_histogram
+          - measure_statistics
+        dimension:
+          type: string
+          example: language
+          description: The dimension to use in a `top_terms` or `count_unique` analytic type. Use the `GET v3/analytics/custom/catalog` endpoint to see what dimensions are available.
+        limit:
+          type: number
+          example: 10
+          default: 10
+          maximum: 100
+          minimum: 1
+          description: The limit to the number of terms to return in a `top_terms` analytic type.
+        measures:
+          type: array
+          example:
+          - views
+          - estimated_views
+          description: The measures to use in a `measures_statistics` analytic type. Use the `GET v3/analytics/custom/catalog` endpoint to see what measures are available.
+        granularity:
+          type: string
+          example: day
+          description: The granularity to use in a `date_histogram` analytic type.
+          enum:
+          - hour
+          - day
+          - week
+          - month
+        analysis:
+          $ref: '#/components/schemas/CustomAnalyticsRequestAnalytic'
+    Volume:
+      required:
+      - document_count
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        per_day:
+          type: integer
+          format: int64
+        per_hour:
+          type: integer
+          format: int64
+      description: Volume
+    CountryStats:
+      required:
+      - country_code
+      - document_count
+      - percentage
+      type: object
+      properties:
+        country_code:
+          type: string
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: CountryStats
+    SentimentStats:
+      required:
+      - document_count
+      - percentage
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: SentimentStats
+    TopTagsResponse:
+      required:
+      - document_count
+      - tags
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalyticsTag'
+      description: TopTagsResponse
+    Document:
+      required:
+      - author
+      - shares
+      type: object
+      properties:
+        author:
+          $ref: '#/components/schemas/Author'
+        url:
+          type: string
+        country_code:
+          type: string
+        shares:
+          $ref: '#/components/schemas/Shares'
+        language_code:
+          type: string
+        external_id:
+          type: string
+        created_at:
+          title: An ISO8601 date-time.
+          type: string
+          description: 'An ISO8601 date-time, including timezone offset.
+
+
+            The timezone offset is an offset in minutes from UTC.'
+          format: date-time
+      description: Document
+    Twitter:
+      type: object
+      properties:
+        followers:
+          type: integer
+          format: int64
+        following:
+          type: integer
+          format: int64
+        external_id:
+          type: string
+      description: Twitter
+  securitySchemes:
+    apikey:
+      type: apiKey
+      name: apikey
+      in: header
+x-tagGroups:
+- name: Listening
+  tags:
+  - Listening Exports
+  - Listening Search
+  - Listening Analytics
+  - Listening Streaming
+  - Listening Search Management
+- name: Explore+
+  tags:
+  - Explore+ Search
+  - Explore+ Analytics
+  - Explore+ Assets
+- name: Social Analytics
+  tags:
+  - Owned Analytics
+- name: Mira API
+  tags:
+  - Mira API
+- name: Account
+  tags:
+  - Account Management
+- name: Bring Your Own Content
+  tags:
+  - Bring Your Own Content (BYOC)

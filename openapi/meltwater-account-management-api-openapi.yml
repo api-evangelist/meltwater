@@ -1,0 +1,648 @@
+openapi: 3.0.3
+info:
+  title: Meltwater Account Management API
+  description: The Meltwater Public API
+  contact:
+    name: Meltwater Support
+    url: https://developer.meltwater.com/
+    email: support@api.meltwater.com
+  version: '1.0'
+servers:
+- url: https://api.meltwater.com
+security:
+- apikey: []
+tags:
+- name: Account Management
+  description: Account Management API and Usage APIs
+paths:
+  /v3/accounts/me/companies:
+    get:
+      tags:
+      - Account Management
+      summary: Get a list of all your companies
+      operationId: list_companies
+      responses:
+        '200':
+          description: List of Companies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyList'
+              example:
+                companies:
+                - name: Meltwater
+                  id: 61d07a1eb6b501051b5af3d7
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - apikey: []
+      description: ''
+  /v3/accounts/me/workspaces:
+    get:
+      tags:
+      - Account Management
+      summary: Get a list of all your workspaces
+      operationId: list_workspaces
+      responses:
+        '200':
+          description: List of Workspaces
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceList'
+              example:
+                count: 0
+                workspaces:
+                - id: 61d07a1eb6b501051b5af3d7
+                  name: My Workspace
+                  description: My awesome workspace
+                  created_at: '2023-09-19T14:54:38Z'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - apikey: []
+      description: ''
+  /v3/accounts/me/tokens:
+    get:
+      tags:
+      - Account Management
+      summary: Get a list of all your API tokens
+      operationId: list_tokens
+      responses:
+        '200':
+          description: List of Tokens
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenList'
+              example:
+                count: 2
+                tokens:
+                - id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                  label: My API Token
+                  created_at: '2024-01-15T10:30:00Z'
+                  created_by: Alex Morgan
+                - id: f7e6d5c4-b3a2-1098-fedc-ba9876543210
+                  label: Token for New Project
+                  created_at: '2024-02-20T14:45:00Z'
+                  created_by: Sam Taylor
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - apikey: []
+      description: ''
+  /v3/usage/me/metrics/{metric}:
+    get:
+      tags:
+      - Account Management
+      summary: Get usage information on specific metric
+      description: Get usage information on specific metric
+      parameters:
+      - name: metric
+        in: path
+        description: 'The metric type name. The following metrics are allowed for these features: exports - [export_count, document_count], streaming - [document_count], imports - [uploaded_documents]'
+        required: true
+        schema:
+          type: string
+          enum:
+          - export_count
+          - document_count
+          - uploaded_documents
+      - name: token_id
+        in: query
+        description: Optional API token ID to filter usage
+        required: false
+        schema:
+          type: string
+      - name: feature
+        in: query
+        description: The feature name of the statistics your want to query
+        required: true
+        schema:
+          type: string
+          enum:
+          - exports
+          - streaming
+          - search
+          - imports
+      - name: period
+        in: query
+        description: The time period for this statistics query
+        schema:
+          type: string
+          default: 24hours
+          enum:
+          - 24hours
+          - 7days
+          - 30days
+          - 12months
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsTimeSeries'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationFailed'
+              examples:
+                Invalid feature:
+                  value:
+                    message: Invalid feature
+                Invalid period:
+                  value:
+                    message: Invalid time period, choose from [24hours, 7days, 30days, 12months]
+                Invalid metric:
+                  value:
+                    message: Invalid metric, only [document_count] is available
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+              examples:
+                Auth error:
+                  value:
+                    message: Unauthorized
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageInternalErrorResponse'
+              examples:
+                Unknown error:
+                  value:
+                    message: We encountered an error fetching usage. Please try again.
+      security:
+      - apikey: []
+  /v3/usage/me/requests:
+    get:
+      tags:
+      - Account Management
+      summary: Get usage statistics for your API calls
+      description: Get usage statistics for your API calls
+      parameters:
+      - name: token_id
+        in: query
+        description: Optional API token ID to filter usage
+        required: false
+        schema:
+          type: string
+      - name: period
+        in: query
+        description: The time period for this statistics query
+        schema:
+          type: string
+          default: 24hours
+          enum:
+          - 24hours
+          - 7days
+          - 30days
+          - 12months
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpRequestsTimeSeries'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationFailed'
+              examples:
+                Invalid period:
+                  value:
+                    message: Invalid time period, choose from [24hours, 7days, 30days, 12months]
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+              examples:
+                Auth error:
+                  value:
+                    message: Unauthorized
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageInternalErrorResponse'
+              examples:
+                Unknown error:
+                  value:
+                    message: We encountered an error fetching usage. Please try again.
+      security:
+      - apikey: []
+components:
+  schemas:
+    Company:
+      required:
+      - name
+      - id
+      type: object
+      properties:
+        name:
+          type: string
+          description: Company name
+          example: Meltwater
+        id:
+          type: string
+          description: Company unique identifier
+          example: 61d07a1eb6b501051b5af3d7
+      title: Company
+      example:
+        name: Meltwater
+        id: 61d07a1eb6b501051b5af3d7
+      description: Company
+      additionalProperties: false
+    Features:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Functions'
+    Versions:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Features'
+    CompanyList:
+      type: object
+      properties:
+        companies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Company'
+      title: Company List
+      items:
+        $ref: '#/components/schemas/Company'
+      description: Company List
+    UsageInternalErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    ValidationFailed:
+      required:
+      - errors
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing, in brief, the problem.
+        errors:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              description: A description of the problem encountered on this field.
+          description: A breakdown of each problem encountered, by field.
+      example:
+        message: Validation Failed
+        errors:
+          start:
+          - '''foo'' is not a valid ISO 8601 local timestamp'
+          end:
+          - Missing required parameter
+    Unauthorized:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing, in brief, the problem.
+      example:
+        message: Unauthorized
+    Token:
+      required:
+      - id
+      - label
+      - created_at
+      - created_by
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique token identifier
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        label:
+          type: string
+          description: Token label
+          example: My API Token
+        created_at:
+          title: An ISO8601 date-time.
+          type: string
+          description: 'An ISO8601 date-time, including timezone offset.
+
+
+            The timezone offset is an offset in minutes from UTC.'
+          format: date-time
+        created_by:
+          type: string
+          description: Name of the user who created the token
+          example: Alex Morgan
+      title: Token
+      example:
+        id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        label: My API Token
+        created_at: '2024-01-15T10:30:00Z'
+        created_by: Alex Morgan
+      description: Token
+      additionalProperties: false
+    HttpRequestsTimeSeries:
+      type: object
+      properties:
+        count:
+          type: number
+        time_series:
+          type: array
+          items:
+            $ref: '#/components/schemas/HttpCallsTimeFrame'
+        units:
+          type: string
+          enum:
+          - hour
+          - day
+          - month
+    HttpCallsTimeFrame:
+      type: object
+      properties:
+        calls:
+          $ref: '#/components/schemas/Versions'
+        timestamp:
+          type: string
+    UsageCount:
+      type: object
+      properties:
+        count:
+          type: number
+    WorkspaceList:
+      type: object
+      properties:
+        count:
+          type: integer
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workspace'
+      title: Workspace List
+      items:
+        $ref: '#/components/schemas/Workspace'
+      description: Workspace List
+    TokenList:
+      type: object
+      properties:
+        count:
+          type: integer
+        tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/Token'
+      title: Token List
+      description: Token List
+    Functions:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/UsageCount'
+    MetricsTimeSeries:
+      type: object
+      properties:
+        count:
+          type: number
+        metric:
+          type: string
+          enum:
+          - export_count
+          - document_count
+        period:
+          type: string
+          enum:
+          - 24hours
+          - 7days
+          - 30days
+          - 12months
+        feature:
+          type: string
+          enum:
+          - streaming
+          - exports
+        time_series:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentMetricsTimeFrame'
+        units:
+          type: string
+          enum:
+          - hour
+          - day
+          - month
+    ErrorDetails:
+      required:
+      - type
+      - title
+      - details
+      type: object
+      properties:
+        type:
+          type: string
+          description: Category of error
+        title:
+          type: string
+          description: Title of error
+        details:
+          type: string
+          description: Details about the error
+    Workspace:
+      required:
+      - id
+      - name
+      - description
+      - created_at
+      type: object
+      properties:
+        name:
+          type: string
+          description: Workspace name
+          example: My Workspace
+        id:
+          type: string
+          description: Unique workspace identifier
+          example: 61d07a1eb6b501051b5af3d7
+        description:
+          type: string
+          description: Workspace description
+          example: This is a super cool workspace
+        created_at:
+          title: An ISO8601 date-time.
+          type: string
+          description: 'An ISO8601 date-time, including timezone offset.
+
+
+            The timezone offset is an offset in minutes from UTC.'
+          format: date-time
+      title: Workspace
+      example:
+        name: My Workspace
+        id: 61d07a1eb6b501051b5af3d7
+      description: Company
+      additionalProperties: false
+    DocumentMetricsTimeFrame:
+      type: object
+      properties:
+        count:
+          type: number
+        timestamp:
+          type: string
+    Errors:
+      required:
+      - type
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+          description: List of problems with the request
+        type:
+          type: string
+          enum:
+          - NotFound
+          - ServiceUnavailable
+          - Unauthorized
+          - ValidationFailed
+      description: Errors
+      discriminator:
+        propertyName: type
+  securitySchemes:
+    apikey:
+      type: apiKey
+      name: apikey
+      in: header
+x-tagGroups:
+- name: Listening
+  tags:
+  - Listening Exports
+  - Listening Search
+  - Listening Analytics
+  - Listening Streaming
+  - Listening Search Management
+- name: Explore+
+  tags:
+  - Explore+ Search
+  - Explore+ Analytics
+  - Explore+ Assets
+- name: Social Analytics
+  tags:
+  - Owned Analytics
+- name: Mira API
+  tags:
+  - Mira API
+- name: Account
+  tags:
+  - Account Management
+- name: Bring Your Own Content
+  tags:
+  - Bring Your Own Content (BYOC)

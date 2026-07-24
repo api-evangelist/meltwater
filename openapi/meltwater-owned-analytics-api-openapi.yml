@@ -1,0 +1,1020 @@
+openapi: 3.0.3
+info:
+  title: Meltwater Account Management Owned Analytics API
+  description: The Meltwater Public API
+  contact:
+    name: Meltwater Support
+    url: https://developer.meltwater.com/
+    email: support@api.meltwater.com
+  version: '1.0'
+servers:
+- url: https://api.meltwater.com
+security:
+- apikey: []
+tags:
+- name: Owned Analytics
+  description: Retrieve owned social metrics and analytics.
+paths:
+  /v3/owned/accounts:
+    get:
+      tags:
+      - Owned Analytics
+      summary: Returns a list of social account connections for a given company/user account
+      description: Returns a list of social account connections for a given company/user account
+      parameters:
+      - name: company_id
+        in: query
+        description: Meltwater company id if running query on behalf of another company
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/accounts.Response'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apikey: []
+  /v3/owned/accounts/metrics/breakdown:
+    get:
+      tags:
+      - Owned Analytics
+      summary: Returns a single-level breakdown by a category or concept
+      description: A 'breakdown' metric is an analysis that provides a single-level breakdown by a category or concept. For example, the `demographics_audience_country` metric breaks down the audience for a Facebook page by country. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone).
+      parameters:
+      - name: source
+        in: query
+        description: The social media source name
+        required: true
+        schema:
+          type: string
+          enum:
+          - facebook
+          - instagram
+      - name: account_ids
+        in: query
+        description: 'Comma separated list of account ids. Maximum: 10'
+        required: true
+        schema:
+          type: string
+      - name: metrics
+        in: query
+        description: 'Comma separated list of metric ids. Maximum: 10'
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: 'The timestamp of the start of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2022-01-01'
+        required: true
+        schema:
+          type: string
+      - name: end
+        in: query
+        description: 'The timestamp of the end of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2021-01-28'
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Meltwater company id if running query on behalf of another company
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/breakdown.MetricsResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apikey: []
+  /v3/owned/accounts/metrics/heatmap:
+    get:
+      tags:
+      - Owned Analytics
+      summary: Returns a break-down over date and time
+      description: A 'heatmap' metric is an analysis that provides a break-down over date and time. For example, the `page_fans_heatmap` metric breaks down the audience for a Facebook page by how active they are each day and hour. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone).
+      parameters:
+      - name: source
+        in: query
+        description: The social media source name
+        required: true
+        schema:
+          type: string
+          enum:
+          - facebook
+          - instagram
+      - name: account_ids
+        in: query
+        description: 'Comma separated list of account ids. Maximum: 10'
+        required: true
+        schema:
+          type: string
+      - name: metrics
+        in: query
+        description: 'Comma separated list of metric ids. Maximum: 10'
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: 'The timestamp of the start of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2022-01-01'
+        required: true
+        schema:
+          type: string
+      - name: end
+        in: query
+        description: 'The timestamp of the end of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2021-01-28'
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Meltwater company id if running query on behalf of another company
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/heatmap.MetricsResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apikey: []
+  /v3/owned/accounts/metrics/nested_breakdown:
+    get:
+      tags:
+      - Owned Analytics
+      summary: Returns a double-level breakdown by two categories or concepts
+      description: A 'nested-breakdown' metric is an analysis that provides a double-level breakdown by two categories or concepts. For example, the `demographics_gender_age` metric breaks down the audience for a Facebook page by firstly gender, then age group. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone).
+      parameters:
+      - name: source
+        in: query
+        description: The social media source name
+        required: true
+        schema:
+          type: string
+          enum:
+          - facebook
+          - instagram
+      - name: account_ids
+        in: query
+        description: 'Comma separated list of account ids. Maximum: 10'
+        required: true
+        schema:
+          type: string
+      - name: metrics
+        in: query
+        description: 'Comma separated list of metric ids. Maximum: 10'
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: 'The timestamp of the start of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2022-01-01'
+        required: true
+        schema:
+          type: string
+      - name: end
+        in: query
+        description: 'The timestamp of the end of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2021-01-28'
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Meltwater company id if running query on behalf of another company
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nested_breakdown.MetricsResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apikey: []
+  /v3/owned/accounts/metrics/numeric:
+    get:
+      tags:
+      - Owned Analytics
+      summary: Returns simple metrics for a social account
+      description: A numeric metric is the most basic type of metrics you can get for your social media account, like the number of page fans. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone).
+      parameters:
+      - name: source
+        in: query
+        description: The social media source name
+        required: true
+        schema:
+          type: string
+          enum:
+          - facebook
+          - instagram
+          - linkedin
+          - twitter
+          - tiktok
+      - name: account_ids
+        in: query
+        description: 'Comma separated list of account ids. Maximum: 10'
+        required: true
+        schema:
+          type: string
+      - name: metrics
+        in: query
+        description: 'Comma separated list of metric ids. Maximum: 10'
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: 'The timestamp of the start of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2022-01-01'
+        required: true
+        schema:
+          type: string
+      - name: end
+        in: query
+        description: 'The timestamp of the end of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2021-01-28'
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Meltwater company id if running query on behalf of another company
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/numeric.MetricsResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apikey: []
+  /v3/owned/accounts/posts/top_posts:
+    get:
+      tags:
+      - Owned Analytics
+      summary: Allows to fetch the top posts for owned social accounts
+      description: Allows to fetch the top posts for owned social accounts. You might do this to report the most engaged with posts in a period of time for example. Timestamps in this endpoint for Facebook and Instagram sources work on PST timezone (Meta's preferred timezone).
+      parameters:
+      - name: source
+        in: query
+        description: The social media source name
+        required: true
+        schema:
+          type: string
+          enum:
+          - facebook
+          - instagram
+          - linkedin
+          - twitter
+          - tiktok
+      - name: account_ids
+        in: query
+        description: 'Comma separated list of account ids. Maximum: 10'
+        required: true
+        schema:
+          type: string
+      - name: metrics
+        in: query
+        description: 'Comma separated list of metric ids. Maximum: 10'
+        schema:
+          type: string
+      - name: start
+        in: query
+        description: 'The timestamp of the start of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2022-01-01'
+        required: true
+        schema:
+          type: string
+      - name: end
+        in: query
+        description: 'The timestamp of the end of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2021-01-28'
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Meltwater company id if running a query on behalf of another company
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Used for paginating results
+        schema:
+          type: integer
+          default: 1
+      - name: page_size
+        in: query
+        description: The number of results to return per request
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 10
+      - name: sort_by
+        in: query
+        description: Field on which the response will be sorted
+        schema:
+          type: string
+          default: created_time
+          enum:
+          - comment_count
+          - comments
+          - comments_count
+          - created_at
+          - engagement_rate
+          - reactions_count
+          - shares_count
+      - name: sort_order
+        in: query
+        description: The sort order
+        schema:
+          type: string
+          default: desc
+          enum:
+          - desc
+          - asc
+      - name: post_types
+        in: query
+        description: The type of posts to retrieve
+        schema:
+          type: string
+          enum:
+          - link
+          - status
+          - photo
+          - video
+          - album
+          - image
+          - carousel_album
+          - story
+          - igtv
+          - reels
+          - article
+          - rich
+          - learning_course
+          - job
+          - question
+          - answer
+          - carousel
+          - topic
+          - native_document
+          - urn_reference
+          - live_video
+          - text
+          - animated_gif
+      - name: tag
+        in: query
+        description: Optional list of tags to filter the documents by
+        schema:
+          type: array
+          items:
+            type: string
+      - name: match_all_tags
+        description: If true, only documents with all tags provided will be returned
+        in: query
+        schema:
+          default: false
+          type: boolean
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/posts.TopPostsResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apikey: []
+  /v3/owned/supported_metrics:
+    get:
+      tags:
+      - Owned Analytics
+      summary: Returns a list of supported metrics
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/supported_metrics.Response'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apikey: []
+components:
+  schemas:
+    analytics.InsightNestedBreakdownValue:
+      required:
+      - key
+      - subkey
+      - value
+      type: object
+      properties:
+        key:
+          type: string
+        subkey:
+          type: string
+        value:
+          type: number
+    posts.TopPostsResponse:
+      required:
+      - count
+      - page
+      - page_size
+      - posts
+      type: object
+      properties:
+        count:
+          type: integer
+        page:
+          type: integer
+        page_size:
+          type: integer
+        posts:
+          type: array
+          items:
+            $ref: '#/components/schemas/posts.Post'
+    posts.PostMetrics:
+      required:
+      - comments_count
+      - engagement
+      - engagement_rate
+      - followers_count_engagement_rate
+      - impressions
+      - like_count
+      - page_fans_engagement_rate
+      - post_clicks
+      - post_clicks_unique
+      - post_engaged_users
+      - post_impressions
+      - post_impressions_organic
+      - post_impressions_organic_unique
+      - post_impressions_paid
+      - post_impressions_paid_unique
+      - post_impressions_unique
+      - post_reactions_anger_total
+      - post_reactions_haha_total
+      - post_reactions_like_total
+      - post_reactions_love_total
+      - post_reactions_sorry_total
+      - post_reactions_wow_total
+      - post_video_avg_time_watched
+      - post_video_view_time
+      - post_video_views
+      - post_video_views_organic
+      - post_video_views_paid
+      - reach
+      - reactions_count
+      - saved
+      - shares_count
+      - video_views
+      type: object
+      properties:
+        comments_count:
+          type: integer
+        engagement:
+          type: integer
+        engagement_rate:
+          type: number
+        followers_count_engagement_rate:
+          type: number
+        impressions:
+          type: integer
+        like_count:
+          type: integer
+        page_fans_engagement_rate:
+          type: number
+        post_clicks:
+          type: integer
+        post_clicks_unique:
+          type: integer
+        post_engaged_users:
+          type: integer
+        post_impressions:
+          type: integer
+        post_impressions_organic:
+          type: integer
+        post_impressions_organic_unique:
+          type: integer
+        post_impressions_paid:
+          type: integer
+        post_impressions_paid_unique:
+          type: integer
+        post_impressions_unique:
+          type: integer
+        post_reactions_anger_total:
+          type: integer
+        post_reactions_haha_total:
+          type: integer
+        post_reactions_like_total:
+          type: integer
+        post_reactions_love_total:
+          type: integer
+        post_reactions_sorry_total:
+          type: integer
+        post_reactions_wow_total:
+          type: integer
+        post_video_avg_time_watched:
+          type: integer
+        post_video_view_time:
+          type: integer
+        post_video_views:
+          type: integer
+        post_video_views_organic:
+          type: integer
+        post_video_views_paid:
+          type: integer
+        reach:
+          type: integer
+        reactions_count:
+          type: integer
+        saved:
+          type: integer
+        shares_count:
+          type: integer
+        video_views:
+          type: integer
+    heatmap.DailyValues:
+      required:
+      - date
+      type: object
+      properties:
+        date:
+          type: string
+        page_fans_heatmap:
+          $ref: '#/components/schemas/analytics.InsightHeatmapValue'
+    accounts.Response:
+      required:
+      - accounts
+      - count
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/social_accounts.Connection'
+        count:
+          type: integer
+    heatmap.MetricsResponse:
+      required:
+      - accounts
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/heatmap.AccountNumericMetrics'
+    nested_breakdown.MetricsResponse:
+      required:
+      - accounts
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/nested_breakdown.AccountNumericMetrics'
+    numeric.AccountNumericMetrics:
+      required:
+      - daily_values
+      - id
+      - name
+      - source
+      - username
+      type: object
+      properties:
+        daily_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/numeric.DailyValues'
+        id:
+          type: string
+        name:
+          type: string
+        source:
+          type: string
+        username:
+          type: string
+    lib.SupportedSource:
+      type: object
+      properties:
+        account_metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/lib.Metric'
+        name:
+          type: string
+        post_metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/lib.Metric'
+        source:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+    supported_metrics.Response:
+      type: object
+      properties:
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/lib.SupportedSource'
+    breakdown.DailyValues:
+      required:
+      - date
+      type: object
+      properties:
+        date:
+          type: string
+        demographics_audience_city:
+          $ref: '#/components/schemas/analytics.InsightBreakdownValue'
+        demographics_audience_country:
+          $ref: '#/components/schemas/analytics.InsightBreakdownValue'
+    nested_breakdown.DailyValues:
+      required:
+      - date
+      type: object
+      properties:
+        date:
+          type: string
+        demographics_gender_age:
+          $ref: '#/components/schemas/analytics.InsightNestedBreakdownValue'
+    social_accounts.Connection:
+      required:
+      - id
+      - logo
+      - name
+      - source
+      - username
+      type: object
+      properties:
+        id:
+          type: string
+        logo:
+          type: string
+        name:
+          type: string
+        source:
+          type: string
+        username:
+          type: string
+    posts.Post:
+      required:
+      - account
+      - content
+      - created_at
+      - media_url
+      - metrics
+      - post_id
+      - post_type
+      - post_subtype
+      - tags
+      - url
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/posts.Account'
+        content:
+          type: string
+        created_at:
+          type: string
+        media_url:
+          type: string
+        metrics:
+          $ref: '#/components/schemas/posts.PostMetrics'
+        post_id:
+          type: string
+        post_type:
+          type: string
+        post_subtype:
+          type: string
+        tags:
+          type: array
+          example:
+          - My Tag
+          - My Other Tag
+        url:
+          type: string
+    analytics.InsightBreakdownValue:
+      required:
+      - key
+      - value
+      type: object
+      properties:
+        key:
+          type: string
+        key_label:
+          type: string
+        value:
+          type: number
+    ValidationError:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        message:
+          type: string
+    heatmap.AccountNumericMetrics:
+      required:
+      - daily_values
+      - id
+      - name
+      - source
+      - username
+      type: object
+      properties:
+        daily_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/heatmap.DailyValues'
+        id:
+          type: string
+        name:
+          type: string
+        source:
+          type: string
+        username:
+          type: string
+    nested_breakdown.AccountNumericMetrics:
+      required:
+      - daily_values
+      - id
+      - name
+      - source
+      - username
+      type: object
+      properties:
+        daily_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/nested_breakdown.DailyValues'
+        id:
+          type: string
+        name:
+          type: string
+        source:
+          type: string
+        username:
+          type: string
+    posts.Account:
+      required:
+      - id
+      - name
+      - source
+      - username
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        source:
+          type: string
+        username:
+          type: string
+    breakdown.MetricsResponse:
+      required:
+      - accounts
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/breakdown.AccountNumericMetrics'
+    breakdown.AccountNumericMetrics:
+      required:
+      - daily_values
+      - id
+      - name
+      - source
+      - username
+      type: object
+      properties:
+        daily_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/breakdown.DailyValues'
+        id:
+          type: string
+        name:
+          type: string
+        source:
+          type: string
+        username:
+          type: string
+    numeric.DailyValues:
+      required:
+      - date
+      type: object
+      properties:
+        date:
+          type: string
+        follower_count:
+          type: integer
+        impressions:
+          type: integer
+        page_fan_removes:
+          type: integer
+        page_fans:
+          type: integer
+        page_fans_ads:
+          type: integer
+        page_impressions:
+          type: integer
+        page_impressions_organic:
+          type: integer
+        page_impressions_paid:
+          type: integer
+        page_post_engagements:
+          type: integer
+        page_vide_views:
+          type: integer
+        profile_views:
+          type: integer
+        total_followers_counts:
+          type: integer
+        website_clicks:
+          type: integer
+    lib.Metric:
+      type: object
+      properties:
+        description:
+          type: string
+        metric:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+    numeric.MetricsResponse:
+      required:
+      - accounts
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/numeric.AccountNumericMetrics'
+    analytics.InsightHeatmapValue:
+      required:
+      - hour
+      - value
+      type: object
+      properties:
+        hour:
+          type: integer
+        value:
+          type: number
+  securitySchemes:
+    apikey:
+      type: apiKey
+      name: apikey
+      in: header
+x-tagGroups:
+- name: Listening
+  tags:
+  - Listening Exports
+  - Listening Search
+  - Listening Analytics
+  - Listening Streaming
+  - Listening Search Management
+- name: Explore+
+  tags:
+  - Explore+ Search
+  - Explore+ Analytics
+  - Explore+ Assets
+- name: Social Analytics
+  tags:
+  - Owned Analytics
+- name: Mira API
+  tags:
+  - Mira API
+- name: Account
+  tags:
+  - Account Management
+- name: Bring Your Own Content
+  tags:
+  - Bring Your Own Content (BYOC)

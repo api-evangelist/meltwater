@@ -1,0 +1,838 @@
+openapi: 3.0.3
+info:
+  title: Meltwater Account Management Bring Your Own Content (BYOC) API
+  description: The Meltwater Public API
+  contact:
+    name: Meltwater Support
+    url: https://developer.meltwater.com/
+    email: support@api.meltwater.com
+  version: '1.0'
+servers:
+- url: https://api.meltwater.com
+security:
+- apikey: []
+tags:
+- name: Bring Your Own Content (BYOC)
+  description: Upload your own content into the Meltwater Platform.
+paths:
+  /v3/imports/documents:
+    post:
+      tags:
+      - Bring Your Own Content (BYOC)
+      operationId: handleByocDocuments
+      summary: Ingest BYOC documents
+      description: Handles the import of documents into the Meltwater Platform.
+      parameters:
+      - name: import_tag
+        in: query
+        description: Comma-separated list of import tags to assigned to the imported documents.
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company where the change will be applied. If not specified your default company is used.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ByocImportsDocumentsRequest'
+        description: Document(s) to be imported.
+        required: true
+      responses:
+        '200':
+          description: Documents imported successfully received.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocImportsDocumentsResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocResultAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocResultAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocResultAPIError'
+  /v3/imports/batches:
+    get:
+      tags:
+      - Bring Your Own Content (BYOC)
+      summary: List import batches
+      description: Retrieves a list of import batches. Supports filtering by date range (start/end) and batch status. Dates are interpreted in the specified timezone (defaults to UTC).
+      parameters:
+      - name: start
+        in: query
+        description: Start date for filtering batches (ISO 8601 local timestamp without timezone). Must be used with the 'tz' parameter to specify timezone, defaults to UTC.
+        schema:
+          type: string
+      - name: end
+        in: query
+        description: End date for filtering batches (ISO 8601 local timestamp without timezone). Must be used with the 'tz' parameter to specify timezone, defaults to UTC.
+        schema:
+          type: string
+      - name: tz
+        in: query
+        description: 'The timezone ID for timestamps in the request and response.
+
+
+          An identifier from the IANA TimeZone Database (tzdb), or a timezone offset, from UTC.
+
+
+          An offset, or `UTC`, will provide a stable timezone that remains the same, year-round.
+
+
+          A location ID, such as `Europe/London`, will automatically incorporate that location''s local timezone rules, including daylight-savings (if applicable), and any other adjustments to local time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).'
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Comma-separated list of statuses (pending,finished,failed) for filtering batches
+        schema:
+          type: string
+      - name: import_tag
+        in: query
+        description: Comma-separated list of import tags. The response will include any batches that were assigned to at least one of the import tags in the list.
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Page number for pagination (must be > 0)
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: page_size
+        in: query
+        description: Number of items per page (must be > 0 and <= 100)
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      - name: company_id
+        in: query
+        description: Meltwater company id if running a request on behalf of another company.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved list of batches
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocListBatchesResult'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocResultAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocResultAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocResultAPIError'
+  /v3/imports/batches/{batch_id}:
+    get:
+      tags:
+      - Bring Your Own Content (BYOC)
+      summary: Get import batch
+      description: Retrieves status and statistics about an import batch.
+      parameters:
+      - name: batch_id
+        in: path
+        description: Batch ID to retrieve
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: tz
+        in: query
+        description: 'The timezone ID for timestamps in the response.
+
+
+          An identifier from the IANA TimeZone Database (tzdb), or a timezone offset, from UTC.
+
+
+          An offset, or `UTC`, will provide a stable timezone that remains the same, year-round.
+
+
+          A location ID, such as `Europe/London`, will automatically incorporate that location''s local timezone rules, including daylight-savings (if applicable), and any other adjustments to local time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).'
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Meltwater company id if running a request on behalf of another company
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved batch information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocGetBatchesResult'
+        '400':
+          description: Bad request - invalid batch ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocResultAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocResultAPIError'
+        '404':
+          description: Import tag not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocResultAPIValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocResultAPIError'
+  /v3/imports/import_tags/{import_tag}:
+    get:
+      tags:
+      - Bring Your Own Content (BYOC)
+      summary: Get import tag
+      description: Retrieves status and statistics about an import tag.
+      parameters:
+      - name: import_tag
+        in: path
+        description: Import tag to retrieve
+        required: true
+        schema:
+          type: string
+      - name: tz
+        in: query
+        description: 'The timezone ID for timestamps in the response.
+
+
+          An identifier from the IANA TimeZone Database (tzdb),
+
+          or a timezone offset, from UTC.
+
+
+          An offset, or `UTC`, will provide a stable timezone that remains
+
+          the same, year-round.
+
+
+          A location ID, such as `Europe/London`, will automatically
+
+          incorporate that location''s local timezone rules, including
+
+          daylight-savings (if applicable), and any other adjustments to
+
+          local time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).'
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Meltwater company id if running a request on behalf of another company
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved import tag information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocGetImportTagsResult'
+        '400':
+          description: Bad request - invalid batch ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocResultAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocResultAPIError'
+        '404':
+          description: Import tag not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocResultAPIValidationError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ByocResultAPIError'
+components:
+  schemas:
+    ByocListBatchesResult:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ByocIngestionBatch'
+        page:
+          type: integer
+        page_size:
+          type: integer
+        total:
+          type: integer
+    ByocCoordinates:
+      required:
+      - lat
+      - lon
+      type: object
+      properties:
+        lat:
+          type: number
+          description: Latitude of the location
+          format: float
+          example: 52.52
+        lon:
+          type: number
+          description: Longitude of the location
+          format: float
+          example: 13.405
+      description: Coordinates of the location
+    ByocImportsDocumentsResult:
+      type: object
+      properties:
+        batchId:
+          type: string
+        count:
+          type: integer
+          format: int32
+    ByocContent:
+      type: object
+      properties:
+        title:
+          maxLength: 10000
+          minLength: 0
+          type: string
+          description: Title of the content
+          example: Example Title
+        subtitle:
+          maxLength: 10000
+          minLength: 0
+          type: string
+          description: Subtitle of the content
+          example: Example Subtitle
+        text:
+          type: string
+          description: Text content
+          example: Example text content
+        duration:
+          type: integer
+          description: Duration of the content in seconds
+          format: int32
+          example: 120
+      description: Content details of the document
+    ByocParent:
+      type: object
+      properties:
+        id:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Unique identifier for the parent document
+          example: parent123
+        url:
+          type: string
+          description: URL of the parent document
+          format: url
+          example: http://example.com
+        title:
+          maxLength: 10000
+          minLength: 0
+          type: string
+          description: Title of the parent document
+          example: Parent Document Title
+      description: Parent document details
+    ByocIngestionBatch:
+      type: object
+      properties:
+        batch_id:
+          type: string
+        created_at:
+          type: string
+        import_tags:
+          type: array
+          items:
+            type: string
+        statistics:
+          $ref: '#/components/schemas/ByocIngestionBatchStatistics'
+        status:
+          type: string
+    ByocLocation:
+      type: object
+      properties:
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          example: DE
+        locationString:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Location string
+          example: Berlin, Germany
+        coordinates:
+          $ref: '#/components/schemas/ByocCoordinates'
+      description: Location details of the user
+    Location:
+      required:
+      - document_count
+      - location_id
+      - location_name
+      - percentage
+      type: object
+      properties:
+        location_name:
+          type: string
+        location_id:
+          type: string
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Location
+    ByocDocument:
+      required:
+      - contentType
+      - originPlatform
+      - source
+      - timestamp
+      - url
+      type: object
+      properties:
+        delete:
+          type: boolean
+          description: Indicates delete action on the document
+        id:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Unique identifier for the document
+          example: '12345'
+        url:
+          type: string
+          description: URL of the document
+          format: url
+          example: http://example.com
+        timestamp:
+          maximum: 2524608000000
+          minimum: 946684800000
+          type: integer
+          description: Timestamp of the document in milliseconds since epoch
+          format: int64
+          example: 1748272125000
+        content:
+          $ref: '#/components/schemas/ByocContent'
+        originPlatform:
+          type: string
+          description: Platform where the document originated
+          enum:
+          - youtube
+          - podcasts
+          - facebook
+          - instagram
+          - reddit
+          - sina_weibo
+          - wechat
+          - twitter
+          - linkedin
+          - pinterest
+          - twitch
+          - tiktok
+          - douyin
+          - little_red_book
+          - youku
+          - bilibili
+          - threads
+          - kakaotalk
+          - linevoom
+          - discord
+          - snapchat
+          - bluesky
+          - news_publisher
+          - broadcast
+          - tender_portal
+          - reviews
+          - blogs
+          - forums
+          - social_comments
+          - telegram
+        contentType:
+          type: string
+          description: Type of content in the document
+          enum:
+          - video
+          - comment
+          - repost
+          - reply
+          - quoted
+          - audio
+          - post
+          - online_press
+          - print_press
+          - tender
+          - product_review
+          - voc
+        attachments:
+          type: array
+          description: List of attachments associated with the document
+          items:
+            $ref: '#/components/schemas/ByocAttachment'
+        source:
+          $ref: '#/components/schemas/ByocSource'
+        user:
+          $ref: '#/components/schemas/ByocUser'
+        parent:
+          $ref: '#/components/schemas/ByocParent'
+        product:
+          $ref: '#/components/schemas/ByocProduct'
+        metrics:
+          $ref: '#/components/schemas/ByocMetrics'
+        sentiment:
+          type: string
+          description: Document level sentiment
+          enum:
+          - positive
+          - negative
+          - neutral
+          - unknown
+        customFields:
+          type: array
+          description: List of Explore+ custom fields
+          items:
+            $ref: '#/components/schemas/ByocCustomField'
+          maxItems: 100
+          minItems: 1
+    ByocResultAPIError:
+      type: object
+      properties:
+        message:
+          type: string
+    ByocResultAPIValidationError:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            required:
+            - type
+            - details
+            - title
+            properties:
+              type:
+                type: string
+                example: VALIDATION
+                description: Category of error
+              title:
+                type: string
+                example: 'Validation error for field: type'
+                description: Title of error
+              details:
+                type: string
+                example: This field cannot be updated
+                description: Details about the error
+            additionalProperties: false
+          description: List of problems with the request
+      example:
+        errors:
+        - type: VALIDATION
+          title: Invalid data
+          details: 'field: invalid value'
+      description: Bad Request
+    ByocProduct:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Name of the product
+          example: John Doe
+      description: Product details
+    ByocMetrics:
+      type: object
+      properties:
+        views:
+          type: integer
+          description: Number of views
+          format: int32
+          example: 100
+        audience:
+          type: integer
+          description: Audience size
+          format: int32
+          example: 50
+        likes:
+          type: integer
+          description: Likes count
+          format: int32
+          example: 50
+        shares:
+          type: integer
+          description: Shares count
+          format: int32
+          example: 50
+        comments:
+          type: integer
+          description: Comments count
+          format: int32
+          example: 50
+        replies:
+          type: integer
+          description: Replies count
+          format: int32
+          example: 50
+        ave:
+          type: number
+          description: Advertising value equivalency
+          format: float
+          example: 4.5
+        score:
+          type: number
+          description: Score of the document
+          format: float
+          example: 3.2
+      description: Metrics associated with the document
+    ByocCustomField:
+      type: object
+      required:
+      - label
+      - values
+      properties:
+        label:
+          type: string
+          description: Label of the custom field
+          example: Priority
+        values:
+          type: array
+          maxItems: 100
+          minItems: 1
+          items:
+            type: string
+          description: Values associated with the custom field
+          example:
+          - High
+          - Urgent
+      additionalProperties: false
+      description: Custom fields associated with the document
+    ByocIngestionBatchStatistics:
+      type: object
+      properties:
+        documents_indexed:
+          type: integer
+        documents_sent:
+          type: integer
+        documents_marked_duplicate:
+          type: integer
+        subgroups:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ByocIngestionSubGroup'
+    ByocImportsDocumentsRequest:
+      required:
+      - documents
+      type: object
+      properties:
+        documents:
+          maxItems: 500
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/ByocDocument'
+    ByocSource:
+      required:
+      - name
+      - url
+      type: object
+      properties:
+        name:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Name of the source
+          example: The Meltwater Times
+        url:
+          type: string
+          description: URL of the source
+          format: url
+          example: http://example.com
+        location:
+          $ref: '#/components/schemas/Location'
+      description: Source details of the document
+    ByocAttachment:
+      required:
+      - mime
+      - type
+      - url
+      type: object
+      properties:
+        name:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Name of the attachment
+          example: Attachment Name
+        url:
+          type: string
+          description: URL of the attachment
+          format: url
+          example: http://example.com
+        mime:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: MIME type of the attachment
+          example: image/png
+        altText:
+          maxLength: 10000
+          minLength: 0
+          type: string
+          description: Alternative text for the attachment
+          example: Alt text for the attachment
+        type:
+          type: string
+          description: Type of the attachment
+          enum:
+          - image
+          - audio
+          - video
+        thumbnail:
+          type: string
+          description: Thumbnail URL of the attachment
+          format: url
+          example: http://example.com
+      description: List of attachments associated with the document
+    ByocGetBatchesResult:
+      type: object
+      properties:
+        batch_id:
+          type: string
+        created_at:
+          type: string
+        import_tags:
+          type: array
+          items:
+            type: string
+        statistics:
+          $ref: '#/components/schemas/ByocIngestionBatchStatistics'
+        status:
+          type: string
+    ByocUser:
+      type: object
+      properties:
+        name:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Name of the user
+          example: John Doe
+        handle:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Handle for the user
+          example: johndoe
+        url:
+          type: string
+          description: URL of the user's profile
+          format: url
+          example: http://example.com
+        imageUrl:
+          type: string
+          description: URL of the user's profile image
+          format: url
+          example: http://example.com/avatar.png
+        gender:
+          type: string
+          description: Gender of the user
+          enum:
+          - m
+          - f
+          - n
+        location:
+          $ref: '#/components/schemas/ByocLocation'
+      description: User / author / speaker / presenter details associated with the document
+    ByocGetImportTagsResult:
+      type: object
+      properties:
+        created_at:
+          type: string
+        import_tag:
+          type: string
+        statistics:
+          $ref: '#/components/schemas/ByocIngestionBatchStatistics'
+        status:
+          type: string
+    ByocIngestionSubGroup:
+      type: object
+      properties:
+        documents_indexed:
+          type: integer
+        documents_marked_duplicate:
+          type: integer
+  securitySchemes:
+    apikey:
+      type: apiKey
+      name: apikey
+      in: header
+x-tagGroups:
+- name: Listening
+  tags:
+  - Listening Exports
+  - Listening Search
+  - Listening Analytics
+  - Listening Streaming
+  - Listening Search Management
+- name: Explore+
+  tags:
+  - Explore+ Search
+  - Explore+ Analytics
+  - Explore+ Assets
+- name: Social Analytics
+  tags:
+  - Owned Analytics
+- name: Mira API
+  tags:
+  - Mira API
+- name: Account
+  tags:
+  - Account Management
+- name: Bring Your Own Content
+  tags:
+  - Bring Your Own Content (BYOC)

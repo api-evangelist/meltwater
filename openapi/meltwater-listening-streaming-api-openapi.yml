@@ -1,0 +1,283 @@
+openapi: 3.0.3
+info:
+  title: Meltwater Account Management Listening Streaming API
+  description: The Meltwater Public API
+  contact:
+    name: Meltwater Support
+    url: https://developer.meltwater.com/
+    email: support@api.meltwater.com
+  version: '1.0'
+servers:
+- url: https://api.meltwater.com
+security:
+- apikey: []
+tags:
+- name: Listening Streaming
+  description: Streaming of Meltwater data to integrate with your internal systems and workflows.
+  parent: Listening
+paths:
+  /v3/hooks:
+    get:
+      tags:
+      - Listening Streaming
+      summary: List all hooks.
+      description: 'List all hooks.
+
+
+        Delivers all previously generated hooks.'
+      responses:
+        '200':
+          description: List all hooks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HooksCollection'
+        '401':
+          description: Invalid or expired token.
+        '403':
+          description: Not entitled to the service
+        '500':
+          description: Something went wrong while trying to fetch your hooks.
+      operationId: getAllHooks
+      security:
+      - apikey: []
+    post:
+      tags:
+      - Listening Streaming
+      summary: Creates a hook
+      description: "Creates a hook for one of your predefined searches.\n Delivers search results for the query referenced by the `search_id` to the `target_url` via HTTP POST. Note that a `hook_id` will be returned on successful creation, this id is needed to delete the hook.\n\n We are also returning the header: `X-Hook-Secret`, a shared secret used to sign the document body pushed to your `target_url`.\n\n\n Specify `company_id` if your `search_id` is not in your default company."
+      parameters:
+      - in: header
+        name: X-Hook-Secret
+        description: "Shared secret for content signing/verification.\n\nThe shared secret header is optional and can be provided by the user\nor will be set by the API. Must be between 16 and 64 characters.\nObtain the shared secret from the response header `X-Hook-Secret`.\n\n#### Example:\n\n    e2d264b524240b9572ebc2fc7eebd980\n"
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: company_id
+        description: Company that owns the specified search_id. If not specified your default company is used.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/postV2Hooks'
+        required: true
+      responses:
+        '201':
+          description: Successfully Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hook'
+        '400':
+          description: Missing required parameters.
+        '401':
+          description: Invalid or expired token.
+        '403':
+          description: Not entitled to the service
+        '404':
+          description: The search you are trying to create a REST hook for was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorsCollection'
+        '409':
+          description: The hook you are trying to create already exists for the specified search_id and target_url.
+        '500':
+          description: Something went wrong while trying to create your REST hook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorsCollection'
+      operationId: createHook
+      security:
+      - apikey: []
+  /v3/hooks/{hook_id}:
+    delete:
+      tags:
+      - Listening Streaming
+      summary: Delete an existing hook.
+      description: "Delete an existing hook.\n Removes the hook and stops sending any search results to the target_url."
+      parameters:
+      - in: path
+        name: hook_id
+        description: Hook ID received from creating a hook
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Successfully Deleted
+        '400':
+          description: Missing required parameters.
+        '401':
+          description: Invalid or expired token.
+        '403':
+          description: Not entitled to the service
+        '404':
+          description: The REST hook you are trying to delete was not found
+        '500':
+          description: Something went wrong while trying to delete your hook(-s).
+      operationId: deleteHook
+      security:
+      - apikey: []
+    get:
+      tags:
+      - Listening Streaming
+      summary: Get an individual hook.
+      description: 'Get an individual hook.
+
+
+        Retrieves an existing hook.'
+      parameters:
+      - in: path
+        name: hook_id
+        description: Hook ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleHook'
+        '401':
+          description: Invalid or expired token.
+        '403':
+          description: Not entitled to the service
+        '404':
+          description: The hook you are trying to get was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorsCollection'
+        '500':
+          description: Something went wrong while trying to fetch your hooks.
+      operationId: getHook
+      security:
+      - apikey: []
+components:
+  schemas:
+    Hook:
+      type: object
+      properties:
+        search_id:
+          type: integer
+          format: int32
+          description: Search id
+        target_url:
+          type: string
+          description: The URL that results from the search will be posted to
+        updated:
+          type: string
+        search_type:
+          type: string
+          description: The type of search the hook is for
+        hook_id:
+          type: string
+        template:
+          $ref: '#/components/schemas/TemplateConfiguration'
+        version:
+          type: string
+        status:
+          type: string
+          description: The status of the hook. Can be PENDING, ACTIVE, PAUSED or HALTED
+        status_reason:
+          type: string
+          description: The reason for current hook status if applicable
+      description: "Get an individual hook.\n Retrieves an existing hook."
+    ErrorsCollection:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/HookError'
+    postV2Hooks:
+      type: object
+      properties:
+        target_url:
+          type: string
+          description: Target URL to send article results
+        search_id:
+          type: integer
+          format: int32
+          description: Search ID
+        template:
+          $ref: '#/components/schemas/TemplateConfiguration'
+      required:
+      - target_url
+      - search_id
+      description: Creates a hook for one of your predefined searches.
+    HooksCollection:
+      type: object
+      properties:
+        hooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hook'
+      description: List all hooks. Delivers all previously generated hooks.
+    TemplateConfiguration:
+      type: object
+      title: Template Configuration
+      properties:
+        name:
+          type: string
+          example: legacy
+          description: The name of the template being requested
+    SingleHook:
+      type: object
+      properties:
+        hook:
+          $ref: '#/components/schemas/Hook'
+      description: "Get an individual hook.\n Retrieves an existing hook."
+    HookError:
+      type: object
+      properties:
+        details:
+          type: string
+          description: Human-readable error message.
+        title:
+          type: string
+          description: Error title
+        type:
+          type: string
+          description: Error category
+        meta:
+          type: object
+          description: Additional meta-information to qualify error
+  securitySchemes:
+    apikey:
+      type: apiKey
+      name: apikey
+      in: header
+x-tagGroups:
+- name: Listening
+  tags:
+  - Listening Exports
+  - Listening Search
+  - Listening Analytics
+  - Listening Streaming
+  - Listening Search Management
+- name: Explore+
+  tags:
+  - Explore+ Search
+  - Explore+ Analytics
+  - Explore+ Assets
+- name: Social Analytics
+  tags:
+  - Owned Analytics
+- name: Mira API
+  tags:
+  - Mira API
+- name: Account
+  tags:
+  - Account Management
+- name: Bring Your Own Content
+  tags:
+  - Bring Your Own Content (BYOC)

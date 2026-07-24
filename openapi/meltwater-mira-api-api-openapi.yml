@@ -1,0 +1,278 @@
+openapi: 3.0.3
+info:
+  title: Meltwater Account Management Mira API API
+  description: The Meltwater Public API
+  contact:
+    name: Meltwater Support
+    url: https://developer.meltwater.com/
+    email: support@api.meltwater.com
+  version: '1.0'
+servers:
+- url: https://api.meltwater.com
+security:
+- apikey: []
+tags:
+- name: Mira API
+  description: AI-powered chat completion and project listing features.
+paths:
+  /v3/mira/chat:
+    post:
+      tags:
+      - Mira API
+      summary: Chat completion endpoint
+      description: 'Processes chat completion requests and returns responses in streaming or non-streaming mode.
+
+        If thread_id is provided, it will use that thread. If not, it will create a new thread or use the latest one.
+
+        If X-Project-ID header is provided, the thread will be associated with that project for enhanced context.
+
+        The thread ID is returned in the Thread-ID response header.'
+      parameters:
+      - name: X-Project-ID
+        in: header
+        description: Project ID for thread association
+        required: false
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: The ID of the company to access. If not provided, your default company will be used.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        description: Completion Request
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_prompt:
+                  type: string
+                  description: The user's prompt for the chat completion
+                stream:
+                  type: boolean
+                  description: Whether to stream the response
+                  default: false
+                thread_id:
+                  type: string
+                  description: Optional thread ID to continue an existing conversation
+              required:
+              - user_prompt
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+            text/event-stream:
+              schema:
+                type: string
+        '400':
+          description: Invalid request
+        '404':
+          description: Thread not found
+        '500':
+          description: Failed to get completion
+      security:
+      - apikey: []
+  /v3/mira/responses:
+    post:
+      tags:
+      - Mira API
+      summary: Chat responses endpoint
+      description: 'Processes chat responses requests with multiple input messages and returns responses in streaming or non-streaming mode.
+
+        If Thread-ID header is provided, uses the existing thread; otherwise creates a new thread with all messages and passes only the last user message to Mira.
+
+        The thread ID is returned in the Thread-ID response header.'
+      parameters:
+      - name: Thread-ID
+        in: header
+        description: Optional thread ID. If provided, uses the existing thread; otherwise creates a new thread
+        required: false
+        schema:
+          type: string
+      - name: Project-ID
+        in: header
+        description: Optional project ID for enhanced context
+        required: false
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: The ID of the company to access. If not provided, your default company will be used.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        description: Response Request
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: array
+                  description: Array of input messages
+                  items:
+                    type: object
+                    properties:
+                      role:
+                        type: string
+                        description: The role of the message sender
+                      content:
+                        type: array
+                        description: Array of content items
+                        items:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                              description: Content type
+                            text:
+                              type: string
+                              description: The actual text content
+                stream:
+                  type: boolean
+                  description: Whether to stream the response
+                  default: false
+              required:
+              - input
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+            text/event-stream:
+              schema:
+                type: string
+        '400':
+          description: Invalid request
+        '500':
+          description: Failed to get response
+      security:
+      - apikey: []
+  /v3/mira/projects:
+    get:
+      tags:
+      - Mira API
+      summary: List available projects
+      description: Retrieve all projects available to the authenticated user with pagination support
+      parameters:
+      - name: page
+        in: query
+        description: 'Page number (default: 1, min: 1)'
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: page_size
+        in: query
+        description: 'Items per page (default: 10, min: 1, max: 100)'
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+      - name: sort
+        in: query
+        description: 'Sort order: asc or desc (default: desc)'
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+      - name: company_id
+        in: query
+        description: The ID of the company to access. If not provided, your default company will be used.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved projects with pagination
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique project identifier
+                        name:
+                          type: string
+                          description: Human-readable project name
+                        share_level:
+                          type: string
+                          description: Access level
+                        created_at:
+                          type: string
+                          format: date-time
+                          description: ISO 8601 timestamp of project creation
+                        updated_at:
+                          type: string
+                          format: date-time
+                          description: ISO 8601 timestamp of last project update
+                  pagination:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                      page_size:
+                        type: integer
+                      total_items:
+                        type: integer
+                      total_pages:
+                        type: integer
+        '400':
+          description: Invalid query parameters
+        '500':
+          description: Failed to get projects
+      security:
+      - apikey: []
+components:
+  securitySchemes:
+    apikey:
+      type: apiKey
+      name: apikey
+      in: header
+x-tagGroups:
+- name: Listening
+  tags:
+  - Listening Exports
+  - Listening Search
+  - Listening Analytics
+  - Listening Streaming
+  - Listening Search Management
+- name: Explore+
+  tags:
+  - Explore+ Search
+  - Explore+ Analytics
+  - Explore+ Assets
+- name: Social Analytics
+  tags:
+  - Owned Analytics
+- name: Mira API
+  tags:
+  - Mira API
+- name: Account
+  tags:
+  - Account Management
+- name: Bring Your Own Content
+  tags:
+  - Bring Your Own Content (BYOC)

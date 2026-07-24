@@ -1,0 +1,2342 @@
+openapi: 3.0.3
+info:
+  title: Meltwater Account Management Explore+ Assets API
+  description: The Meltwater Public API
+  contact:
+    name: Meltwater Support
+    url: https://developer.meltwater.com/
+    email: support@api.meltwater.com
+  version: '1.0'
+servers:
+- url: https://api.meltwater.com
+security:
+- apikey: []
+tags:
+- name: Explore+ Assets
+  description: Manage your Explore+ assets including searches and custom fields.
+  parent: Explore+
+paths:
+  /v3/explore_plus/assets/custom_fields:
+    get:
+      tags:
+      - Explore+ Assets
+      summary: List all custom fields.
+      description: List all custom fields.
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+          default: 1
+      - name: page_size
+        in: query
+        description: 'The number of custom fields to return per request. Min: 1, Max: 100'
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 10
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/custom_fields.MultiCustomFieldsResponse'
+              examples:
+                List Custom Fields:
+                  summary: List Custom Fields
+                  value:
+                    page: 1
+                    page_size: 10
+                    total: 2
+                    custom_fields:
+                    - id: 1234
+                      folder_id: 12
+                      name: My Custom Field
+                      description: my first custom field
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      type: multi_value
+                    - id: 5678
+                      folder_id: null
+                      name: My Custom Field Tag
+                      description: my second custom field
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      type: tag
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+    post:
+      tags:
+      - Explore+ Assets
+      summary: Create a new custom field.
+      description: Create a new custom field.
+      parameters:
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      requestBody:
+        description: Custom Field
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/custom_fields.CreateCustomFieldRequestInput'
+            examples:
+              Create Tag Custom Field:
+                summary: Create a Custom Field Tag
+                value:
+                  custom_field:
+                    name: My Custom Field
+                    description: my new custom field
+                    type: tag
+              Create Multi-Value Custom Field:
+                summary: Create a Multi-Value Custom Field
+                value:
+                  custom_field:
+                    name: My Custom Field
+                    description: my new custom field
+                    folder_id: 123
+                    type: multi_value
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/custom_fields.SingleCustomFieldResponse'
+              examples:
+                Create Tag Custom Field:
+                  summary: Create a Custom Field Tag
+                  value:
+                    custom_field:
+                      name: My Custom Field
+                      description: my new custom field
+                      folder_id: null
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      type: tag
+                      values:
+                      - id: 456
+                        name: my custom field value
+                        color: '#FFFFFF'
+                        created: '2025-01-01T00:00:00Z'
+                        updated: '2025-01-01T00:00:00Z'
+                        num_rules: 0
+                Create Multi-Value Custom Field:
+                  summary: Create a Multi-Value Custom Field
+                  value:
+                    custom_field:
+                      name: My Custom Field
+                      description: my new custom field
+                      folder_id: 123
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      type: multi_value
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+  /v3/explore_plus/assets/custom_fields/{custom_field_id}:
+    get:
+      tags:
+      - Explore+ Assets
+      summary: Fetch a given custom field.
+      description: Fetch a given custom field.
+      parameters:
+      - name: custom_field_id
+        in: path
+        description: Custom Field ID
+        required: true
+        schema:
+          type: integer
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/custom_fields.SingleCustomFieldResponse'
+              examples:
+                Get Tag Custom Field:
+                  summary: Get a Custom Field Tag
+                  value:
+                    custom_field:
+                      name: My Custom Field
+                      description: my new custom field
+                      folder_id: null
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      type: tag
+                      values:
+                      - id: 456
+                        name: my custom field value
+                        color: '#FFFFFF'
+                        created: '2025-01-01T00:00:00Z'
+                        updated: '2025-01-01T00:00:00Z'
+                        num_rules: 0
+                Get Multi-Value Custom Field:
+                  summary: Get a Multi-Value Custom Field
+                  value:
+                    custom_field:
+                      name: My Custom Field
+                      description: my new custom field
+                      folder_id: 123
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      type: multi_value
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+    put:
+      tags:
+      - Explore+ Assets
+      summary: Update a given custom field.
+      description: Update a given custom field.
+      parameters:
+      - name: custom_field_id
+        in: path
+        description: Custom Field ID
+        required: true
+        schema:
+          type: integer
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      requestBody:
+        description: Custom Field
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/custom_fields.UpdateCustomFieldRequestInput'
+            examples:
+              Update Tag Custom Field:
+                summary: Update a Custom Field Tag
+                value:
+                  custom_field:
+                    name: My Custom Field
+                    description: my new custom field
+                    type: tag
+              Update Multi-Value Custom Field:
+                summary: Update a Multi-Value Custom Field
+                value:
+                  custom_field:
+                    name: My Custom Field
+                    description: my new custom field
+                    folder_id: 123
+                    type: multi_value
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/custom_fields.SingleCustomFieldResponse'
+              examples:
+                Update Tag Custom Field:
+                  summary: Update a Custom Field Tag
+                  value:
+                    custom_field:
+                      name: My Custom Field
+                      description: my new custom field
+                      folder_id: null
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      type: tag
+                      values:
+                      - id: 456
+                        name: my custom field value
+                        color: '#FFFFFF'
+                        created: '2025-01-01T00:00:00Z'
+                        updated: '2025-01-01T00:00:00Z'
+                        num_rules: 0
+                Update Multi-Value Custom Field:
+                  summary: Update a Multi-Value Custom Field
+                  value:
+                    custom_field:
+                      name: My Custom Field
+                      description: my new custom field
+                      folder_id: 123
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      type: multi_value
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+    delete:
+      tags:
+      - Explore+ Assets
+      summary: Delete a given custom field.
+      description: Delete a given custom field.
+      parameters:
+      - name: custom_field_id
+        in: path
+        description: Custom Field ID
+        required: true
+        schema:
+          type: integer
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+  /v3/explore_plus/assets/custom_fields/{custom_field_id}/values:
+    post:
+      tags:
+      - Explore+ Assets
+      summary: Create a new custom field value.
+      description: Create a new custom field value.
+      parameters:
+      - name: custom_field_id
+        in: path
+        description: Custom Field ID
+        required: true
+        schema:
+          type: integer
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      requestBody:
+        description: Custom Field Value
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/custom_field_values.CreateCustomFieldValueRequestInput'
+            examples:
+              Create Custom Field Value:
+                summary: Create a Custom Field Value
+                value:
+                  custom_field_value:
+                    name: My Custom Field Value
+                    color: '#FFFFFF'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/custom_field_values.SingleCustomFieldValueResponse'
+              examples:
+                Create Custom Field Value:
+                  summary: Create a Custom Field Value
+                  value:
+                    custom_field_value:
+                      id: 123
+                      name: My Custom Field Value
+                      color: '#FFFFFF'
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+  /v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}:
+    get:
+      tags:
+      - Explore+ Assets
+      summary: Fetch a given custom field value.
+      description: Fetch a given custom field value.
+      parameters:
+      - name: custom_field_id
+        in: path
+        description: Custom Field ID
+        required: true
+        schema:
+          type: integer
+      - name: value_id
+        in: path
+        description: Custom Field Value ID
+        required: true
+        schema:
+          type: integer
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/custom_field_values.SingleCustomFieldValueResponse'
+              examples:
+                Get Custom Field Value:
+                  summary: Get a Custom Field Value
+                  value:
+                    custom_field_value:
+                      id: 123
+                      name: My Custom Field Value
+                      color: '#FFFFFF'
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      rules:
+                      - id: 456
+                        created: '2025-01-01T00:00:00Z'
+                        updated: '2025-01-01T00:00:00Z'
+                        query:
+                          case_sensitivity: 'no'
+                          all_keywords:
+                          - honda
+                          any_keywords:
+                          - mazda
+                          not_keywords:
+                          - nissan
+                          type: keyword
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+    put:
+      tags:
+      - Explore+ Assets
+      summary: Update a given custom field value.
+      description: Update a given custom field value.
+      parameters:
+      - name: custom_field_id
+        in: path
+        description: Custom Field ID
+        required: true
+        schema:
+          type: integer
+      - name: value_id
+        in: path
+        description: Custom Field Value ID
+        required: true
+        schema:
+          type: integer
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      requestBody:
+        description: Custom Field Value
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/custom_field_values.CreateCustomFieldValueRequestInput'
+            examples:
+              Update Custom Field Value:
+                summary: Update a Custom Field Value
+                value:
+                  custom_field_value:
+                    name: My Custom Field Value
+                    color: '#FFFFFF'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/custom_field_values.SingleCustomFieldValueResponse'
+              examples:
+                Update Custom Field Value:
+                  summary: Update a Custom Field Value
+                  value:
+                    custom_field_value:
+                      id: 123
+                      name: My Custom Field Value
+                      color: '#FFFFFF'
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      rules:
+                      - id: 456
+                        created: '2025-01-01T00:00:00Z'
+                        updated: '2025-01-01T00:00:00Z'
+                        query:
+                          case_sensitivity: 'no'
+                          all_keywords:
+                          - honda
+                          any_keywords:
+                          - mazda
+                          not_keywords:
+                          - nissan
+                          type: keyword
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+    delete:
+      tags:
+      - Explore+ Assets
+      summary: Delete a given custom field value.
+      description: Delete a given custom field value.
+      parameters:
+      - name: custom_field_id
+        in: path
+        description: Custom Field ID
+        required: true
+        schema:
+          type: integer
+      - name: value_id
+        in: path
+        description: Custom Field Value ID
+        required: true
+        schema:
+          type: integer
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+  /v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules:
+    post:
+      tags:
+      - Explore+ Assets
+      summary: Create a new assignment rule.
+      description: Create a new assignment rule.
+      parameters:
+      - name: custom_field_id
+        in: path
+        description: Custom Field ID
+        required: true
+        schema:
+          type: integer
+      - name: value_id
+        in: path
+        description: Custom Field Value ID
+        required: true
+        schema:
+          type: integer
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      requestBody:
+        description: Assignment Rule
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/assignment_rules.CreateAssignmentRuleRequestInput'
+            examples:
+              Create Boolean Assignment Rule:
+                summary: Create a Boolean Assignment Rule
+                value:
+                  rule:
+                    query:
+                      case_sensitivity: 'no'
+                      boolean: honda OR mazda
+                      type: boolean
+              Create Keyword Assignment Rule:
+                summary: Create a Keyword Assignment Rule
+                value:
+                  rule:
+                    query:
+                      case_sensitivity: 'no'
+                      all_keywords:
+                      - honda
+                      any_keywords:
+                      - mazda
+                      not_keywords:
+                      - nissan
+                      type: keyword
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/assignment_rules.SingleAssignmentRuleResponse'
+              examples:
+                Create Boolean Assignment Rule:
+                  summary: Create a Boolean Assignment Rule
+                  value:
+                    rule:
+                      id: 456
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        case_sensitivity: 'no'
+                        boolean: honda OR mazda
+                        type: boolean
+                Create Keyword Assignment Rule:
+                  summary: Create a Keyword Assignment Rule
+                  value:
+                    rule:
+                      id: 456
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        case_sensitivity: 'no'
+                        all_keywords:
+                        - honda
+                        any_keywords:
+                        - mazda
+                        not_keywords:
+                        - nissan
+                        type: keyword
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+  /v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules/{rule_id}:
+    get:
+      tags:
+      - Explore+ Assets
+      summary: Fetch a given assignment rule.
+      description: Fetch a given assignment rule.
+      parameters:
+      - name: custom_field_id
+        in: path
+        description: Custom Field ID
+        required: true
+        schema:
+          type: integer
+      - name: value_id
+        in: path
+        description: Custom Field Value ID
+        required: true
+        schema:
+          type: integer
+      - name: rule_id
+        in: path
+        description: Assignment Rule ID
+        required: true
+        schema:
+          type: integer
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/assignment_rules.SingleAssignmentRuleResponse'
+              examples:
+                Get Boolean Assignment Rule:
+                  summary: Get a Boolean Assignment Rule
+                  value:
+                    rule:
+                      id: 456
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        case_sensitivity: 'no'
+                        boolean: honda OR mazda
+                        type: boolean
+                Get Keyword Assignment Rule:
+                  summary: Get a Keyword Assignment Rule
+                  value:
+                    rule:
+                      id: 456
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        case_sensitivity: 'no'
+                        all_keywords:
+                        - honda
+                        any_keywords:
+                        - mazda
+                        not_keywords:
+                        - nissan
+                        type: keyword
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+    put:
+      tags:
+      - Explore+ Assets
+      summary: Update a given assignment rule.
+      description: Update a given assignment rule.
+      parameters:
+      - name: custom_field_id
+        in: path
+        description: Custom Field ID
+        required: true
+        schema:
+          type: integer
+      - name: value_id
+        in: path
+        description: Custom Field Value ID
+        required: true
+        schema:
+          type: integer
+      - name: rule_id
+        in: path
+        description: Assignment Rule ID
+        required: true
+        schema:
+          type: integer
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      requestBody:
+        description: Assignment Rule
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/assignment_rules.CreateAssignmentRuleRequestInput'
+            examples:
+              Update Boolean Assignment Rule:
+                summary: Update a Boolean Assignment Rule
+                value:
+                  rule:
+                    query:
+                      case_sensitivity: 'no'
+                      boolean: honda OR mazda
+                      type: boolean
+              Update Keyword Assignment Rule:
+                summary: Update a Keyword Assignment Rule
+                value:
+                  rule:
+                    query:
+                      case_sensitivity: 'no'
+                      all_keywords:
+                      - honda
+                      any_keywords:
+                      - mazda
+                      not_keywords:
+                      - nissan
+                      type: keyword
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/assignment_rules.SingleAssignmentRuleResponse'
+              examples:
+                Update Boolean Assignment Rule:
+                  summary: Update a Boolean Assignment Rule
+                  value:
+                    rule:
+                      id: 456
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        case_sensitivity: 'no'
+                        boolean: honda OR mazda
+                        type: boolean
+                Update Keyword Assignment Rule:
+                  summary: Update a Keyword Assignment Rule
+                  value:
+                    rule:
+                      id: 456
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        case_sensitivity: 'no'
+                        all_keywords:
+                        - honda
+                        any_keywords:
+                        - mazda
+                        not_keywords:
+                        - nissan
+                        type: keyword
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+    delete:
+      tags:
+      - Explore+ Assets
+      summary: Delete a given assignment rule.
+      description: Delete a given assignment rule.
+      parameters:
+      - name: custom_field_id
+        in: path
+        description: Custom Field ID
+        required: true
+        schema:
+          type: integer
+      - name: value_id
+        in: path
+        description: Custom Field Value ID
+        required: true
+        schema:
+          type: integer
+      - name: rule_id
+        in: path
+        description: Assignment Rule ID
+        required: true
+        schema:
+          type: integer
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+  /v3/explore_plus/assets/custom_fields/folders:
+    get:
+      tags:
+      - Explore+ Assets
+      summary: List all custom field folders.
+      description: List all custom field folders.
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+          default: 1
+      - name: page_size
+        in: query
+        description: 'The number of custom field folders to return per request. Min: 1, Max: 100'
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 10
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/custom_fields.CustomFieldFoldersResponse'
+              examples:
+                Get Custom Field Folders:
+                  summary: Get Custom Field Folders
+                  value:
+                    page: 1
+                    page_size: 10
+                    total: 1
+                    folders:
+                    - id: 123
+                      name: My Folder
+                      num_custom_fields: 1
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+  /v3/explore_plus/assets/searches:
+    get:
+      tags:
+      - Explore+ Assets
+      summary: List all searches.
+      description: List all searches.
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+          default: 1
+      - name: page_size
+        in: query
+        description: 'The number of searches to return per request. Min: 1, Max: 100'
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 10
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      - name: folder_id
+        description: Set the folder to search by
+        in: query
+        schema:
+          type: string
+      - name: show_hidden
+        description: Set to true to include searches within hidden folders
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searches.MultiSearchResponse'
+              examples:
+                List Searches:
+                  summary: List Searches
+                  value:
+                    page: 1
+                    page_size: 10
+                    total: 1
+                    searches:
+                    - id: 123
+                      folder_id: null
+                      name: My Search
+                      description: my first search
+                      color: '#FFFFFF'
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        case_sensitivity: 'yes'
+                        boolean: honda OR mazda
+                        type: boolean
+                      data_collection: false
+                      data_collection_updated: '2025-01-01T00:00:00Z'
+                      hidden: false
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+    post:
+      tags:
+      - Explore+ Assets
+      summary: Create a new search.
+      description: Create a new search.
+      parameters:
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      requestBody:
+        description: Search
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/searches.CreateSearchRequestInput'
+            examples:
+              Create Boolean Search:
+                summary: Create a Boolean Search
+                value:
+                  search:
+                    folder_id: null
+                    name: My Search
+                    description: my first search
+                    color: '#FFFFFF'
+                    query:
+                      case_sensitivity: 'yes'
+                      boolean: honda OR mazda
+                      type: boolean
+                    data_collection: false
+              Create Keyword Search:
+                summary: Create a Keyword Search
+                value:
+                  search:
+                    folder_id: null
+                    name: My Search
+                    description: my first search
+                    color: '#FFFFFF'
+                    query:
+                      case_sensitivity: 'yes'
+                      all_keywords:
+                      - honda
+                      any_keywords:
+                      - mazda
+                      not_keywords:
+                      - nissan
+                      type: keyword
+                    data_collection: false
+              Create Combined Search:
+                summary: Create a Combined Search
+                value:
+                  search:
+                    folder_id: 123
+                    name: My Search
+                    description: my first search
+                    color: '#FFFFFF'
+                    query:
+                      all_searches:
+                      - id: 123
+                        type: SEARCH
+                      any_searches:
+                      - id: 456
+                        type: SEARCH
+                      not_searches:
+                      - id: 789
+                        type: SEARCH
+                      type: combined
+                    data_collection: false
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searches.SingleSearchResponse'
+              examples:
+                Create Boolean Search:
+                  summary: Create a Boolean Search
+                  value:
+                    search:
+                      id: 123
+                      folder_id: null
+                      name: My Search
+                      description: my first search
+                      color: '#FFFFFF'
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        case_sensitivity: 'yes'
+                        boolean: honda OR mazda
+                        type: boolean
+                      data_collection: false
+                      data_collection_updated: '2025-01-01T00:00:00Z'
+                      hidden: false
+                Create Keyword Search:
+                  summary: Create a Keyword Search
+                  value:
+                    search:
+                      id: 123
+                      folder_id: null
+                      name: My Search
+                      description: my first search
+                      color: '#FFFFFF'
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        case_sensitivity: 'yes'
+                        all_keywords:
+                        - honda
+                        any_keywords:
+                        - mazda
+                        not_keywords:
+                        - nissan
+                        type: keyword
+                      data_collection: false
+                      data_collection_updated: '2025-01-01T00:00:00Z'
+                      hidden: false
+                Create Combined Search:
+                  summary: Create a Combined Search
+                  value:
+                    search:
+                      id: 123
+                      folder_id: 123
+                      name: My Search
+                      description: my first search
+                      color: '#FFFFFF'
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        all_searches:
+                        - id: 123
+                          type: SEARCH
+                        any_searches:
+                        - id: 456
+                          type: SEARCH
+                        not_searches:
+                        - id: 789
+                          type: SEARCH
+                        type: combined
+                      data_collection: false
+                      data_collection_updated: '2025-01-01T00:00:00Z'
+                      hidden: false
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+  /v3/explore_plus/assets/searches/{search_id}:
+    get:
+      tags:
+      - Explore+ Assets
+      summary: Fetch a given search.
+      description: Fetch a given search.
+      parameters:
+      - name: search_id
+        in: path
+        description: Search ID
+        required: true
+        schema:
+          type: integer
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searches.SingleSearchResponse'
+              examples:
+                Get Boolean Search:
+                  summary: Get a Boolean Search
+                  value:
+                    search:
+                      id: 123
+                      folder_id: null
+                      name: My Search
+                      description: my first search
+                      color: '#FFFFFF'
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        case_sensitivity: 'yes'
+                        boolean: honda OR mazda
+                        type: boolean
+                      data_collection: false
+                      data_collection_updated: '2025-01-01T00:00:00Z'
+                      hidden: false
+                Get Keyword Search:
+                  summary: Get a Keyword Search
+                  value:
+                    search:
+                      id: 123
+                      folder_id: null
+                      name: My Search
+                      description: my first search
+                      color: '#FFFFFF'
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        case_sensitivity: 'yes'
+                        all_keywords:
+                        - honda
+                        any_keywords:
+                        - mazda
+                        not_keywords:
+                        - nissan
+                        type: keyword
+                      data_collection: false
+                      data_collection_updated: '2025-01-01T00:00:00Z'
+                      hidden: false
+                Get Combined Search:
+                  summary: Get a Combined Search
+                  value:
+                    search:
+                      id: 123
+                      folder_id: 123
+                      name: My Search
+                      description: my first search
+                      color: '#FFFFFF'
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        all_searches:
+                        - id: 123
+                          type: SEARCH
+                        any_searches:
+                        - id: 456
+                          type: SEARCH
+                        not_searches:
+                        - id: 789
+                          type: SEARCH
+                        type: combined
+                      data_collection: false
+                      data_collection_updated: '2025-01-01T00:00:00Z'
+                      hidden: false
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+    put:
+      tags:
+      - Explore+ Assets
+      summary: Update a given search.
+      description: Update a given search.
+      parameters:
+      - name: search_id
+        in: path
+        description: Search ID
+        required: true
+        schema:
+          type: integer
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      requestBody:
+        description: Search
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/searches.CreateSearchRequestInput'
+            examples:
+              Update Boolean Search:
+                summary: Update a Boolean Search
+                value:
+                  search:
+                    folder_id: null
+                    name: My Search
+                    description: my first search
+                    color: '#FFFFFF'
+                    query:
+                      case_sensitivity: 'yes'
+                      boolean: honda OR mazda
+                      type: boolean
+                    data_collection: false
+              Update Keyword Search:
+                summary: Update a Keyword Search
+                value:
+                  search:
+                    folder_id: null
+                    name: My Search
+                    description: my first search
+                    color: '#FFFFFF'
+                    query:
+                      case_sensitivity: 'yes'
+                      all_keywords:
+                      - honda
+                      any_keywords:
+                      - mazda
+                      not_keywords:
+                      - nissan
+                      type: keyword
+                    data_collection: false
+              Update Combined Search:
+                summary: Update a Combined Search
+                value:
+                  search:
+                    folder_id: 123
+                    name: My Search
+                    description: my first search
+                    color: '#FFFFFF'
+                    query:
+                      all_searches:
+                      - id: 123
+                        type: SEARCH
+                      any_searches:
+                      - id: 456
+                        type: SEARCH
+                      not_searches:
+                      - id: 789
+                        type: SEARCH
+                      type: combined
+                    data_collection: false
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searches.SingleSearchResponse'
+              examples:
+                Update Boolean Search:
+                  summary: Update a Boolean Search
+                  value:
+                    search:
+                      id: 123
+                      folder_id: null
+                      name: My Search
+                      description: my first search
+                      color: '#FFFFFF'
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        case_sensitivity: 'yes'
+                        boolean: honda OR mazda
+                        type: boolean
+                      data_collection: false
+                      data_collection_updated: '2025-01-01T00:00:00Z'
+                      hidden: false
+                Update Keyword Search:
+                  summary: Update a Keyword Search
+                  value:
+                    search:
+                      id: 123
+                      folder_id: null
+                      name: My Search
+                      description: my first search
+                      color: '#FFFFFF'
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        case_sensitivity: 'yes'
+                        all_keywords:
+                        - honda
+                        any_keywords:
+                        - mazda
+                        not_keywords:
+                        - nissan
+                        type: keyword
+                      data_collection: false
+                      data_collection_updated: '2025-01-01T00:00:00Z'
+                      hidden: false
+                Update Combined Search:
+                  summary: Update a Combined Search
+                  value:
+                    search:
+                      id: 123
+                      folder_id: 123
+                      name: My Search
+                      description: my first search
+                      color: '#FFFFFF'
+                      created: '2025-01-01T00:00:00Z'
+                      updated: '2025-01-01T00:00:00Z'
+                      query:
+                        all_searches:
+                        - id: 123
+                          type: SEARCH
+                        any_searches:
+                        - id: 456
+                          type: SEARCH
+                        not_searches:
+                        - id: 789
+                          type: SEARCH
+                        type: combined
+                      data_collection: false
+                      data_collection_updated: '2025-01-01T00:00:00Z'
+                      hidden: false
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+    delete:
+      tags:
+      - Explore+ Assets
+      summary: Delete a given search.
+      description: Delete a given search.
+      parameters:
+      - name: search_id
+        in: path
+        description: Search ID
+        required: true
+        schema:
+          type: integer
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+  /v3/explore_plus/assets/searches/folders:
+    get:
+      tags:
+      - Explore+ Assets
+      summary: List all search folders.
+      description: List all search folders.
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+          default: 1
+      - name: page_size
+        in: query
+        description: 'The number of folders to return per request. Min: 1, Max: 100'
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 10
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      - name: show_hidden
+        description: Set to true to include searches within hidden folders
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/searches.SearchFoldersResponse'
+              examples:
+                List Search Folders:
+                  summary: List Search Folders
+                  value:
+                    page: 1
+                    page_size: 10
+                    total: 2
+                    folders:
+                    - id: 123
+                      name: My Search Folder
+                      color: '#FFFFFF'
+                      updated: '2025-01-01T00:00:00Z'
+                      num_searches: 1
+                      parent: null
+                      hidden: false
+                    - id: 456
+                      name: My Second Search Folder
+                      color: '#FFFFFF'
+                      updated: '2025-01-01T00:00:00Z'
+                      num_searches: 1
+                      parent: 123
+                      hidden: false
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
+      security:
+      - apikey: []
+components:
+  schemas:
+    assignment_rules.RuleQueryInput:
+      required:
+      - case_sensitivity
+      - type
+      type: object
+      properties:
+        all_keywords:
+          type: array
+          example:
+          - car
+          items:
+            type: string
+        any_keywords:
+          type: array
+          example:
+          - boat
+          items:
+            type: string
+        boolean:
+          type: string
+          example: this is a boolean
+        case_sensitivity:
+          type: string
+          example: 'yes'
+          enum:
+          - 'yes'
+          - 'no'
+          - hybrid
+        not_keywords:
+          type: array
+          example:
+          - plane
+          items:
+            type: string
+        type:
+          type: string
+          example: boolean
+          enum:
+          - keyword
+          - boolean
+    searches.CreateSearch:
+      required:
+      - name
+      type: object
+      properties:
+        color:
+          type: string
+          example: '#ffffff'
+        data_collection:
+          type: boolean
+          example: true
+        description:
+          type: string
+          example: this is an example of a description
+        folder_id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my search
+        query:
+          $ref: '#/components/schemas/explore_plus.QueryInput'
+    assignment_rules.AssignmentRuleInput:
+      type: object
+      properties:
+        query:
+          $ref: '#/components/schemas/assignment_rules.RuleQueryInput'
+    custom_fields.CustomFieldOutput:
+      type: object
+      properties:
+        created:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        description:
+          type: string
+          example: this is an example of a description
+        folder_id:
+          type: integer
+          example: 2
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my custom field
+        type:
+          type: string
+          example: boolean
+        updated:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/custom_field_values.CustomFieldValueOutput'
+    custom_fields.CustomFieldFolderOutput:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my custom field folder
+        num_custom_fields:
+          type: integer
+          example: 1
+    custom_fields.UpdateCustomField:
+      required:
+      - description
+      - name
+      type: object
+      properties:
+        description:
+          type: string
+          example: this is an example of a description
+        folder_id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my custom field
+    assignment_rules.CreateAssignmentRuleRequestInput:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/assignment_rules.AssignmentRuleInput'
+    custom_fields.CustomFieldFoldersResponse:
+      type: object
+      properties:
+        folders:
+          type: array
+          items:
+            $ref: '#/components/schemas/custom_fields.CustomFieldFolderOutput'
+        page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 20
+    searches.SearchFolderOutput:
+      type: object
+      properties:
+        color:
+          type: string
+          example: '#ffffff'
+        created:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my search folder
+        num_searches:
+          type: integer
+          example: 2
+        parent:
+          type: integer
+          example: 1
+        updated:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        hidden:
+          type: boolean
+          example: false
+    searches.SearchOutput:
+      type: object
+      properties:
+        color:
+          type: string
+          example: '#ffffff'
+        created:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        data_collection:
+          type: boolean
+          example: false
+        data_collection_updated:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        description:
+          type: string
+          example: this is an example of a description
+        folder_id:
+          type: integer
+          example: 2
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my search
+        query:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            boolean: this is a boolean
+            type: boolean
+        updated:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        hidden:
+          type: boolean
+          example: false
+    assignment_rules.SingleAssignmentRuleResponse:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/assignment_rules.AssignmentRuleOutput'
+    explore_plus.CombinedInput:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 123456
+        type:
+          type: string
+          example: SEARCH
+    assignment_rules.AssignmentRuleOutput:
+      type: object
+      properties:
+        created:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        id:
+          type: integer
+          example: 1
+        query:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            boolean: this is a boolean
+            type: boolean
+        updated:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+    custom_fields.CreateCustomField:
+      required:
+      - name
+      - type
+      type: object
+      properties:
+        description:
+          type: string
+          example: this is an example of a description
+        folder_id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my custom field
+        type:
+          type: string
+          example: tag
+          enum:
+          - tag
+          - multi_value
+    controllers.ExplorePlusAPIError:
+      type: object
+      properties:
+        message:
+          type: string
+    searches.SearchFoldersResponse:
+      type: object
+      properties:
+        folders:
+          type: array
+          items:
+            $ref: '#/components/schemas/searches.SearchFolderOutput'
+        page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 20
+    searches.MultiSearchResponse:
+      type: object
+      properties:
+        page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        searches:
+          type: array
+          items:
+            $ref: '#/components/schemas/searches.SearchOutput'
+        total:
+          type: integer
+          example: 20
+    custom_fields.CreateCustomFieldRequestInput:
+      type: object
+      properties:
+        custom_field:
+          $ref: '#/components/schemas/custom_fields.CreateCustomField'
+    custom_fields.SingleCustomFieldResponse:
+      type: object
+      properties:
+        custom_field:
+          $ref: '#/components/schemas/custom_fields.CustomFieldOutput'
+    custom_fields.UpdateCustomFieldRequestInput:
+      type: object
+      properties:
+        custom_field:
+          $ref: '#/components/schemas/custom_fields.UpdateCustomField'
+    searches.SingleSearchResponse:
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/searches.SearchOutput'
+    custom_field_values.SingleCustomFieldValueResponse:
+      type: object
+      properties:
+        custom_field_value:
+          $ref: '#/components/schemas/custom_field_values.CustomFieldValueOutput'
+    custom_field_values.CustomFieldValueOutput:
+      type: object
+      properties:
+        color:
+          type: string
+          example: '#ffffff'
+        created:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my custom field value
+        num_rules:
+          type: integer
+          example: 1
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/assignment_rules.AssignmentRuleOutput'
+        updated:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+    searches.CreateSearchRequestInput:
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/searches.CreateSearch'
+    controllers.ExplorePlusAPIValidationError:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        message:
+          type: string
+    custom_field_values.CreateCustomFieldValue:
+      required:
+      - name
+      type: object
+      properties:
+        color:
+          type: string
+          example: '#ffffff'
+        name:
+          type: string
+          example: my custom field value
+    explore_plus.QueryInput:
+      required:
+      - type
+      type: object
+      properties:
+        all_keywords:
+          type: array
+          example:
+          - car
+          items:
+            type: string
+        all_searches:
+          type: array
+          items:
+            $ref: '#/components/schemas/explore_plus.CombinedInput'
+        any_keywords:
+          type: array
+          example:
+          - boat
+          items:
+            type: string
+        any_searches:
+          type: array
+          items:
+            $ref: '#/components/schemas/explore_plus.CombinedInput'
+        boolean:
+          type: string
+          example: this is a boolean
+        case_sensitivity:
+          type: string
+          example: 'yes'
+        not_keywords:
+          type: array
+          example:
+          - plane
+          items:
+            type: string
+        not_searches:
+          type: array
+          items:
+            $ref: '#/components/schemas/explore_plus.CombinedInput'
+        type:
+          type: string
+          example: boolean
+          enum:
+          - keyword
+          - boolean
+          - combined
+    custom_fields.MultiCustomFieldsResponse:
+      type: object
+      properties:
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/custom_fields.CustomFieldOutput'
+        page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 20
+    custom_field_values.CreateCustomFieldValueRequestInput:
+      type: object
+      properties:
+        custom_field_value:
+          $ref: '#/components/schemas/custom_field_values.CreateCustomFieldValue'
+  securitySchemes:
+    apikey:
+      type: apiKey
+      name: apikey
+      in: header
+x-tagGroups:
+- name: Listening
+  tags:
+  - Listening Exports
+  - Listening Search
+  - Listening Analytics
+  - Listening Streaming
+  - Listening Search Management
+- name: Explore+
+  tags:
+  - Explore+ Search
+  - Explore+ Analytics
+  - Explore+ Assets
+- name: Social Analytics
+  tags:
+  - Owned Analytics
+- name: Mira API
+  tags:
+  - Mira API
+- name: Account
+  tags:
+  - Account Management
+- name: Bring Your Own Content
+  tags:
+  - Bring Your Own Content (BYOC)

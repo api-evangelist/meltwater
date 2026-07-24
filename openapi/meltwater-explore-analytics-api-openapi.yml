@@ -1,0 +1,520 @@
+openapi: 3.0.3
+info:
+  title: Meltwater Account Management Explore+ Analytics API
+  description: The Meltwater Public API
+  contact:
+    name: Meltwater Support
+    url: https://developer.meltwater.com/
+    email: support@api.meltwater.com
+  version: '1.0'
+servers:
+- url: https://api.meltwater.com
+security:
+- apikey: []
+tags:
+- name: Explore+ Analytics
+  description: Fetch analytics on data within your private index.
+  parent: Explore+
+paths:
+  /v3/explore_plus/analytics/custom:
+    post:
+      tags:
+      - Explore+ Analytics
+      summary: Analyse earned data in your private index.
+      description: Analyse earned data in your private index.
+      parameters:
+      - name: workspace_id
+        in: query
+        description: Set the workspace to search by. If accessing the company space, set to `none`
+        required: true
+        schema:
+          type: string
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      requestBody:
+        description: Analytics Parameters
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/explore_plus.CustomAnalyticsRequest'
+            examples:
+              Document Count:
+                summary: Document Count
+                value:
+                  searches:
+                    all:
+                    - 123
+                    any:
+                    - 456
+                    none:
+                    - 789
+                  start: '2025-01-01T00:00:00'
+                  end: '2025-01-01T00:00:00'
+                  tz: UTC
+                  analysis:
+                    type: document_count
+              Top Terms:
+                summary: Top Terms
+                value:
+                  searches:
+                    all:
+                    - 123
+                  filters:
+                    countries:
+                      none:
+                      - gb
+                  start: '2025-01-01T00:00:00'
+                  end: '2025-01-01T00:00:00'
+                  tz: UTC
+                  analysis:
+                    type: top_terms
+                    dimension: location
+                    limit: 1
+              Measure Statistics:
+                summary: Measure Statistics
+                value:
+                  searches:
+                    all:
+                    - 123
+                  start: '2025-01-01T00:00:00'
+                  end: '2025-01-01T00:00:00'
+                  tz: UTC
+                  analysis:
+                    type: measure_statistics
+                    measure: engagement
+              Date Histogram:
+                summary: Date Histogram
+                value:
+                  searches:
+                    all:
+                    - 123
+                  start: '2025-01-01T00:00:00'
+                  end: '2025-01-01T00:00:00'
+                  tz: UTC
+                  analysis:
+                    type: date_histogram
+                    granularity: day
+              Top Terms with Measure Statistics:
+                summary: Top Terms with Measure Statistics
+                value:
+                  searches:
+                    all:
+                    - 123
+                  filters:
+                    countries:
+                      none:
+                      - gb
+                  start: '2025-01-01T00:00:00'
+                  end: '2025-01-01T00:00:00'
+                  tz: UTC
+                  analysis:
+                    type: top_terms
+                    dimension: location
+                    limit: 1
+                    analysis:
+                      type: measure_statistics
+                      measure: engagement
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/explore_plus.CustomResponse'
+              examples:
+                Document Count:
+                  summary: Document Count
+                  value:
+                    searches:
+                      all:
+                      - 123
+                      any:
+                      - 456
+                      none:
+                      - 789
+                    start: '2025-01-01T00:00:00'
+                    end: '2025-01-01T00:00:00'
+                    tz: UTC
+                    analysis:
+                      type: document_count
+                    result:
+                      document_count: 123456
+                Top Terms:
+                  summary: Top Terms
+                  value:
+                    searches:
+                      all:
+                      - 123
+                    filters:
+                      countries:
+                        none:
+                        - gb
+                    start: '2025-01-01T00:00:00'
+                    end: '2025-01-01T00:00:00'
+                    tz: UTC
+                    analysis:
+                      type: top_terms
+                      dimension: location
+                      limit: 1
+                    result:
+                      document_count: 123456
+                      analysis:
+                      - key: US
+                        label: United States
+                        document_count: 987
+                        percentage: 12.34
+                Measure Statistics:
+                  summary: Measure Statistics
+                  value:
+                    searches:
+                      all:
+                      - 123
+                    start: '2025-01-01T00:00:00'
+                    end: '2025-01-01T00:00:00'
+                    tz: UTC
+                    analysis:
+                      type: measure_statistics
+                      measure: engagement
+                    result:
+                      document_count: 123456
+                      analysis:
+                        engagement:
+                          sum: 987654
+                Date Histogram:
+                  summary: Date Histogram
+                  value:
+                    searches:
+                      all:
+                      - 123
+                    start: '2025-01-01T00:00:00'
+                    end: '2025-01-01T00:00:00'
+                    tz: UTC
+                    analysis:
+                      type: date_histogram
+                      granularity: day
+                    result:
+                      document_count: 123456
+                      analysis:
+                      - key: '2025-01-01T00:00:00Z'
+                        document_count: 98
+                        percentage: 12.34
+                Top Terms with Measure Statistics:
+                  summary: Top Terms with Measure Statistics
+                  value:
+                    searches:
+                      all:
+                      - 123
+                    filters:
+                      countries:
+                        none:
+                        - gb
+                    start: '2025-01-01T00:00:00'
+                    end: '2025-01-01T00:00:00'
+                    tz: UTC
+                    analysis:
+                      type: top_terms
+                      dimension: location
+                      limit: 1
+                      analysis:
+                        type: measure_statistics
+                        measure: engagement
+                    result:
+                      document_count: 123456
+                      analysis:
+                      - key: US
+                        label: United States
+                        document_count: 987
+                        percentage: 12.34
+                        analysis:
+                          engagement:
+                            sum: 987
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.APIValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.APIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/controllers.APIError'
+      security:
+      - apikey: []
+  /v3/explore_plus/analytics/custom/catalog:
+    get:
+      tags:
+      - Explore+ Analytics
+      summary: Fetch available analytics options.
+      description: Fetch available analytics options.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/explore_plus.CatalogResponse'
+      security:
+      - apikey: []
+components:
+  schemas:
+    explore_plus.Filters:
+      type: object
+      properties:
+        countries:
+          $ref: '#/components/schemas/explore_plus.StringBreakdown'
+        custom_fields:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/explore_plus.IntBreakdown'
+        languages:
+          $ref: '#/components/schemas/explore_plus.StringBreakdown'
+        sentiments:
+          $ref: '#/components/schemas/explore_plus.SentimentBreakdown'
+        sources:
+          $ref: '#/components/schemas/explore_plus.StringBreakdown'
+    explore_plus.Analytic:
+      type: object
+      properties:
+        analysis:
+          $ref: '#/components/schemas/explore_plus.Analytic'
+        custom_field_id:
+          type: integer
+          example: 123
+        dimension:
+          type: string
+          example: document_count
+        granularity:
+          type: string
+          example: hour
+        limit:
+          type: integer
+          example: 10
+        measures:
+          type: array
+          example:
+          - engagement
+          items:
+            type: string
+        searches:
+          type: array
+          example:
+          - 123
+          - 456
+          items:
+            type: integer
+        type:
+          type: string
+          example: document_count
+    explore_plus.CustomAnalyticsRequest:
+      required:
+      - analysis
+      - end
+      - searches
+      - start
+      - tz
+      type: object
+      properties:
+        analysis:
+          $ref: '#/components/schemas/explore_plus.Analytic'
+        end:
+          type: string
+          example: '2021-09-28T00:00:00'
+        filters:
+          $ref: '#/components/schemas/explore_plus.Filters'
+        searches:
+          $ref: '#/components/schemas/explore_plus.IntBreakdown'
+        start:
+          type: string
+          example: '2021-09-27T00:00:00'
+        tz:
+          type: string
+          example: Europe/London
+    controllers.APIError:
+      type: object
+      properties:
+        message:
+          type: string
+    explore_plus.CustomResponse:
+      required:
+      - analysis
+      - end
+      - searches
+      - start
+      - tz
+      type: object
+      properties:
+        analysis:
+          $ref: '#/components/schemas/explore_plus.Analytic'
+        end:
+          type: string
+          example: '2021-09-28T00:00:00'
+        filters:
+          $ref: '#/components/schemas/explore_plus.Filters'
+        result:
+          $ref: '#/components/schemas/explore_plus.AnalyticResponse'
+        searches:
+          $ref: '#/components/schemas/explore_plus.IntBreakdown'
+        start:
+          type: string
+          example: '2021-09-27T00:00:00'
+        tz:
+          type: string
+          example: Europe/London
+    explore_plus.SentimentBreakdown:
+      type: object
+      properties:
+        all:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+        any:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+        none:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+    explore_plus.CatalogResponse:
+      type: object
+      properties:
+        dimensions:
+          type: array
+          example:
+          - author_age
+          - author_gender
+          items:
+            type: string
+        measures:
+          type: array
+          example:
+          - engagement
+          - estimated_views
+          items:
+            type: string
+        types:
+          type: array
+          example:
+          - document_count
+          - top_terms
+          items:
+            type: string
+    controllers.APIValidationError:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        message:
+          type: string
+    explore_plus.AnalyticResponse:
+      type: object
+      properties:
+        analysis:
+          type: array
+          items:
+            type: integer
+        document_count:
+          type: integer
+    explore_plus.StringBreakdown:
+      type: object
+      properties:
+        all:
+          type: array
+          example:
+          - abc
+          - def
+          items:
+            type: string
+        any:
+          type: array
+          example:
+          - abc
+          - def
+          items:
+            type: string
+        none:
+          type: array
+          example:
+          - abc
+          - def
+          items:
+            type: string
+    explore_plus.IntBreakdown:
+      type: object
+      properties:
+        all:
+          type: array
+          example:
+          - 123
+          - 456
+          items:
+            type: integer
+        any:
+          type: array
+          example:
+          - 123
+          - 456
+          items:
+            type: integer
+        none:
+          type: array
+          example:
+          - 123
+          - 456
+          items:
+            type: integer
+  securitySchemes:
+    apikey:
+      type: apiKey
+      name: apikey
+      in: header
+x-tagGroups:
+- name: Listening
+  tags:
+  - Listening Exports
+  - Listening Search
+  - Listening Analytics
+  - Listening Streaming
+  - Listening Search Management
+- name: Explore+
+  tags:
+  - Explore+ Search
+  - Explore+ Analytics
+  - Explore+ Assets
+- name: Social Analytics
+  tags:
+  - Owned Analytics
+- name: Mira API
+  tags:
+  - Mira API
+- name: Account
+  tags:
+  - Account Management
+- name: Bring Your Own Content
+  tags:
+  - Bring Your Own Content (BYOC)

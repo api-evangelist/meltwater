@@ -1,0 +1,1851 @@
+openapi: 3.0.3
+info:
+  title: Meltwater Account Management Listening Search Management API
+  description: The Meltwater Public API
+  contact:
+    name: Meltwater Support
+    url: https://developer.meltwater.com/
+    email: support@api.meltwater.com
+  version: '1.0'
+servers:
+- url: https://api.meltwater.com
+security:
+- apikey: []
+tags:
+- name: Listening Search Management
+  description: Manage Saved Searches
+  parent: Listening
+paths:
+  /v3/searches:
+    get:
+      tags:
+      - Listening Search Management
+      summary: Get a list of all your searches
+      operationId: list_searches
+      parameters:
+      - name: company_id
+        in: query
+        description: Company which owns the given search. If not specified your default company is used.
+        required: false
+        schema:
+          type: string
+      - name: query_type
+        in: query
+        description: Only return searches of the specified query type, if omitted searches of all query types will be returned
+        required: false
+        schema:
+          type: string
+          enum:
+          - boolean
+          - keyword
+          - combined
+      - name: expand_combined
+        in: query
+        description: For combined searches, show whether the ids belongs to a search, filter set or custom category
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: List of Searches
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchListResponse'
+              examples:
+                Search List:
+                  summary: Search listing
+                  value:
+                    searches:
+                    - updated: '2020-08-23T08:25:56Z'
+                      id: 1025
+                      name: Electric Cars
+                    - updated: '2020-08-23T08:25:56Z'
+                      id: 1027
+                      name: Pokemon
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - apikey: []
+      description: ''
+    post:
+      tags:
+      - Listening Search Management
+      summary: Create a search
+      operationId: create_search
+      parameters:
+      - name: company_id
+        in: query
+        description: Company which owns the given search. If not specified your default company is used.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        description: A single search request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SingleSearchRequest'
+            examples:
+              Boolean Search:
+                summary: Boolean Search
+                value:
+                  search:
+                    name: Boolean Search
+                    query:
+                      filter_set:
+                        id: 123
+                        type: saved
+                      case_sensitivity: 'yes'
+                      boolean: Tesla OR (Volvo NEAR electric)
+                      type: boolean
+              Keyword Search:
+                summary: Keyword Search
+                value:
+                  search:
+                    name: Keyword Search
+                    query:
+                      filter_set:
+                        id: 123
+                        type: saved
+                      case_sensitivity: hybrid
+                      not_keywords:
+                      - Vodka
+                      any_keywords:
+                      - Tesla
+                      - Volvo
+                      all_keywords:
+                      - Car
+                      type: keyword
+              Combined Search:
+                summary: Combined Search
+                value:
+                  search:
+                    name: Combined Search
+                    query:
+                      filter_set:
+                        id: 123
+                        type: saved
+                      not_searches:
+                      - 1
+                      any_searches:
+                      - 2
+                      all_searches:
+                      - 3
+                      type: combined
+        required: true
+      responses:
+        '201':
+          description: A single Search
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleSearch'
+              examples:
+                Boolean Search:
+                  summary: Boolean Search
+                  value:
+                    search:
+                      updated: '2020-08-23T08:25:56Z'
+                      id: 1025
+                      name: Electric Cars
+                      query:
+                        filter_set: null
+                        case_sensitivity: false
+                        boolean: cars AND electric
+                Keyword Search:
+                  summary: Keyword Search
+                  value:
+                    search:
+                      updated: '2020-08-23T08:25:56Z'
+                      id: 1026
+                      name: Pokemon
+                      query:
+                        filter_set:
+                          id: 123456
+                          name: my filter set
+                          subtype: custom
+                          type: saved
+                        case_sensitivity: 'no'
+                        not_keywords: []
+                        any_keywords:
+                        - Pokemon
+                        - Pokémon
+                        all_keywords: []
+                        type: keyword
+                Combined Search:
+                  summary: Combined Search
+                  value:
+                    search:
+                      updated: '2020-08-23T08:25:56.000Z'
+                      id: 1028
+                      name: Meltwater Combined
+                      query:
+                        filter_set: null
+                        case_sensitivity: false
+                        not_searches: []
+                        any_searches: []
+                        all_searches:
+                        - 1
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - apikey: []
+      description: ''
+  /v3/searches/{id}:
+    get:
+      tags:
+      - Listening Search Management
+      summary: Get an individual search
+      operationId: get_search
+      parameters:
+      - name: id
+        in: path
+        description: Search id
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: 1234
+      - name: company_id
+        in: query
+        description: Company which owns the given search. If not specified your default company is used.
+        required: false
+        schema:
+          type: string
+      - name: expand_combined
+        in: query
+        description: For combined searches, show whether the ids belongs to a search, filter set or custom category
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: A single Search
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleSearch'
+              examples:
+                Boolean Search:
+                  summary: Boolean Search with a Query
+                  value:
+                    search:
+                      updated: '2020-08-23T08:25:56Z'
+                      id: 1024
+                      name: Electric Cars
+                      query:
+                        filter_set: null
+                        case_sensitivity: 'no'
+                        boolean: Tesla OR (Volvo NEAR electric)
+                        type: boolean
+                Boolean Search with hidden Query:
+                  summary: Boolean Search with hidden Query
+                  value:
+                    search:
+                      updated: '2020-08-23T08:25:56Z'
+                      id: 1025
+                      name: Electric Cars
+                Keyword Search:
+                  summary: Keyword Search with a Query
+                  value:
+                    search:
+                      updated: '2020-08-23T08:25:56Z'
+                      id: 1026
+                      name: Pokemon
+                      query:
+                        filter_set:
+                          id: 123456
+                          name: my filter set
+                          subtype: custom
+                          type: saved
+                        case_sensitivity: 'no'
+                        not_keywords: []
+                        any_keywords:
+                        - Pokemon
+                        - Pokémon
+                        all_keywords: []
+                        type: keyword
+                Keyword Search No Query:
+                  summary: Keyword Search with hidden Query
+                  value:
+                    search:
+                      updated: '2020-08-23T08:25:56Z'
+                      id: 1027
+                      name: Pokemon
+                Combined Search:
+                  summary: Combined Search with a Query
+                  value:
+                    search:
+                      updated: '2020-08-23T08:25:56.000Z'
+                      id: 1028
+                      name: Meltwater Combined
+                      query:
+                        filter_set: null
+                        case_sensitivity: false
+                        not_searches: []
+                        any_searches: []
+                        all_searches:
+                        - 1
+                Combined Search No Query:
+                  summary: Combined Search with hidden Query
+                  value:
+                    search:
+                      updated: '2020-03-25T00:00:00Z'
+                      id: 1028
+                      name: Meltwater Combined
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - apikey: []
+      description: ''
+    put:
+      tags:
+      - Listening Search Management
+      summary: Update an individual search
+      operationId: update_search
+      parameters:
+      - name: id
+        in: path
+        description: Search id
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: 1234
+      - name: company_id
+        in: query
+        description: Company which owns the given search. If not specified your default company is used.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        description: A single search request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SingleSearchRequest'
+            examples:
+              Keyword Search:
+                summary: Keyword Search
+                value:
+                  search:
+                    name: Keyword Search
+                    query:
+                      filter_set: null
+                      case_sensitivity: false
+                      not_keywords:
+                      - Tesla
+                      any_keywords:
+                      - Twitter
+                      all_keywords:
+                      - Musk
+                      type: keyword
+              Boolean Search:
+                summary: Boolean Search
+                value:
+                  search:
+                    name: Boolean Search
+                    query:
+                      filter_set:
+                        id: 123456
+                        name: my filter set
+                        subtype: custom
+                        type: saved
+                      case_sensitivity: 'yes'
+                      boolean: Tesla OR (Volvo NEAR electric)
+                      type: boolean
+              Combined Search:
+                summary: Combined Search
+                value:
+                  search:
+                    name: Combined Search
+                    query:
+                      filter_set:
+                        id: 123
+                        type: saved
+                      not_searches:
+                      - 1
+                      any_searches:
+                      - 2
+                      all_searches:
+                      - 3
+                      type: combined
+        required: true
+      responses:
+        '200':
+          description: A single Search
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleSearch'
+              examples:
+                Boolean Search:
+                  summary: Boolean Search
+                  value:
+                    search:
+                      updated: '2020-08-23T08:25:56Z'
+                      id: 1025
+                      name: Electric Cars
+                      query:
+                        filter_set: null
+                        case_sensitivity: false
+                        boolean: cars AND electric
+                Keyword Search:
+                  summary: Keyword Search
+                  value:
+                    search:
+                      updated: '2020-08-23T08:25:56Z'
+                      id: 1026
+                      name: Pokemon
+                      query:
+                        filter_set:
+                          id: 123456
+                          name: my filter set
+                          subtype: custom
+                          type: saved
+                        case_sensitivity: 'no'
+                        not_keywords: []
+                        any_keywords:
+                        - Pokemon
+                        - Pokémon
+                        all_keywords: []
+                        type: keyword
+                Combined Search:
+                  summary: Combined Search
+                  value:
+                    search:
+                      updated: '2020-08-23T08:25:56.000Z'
+                      id: 1028
+                      name: Meltwater Combined
+                      query:
+                        filter_set: null
+                        case_sensitivity: false
+                        not_searches: []
+                        any_searches: []
+                        all_searches:
+                        - 1
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - apikey: []
+      description: ''
+    delete:
+      tags:
+      - Listening Search Management
+      summary: Delete an individual search
+      operationId: delete_search
+      parameters:
+      - name: id
+        in: path
+        description: Search id
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: 1234
+      - name: company_id
+        in: query
+        description: Company which owns the given search. If not specified your default company is used.
+        required: false
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MissingResourceResponse'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InvalidPermissionsResponse'
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UnprocessableEntityCompanyId'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponse'
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceUnavailable'
+      security:
+      - apikey: []
+      description: ''
+  /v3/searches/{id}/count:
+    get:
+      tags:
+      - Listening Search Management
+      summary: Get an approximate count of results for the search over a particular period
+      operationId: search_count
+      parameters:
+      - name: id
+        in: path
+        description: Search id
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: 1234
+      - name: company_id
+        in: query
+        description: Company which owns the given search. If not specified your default company is used.
+        required: false
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        description: 'The start date of the search to count result for. Default: `two weeks ago` in ISO8601 format.'
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: end_date
+        in: query
+        description: 'The end date of the search to count result for. Default: `now` in ISO8601 format.'
+        required: false
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: Search Count
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchCountResponse'
+              example:
+                count:
+                  total: 901382
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - apikey: []
+      description: ''
+  /v3/tags:
+    get:
+      tags:
+      - Listening Search Management
+      summary: Get a list of all your tags
+      operationId: list_tags
+      parameters:
+      - name: company_id
+        in: query
+        description: Company which owns the given tags. If not specified your default company is used.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of Tags
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagList'
+              example:
+                tags:
+                - id: 123456
+                  name: my tag
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - apikey: []
+      description: ''
+    post:
+      tags:
+      - Listening Search Management
+      summary: Create a new tag
+      description: Create a new tag for tagging documents. Tag names must be unique and a maximum of 128 characters.
+      parameters:
+      - name: company_id
+        in: query
+        description: Company which will own the new tag. If not specified, your default company is used.
+        schema:
+          type: string
+      requestBody:
+        description: Tag
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTagRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTagResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - apikey: []
+  /v3/tags/{tag_id}:
+    delete:
+      tags:
+      - Listening Search Management
+      summary: Delete an existing tag.
+      description: Deletes a given tag. Any documents that possess this tag will have it removed following tag deletion.
+      parameters:
+      - name: tag_id
+        in: path
+        description: Tag ID
+        required: true
+        schema:
+          type: integer
+      - name: company_id
+        in: query
+        description: Company which owns the tag to be deleted. If not specified, your default company is used.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+          content: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - apikey: []
+  /v3/documents/add_tags:
+    post:
+      tags:
+      - Listening Search Management
+      summary: Add tags to documents
+      operationId: add_tags
+      description: Triggers a request to add a list of specified tags to a given set of documents. This is an asynchronous operation.
+      parameters:
+      - name: company_id
+        in: query
+        description: Set the company where the change will be applied
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: 'This body must contain two fields: `document_ids`, an array of strings representing the IDs of the documents from which tags should be added, and `tags`, an array of objects where each object has an id (integer) or name (string) representing the tags to be added. Each document in `document_ids` will have the specified `tags` added.'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentTagsPayload'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MWAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MWAPIError'
+      security:
+      - JWT: []
+  /v3/documents/remove_tags:
+    post:
+      tags:
+      - Listening Search Management
+      summary: Remove tags from documents
+      operationId: remove_tags
+      description: Triggers a request to remove a list of specified tags from a given set of documents. This is an asynchronous operation.
+      parameters:
+      - name: company_id
+        in: query
+        description: Set the company where the change will be applied
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: 'This body must contain two fields: `document_ids`, an array of strings representing the IDs of the documents from which tags should be removed, and `tags`, an array of objects where each object has an id (integer) or name (string) representing the tags to be removed. Each document in `document_ids` will have the specified `tags` removed.'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentTagsPayload'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MWAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MWAPIError'
+      security:
+      - JWT: []
+  /v3/filter_sets:
+    get:
+      tags:
+      - Listening Search Management
+      summary: Get a list of all search filter sets
+      operationId: list_filter_sets
+      parameters:
+      - name: company_id
+        in: query
+        description: Company which owns the given filter sets. If not specified your default company is used.
+        required: false
+        schema:
+          type: string
+      - name: include_quickpicks
+        in: query
+        description: Include meltwater-provided QUICKPICK filter sets, default "false"
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: List of Filter Sets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterSetList'
+              example:
+                filter_sets:
+                - id: 123
+                  name: English and from the UK
+                  subtype: custom
+                  type: saved
+                - id: 456
+                  name: Well known french journalists
+                  subtype: quickpick
+                  type: saved
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '422':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - apikey: []
+  /v3/custom_categories:
+    get:
+      tags:
+      - Listening Search Management
+      summary: Get a list of all search custom categories
+      operationId: list_custom_categories
+      parameters:
+      - name: company_id
+        in: query
+        description: Company which owns the given custom categories. If not specified your default company is used.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of Custom Categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomCategoriesList'
+              example:
+                count: 2
+                custom_categories:
+                - id: 123
+                  name: Japanese cars
+                  type: include
+                - id: 456
+                  name: German cars
+                  type: exclude
+        '401':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '503':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - apikey: []
+components:
+  schemas:
+    Count:
+      required:
+      - total
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total count
+          format: int64
+          example: 901382
+      description: Number of results for the search
+      title: Count
+      additionalProperties: false
+    CreateTagResponse:
+      type: object
+      title: Tag
+      example:
+        tag:
+          id: 123
+          name: new-tag
+      properties:
+        tag:
+          $ref: '#/components/schemas/CreateTagResponseConfig'
+    SearchRequestV2:
+      required:
+      - name
+      - query
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name associated with this search
+          example: Electric cars
+        query:
+          $ref: '#/components/schemas/Query'
+        id:
+          type: integer
+          example: 1024
+          description: Identifier
+      title: Search
+      example:
+        query:
+          type: boolean
+          filter_set: null
+          case_sensitivity: false
+          boolean: Tesla OR (Volvo NEAR electric)
+        name: Electric cars
+      description: Search
+      additionalProperties: false
+    Tag:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Tag id
+          example: 12345
+        name:
+          type: string
+          description: Tag name
+          example: My Custom Tag
+      title: Tag
+      example:
+        id: 12345
+        name: My Custom Tag
+      description: Tag
+      additionalProperties: false
+    TagList:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+      title: Tag List
+      items:
+        $ref: '#/components/schemas/Tag'
+      description: Tag List
+    DocumentTagsPayload:
+      type: object
+      required:
+      - document_ids
+      - tags
+      properties:
+        document_ids:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            type: string
+        tags:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/DocModTag'
+    SingleSearch:
+      required:
+      - search
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/SearchV2'
+      title: Search Resource
+      description: Search Resource
+      additionalProperties: false
+    ValidationMetadata:
+      type: object
+      title: Metadata
+      required:
+      - field
+      properties:
+        validation:
+          type: string
+          example: complexity
+          enum:
+          - syntax
+          - complexity
+          - length
+          - cast
+          - inclusion
+          - required
+          - content_type
+          description: The cause of the validation error
+        field:
+          type: string
+          example: boolean
+          description: Name of the field that failed its validation checks
+      description: Metadata for the error
+      additionalProperties: true
+    MWAPIErrorDetails:
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        details:
+          type: string
+    SingleSearchRequest:
+      required:
+      - search
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/SearchRequestV2'
+      title: Search Resource
+      description: Search Resource
+      additionalProperties: false
+    FilterSetList:
+      type: object
+      properties:
+        filter_sets:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterSet'
+    ServiceUnavailable:
+      type: object
+      title: Service Unavailable
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            title: Error object
+            required:
+            - type
+            - details
+            - title
+            properties:
+              type:
+                type: string
+                example: VALIDATION
+                description: Category of error
+              title:
+                type: string
+                example: 'Validation error for field: type'
+                description: Title of error
+              details:
+                type: string
+                example: This field cannot be updated
+                description: Details about the error
+            additionalProperties: false
+          description: List of problems with the request
+      example:
+        errors:
+        - type: SEARCH
+          title: Service unavailable
+          details: Temporarily unable to handle the request, try again later
+      description: Service Unavailable
+    InternalServerErrorResponse:
+      type: object
+      title: Internal Server error
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            title: Error object
+            required:
+            - type
+            - details
+            - title
+            properties:
+              type:
+                type: string
+                example: VALIDATION
+                description: Category of error
+              title:
+                type: string
+                example: 'Validation error for field: type'
+                description: Title of error
+              details:
+                type: string
+                example: This field cannot be updated
+                description: Details about the error
+            additionalProperties: false
+          description: List of problems with the request
+      example:
+        errors:
+        - type: INTERNAL
+          title: Internal Server error
+          details: Something went wrong behind the scenes...
+      description: Internal Server error
+    CreateTagResponseConfig:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    CreateTagConfig:
+      type: object
+      properties:
+        name:
+          type: string
+    UnprocessableEntityCompanyId:
+      type: object
+      title: Invalid company id
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            title: Validation error
+            required:
+            - type
+            - details
+            - title
+            properties:
+              type:
+                type: string
+                example: VALIDATION
+                description: Category of error
+              title:
+                type: string
+                example: 'Validation error for field: type'
+                description: Title of error
+              meta:
+                $ref: '#/components/schemas/ValidationMetadata'
+              details:
+                type: string
+                example: This field cannot be updated
+                description: Details about the error
+            additionalProperties: false
+          description: List of problems with the request
+      example:
+        errors:
+        - type: VALIDATION
+          title: 'Validation error for field: company_id'
+          meta:
+            field: company_id
+          details: Company id is expected to contain alphanumeric characters only
+      description: Invalid company id
+    Query:
+      description: Query associated with a search
+      oneOf:
+      - $ref: '#/components/schemas/BooleanQuery'
+      - $ref: '#/components/schemas/KeywordQuery'
+      - $ref: '#/components/schemas/CombinedQuery'
+      discriminator:
+        propertyName: type
+        mapping:
+          boolean: '#/components/schemas/BooleanQuery'
+          keyword: '#/components/schemas/KeywordQuery'
+          combined: '#/components/schemas/CombinedQuery'
+    FilterSet:
+      description: The optional Filter Set to apply to this search
+      oneOf:
+      - $ref: '#/components/schemas/SavedFilterSet'
+      - $ref: '#/components/schemas/EmbeddedFilterSet'
+      discriminator:
+        propertyName: type
+        mapping:
+          saved: '#/components/schemas/SavedFilterSet'
+          embedded: '#/components/schemas/EmbeddedFilterSet'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+    CombinedQuery:
+      type: object
+      properties:
+        filter_set:
+          $ref: '#/components/schemas/FilterSet'
+        not_searches:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: None of these searches should match
+        any_searches:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: At least one of these searches must match
+        all_searches:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: All of these searches must match
+    CustomCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Custom category id
+          format: int64
+          example: 11234
+        name:
+          type: string
+          description: Name of the custom category
+          example: My Custom Category
+        type:
+          type: string
+          description: Type of the category, can be `include` or `exclude`
+          example: include
+    SearchListResponse:
+      type: object
+      properties:
+        searches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchV2'
+      title: Search List Response
+      required:
+      - searches
+      description: Search List Response
+      additionalProperties: false
+    EmbeddedFilterSet:
+      type: object
+    MWAPIError:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/MWAPIErrorDetails'
+    ValidationError:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        message:
+          type: string
+    CreateTagRequest:
+      type: object
+      title: Tag
+      example:
+        tag:
+          name: new-tag
+      properties:
+        tag:
+          $ref: '#/components/schemas/CreateTagConfig'
+    CustomCategoriesList:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total count
+          format: int64
+          example: 12
+        custom_categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomCategory'
+    ErrorDetails:
+      required:
+      - type
+      - title
+      - details
+      type: object
+      properties:
+        type:
+          type: string
+          description: Category of error
+        title:
+          type: string
+          description: Title of error
+        details:
+          type: string
+          description: Details about the error
+    SearchCountResponse:
+      required:
+      - count
+      type: object
+      properties:
+        count:
+          $ref: '#/components/schemas/Count'
+      title: Search Count
+      description: Number of results for the search
+      additionalProperties: false
+    InvalidPermissionsResponse:
+      type: object
+      title: Invalid Permissions
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            title: Error object
+            required:
+            - type
+            - details
+            - title
+            properties:
+              type:
+                type: string
+                example: VALIDATION
+                description: Category of error
+              title:
+                type: string
+                example: 'Validation error for field: type'
+                description: Title of error
+              details:
+                type: string
+                example: This field cannot be updated
+                description: Details about the error
+            additionalProperties: false
+          description: List of problems with the request
+      example:
+        errors:
+        - type: SEARCH
+          title: Missing company permissions
+          details: You do not have enough permissions to manage searches for the given company
+      description: Invalid Permissions
+    KeywordQuery:
+      required:
+      - case_sensitivity
+      type: object
+      properties:
+        filter_set:
+          $ref: '#/components/schemas/FilterSet'
+        case_sensitivity:
+          type: string
+          description: The case sensitivity for this query
+          enum:
+          - 'yes'
+          - 'no'
+          - hybrid
+        not_keywords:
+          type: array
+          items:
+            type: string
+          description: None of these keywords should match
+        any_keywords:
+          type: array
+          items:
+            type: string
+          description: At least one of these keywords must match
+        all_keywords:
+          type: array
+          items:
+            type: string
+          description: All of these keywords must match
+    DocModTag:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    MissingResourceResponse:
+      type: object
+      title: Unknown resource
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            title: Error object
+            required:
+            - type
+            - details
+            - title
+            properties:
+              type:
+                type: string
+                example: VALIDATION
+                description: Category of error
+              title:
+                type: string
+                example: 'Validation error for field: type'
+                description: Title of error
+              details:
+                type: string
+                example: This field cannot be updated
+                description: Details about the error
+            additionalProperties: false
+          description: List of problems with the request
+      example:
+        errors:
+        - type: SEARCH
+          title: Unknown search
+          details: The search id (123) you provided is unknown
+      description: Unknown resource
+    BooleanQuery:
+      required:
+      - case_sensitivity
+      - boolean
+      type: object
+      properties:
+        filter_set:
+          $ref: '#/components/schemas/FilterSet'
+        case_sensitivity:
+          type: string
+          description: The case sensitivity for this query
+          enum:
+          - 'yes'
+          - 'no'
+          - hybrid
+        boolean:
+          type: string
+          description: The boolean query string
+    SearchV2:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        updated:
+          type: string
+          format: date-time
+          example: '2020-08-23T08:25:56.000Z'
+          description: UTC date time (in ISO-8601 format) when the search was last updated
+        id:
+          type: integer
+          format: int64
+          example: 1024
+          description: Identifier
+        name:
+          type: string
+          example: Electric cars
+          description: Search name
+        query:
+          $ref: '#/components/schemas/Query'
+      title: Search
+      example:
+        updated: '2020-08-23T08:25:56.000Z'
+        query:
+          type: boolean
+          filter_set: null
+          case_sensitivity: false
+          boolean: Tesla OR (Volvo NEAR electric)
+        name: Electric cars
+        id: 1999
+      description: Search
+      additionalProperties: false
+    Errors:
+      required:
+      - type
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+          description: List of problems with the request
+        type:
+          type: string
+          enum:
+          - NotFound
+          - ServiceUnavailable
+          - Unauthorized
+          - ValidationFailed
+      description: Errors
+      discriminator:
+        propertyName: type
+    SavedFilterSet:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID number for the Saved Filter Set
+          format: int64
+        name:
+          type: string
+          description: Name of the Saved Filter Set, is optional when referencing one
+        subtype:
+          type: string
+          description: Type of Saved Filter Set, may be CUSTOM for user-created or QUICKPICK for meltwater-created, is optional when referencing one
+          enum:
+          - custom
+          - quickpick
+    UnauthorizedResponse:
+      type: object
+      title: Unauthorized request
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            title: Error object
+            required:
+            - type
+            - details
+            - title
+            properties:
+              type:
+                type: string
+                example: VALIDATION
+                description: Category of error
+              title:
+                type: string
+                example: 'Validation error for field: type'
+                description: Title of error
+              details:
+                type: string
+                example: This field cannot be updated
+                description: Details about the error
+            additionalProperties: false
+          description: List of problems with the request
+      example:
+        errors:
+        - type: AUTH
+          title: Unauthorized
+          details: Invalid or expired authorization header
+      description: Unauthorized request
+  securitySchemes:
+    apikey:
+      type: apiKey
+      name: apikey
+      in: header
+x-tagGroups:
+- name: Listening
+  tags:
+  - Listening Exports
+  - Listening Search
+  - Listening Analytics
+  - Listening Streaming
+  - Listening Search Management
+- name: Explore+
+  tags:
+  - Explore+ Search
+  - Explore+ Analytics
+  - Explore+ Assets
+- name: Social Analytics
+  tags:
+  - Owned Analytics
+- name: Mira API
+  tags:
+  - Mira API
+- name: Account
+  tags:
+  - Account Management
+- name: Bring Your Own Content
+  tags:
+  - Bring Your Own Content (BYOC)

@@ -1,0 +1,405 @@
+openapi: 3.0.3
+info:
+  title: Meltwater Account Management Listening Search API
+  description: The Meltwater Public API
+  contact:
+    name: Meltwater Support
+    url: https://developer.meltwater.com/
+    email: support@api.meltwater.com
+  version: '1.0'
+servers:
+- url: https://api.meltwater.com
+security:
+- apikey: []
+tags:
+- name: Listening Search
+  description: Search Meltwater data using saved searches to integrate with your own API connectors and internal systems.
+  parent: Listening
+paths:
+  /v3/search/{id}:
+    post:
+      tags:
+      - Listening Search
+      summary: Search for Meltwater earned data using a saved search and optional filters.
+      description: Search for Meltwater earned data using a saved search and optional filters.
+      parameters:
+      - name: id
+        in: path
+        description: Search ID
+        required: true
+        schema:
+          type: integer
+      - name: company_id
+        in: query
+        description: Set the company to search by
+        schema:
+          type: string
+      requestBody:
+        description: Search Parameters
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsServiceUnavailable'
+      operationId: create-earned-search
+components:
+  schemas:
+    DocumentResponse:
+      type: object
+      properties:
+        document_count:
+          type: integer
+          example: 100
+        documents:
+          type: array
+          items:
+            type: object
+            example:
+              id: 123abc123
+              opening_text: This is a document ...
+    ErrorDetails:
+      required:
+      - type
+      - title
+      - details
+      type: object
+      properties:
+        type:
+          type: string
+          description: Category of error
+        title:
+          type: string
+          description: Title of error
+        details:
+          type: string
+          description: Details about the error
+    RateLimitedError:
+      description: RateLimitedError
+      example:
+        message: Service Overloaded
+        errors: {}
+      allOf:
+      - $ref: '#/components/schemas/Errors'
+      - required:
+        - message
+        type: object
+        properties:
+          message:
+            type: string
+        description: RateLimitedError
+    AnalyticsServiceUnavailable:
+      description: ServiceUnavailable
+      example:
+        message: Service Unavailable
+        errors: {}
+      allOf:
+      - $ref: '#/components/schemas/Errors'
+      - type: object
+        properties:
+          message:
+            type: string
+        description: ServiceUnavailable
+    NotFound:
+      required:
+      - errors
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing, in brief, the problem.
+        errors:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              description: A description of the problem encountered on this field.
+          description: A breakdown of each problem encountered, by field.
+      example:
+        message: Not Found
+        errors:
+          :searchId:
+          - A Saved Search with that ID could not be found
+    Unauthorized:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing, in brief, the problem.
+      example:
+        message: Unauthorized
+    SearchResponse:
+      required:
+      - tz
+      type: object
+      properties:
+        countries:
+          type: array
+          example:
+          - gb
+          - us
+          items:
+            type: string
+        end:
+          type: string
+          example: '2021-09-28T00:00:00'
+        languages:
+          type: array
+          example:
+          - en
+          - fr
+          items:
+            type: string
+        page:
+          maximum: 10
+          type: integer
+          example: 1
+        page_size:
+          maximum: 100
+          minimum: 0
+          type: integer
+          example: 10
+        result:
+          $ref: '#/components/schemas/DocumentResponse'
+        search_id:
+          type: integer
+          example: 12345
+        sentiments:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+        sort_by:
+          type: string
+          example: date
+          enum:
+          - date
+          - country
+          - sentiment
+          - language
+          - title
+          - reach
+          - relevance
+          - engagement
+          - social_echo
+          - prominence
+          - views
+        sort_order:
+          type: string
+          example: desc
+          enum:
+          - asc
+          - desc
+        sources:
+          type: array
+          example:
+          - x
+          - news
+          items:
+            type: string
+        start:
+          type: string
+          example: '2021-09-27T00:00:00'
+        template:
+          $ref: '#/components/schemas/TemplateConfiguration'
+        tz:
+          type: string
+          example: Europe/London
+    SearchRequest:
+      required:
+      - tz
+      type: object
+      properties:
+        countries:
+          type: array
+          example:
+          - gb
+          - us
+          items:
+            type: string
+        end:
+          type: string
+          example: '2021-09-28T00:00:00'
+        languages:
+          type: array
+          example:
+          - en
+          - fr
+          items:
+            type: string
+        page:
+          maximum: 10
+          type: integer
+          example: 1
+        page_size:
+          maximum: 100
+          minimum: 0
+          type: integer
+          example: 10
+        sentiments:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+        sort_by:
+          type: string
+          example: date
+          enum:
+          - date
+          - country
+          - sentiment
+          - language
+          - title
+          - reach
+          - relevance
+          - engagement
+          - social_echo
+          - prominence
+          - views
+        sort_order:
+          type: string
+          example: desc
+          enum:
+          - asc
+          - desc
+        sources:
+          type: array
+          example:
+          - x
+          - news
+          - broadcast
+          items:
+            type: string
+        start:
+          type: string
+          example: '2021-09-27T00:00:00'
+        template:
+          $ref: '#/components/schemas/TemplateConfiguration'
+        tz:
+          type: string
+          example: Europe/London
+        keywords:
+          type: array
+          example:
+          - USA
+          - UK
+          description: List of keywords to filter documents by.
+        emojis:
+          type: array
+          example:
+          - 😀
+          - 😢
+          description: List of emojis to filter documents by.
+        custom_categories:
+          type: array
+          example:
+          - '1234'
+          - '5678'
+          description: List of custom category IDs to filter documents by.
+        filter_set:
+          type: string
+          example: '"4321"'
+          description: ID of a filter set to apply.
+        author_lists:
+          type: array
+          example:
+          - '1111'
+          - '2222'
+          description: List of author list IDs to filter documents by.
+    TemplateConfiguration:
+      type: object
+      title: Template Configuration
+      properties:
+        name:
+          type: string
+          example: legacy
+          description: The name of the template being requested
+    Errors:
+      required:
+      - type
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+          description: List of problems with the request
+        type:
+          type: string
+          enum:
+          - NotFound
+          - ServiceUnavailable
+          - Unauthorized
+          - ValidationFailed
+      description: Errors
+      discriminator:
+        propertyName: type
+  securitySchemes:
+    apikey:
+      type: apiKey
+      name: apikey
+      in: header
+x-tagGroups:
+- name: Listening
+  tags:
+  - Listening Exports
+  - Listening Search
+  - Listening Analytics
+  - Listening Streaming
+  - Listening Search Management
+- name: Explore+
+  tags:
+  - Explore+ Search
+  - Explore+ Analytics
+  - Explore+ Assets
+- name: Social Analytics
+  tags:
+  - Owned Analytics
+- name: Mira API
+  tags:
+  - Mira API
+- name: Account
+  tags:
+  - Account Management
+- name: Bring Your Own Content
+  tags:
+  - Bring Your Own Content (BYOC)

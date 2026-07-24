@@ -1,0 +1,2897 @@
+openapi: 3.0.3
+info:
+  title: Meltwater Account Management Listening Exports API
+  description: The Meltwater Public API
+  contact:
+    name: Meltwater Support
+    url: https://developer.meltwater.com/
+    email: support@api.meltwater.com
+  version: '1.0'
+servers:
+- url: https://api.meltwater.com
+security:
+- apikey: []
+tags:
+- name: Listening Exports
+  description: Data exports for onetime and recurring jobs.
+  parent: Listening
+paths:
+  /v3/exports/one-time:
+    post:
+      tags:
+      - Listening Exports
+      summary: Creates a new one-time export
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OneTimeExportResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Bad Request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: Invalid data
+                    details: Invalid JSON payload
+                description: Bad Request
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unauthorized request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: AUTH
+                    title: Unauthorized
+                    details: Invalid or expired authorization header
+                description: Unauthorized request
+        '403':
+          description: Permission Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Permission denied
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: ENTITLEMENT
+                    title: Entitlement missing
+                    details: 'You are missing required entitlements, in order to access given content: ["news", "social"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.'
+                description: Permission denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Not Found
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: EXPORT
+                    title: Unknown resource
+                    details: The resource id you provided (1234) is unknown
+                description: Not Found
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unprocessable entity
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: 'Validation error for field: window_size'
+                    details: is not a valid integer
+                description: Unprocessable entity
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Internal Server Error
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: INTERNAL
+                    title: Internal Server error
+                    details: Something went wrong behind the scenes...
+                description: Internal Server Error
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Service Unavailable
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: SEARCH
+                    title: Service unavailable
+                    details: Temporarily unable to handle the request, try again later
+                description: Service Unavailable
+      parameters:
+      - required: false
+        name: company_id
+        in: query
+        description: Company which owns the given search_id. If not specified your default company is used.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OneTimeExportRequest'
+        description: One-time export object to create.
+      operationId: create_onetime_export
+      description: ''
+    get:
+      tags:
+      - Listening Exports
+      summary: Get a list of all your one-time exports
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OneTimeExportListResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Bad Request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: Invalid data
+                    details: Invalid JSON payload
+                description: Bad Request
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unauthorized request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: AUTH
+                    title: Unauthorized
+                    details: Invalid or expired authorization header
+                description: Unauthorized request
+        '403':
+          description: Permission Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Permission denied
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: ENTITLEMENT
+                    title: Entitlement missing
+                    details: 'You are missing required entitlements, in order to access given content: ["news", "social"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.'
+                description: Permission denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Not Found
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: EXPORT
+                    title: Unknown resource
+                    details: The resource id you provided (1234) is unknown
+                description: Not Found
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unprocessable entity
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: 'Validation error for field: window_size'
+                    details: is not a valid integer
+                description: Unprocessable entity
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Internal Server Error
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: INTERNAL
+                    title: Internal Server error
+                    details: Something went wrong behind the scenes...
+                description: Internal Server Error
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Service Unavailable
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: SEARCH
+                    title: Service unavailable
+                    details: Temporarily unable to handle the request, try again later
+                description: Service Unavailable
+      operationId: list_onetime_exports
+      description: ''
+  /v3/exports/one-time/{id}:
+    get:
+      tags:
+      - Listening Exports
+      summary: Get details of a one-time export
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OneTimeExportResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Bad Request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: Invalid data
+                    details: Invalid JSON payload
+                description: Bad Request
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unauthorized request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: AUTH
+                    title: Unauthorized
+                    details: Invalid or expired authorization header
+                description: Unauthorized request
+        '403':
+          description: Permission Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Permission denied
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: ENTITLEMENT
+                    title: Entitlement missing
+                    details: 'You are missing required entitlements, in order to access given content: ["news", "social"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.'
+                description: Permission denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Not Found
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: EXPORT
+                    title: Unknown resource
+                    details: The resource id you provided (1234) is unknown
+                description: Not Found
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unprocessable entity
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: 'Validation error for field: window_size'
+                    details: is not a valid integer
+                description: Unprocessable entity
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Internal Server Error
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: INTERNAL
+                    title: Internal Server error
+                    details: Something went wrong behind the scenes...
+                description: Internal Server Error
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Service Unavailable
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: SEARCH
+                    title: Service unavailable
+                    details: Temporarily unable to handle the request, try again later
+                description: Service Unavailable
+      parameters:
+      - required: true
+        name: id
+        in: path
+        description: One-time export id
+        example: 123
+        schema:
+          type: integer
+      operationId: show_onetime_export
+      description: ''
+    delete:
+      tags:
+      - Listening Exports
+      summary: Removes an existing one-time export
+      responses:
+        '204':
+          description: No content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Bad Request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: Invalid data
+                    details: Invalid JSON payload
+                description: Bad Request
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unauthorized request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: AUTH
+                    title: Unauthorized
+                    details: Invalid or expired authorization header
+                description: Unauthorized request
+        '403':
+          description: Permission Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Permission denied
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: ENTITLEMENT
+                    title: Entitlement missing
+                    details: 'You are missing required entitlements, in order to access given content: ["news", "social"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.'
+                description: Permission denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Not Found
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: EXPORT
+                    title: Unknown resource
+                    details: The resource id you provided (1234) is unknown
+                description: Not Found
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unprocessable entity
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: 'Validation error for field: window_size'
+                    details: is not a valid integer
+                description: Unprocessable entity
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Internal Server Error
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: INTERNAL
+                    title: Internal Server error
+                    details: Something went wrong behind the scenes...
+                description: Internal Server Error
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Service Unavailable
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: SEARCH
+                    title: Service unavailable
+                    details: Temporarily unable to handle the request, try again later
+                description: Service Unavailable
+      parameters:
+      - required: true
+        name: id
+        in: path
+        description: One-time export id
+        example: 123
+        schema:
+          type: integer
+      operationId: delete_onetime_export
+      description: ''
+  /v3/exports/recurring:
+    post:
+      tags:
+      - Listening Exports
+      summary: Creates a new recurring export
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringExportResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Bad Request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: Invalid data
+                    details: Invalid JSON payload
+                description: Bad Request
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unauthorized request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: AUTH
+                    title: Unauthorized
+                    details: Invalid or expired authorization header
+                description: Unauthorized request
+        '403':
+          description: Permission Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Permission denied
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: ENTITLEMENT
+                    title: Entitlement missing
+                    details: 'You are missing required entitlements, in order to access given content: ["news", "social"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.'
+                description: Permission denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Not Found
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: EXPORT
+                    title: Unknown resource
+                    details: The resource id you provided (1234) is unknown
+                description: Not Found
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unprocessable entity
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: 'Validation error for field: window_size'
+                    details: is not a valid integer
+                description: Unprocessable entity
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Internal Server Error
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: INTERNAL
+                    title: Internal Server error
+                    details: Something went wrong behind the scenes...
+                description: Internal Server Error
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Service Unavailable
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: SEARCH
+                    title: Service unavailable
+                    details: Temporarily unable to handle the request, try again later
+                description: Service Unavailable
+      parameters:
+      - required: false
+        name: company_id
+        in: query
+        description: Company which owns the given search_id. If not specified your default company is used.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecurringExportRequest'
+        description: 'Export object to create.
+
+
+          The `timezone` field specifies what timezone the `window_time` field should be interpreted as.
+
+
+          The `window_time_unit` field determines the size of the export window and often the export will be refreshed.
+
+
+          Please see the Model Schema for possible values of `window_time_unit`.
+
+          '
+      operationId: create_recurring_export
+      description: ''
+    get:
+      tags:
+      - Listening Exports
+      summary: Get a list of all your recurring exports
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringExportListResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Bad Request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: Invalid data
+                    details: Invalid JSON payload
+                description: Bad Request
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unauthorized request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: AUTH
+                    title: Unauthorized
+                    details: Invalid or expired authorization header
+                description: Unauthorized request
+        '403':
+          description: Permission Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Permission denied
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: ENTITLEMENT
+                    title: Entitlement missing
+                    details: 'You are missing required entitlements, in order to access given content: ["news", "social"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.'
+                description: Permission denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Not Found
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: EXPORT
+                    title: Unknown resource
+                    details: The resource id you provided (1234) is unknown
+                description: Not Found
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unprocessable entity
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: 'Validation error for field: window_size'
+                    details: is not a valid integer
+                description: Unprocessable entity
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Internal Server Error
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: INTERNAL
+                    title: Internal Server error
+                    details: Something went wrong behind the scenes...
+                description: Internal Server Error
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Service Unavailable
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: SEARCH
+                    title: Service unavailable
+                    details: Temporarily unable to handle the request, try again later
+                description: Service Unavailable
+      operationId: list_recurring_exports
+      description: ''
+  /v3/exports/recurring/{id}:
+    get:
+      tags:
+      - Listening Exports
+      summary: Get details of a recurring export
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecurringExportShowResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Bad Request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: Invalid data
+                    details: Invalid JSON payload
+                description: Bad Request
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unauthorized request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: AUTH
+                    title: Unauthorized
+                    details: Invalid or expired authorization header
+                description: Unauthorized request
+        '403':
+          description: Permission Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Permission denied
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: ENTITLEMENT
+                    title: Entitlement missing
+                    details: 'You are missing required entitlements, in order to access given content: ["news", "social"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.'
+                description: Permission denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Not Found
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: EXPORT
+                    title: Unknown resource
+                    details: The resource id you provided (1234) is unknown
+                description: Not Found
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unprocessable entity
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: 'Validation error for field: window_size'
+                    details: is not a valid integer
+                description: Unprocessable entity
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Internal Server Error
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: INTERNAL
+                    title: Internal Server error
+                    details: Something went wrong behind the scenes...
+                description: Internal Server Error
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Service Unavailable
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: SEARCH
+                    title: Service unavailable
+                    details: Temporarily unable to handle the request, try again later
+                description: Service Unavailable
+      parameters:
+      - required: true
+        name: id
+        in: path
+        description: Export id
+        example: 123
+        schema:
+          type: integer
+      operationId: show_recurring_export
+      description: ''
+    delete:
+      tags:
+      - Listening Exports
+      summary: Removes an existing recurring export
+      responses:
+        '204':
+          description: No content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Bad Request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: Invalid data
+                    details: Invalid JSON payload
+                description: Bad Request
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unauthorized request
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: AUTH
+                    title: Unauthorized
+                    details: Invalid or expired authorization header
+                description: Unauthorized request
+        '403':
+          description: Permission Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Permission denied
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: ENTITLEMENT
+                    title: Entitlement missing
+                    details: 'You are missing required entitlements, in order to access given content: ["news", "social"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.'
+                description: Permission denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Not Found
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: EXPORT
+                    title: Unknown resource
+                    details: The resource id you provided (1234) is unknown
+                description: Not Found
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Unprocessable entity
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: VALIDATION
+                    title: 'Validation error for field: window_size'
+                    details: is not a valid integer
+                description: Unprocessable entity
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Internal Server Error
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: INTERNAL
+                    title: Internal Server error
+                    details: Something went wrong behind the scenes...
+                description: Internal Server Error
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Service Unavailable
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - details
+                      - title
+                      properties:
+                        type:
+                          type: string
+                          example: VALIDATION
+                          description: Category of error
+                        title:
+                          type: string
+                          example: 'Validation error for field: type'
+                          description: Title of error
+                        details:
+                          type: string
+                          example: This field cannot be updated
+                          description: Details about the error
+                      additionalProperties: false
+                    description: List of problems with the request
+                example:
+                  errors:
+                  - type: SEARCH
+                    title: Service unavailable
+                    details: Temporarily unable to handle the request, try again later
+                description: Service Unavailable
+      parameters:
+      - required: true
+        name: id
+        in: path
+        description: Export id
+        example: 123
+        schema:
+          type: integer
+      operationId: delete_recurring_export
+      description: ''
+components:
+  schemas:
+    CustomCategoriesDetails:
+      type: object
+      title: Custom categories details
+      required:
+      - name
+      - id
+      - type
+      properties:
+        name:
+          type: string
+          example: My Category
+          description: Category name
+        id:
+          type: integer
+          example: 321
+          description: Category ID
+        type:
+          type: string
+          example: include
+          description: Category type
+      additionalProperties: false
+    OneTimeExportResult:
+      type: object
+      title: One-time export
+      required:
+      - end_date
+      - start_date
+      - searches
+      - company_name
+      - id
+      properties:
+        updated_at:
+          type: string
+          description: The datetime the export was last updated
+          example: '2020-03-25T00:00:00.000000'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          description: List of tag names used for the export
+        status_reason:
+          type: string
+          description: Optional explanation for current status
+        status:
+          type: string
+          enum:
+          - PENDING
+          - FINISHED
+          - CANCELLED
+          - EXPIRED
+          description: Current status of the one-time export
+        start_date:
+          type: string
+          format: datetime
+          example: '2020-03-25T00:00:00.000000Z'
+          description: Start date of the export (UTC) in ISO 8601 format
+        searches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchDetails'
+          description: List of searches used for the export
+        template:
+          $ref: '#/components/schemas/TemplateConfiguration'
+        sample:
+          $ref: '#/components/schemas/SampleConfiguration'
+        inserted_at:
+          type: string
+          description: The datetime the export was created
+          example: '2020-03-25T00:00:00.000000'
+        id:
+          type: integer
+          description: ID of the export
+        end_date:
+          type: string
+          format: datetime
+          example: '2020-03-29T23:59:59.000000Z'
+          description: End date of the export (UTC) in ISO 8601 format
+        data_url:
+          type: string
+          description: The URL at which the export data can be retrieved
+          example: https://downloads.exports.meltwater.com/v1/one-time/12345?data_key=abcdef0123456789
+        company_name:
+          type: string
+          description: Company the export belongs to
+        format:
+          type: string
+          description: The selected output format for the export
+          enum:
+          - JSON
+          - CSV
+        custom_categories:
+          $ref: '#/components/schemas/CustomCategoriesResponseDetails'
+    RecurringExportList:
+      type: array
+      title: Results
+      items:
+        $ref: '#/components/schemas/RecurringExportResult'
+      description: A collection of recurring export results
+    Tag:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Tag id
+          example: 12345
+        name:
+          type: string
+          description: Tag name
+          example: My Custom Tag
+      title: Tag
+      example:
+        id: 12345
+        name: My Custom Tag
+      description: Tag
+      additionalProperties: false
+    RecurringExportRequest:
+      type: object
+      title: Recurring export request
+      properties:
+        recurring_export:
+          $ref: '#/components/schemas/RecurringExport'
+      description: POST body for creating a recurring export
+    TemplateConfiguration:
+      type: object
+      title: Template Configuration
+      properties:
+        name:
+          type: string
+          example: legacy
+          description: The name of the template being requested
+    OneTimeExportResponse:
+      type: object
+      title: One-time export Response
+      required:
+      - onetime_export
+      properties:
+        onetime_export:
+          $ref: '#/components/schemas/OneTimeExportResult'
+      description: One-time export Response
+      additionalProperties: false
+    OneTimeExportListResponse:
+      type: object
+      title: One-time export list response
+      required:
+      - onetime_exports
+      properties:
+        onetime_exports:
+          $ref: '#/components/schemas/OneTimeExportList'
+      description: One-time export list response
+      additionalProperties: false
+    RecurringExportShowResponse:
+      type: object
+      title: Recurring export Response
+      required:
+      - recurring_export
+      properties:
+        recurring_export:
+          $ref: '#/components/schemas/RecurringExportShowResult'
+      description: Recurring export Response
+      additionalProperties: false
+    OneTimeExportRequest:
+      type: object
+      title: One-time export request
+      properties:
+        onetime_export:
+          $ref: '#/components/schemas/OneTimeExport'
+      description: POST body for creating a one-time export
+    OneTimeExportList:
+      type: array
+      title: Results
+      items:
+        $ref: '#/components/schemas/OneTimeExportResult'
+      description: A collection of one-time export results
+    CustomCategoriesResponseDetails:
+      type: object
+      title: Custom categories details
+      properties:
+        ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomCategoriesDetails'
+        filter:
+          type: boolean
+          description: Whether to include selected custom categories as filters
+    SampleConfiguration:
+      type: object
+      title: Sample Configuration
+      properties:
+        count:
+          type: integer
+          example: 1200
+          description: Maximum number of documents for the export, max value 2 million docs
+        percentage:
+          type: number
+          format: double
+          example: 50.0
+          description: Percentage of documents for the export
+    OneTimeExport:
+      type: object
+      title: One-time export
+      required:
+      - end_date
+      - start_date
+      - search_ids
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          example:
+          - tag
+          description: List of tag names
+        start_date:
+          type: string
+          format: datetime
+          example: '2020-03-25T00:00:00Z'
+          description: 'Start date (UTC) in ISO 8601 standard.
+
+            E.g. "2020-03-25T00:00:00Z"'
+        search_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchId'
+          example:
+          - 123
+          description: List of search ids
+        end_date:
+          type: string
+          format: datetime
+          example: '2020-03-29T23:59:59Z'
+          description: 'End date (UTC) in ISO 8601 standard.
+
+            E.g. "2020-03-29T23:59:59Z"'
+        template:
+          $ref: '#/components/schemas/TemplateConfiguration'
+        sample:
+          $ref: '#/components/schemas/SampleConfiguration'
+        format:
+          type: string
+          description: The selected output format for the export
+          enum:
+          - JSON
+          - CSV
+        custom_categories:
+          $ref: '#/components/schemas/CustomCategoriesRequestDetails'
+      example:
+        tags:
+        - tag
+        start_date: '2020-03-25T00:00:00Z'
+        search_ids:
+        - 123
+        end_date: '2020-03-29T23:59:59Z'
+        template:
+          name: legacy
+        sample:
+          count: 10000
+          percentage: 10.0
+        format: CSV
+        custom_categories:
+          ids:
+          - 123
+          filter: true
+      description: A one-time export
+    RecurringExportListResponse:
+      type: object
+      title: Recurring export list response
+      required:
+      - recurring_exports
+      properties:
+        recurring_exports:
+          $ref: '#/components/schemas/RecurringExportList'
+      description: Recurring export list response
+      additionalProperties: false
+    RecurringExportPreviousRuns:
+      type: object
+      title: Recurring export previous runs
+      properties:
+        status:
+          type: string
+          enum:
+          - PENDING
+          - FINISHED
+          - CANCELLED
+          - EXPIRED
+        start_date:
+          type: string
+          format: datetime
+          example: '2020-03-25T00:00:00.000000Z'
+          description: Start date of the export run (UTC) in ISO 8601 format
+        end_date:
+          type: string
+          format: datetime
+          example: '2020-03-29T23:59:59.000000Z'
+          description: End date of the export run (UTC) in ISO 8601 format
+        inserted_at:
+          type: string
+          description: The datetime the run was created
+          example: '2020-03-25T00:00:00.000000'
+        updated_at:
+          type: string
+          description: The datetime the export was last updated
+          example: '2020-03-25T00:00:00.000000'
+      description: Recurring export previous runs
+      additionalProperties: false
+    SearchId:
+      type: integer
+    RecurringExportShowResult:
+      type: object
+      title: Recurring export
+      required:
+      - searches
+      - company_name
+      - id
+      properties:
+        window_weekday:
+          type: integer
+          description: 'An integer representation of what day of the week the export window starts. Integer values are: Monday=1, Tuesday=2, Wednesday=3, Thursday=4, Friday=5, Saturday=6, Sunday=7 Defaults to 1'
+          default: 1
+        window_time_unit:
+          type: string
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          description: Window Time Unit. The time unit the export window represents. Defaults to "DAY"
+          default: DAY
+        window_time:
+          type: string
+          description: Window Time. The time of day the export window begins. Defaults to "00:00:00"
+          default: 00:00:00
+        window_size:
+          type: integer
+          description: Window size. The number of 'window_time_unit's the export window covers. Defaults to 1
+          default: 1
+        window_monthday:
+          type: integer
+          description: An integer representation of what day of the month the export window starts. Integer values 1-28 represent the day of the month e.g. 1 represents 1st, 2 represents the 2nd, etc. Integer value 0 represents the last day of the month. Defaults to 1
+          default: 1
+        sample:
+          $ref: '#/components/schemas/SampleConfiguration'
+        template:
+          $ref: '#/components/schemas/TemplateConfiguration'
+        updated_at:
+          type: string
+          description: The datetime the export was last updated
+        timezone:
+          type: string
+          description: Timezone for window_time field. Must be a valid timezone in the IANA database. Defaults to "Etc/UTC"
+          default: Etc/UTC
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          description: List of tag names used for the export
+        status_reason:
+          type: string
+          description: Optional explanation for current status
+        status:
+          type: string
+          enum:
+          - PENDING
+          - ACTIVE
+          - CANCELLED
+          description: Current status of the recurring export
+        searches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchDetails'
+          description: List of searches used for the export
+        next_run_date:
+          type: string
+          description: Next Run Date - the datetime on which your export refresh will start.
+        inserted_at:
+          type: string
+          description: The datetime the export was created
+        id:
+          type: integer
+          description: ID of the export
+        data_url:
+          type: string
+          description: The URL at which the export data can be retrieved
+        company_name:
+          type: string
+          description: Company the export belongs to
+        format:
+          type: string
+          description: The selected output format for the export
+          enum:
+          - JSON
+          - CSV
+        custom_categories:
+          $ref: '#/components/schemas/CustomCategoriesResponseDetails'
+        previous_runs:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecurringExportPreviousRuns'
+          description: List of previous runs for the recurring export
+    SearchDetails:
+      type: object
+      title: Search details
+      required:
+      - name
+      - id
+      properties:
+        name:
+          type: string
+          example: Elections
+          description: Search name
+        id:
+          type: integer
+          example: 123
+          description: Search id
+      additionalProperties: false
+    CustomCategoriesRequestDetails:
+      type: object
+      title: Custom categories details
+      required:
+      - ids
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
+          description: List of custom category ids
+        filter:
+          type: boolean
+          description: Whether to include selected custom categories as filters
+    RecurringExportResponse:
+      type: object
+      title: Recurring export Response
+      required:
+      - recurring_export
+      properties:
+        recurring_export:
+          $ref: '#/components/schemas/RecurringExportResult'
+      description: Recurring export Response
+      additionalProperties: false
+    RecurringExport:
+      type: object
+      title: Recurring export
+      required:
+      - search_ids
+      properties:
+        window_weekday:
+          type: integer
+          description: 'An integer representation of what day of the week the export window starts. Integer values are: Monday=1, Tuesday=2, Wednesday=3, Thursday=4, Friday=5, Saturday=6, Sunday=7 Defaults to 1'
+          default: 1
+        window_time_unit:
+          type: string
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          description: Window Time Unit. The time unit the export window represents. Defaults to "DAY"
+          default: DAY
+        window_time:
+          type: string
+          description: Window Time. The time of day the export window begins. Defaults to "00:00:00"
+          default: 00:00:00
+        window_size:
+          type: integer
+          description: Window size. The number of 'window_time_unit's the export window covers Defaults to 1
+          default: 1
+        window_monthday:
+          type: integer
+          description: An integer representation of what day of the month the export window starts. Integer values 1-28 represent the day of the month e.g. 1 represents 1st, 2 represents the 2nd, etc. Integer value 0 represents the last day of the month. Defaults to 1
+          default: 1
+        timezone:
+          type: string
+          description: Timezone for window_time field. Must be a valid timezone in the IANA database. Defaults to "Etc/UTC"
+          default: Etc/UTC
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          example:
+          - tag
+          description: List of tag names
+        search_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchId'
+          example:
+          - 123
+          description: List of search ids
+        template:
+          $ref: '#/components/schemas/TemplateConfiguration'
+        sample:
+          $ref: '#/components/schemas/SampleConfiguration'
+        format:
+          type: string
+          description: The selected output format for the export
+          enum:
+          - JSON
+          - CSV
+        custom_categories:
+          $ref: '#/components/schemas/CustomCategoriesRequestDetails'
+      example:
+        window_time_unit: DAY
+        window_time: 00:00:00
+        window_size: 1
+        timezone: Etc/UTC
+        tags:
+        - tag
+        search_ids:
+        - 123
+        sample:
+          count: 1200
+          percentage: 25.0
+        template:
+          name: legacy
+        format: JSON
+        custom_categories:
+          ids:
+          - 123
+          filter: true
+      description: A recurring export
+    RecurringExportResult:
+      type: object
+      title: Recurring export
+      required:
+      - searches
+      - company_name
+      - id
+      properties:
+        window_weekday:
+          type: integer
+          description: 'An integer representation of what day of the week the export window starts. Integer values are: Monday=1, Tuesday=2, Wednesday=3, Thursday=4, Friday=5, Saturday=6, Sunday=7 Defaults to 1'
+          default: 1
+        window_time_unit:
+          type: string
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          description: Window Time Unit. The time unit the export window represents. Defaults to "DAY"
+          default: DAY
+        window_time:
+          type: string
+          description: Window Time. The time of day the export window begins. Defaults to "00:00:00"
+          default: 00:00:00
+        window_size:
+          type: integer
+          description: Window size. The number of 'window_time_unit's the export window covers. Defaults to 1
+          default: 1
+        window_monthday:
+          type: integer
+          description: An integer representation of what day of the month the export window starts. Integer values 1-28 represent the day of the month e.g. 1 represents 1st, 2 represents the 2nd, etc. Integer value 0 represents the last day of the month. Defaults to 1
+          default: 1
+        sample:
+          $ref: '#/components/schemas/SampleConfiguration'
+        template:
+          $ref: '#/components/schemas/TemplateConfiguration'
+        updated_at:
+          type: string
+          description: The datetime the export was last updated
+        timezone:
+          type: string
+          description: Timezone for window_time field. Must be a valid timezone in the IANA database. Defaults to "Etc/UTC"
+          default: Etc/UTC
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          description: List of tag names used for the export
+        status_reason:
+          type: string
+          description: Optional explanation for current status
+        status:
+          type: string
+          enum:
+          - PENDING
+          - ACTIVE
+          - CANCELLED
+          description: Current status of the recurring export
+        searches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchDetails'
+          description: List of searches used for the export
+        next_run_date:
+          type: string
+          description: Next Run Date - the datetime on which your export refresh will start.
+        inserted_at:
+          type: string
+          description: The datetime the export was created
+        id:
+          type: integer
+          description: ID of the export
+        data_url:
+          type: string
+          description: The URL at which the export data can be retrieved
+        company_name:
+          type: string
+          description: Company the export belongs to
+        format:
+          type: string
+          description: The selected output format for the export
+          enum:
+          - JSON
+          - CSV
+        custom_categories:
+          $ref: '#/components/schemas/CustomCategoriesResponseDetails'
+  securitySchemes:
+    apikey:
+      type: apiKey
+      name: apikey
+      in: header
+x-tagGroups:
+- name: Listening
+  tags:
+  - Listening Exports
+  - Listening Search
+  - Listening Analytics
+  - Listening Streaming
+  - Listening Search Management
+- name: Explore+
+  tags:
+  - Explore+ Search
+  - Explore+ Analytics
+  - Explore+ Assets
+- name: Social Analytics
+  tags:
+  - Owned Analytics
+- name: Mira API
+  tags:
+  - Mira API
+- name: Account
+  tags:
+  - Account Management
+- name: Bring Your Own Content
+  tags:
+  - Bring Your Own Content (BYOC)
