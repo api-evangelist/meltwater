@@ -1,7 +1,20 @@
 aid: meltwater
 name: Meltwater
 description: Meltwater is a media intelligence platform providing REST APIs for media monitoring, social listening, journalist outreach, PR analytics, and brand reputation management. The API enables programmatic access to billions of editorial, blog, and social media conversations across news sources and social networks, with capabilities for searching, exporting, streaming, and analyzing mentions, as well as fetching owned social account analytics.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/meltwater.png
 url: https://raw.githubusercontent.com/api-evangelist/meltwater/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -15,40 +28,297 @@ tags:
   - Social Analytics
   - Media Intelligence
 apis:
-  - aid: meltwater:meltwater-api
-    name: Meltwater API
-    description: The core Meltwater REST API providing access to media monitoring, social listening, and analytics capabilities. Supports searching and exporting mentions from news and social sources, streaming data via webhooks, and fetching analytics for owned social accounts across LinkedIn, X/Twitter, Instagram, Facebook, and YouTube.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
-    baseURL: https://api.meltwater.com
-    tags:
-      - Media Monitoring
-      - Social Listening
-      - News Search
-      - Social Analytics
-      - PR Analytics
-    properties:
-      - type: Documentation
-        url: https://developer.meltwater.com/docs/
-      - type: OpenAPI
-        url: https://developer.meltwater.com/api-reference/api-reference-overview/
-      - type: OpenAPI
-        url: openapi/meltwater-api-openapi.yaml
-      - type: GettingStarted
-        url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
-      - type: Endpoints
-        url: https://developer.meltwater.com/docs/meltwater-api/reference/endpoints/
-      - type: ChangeLog
-        url: https://developer.meltwater.com/docs/meltwater-api/help/changelog/
-      - type: RateLimits
-        url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
-      - type: Concepts
-        url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
-      - type: HowToGuides
-        url: https://developer.meltwater.com/docs/meltwater-api/guides/
-    contact:
-      - FN: Meltwater Developer Support
-        url: https://developer.meltwater.com/docs/
+- aid: meltwater:meltwater-account-management-api
+  name: Meltwater Account Management API
+  description: Account Management API and Usage APIs
+  humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  baseURL: https://api.meltwater.com
+  tags:
+  - Account Management
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-account-management-api-openapi.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: GettingStarted
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  - type: Endpoints
+    url: https://developer.meltwater.com/docs/meltwater-api/reference/endpoints/
+  - type: ChangeLog
+    url: https://developer.meltwater.com/docs/meltwater-api/help/changelog/
+  - type: RateLimits
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+  - type: Concepts
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
+  - type: HowToGuides
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/
+- aid: meltwater:meltwater-bring-your-own-content-byoc-api
+  name: Meltwater Bring Your Own Content (BYOC) API
+  description: Upload your own content into the Meltwater Platform.
+  humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  baseURL: https://api.meltwater.com
+  tags:
+  - Bring Your Own Content (BYOC)
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-bring-your-own-content-byoc-api-openapi.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: GettingStarted
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  - type: Endpoints
+    url: https://developer.meltwater.com/docs/meltwater-api/reference/endpoints/
+  - type: ChangeLog
+    url: https://developer.meltwater.com/docs/meltwater-api/help/changelog/
+  - type: RateLimits
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+  - type: Concepts
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
+  - type: HowToGuides
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/
+- aid: meltwater:meltwater-explore-analytics-api
+  name: Meltwater Explore+ Analytics API
+  description: Fetch analytics on data within your private index.
+  humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  baseURL: https://api.meltwater.com
+  tags:
+  - Explore+ Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-explore-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: GettingStarted
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  - type: Endpoints
+    url: https://developer.meltwater.com/docs/meltwater-api/reference/endpoints/
+  - type: ChangeLog
+    url: https://developer.meltwater.com/docs/meltwater-api/help/changelog/
+  - type: RateLimits
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+  - type: Concepts
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
+  - type: HowToGuides
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/
+- aid: meltwater:meltwater-explore-assets-api
+  name: Meltwater Explore+ Assets API
+  description: Manage your Explore+ assets including searches and custom fields.
+  humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  baseURL: https://api.meltwater.com
+  tags:
+  - Explore+ Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-explore-assets-api-openapi.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: GettingStarted
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  - type: Endpoints
+    url: https://developer.meltwater.com/docs/meltwater-api/reference/endpoints/
+  - type: ChangeLog
+    url: https://developer.meltwater.com/docs/meltwater-api/help/changelog/
+  - type: RateLimits
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+  - type: Concepts
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
+  - type: HowToGuides
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/
+- aid: meltwater:meltwater-explore-search-api
+  name: Meltwater Explore+ Search API
+  description: Export earned documents from your private index.
+  humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  baseURL: https://api.meltwater.com
+  tags:
+  - Explore+ Search
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-explore-search-api-openapi.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: GettingStarted
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  - type: Endpoints
+    url: https://developer.meltwater.com/docs/meltwater-api/reference/endpoints/
+  - type: ChangeLog
+    url: https://developer.meltwater.com/docs/meltwater-api/help/changelog/
+  - type: RateLimits
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+  - type: Concepts
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
+  - type: HowToGuides
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/
+- aid: meltwater:meltwater-listening-analytics-api
+  name: Meltwater Listening Analytics API
+  description: >-
+    Analyse multiple types of Meltwater data, run volume time series, top tags and sentiment counts.
+  humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  baseURL: https://api.meltwater.com
+  tags:
+  - Listening Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-listening-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: GettingStarted
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  - type: Endpoints
+    url: https://developer.meltwater.com/docs/meltwater-api/reference/endpoints/
+  - type: ChangeLog
+    url: https://developer.meltwater.com/docs/meltwater-api/help/changelog/
+  - type: RateLimits
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+  - type: Concepts
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
+  - type: HowToGuides
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/
+- aid: meltwater:meltwater-listening-exports-api
+  name: Meltwater Listening Exports API
+  description: Data exports for onetime and recurring jobs.
+  humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  baseURL: https://api.meltwater.com
+  tags:
+  - Listening Exports
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-listening-exports-api-openapi.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: GettingStarted
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  - type: Endpoints
+    url: https://developer.meltwater.com/docs/meltwater-api/reference/endpoints/
+  - type: ChangeLog
+    url: https://developer.meltwater.com/docs/meltwater-api/help/changelog/
+  - type: RateLimits
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+  - type: Concepts
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
+  - type: HowToGuides
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/
+- aid: meltwater:meltwater-listening-search-api
+  name: Meltwater Listening Search API
+  description: >-
+    Search Meltwater data using saved searches to integrate with your own API connectors and internal
+    systems.
+  humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  baseURL: https://api.meltwater.com
+  tags:
+  - Listening Search
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-listening-search-api-openapi.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: GettingStarted
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  - type: Endpoints
+    url: https://developer.meltwater.com/docs/meltwater-api/reference/endpoints/
+  - type: ChangeLog
+    url: https://developer.meltwater.com/docs/meltwater-api/help/changelog/
+  - type: RateLimits
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+  - type: Concepts
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
+  - type: HowToGuides
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/
+- aid: meltwater:meltwater-listening-search-management-api
+  name: Meltwater Listening Search Management API
+  description: Manage Saved Searches
+  humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  baseURL: https://api.meltwater.com
+  tags:
+  - Listening Search Management
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-listening-search-management-api-openapi.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: GettingStarted
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  - type: Endpoints
+    url: https://developer.meltwater.com/docs/meltwater-api/reference/endpoints/
+  - type: ChangeLog
+    url: https://developer.meltwater.com/docs/meltwater-api/help/changelog/
+  - type: RateLimits
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+  - type: Concepts
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
+  - type: HowToGuides
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/
+- aid: meltwater:meltwater-listening-streaming-api
+  name: Meltwater Listening Streaming API
+  description: Streaming of Meltwater data to integrate with your internal systems and workflows.
+  humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  baseURL: https://api.meltwater.com
+  tags:
+  - Listening Streaming
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-listening-streaming-api-openapi.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: GettingStarted
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  - type: Endpoints
+    url: https://developer.meltwater.com/docs/meltwater-api/reference/endpoints/
+  - type: ChangeLog
+    url: https://developer.meltwater.com/docs/meltwater-api/help/changelog/
+  - type: RateLimits
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+  - type: Concepts
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
+  - type: HowToGuides
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/
+- aid: meltwater:meltwater-mira-api-api
+  name: Meltwater Mira API API
+  description: AI-powered chat completion and project listing features.
+  humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  baseURL: https://api.meltwater.com
+  tags:
+  - Mira API
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-mira-api-api-openapi.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: GettingStarted
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  - type: Endpoints
+    url: https://developer.meltwater.com/docs/meltwater-api/reference/endpoints/
+  - type: ChangeLog
+    url: https://developer.meltwater.com/docs/meltwater-api/help/changelog/
+  - type: RateLimits
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+  - type: Concepts
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
+  - type: HowToGuides
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/
+- aid: meltwater:meltwater-owned-analytics-api
+  name: Meltwater Owned Analytics API
+  description: Retrieve owned social metrics and analytics.
+  humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  baseURL: https://api.meltwater.com
+  tags:
+  - Owned Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-owned-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: GettingStarted
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  - type: Endpoints
+    url: https://developer.meltwater.com/docs/meltwater-api/reference/endpoints/
+  - type: ChangeLog
+    url: https://developer.meltwater.com/docs/meltwater-api/help/changelog/
+  - type: RateLimits
+    url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+  - type: Concepts
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
+  - type: HowToGuides
+    url: https://developer.meltwater.com/docs/meltwater-api/guides/
 common:
   - type: AgenticAccess
     url: agentic-access/meltwater-agentic-access.yml
