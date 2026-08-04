@@ -1,0 +1,36 @@
+{
+  "provider": "meltwater",
+  "sources": [
+    "meltwater-account-management-api-openapi.yml",
+    "meltwater-bring-your-own-content-byoc-api-openapi.yml",
+    "meltwater-explore-analytics-api-openapi.yml",
+    "meltwater-explore-assets-api-openapi.yml",
+    "meltwater-explore-search-api-openapi.yml",
+    "meltwater-listening-analytics-api-openapi.yml",
+    "meltwater-listening-exports-api-openapi.yml",
+    "meltwater-listening-search-api-openapi.yml",
+    "meltwater-listening-search-management-api-openapi.yml",
+    "meltwater-listening-streaming-api-openapi.yml",
+    "meltwater-mira-api-api-openapi.yml",
+    "meltwater-owned-analytics-api-openapi.yml"
+  ],
+  "outputs": [
+    "meltwater-account-management-api-openapi.yml",
+    "meltwater-bring-your-own-content-byoc-api-openapi.yml",
+    "meltwater-explore-analytics-api-openapi.yml",
+    "meltwater-explore-assets-api-openapi.yml",
+    "meltwater-explore-search-api-openapi.yml",
+    "meltwater-listening-analytics-api-openapi.yml",
+    "meltwater-listening-exports-api-openapi.yml",
+    "meltwater-listening-search-api-openapi.yml",
+    "meltwater-listening-search-management-api-openapi.yml",
+    "meltwater-listening-streaming-api-openapi.yml",
+    "meltwater-mira-api-api-openapi.yml",
+    "meltwater-owned-analytics-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
