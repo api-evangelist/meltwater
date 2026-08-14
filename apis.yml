@@ -17,16 +17,16 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/meltwater.png
 url: https://raw.githubusercontent.com/api-evangelist/meltwater/refs/heads/main/apis.yml
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 tags:
-  - Media Monitoring
-  - Social Listening
-  - PR Analytics
-  - Brand Intelligence
-  - News API
-  - Social Analytics
-  - Media Intelligence
+- Media Monitoring
+- Social Listening
+- PR Analytics
+- Brand Intelligence
+- News API
+- Social Analytics
+- Media Intelligence
 apis:
 - aid: meltwater:meltwater-account-management-api
   name: Meltwater Account Management API
@@ -52,6 +52,10 @@ apis:
     url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
   - type: HowToGuides
     url: https://developer.meltwater.com/docs/meltwater-api/guides/
+  - type: Overlay
+    url: overlays/meltwater-account-management-api-overlay.yaml
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
 - aid: meltwater:meltwater-bring-your-own-content-byoc-api
   name: Meltwater Bring Your Own Content (BYOC) API
   description: Upload your own content into the Meltwater Platform.
@@ -76,6 +80,10 @@ apis:
     url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
   - type: HowToGuides
     url: https://developer.meltwater.com/docs/meltwater-api/guides/
+  - type: Overlay
+    url: overlays/meltwater-bring-your-own-content-byoc-api-overlay.yaml
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
 - aid: meltwater:meltwater-explore-analytics-api
   name: Meltwater Explore+ Analytics API
   description: Fetch analytics on data within your private index.
@@ -100,6 +108,10 @@ apis:
     url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
   - type: HowToGuides
     url: https://developer.meltwater.com/docs/meltwater-api/guides/
+  - type: Overlay
+    url: overlays/meltwater-explore-analytics-api-overlay.yaml
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
 - aid: meltwater:meltwater-explore-assets-api
   name: Meltwater Explore+ Assets API
   description: Manage your Explore+ assets including searches and custom fields.
@@ -124,6 +136,10 @@ apis:
     url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
   - type: HowToGuides
     url: https://developer.meltwater.com/docs/meltwater-api/guides/
+  - type: Overlay
+    url: overlays/meltwater-explore-assets-api-overlay.yaml
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
 - aid: meltwater:meltwater-explore-search-api
   name: Meltwater Explore+ Search API
   description: Export earned documents from your private index.
@@ -148,6 +164,10 @@ apis:
     url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
   - type: HowToGuides
     url: https://developer.meltwater.com/docs/meltwater-api/guides/
+  - type: Overlay
+    url: overlays/meltwater-explore-search-api-overlay.yaml
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
 - aid: meltwater:meltwater-listening-analytics-api
   name: Meltwater Listening Analytics API
   description: >-
@@ -173,6 +193,10 @@ apis:
     url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
   - type: HowToGuides
     url: https://developer.meltwater.com/docs/meltwater-api/guides/
+  - type: Overlay
+    url: overlays/meltwater-listening-analytics-api-overlay.yaml
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
 - aid: meltwater:meltwater-listening-exports-api
   name: Meltwater Listening Exports API
   description: Data exports for onetime and recurring jobs.
@@ -197,6 +221,10 @@ apis:
     url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
   - type: HowToGuides
     url: https://developer.meltwater.com/docs/meltwater-api/guides/
+  - type: Overlay
+    url: overlays/meltwater-listening-exports-api-overlay.yaml
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
 - aid: meltwater:meltwater-listening-search-api
   name: Meltwater Listening Search API
   description: >-
@@ -223,6 +251,10 @@ apis:
     url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
   - type: HowToGuides
     url: https://developer.meltwater.com/docs/meltwater-api/guides/
+  - type: Overlay
+    url: overlays/meltwater-listening-search-api-overlay.yaml
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
 - aid: meltwater:meltwater-listening-search-management-api
   name: Meltwater Listening Search Management API
   description: Manage Saved Searches
@@ -247,6 +279,10 @@ apis:
     url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
   - type: HowToGuides
     url: https://developer.meltwater.com/docs/meltwater-api/guides/
+  - type: Overlay
+    url: overlays/meltwater-listening-search-management-api-overlay.yaml
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
 - aid: meltwater:meltwater-listening-streaming-api
   name: Meltwater Listening Streaming API
   description: Streaming of Meltwater data to integrate with your internal systems and workflows.
@@ -271,6 +307,10 @@ apis:
     url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
   - type: HowToGuides
     url: https://developer.meltwater.com/docs/meltwater-api/guides/
+  - type: Overlay
+    url: overlays/meltwater-listening-streaming-api-overlay.yaml
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
 - aid: meltwater:meltwater-mira-api-api
   name: Meltwater Mira API API
   description: AI-powered chat completion and project listing features.
@@ -295,6 +335,10 @@ apis:
     url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
   - type: HowToGuides
     url: https://developer.meltwater.com/docs/meltwater-api/guides/
+  - type: Overlay
+    url: overlays/meltwater-mira-api-api-overlay.yaml
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
 - aid: meltwater:meltwater-owned-analytics-api
   name: Meltwater Owned Analytics API
   description: Retrieve owned social metrics and analytics.
@@ -319,37 +363,180 @@ apis:
     url: https://developer.meltwater.com/docs/meltwater-api/guides/concepts/
   - type: HowToGuides
     url: https://developer.meltwater.com/docs/meltwater-api/guides/
-common:
-  - type: AgenticAccess
-    url: agentic-access/meltwater-agentic-access.yml
-  - type: VulnerabilityDisclosure
-    url: security/meltwater-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/meltwater-domain-security.yml
-  - type: Authentication
-    url: authentication/meltwater-authentication.yml
-  - type: Website
-    url: https://www.meltwater.com
+  - type: Overlay
+    url: overlays/meltwater-owned-analytics-api-overlay.yaml
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
+- aid: meltwater:meltwater-api-v4
+  name: Meltwater API v4
+  description: The Meltwater Public API v4 provides unified access to content export and analytics across Meltwater Explore+ data sources, plus LLM lens prompts for AI Visibility (GenAI Lens). v4 is the version Meltwater is building out to eventually carry all features; it is currently 4.0.0-beta and carries exports, a single unified analyze endpoint, and the LLM prompt endpoints.
+  humanURL: https://developer.meltwater.com/api-reference/api-reference-overview
+  baseURL: https://api.meltwater.com/v4
+  tags:
+  - Export
+  - Analyze
+  - LLM
+  - AI Visibility
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-api-v4-openapi.yml
+  - type: Overlay
+    url: overlays/meltwater-api-v4-overlay.yaml
   - type: Documentation
     url: https://developer.meltwater.com/docs/
-  - type: GitHubOrg
-    url: https://github.com/meltwater
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/meltwater
-  - type: Blog
-    url: https://www.meltwater.com/en/blog
-  - type: Pricing
-    url: https://www.meltwater.com/en/suite/data-api-integration
-  - type: StatusPage
-    url: https://status.api.meltwater.com
-  - type: X
-    url: https://x.com/Meltwater
-  - type: Plans
-    url: plans/meltwater-plans-pricing.yml
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
+  - type: GettingStarted
+    url: https://developer.meltwater.com/guides/getting-started/overview
+  - type: ChangeLog
+    url: https://developer.meltwater.com/help/changelog
   - type: RateLimits
-    url: rate-limits/meltwater-rate-limits.yml
-  - type: FinOps
-    url: finops/meltwater-finops.yml
+    url: https://developer.meltwater.com/guides/getting-started/usage-limits
+  - type: HowToGuides
+    url: https://developer.meltwater.com/guides/ai-visibility/overview
+- aid: meltwater:meltwater-mcp
+  name: Meltwater MCP
+  description: Meltwater MCP is a single remote Model Context Protocol server that exposes a customer's Meltwater assets (saved searches, tags and other configured objects) and Meltwater data (news and social mentions, analytics and insights) as tools an AI agent can discover and call. It is authenticated with a Meltwater API token today, with OAuth 2.0 discovery documents already live. A second, orchestrated server at https://api.meltwater.com/mcp fronts the Mira assistant.
+  humanURL: https://developer.meltwater.com/guides/meltwater-mcp/overview
+  baseURL: https://api.meltwater.com/v2/mcp
+  tags:
+  - MCP
+  - Agents
+  - Model Context Protocol
+  - AI
+  properties:
+  - type: MCPServer
+    url: mcp/meltwater-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/meltwater-tool-crosswalk.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/guides/meltwater-mcp/overview
+  - type: GettingStarted
+    url: https://developer.meltwater.com/guides/meltwater-mcp/connecting
+  - type: OAuthScopes
+    url: scopes/meltwater-scopes.yml
+  - type: Console
+    url: https://developer.meltwater.com/tools/mcp-console/tools-explorer
+common:
+- type: AgenticAccess
+  url: agentic-access/meltwater-agentic-access.yml
+- type: VulnerabilityDisclosure
+  url: security/meltwater-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/meltwater-domain-security.yml
+- type: Authentication
+  url: authentication/meltwater-authentication.yml
+- type: Website
+  url: https://www.meltwater.com
+- type: Documentation
+  url: https://developer.meltwater.com/docs/
+- type: GitHubOrg
+  url: https://github.com/meltwater
+- type: LinkedIn
+  url: https://www.linkedin.com/company/meltwater
+- type: Blog
+  url: https://www.meltwater.com/en/blog
+- type: Pricing
+  url: https://www.meltwater.com/en/suite/data-api-integration
+- type: StatusPage
+  url: https://status.api.meltwater.com
+- type: X
+  url: https://x.com/Meltwater
+- type: Plans
+  url: plans/meltwater-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/meltwater-rate-limits.yml
+- type: FinOps
+  url: finops/meltwater-finops.yml
+- type: WellKnown
+  url: well-known/meltwater-well-known.yml
+- type: SecurityTxt
+  url: well-known/meltwater-security.txt
+- type: Security
+  url: https://www.meltwater.com/.well-known/security.txt
+- type: TrustCenter
+  url: security/meltwater-trust-center.yml
+- type: MCPServer
+  url: mcp/meltwater-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/meltwater-tool-crosswalk.yml
+- type: LLMsTxt
+  url: llms/meltwater-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: OAuthScopes
+  url: scopes/meltwater-scopes.yml
+- type: Conformance
+  url: conformance/meltwater-conformance.yml
+- type: ErrorCatalog
+  url: errors/meltwater-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/meltwater-lifecycle.yml
+- type: Conventions
+  url: conventions/meltwater-conventions.yml
+- type: ChangeLog
+  url: changelog/meltwater-changelog.yml
+- type: DataModel
+  url: data-model/meltwater-data-model.yml
+- type: Webhooks
+  url: asyncapi/meltwater-webhooks.yml
+- type: Sandbox
+  url: sandbox/meltwater-sandbox.yml
+- type: Packages
+  url: packages/meltwater-packages.yml
+- type: Examples
+  url: examples/meltwater-api-examples.json
+- type: Vocabulary
+  url: vocabulary/meltwater-vocabulary.json
+- type: JSONSchema
+  url: json-schema/meltwater-schemas.json
+- type: Rules
+  url: rules/meltwater-jsonschema-spectral-rules.yml
+- type: JSONLD
+  url: json-ld/meltwater-api.jsonld
+- type: DeveloperPortal
+  url: https://developer.meltwater.com/
+- type: APIReference
+  url: https://developer.meltwater.com/api-reference/api-reference-overview
+- type: GettingStarted
+  url: https://developer.meltwater.com/guides/getting-started/overview
+- type: Support
+  url: https://developer.meltwater.com/help/support
+- type: FAQ
+  url: https://developer.meltwater.com/help/faqs
+- type: TermsOfService
+  url: https://www.meltwater.com/en/terms-of-use
+- type: PrivacyPolicy
+  url: https://www.meltwater.com/en/privacy
+- type: Login
+  url: https://app.meltwater.com/
+- type: Console
+  url: https://developer.meltwater.com/tools/overview
+- type: Integrations
+  url: https://developer.meltwater.com/guides/integrations/overview
+- type: GitHubOrganization
+  url: https://github.com/meltwater
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 39
+  pass: local-v1
+x-coverage:
+  state: covered
+  reason: machine-readable-contract-and-agent-surface-found
+  detail: Meltwater publishes a downloadable v3 OpenAPI at developer.meltwater.com/v3.yaml, a previously uncaptured v4 OpenAPI at /v4.yaml, an llms.txt, two live remote MCP endpoints, and RFC 9728 plus RFC 8414 OAuth discovery documents - all fetched and saved this pass.
+  evidence:
+  - url: https://developer.meltwater.com/v4.yaml
+    status: 200
+  - url: https://developer.meltwater.com/llms.txt
+    status: 200
+  - url: https://api.meltwater.com/v2/mcp
+    status: 401
+  - url: https://api.meltwater.com/.well-known/oauth-protected-resource
+    status: 200
+  - url: https://app.meltwater.com/.well-known/oauth-authorization-server
+    status: 200
+  checked: '2026-08-13'
