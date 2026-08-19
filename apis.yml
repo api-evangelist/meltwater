@@ -18,7 +18,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/meltwater.
 url: https://raw.githubusercontent.com/api-evangelist/meltwater/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-08-13'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 tags:
 - Media Monitoring
 - Social Listening
