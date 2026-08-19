@@ -1,0 +1,1431 @@
+{
+  "item": [
+    {
+      "id": "a242bf0d-77ad-4c35-acc3-a66c47578c7d",
+      "name": "Listening Streaming",
+      "description": {
+        "content": "Streaming of Meltwater data to integrate with your internal systems and workflows.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "729759d8-1bab-4002-94c2-ce783fa7f6d6",
+          "name": "List all hooks.",
+          "request": {
+            "name": "List all hooks.",
+            "description": {
+              "content": "List all hooks.\n\nDelivers all previously generated hooks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "hooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c1170aa3-8002-4294-a5fd-94a585a4f26c",
+              "name": "List all hooks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"hooks\": [\n    {\n      \"search_id\": 9453,\n      \"target_url\": \"string\",\n      \"updated\": \"string\",\n      \"search_type\": \"string\",\n      \"hook_id\": \"string\",\n      \"template\": {\n        \"name\": \"legacy\"\n      },\n      \"version\": \"string\",\n      \"status\": \"string\",\n      \"status_reason\": \"string\"\n    },\n    {\n      \"search_id\": 8533,\n      \"target_url\": \"string\",\n      \"updated\": \"string\",\n      \"search_type\": \"string\",\n      \"hook_id\": \"string\",\n      \"template\": {\n        \"name\": \"legacy\"\n      },\n      \"version\": \"string\",\n      \"status\": \"string\",\n      \"status_reason\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5678d089-7bd0-483b-81b6-d46460f84649",
+              "name": "Invalid or expired token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "03c94bda-d2b6-4759-ba2e-c97d63c0cff0",
+              "name": "Not entitled to the service",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5ef642a3-ccaf-4ca7-a550-1b20e160e417",
+              "name": "Something went wrong while trying to fetch your hooks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4bd200da-6272-4d19-82ce-4d6dde68189f",
+          "name": "Creates a hook",
+          "request": {
+            "name": "Creates a hook",
+            "description": {
+              "content": "Creates a hook for one of your predefined searches.\n Delivers search results for the query referenced by the `search_id` to the `target_url` via HTTP POST. Note that a `hook_id` will be returned on successful creation, this id is needed to delete the hook.\n\n We are also returning the header: `X-Hook-Secret`, a shared secret used to sign the document body pushed to your `target_url`.\n\n\n Specify `company_id` if your `search_id` is not in your default company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "hooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "Company that owns the specified search_id. If not specified your default company is used."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Shared secret for content signing/verification.\n\nThe shared secret header is optional and can be provided by the user\nor will be set by the API. Must be between 16 and 64 characters.\nObtain the shared secret from the response header `X-Hook-Secret`.\n\n#### Example:\n\n    e2d264b524240b9572ebc2fc7eebd980\n",
+                "key": "X-Hook-Secret",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"target_url\": \"<string>\",\n  \"search_id\": \"<integer>\",\n  \"template\": {\n    \"name\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cc9ec5b4-587a-4652-8687-0e7949f328ff",
+              "name": "Successfully Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Shared secret for content signing/verification.\n\nThe shared secret header is optional and can be provided by the user\nor will be set by the API. Must be between 16 and 64 characters.\nObtain the shared secret from the response header `X-Hook-Secret`.\n\n#### Example:\n\n    e2d264b524240b9572ebc2fc7eebd980\n",
+                    "key": "X-Hook-Secret",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target_url\": \"<string>\",\n  \"search_id\": \"<integer>\",\n  \"template\": {\n    \"name\": \"legacy\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"search_id\": 1280,\n  \"target_url\": \"string\",\n  \"updated\": \"string\",\n  \"search_type\": \"string\",\n  \"hook_id\": \"string\",\n  \"template\": {\n    \"name\": \"legacy\"\n  },\n  \"version\": \"string\",\n  \"status\": \"string\",\n  \"status_reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b6e56d6-c6f7-4db9-8667-69870a2fe06e",
+              "name": "Missing required parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Shared secret for content signing/verification.\n\nThe shared secret header is optional and can be provided by the user\nor will be set by the API. Must be between 16 and 64 characters.\nObtain the shared secret from the response header `X-Hook-Secret`.\n\n#### Example:\n\n    e2d264b524240b9572ebc2fc7eebd980\n",
+                    "key": "X-Hook-Secret",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target_url\": \"<string>\",\n  \"search_id\": \"<integer>\",\n  \"template\": {\n    \"name\": \"legacy\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0580d028-ee12-4649-a844-90c2a0cdd532",
+              "name": "Invalid or expired token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Shared secret for content signing/verification.\n\nThe shared secret header is optional and can be provided by the user\nor will be set by the API. Must be between 16 and 64 characters.\nObtain the shared secret from the response header `X-Hook-Secret`.\n\n#### Example:\n\n    e2d264b524240b9572ebc2fc7eebd980\n",
+                    "key": "X-Hook-Secret",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target_url\": \"<string>\",\n  \"search_id\": \"<integer>\",\n  \"template\": {\n    \"name\": \"legacy\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4ffe1645-0c11-42a2-97d6-9ab1c38accaf",
+              "name": "Not entitled to the service",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Shared secret for content signing/verification.\n\nThe shared secret header is optional and can be provided by the user\nor will be set by the API. Must be between 16 and 64 characters.\nObtain the shared secret from the response header `X-Hook-Secret`.\n\n#### Example:\n\n    e2d264b524240b9572ebc2fc7eebd980\n",
+                    "key": "X-Hook-Secret",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target_url\": \"<string>\",\n  \"search_id\": \"<integer>\",\n  \"template\": {\n    \"name\": \"legacy\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4340f7e6-6017-4bd4-96c0-26667660b428",
+              "name": "The search you are trying to create a REST hook for was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Shared secret for content signing/verification.\n\nThe shared secret header is optional and can be provided by the user\nor will be set by the API. Must be between 16 and 64 characters.\nObtain the shared secret from the response header `X-Hook-Secret`.\n\n#### Example:\n\n    e2d264b524240b9572ebc2fc7eebd980\n",
+                    "key": "X-Hook-Secret",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target_url\": \"<string>\",\n  \"search_id\": \"<integer>\",\n  \"template\": {\n    \"name\": \"legacy\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"details\": \"string\",\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"meta\": {}\n    },\n    {\n      \"details\": \"string\",\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"meta\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbec3a72-958e-4c02-9302-55e1c7b3ed2e",
+              "name": "The hook you are trying to create already exists for the specified search_id and target_url.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Shared secret for content signing/verification.\n\nThe shared secret header is optional and can be provided by the user\nor will be set by the API. Must be between 16 and 64 characters.\nObtain the shared secret from the response header `X-Hook-Secret`.\n\n#### Example:\n\n    e2d264b524240b9572ebc2fc7eebd980\n",
+                    "key": "X-Hook-Secret",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target_url\": \"<string>\",\n  \"search_id\": \"<integer>\",\n  \"template\": {\n    \"name\": \"legacy\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "226ef62d-b65b-4904-9e10-753f2a97abfe",
+              "name": "Something went wrong while trying to create your REST hook.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Shared secret for content signing/verification.\n\nThe shared secret header is optional and can be provided by the user\nor will be set by the API. Must be between 16 and 64 characters.\nObtain the shared secret from the response header `X-Hook-Secret`.\n\n#### Example:\n\n    e2d264b524240b9572ebc2fc7eebd980\n",
+                    "key": "X-Hook-Secret",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target_url\": \"<string>\",\n  \"search_id\": \"<integer>\",\n  \"template\": {\n    \"name\": \"legacy\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"details\": \"string\",\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"meta\": {}\n    },\n    {\n      \"details\": \"string\",\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"meta\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2298872-8792-4c66-92ff-bc74a4bb4bef",
+          "name": "Delete an existing hook.",
+          "request": {
+            "name": "Delete an existing hook.",
+            "description": {
+              "content": "Delete an existing hook.\n Removes the hook and stops sending any search results to the target_url.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "hooks",
+                ":hook_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hook_id",
+                  "description": "(Required) Hook ID received from creating a hook"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "edcbdbf7-91d6-4a53-807b-00ddc44d7a39",
+              "name": "Successfully Deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks",
+                    ":hook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hook_id",
+                      "description": "(Required) Hook ID received from creating a hook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a56bcc08-4309-42f4-bbea-e5033394ee1f",
+              "name": "Missing required parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks",
+                    ":hook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hook_id",
+                      "description": "(Required) Hook ID received from creating a hook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0f12bd1a-02f4-4112-9590-25d2b373f17f",
+              "name": "Invalid or expired token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks",
+                    ":hook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hook_id",
+                      "description": "(Required) Hook ID received from creating a hook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c1b1e67f-6eef-4418-b3d2-33d98b9a5520",
+              "name": "Not entitled to the service",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks",
+                    ":hook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hook_id",
+                      "description": "(Required) Hook ID received from creating a hook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f307bb7d-2c31-4303-80ed-febb81b9213e",
+              "name": "The REST hook you are trying to delete was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks",
+                    ":hook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hook_id",
+                      "description": "(Required) Hook ID received from creating a hook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a084b8d6-15fa-4b18-a2be-e07cc723b3de",
+              "name": "Something went wrong while trying to delete your hook(-s).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks",
+                    ":hook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hook_id",
+                      "description": "(Required) Hook ID received from creating a hook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f3108167-10ba-467d-bcc0-280211f50791",
+          "name": "Get an individual hook.",
+          "request": {
+            "name": "Get an individual hook.",
+            "description": {
+              "content": "Get an individual hook.\n\nRetrieves an existing hook.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "hooks",
+                ":hook_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hook_id",
+                  "description": "(Required) Hook ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5bbf079d-49d9-461a-bbfd-a08388bc1108",
+              "name": "Successfully Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks",
+                    ":hook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hook_id",
+                      "description": "(Required) Hook ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"hook\": {\n    \"search_id\": 2804,\n    \"target_url\": \"string\",\n    \"updated\": \"string\",\n    \"search_type\": \"string\",\n    \"hook_id\": \"string\",\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"version\": \"string\",\n    \"status\": \"string\",\n    \"status_reason\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03bc19fa-101a-458e-9de6-0bf7b03bc882",
+              "name": "Invalid or expired token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks",
+                    ":hook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hook_id",
+                      "description": "(Required) Hook ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9256a47d-9221-422d-b9bd-ecb31138fc86",
+              "name": "Not entitled to the service",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks",
+                    ":hook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hook_id",
+                      "description": "(Required) Hook ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e1e60b88-19c5-4449-aa8e-604b335bca7b",
+              "name": "The hook you are trying to get was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks",
+                    ":hook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hook_id",
+                      "description": "(Required) Hook ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"details\": \"string\",\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"meta\": {}\n    },\n    {\n      \"details\": \"string\",\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"meta\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f60a48d-c87c-45a4-bcf0-a0dd41d13780",
+              "name": "Something went wrong while trying to fetch your hooks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hooks",
+                    ":hook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hook_id",
+                      "description": "(Required) Hook ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.meltwater.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "50c42fd3-cf47-4e60-9cf0-b4c74fc57bf0",
+    "name": "Meltwater Account Management Listening Streaming API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Meltwater Public API\n\nContact Support:\n Name: Meltwater Support\n Email: support@api.meltwater.com",
+      "type": "text/plain"
+    }
+  }
+}

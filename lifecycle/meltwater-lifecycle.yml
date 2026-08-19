@@ -1,0 +1,46 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.meltwater.com/api-reference/api-reference-overview
+versioning:
+  scheme: uri-path
+  current: v4 (4.0.0-beta)
+  supported: [v3, v4]
+  docs: https://developer.meltwater.com/api-reference/api-reference-overview
+  note: >-
+    Meltwater is mid-migration. The v3 API is the complete surface (80 operations) and is the
+    one described by the downloadable OpenAPI. v4 is being built out and today carries only the
+    newer features - Explore+ exports (beta), unified analytics, and AI Visibility / LLM prompts.
+    Meltwater states v4 "in time will support all features".
+deprecation:
+  policy_url: https://developer.meltwater.com/help/changelog
+  sunset_header: false
+  policy: >-
+    Meltwater publishes no formal deprecation policy document and no RFC 8594 Sunset/Deprecation
+    header support. Its stated commitment is narrative: "We will communicate to API customers
+    planned deprecation dates for features." Individual deprecations are announced on the
+    changelog (for example the 21 October 2024 removal of several Facebook metrics) and on the
+    Compliance page for data-provider-driven field removals.
+  compliance_removals_url: https://developer.meltwater.com/help/compliance
+  migration_guides:
+    - https://developer.meltwater.com/help/migration-to-v3
+    - https://developer.meltwater.com/help/api-changes-2023
+status_page: https://status.api.meltwater.com
+status_page_platform: Atlassian Statuspage
+status_page_api: https://status.api.meltwater.com/api/v2/summary.json
+status_page_feeds:
+  - https://status.api.meltwater.com/history.atom
+  - https://status.api.meltwater.com/history.rss
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No public SLA document. The plans artifact records that SLA guarantees are named as an
+    Enterprise / API Package contract term, not a published number.
+deprecated_operations: []
+x-evidence:
+  - url: https://status.api.meltwater.com/api/v2/summary.json
+    status: 200
+  - url: https://developer.meltwater.com/help/changelog
+    status: 200
+  - url: https://developer.meltwater.com/help/compliance
+    status: 200

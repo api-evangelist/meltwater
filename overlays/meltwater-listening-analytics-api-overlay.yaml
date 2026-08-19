@@ -1,0 +1,27 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Meltwater Account Management Listening Analytics API
+  version: 1.0.0
+extends: openapi/meltwater-listening-analytics-api-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: openapi/meltwater-listening-analytics-api-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: meltwater
+      x-apievangelist-artifacts:
+        authentication: authentication/meltwater-authentication.yml
+        conventions: conventions/meltwater-conventions.yml
+        errors: errors/meltwater-problem-types.yml
+        rate-limits: rate-limits/meltwater-rate-limits.yml
+        lifecycle: lifecycle/meltwater-lifecycle.yml
+        webhooks: asyncapi/meltwater-webhooks.yml
+        mcp: mcp/meltwater-mcp.yml
+        skills: skills/_index.yml
+      x-apievangelist-operations: 12
+      x-apievangelist-operations-missing-operationid: 2
+  - target: $.servers
+    update:
+      - url: https://api.meltwater.com
+        description: Meltwater production API (confirmed live 2026-08-13)

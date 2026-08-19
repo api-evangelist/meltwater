@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Meltwater Account Management Explore+ Search API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Explore+ Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for data in your private index.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/explore_plus/search",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search for data in your private index."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

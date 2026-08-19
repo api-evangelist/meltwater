@@ -1,0 +1,42 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.meltwater.com/tools/overview
+kind: hosted developer consoles
+test_mode:
+  separate_test_keys: false
+  note: >-
+    Meltwater publishes no sandbox environment, no test-mode key prefix and no magic test
+    values. There is one live API and one kind of token; calls made from the developer-portal
+    consoles count against the same contract allowances as calls made from your own code
+    (stated on the Usage Limits page). Nothing test-shaped is recorded here because Meltwater
+    publishes nothing test-shaped.
+consoles:
+  - name: Search Console
+    url: https://developer.meltwater.com/tools/listening-console/search
+    description: Run Listening searches against your saved searches from the browser.
+  - name: Analytics Console
+    url: https://developer.meltwater.com/tools/listening-console/analytics
+    description: Run Listening analytics requests interactively.
+  - name: Export Console
+    url: https://developer.meltwater.com/tools/listening-console/export
+    description: Create and inspect one-time and recurring exports.
+  - name: Stream Console
+    url: https://developer.meltwater.com/tools/listening-console/streaming
+    description: Create and manage data streams (hooks).
+  - name: Analytics Console v4
+    url: https://developer.meltwater.com/tools/analytics-console-v4/analyze
+    description: Interactive console for the v4 analyze endpoint.
+  - name: MCP Tools Explorer
+    url: https://developer.meltwater.com/tools/mcp-console/tools-explorer
+    description: >-
+      Connect with your API token and browse the MCP tools your package exposes - name,
+      description and parameters - without writing code. Calls the live tools/list on
+      https://api.meltwater.com/v2/mcp.
+  - name: Mira Projects console
+    url: https://developer.meltwater.com/tools/mira-api-console/mira-projects
+  - name: Mira Responses console
+    url: https://developer.meltwater.com/tools/mira-api-console/mira-responses
+auth:
+  method: paste your live Meltwater API token
+  url: https://developer.meltwater.com/tools/console-login
+  note: Console usage consumes the same contract quotas as direct API calls.

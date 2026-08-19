@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Meltwater Account Management Mira API API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Mira API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Chat completion endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/mira/chat",
+            "headers": [
+              {
+                "name": "X-Project-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the company to access. If not provided, your default company will be used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Processes chat completion requests and returns responses in streaming or non-streaming mode.\nIf thread_id is provided, it will use that thread. If not, it will create a new thread or use the latest one.\nIf X-Project-ID header is provided, the thread will be associated with that project for enhanced context.\nThe thread ID is returned in the Thread-ID response header."
+        },
+        {
+          "info": {
+            "name": "Chat responses endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/mira/responses",
+            "headers": [
+              {
+                "name": "Thread-ID",
+                "value": ""
+              },
+              {
+                "name": "Project-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the company to access. If not provided, your default company will be used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Processes chat responses requests with multiple input messages and returns responses in streaming or non-streaming mode.\nIf Thread-ID header is provided, uses the existing thread; otherwise creates a new thread with all messages and passes only the last user message to Mira.\nThe thread ID is returned in the Thread-ID response header."
+        },
+        {
+          "info": {
+            "name": "List available projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/mira/projects",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (default: 1, min: 1)"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Items per page (default: 10, min: 1, max: 100)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order: asc or desc (default: desc)"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the company to access. If not provided, your default company will be used."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve all projects available to the authenticated user with pagination support"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

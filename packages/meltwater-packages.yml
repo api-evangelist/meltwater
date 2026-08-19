@@ -1,0 +1,45 @@
+generated: '2026-08-13'
+method: searched
+source: npm registry search, PyPI, github.com/meltwater
+package_count: 0
+packages: []
+note: >-
+  Meltwater publishes no first-party client library for the Meltwater API in any registry.
+  The npm @meltwater scope carries ~20 packages, but they are internal engineering utilities
+  (logging, Koa middleware, webpack plugins, AWS tooling) and UI component builds for the
+  Meltwater application - none wraps the public REST API. PyPI has no meltwater, meltwater-api
+  or meltwater-sdk project (all 404). The github.com/meltwater organisation is largely
+  infrastructure tooling; the only API-facing repositories are meltwater-api-examples (HTML
+  example code, not a distributable package) and meltwater-plugins ("Official Meltwater plugins
+  for AI assistants and developer platforms", created 2026-08-11), which currently contains
+  nothing but a two-line README. No SDKs pointer is emitted because there is no SDK.
+checked:
+  - registry: npm
+    query: meltwater
+    result: no first-party API client
+  - registry: pypi
+    packages: [meltwater, meltwater-api, meltwater-sdk]
+    result: 404 on all
+  - registry: github
+    org: https://github.com/meltwater
+    result: no client library repository
+related:
+  - name: meltwater-api-examples
+    url: https://github.com/meltwater/meltwater-api-examples
+    kind: example code
+    official: true
+    registry: null
+    version: null
+    published: null
+    note: Example code for API customers; not published to any package registry, so there is no version metadata endpoint to read.
+  - name: meltwater-plugins
+    url: https://github.com/meltwater/meltwater-plugins
+    kind: placeholder repository
+    official: true
+    registry: null
+    version: null
+    published: '2026-08-11'
+    note: >-
+      Described as "Official Meltwater plugins for AI assistants and developer platforms" and
+      pushed 2026-08-11, but the repository tree contains a single README.md and no plugin code.
+      Recorded as an announced-but-empty surface, not a package.

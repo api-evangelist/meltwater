@@ -1,0 +1,1 @@
+{"resource":"https://api.meltwater.com/v2/mcp","authorization_servers":["https://app.meltwater.com"],"scopes_supported":["tools:read","tools:call"],"bearer_methods_supported":["header"]}

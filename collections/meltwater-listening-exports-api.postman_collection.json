@@ -1,0 +1,3789 @@
+{
+  "item": [
+    {
+      "id": "b6b4ccd7-eb3f-4900-9cb3-66cb81d6e82e",
+      "name": "Listening Exports",
+      "description": {
+        "content": "Data exports for onetime and recurring jobs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0d757ad5-3443-4b05-9854-e767a12599b9",
+          "name": "Creates a new one-time export",
+          "request": {
+            "name": "Creates a new one-time export",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "exports",
+                "one-time"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "Company which owns the given search_id. If not specified your default company is used."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"onetime_export\": {\n    \"end_date\": \"<datetime>\",\n    \"start_date\": \"<datetime>\",\n    \"search_ids\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"tags\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"<string>\"\n    },\n    \"sample\": {\n      \"count\": \"<integer>\",\n      \"percentage\": \"<double>\"\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5082eefe-326e-48d3-a74d-2e5edf14d217",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"onetime_export\": {\n    \"end_date\": \"2020-03-29T23:59:59Z\",\n    \"start_date\": \"2020-03-25T00:00:00Z\",\n    \"search_ids\": [\n      123\n    ],\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"onetime_export\": {\n    \"end_date\": \"2020-03-29T23:59:59.000000Z\",\n    \"start_date\": \"2020-03-25T00:00:00.000000Z\",\n    \"searches\": [\n      {\n        \"name\": \"Elections\",\n        \"id\": 123\n      },\n      {\n        \"name\": \"Elections\",\n        \"id\": 123\n      }\n    ],\n    \"company_name\": \"string\",\n    \"id\": 7497,\n    \"updated_at\": \"2020-03-25T00:00:00.000000\",\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"status_reason\": \"string\",\n    \"status\": \"PENDING\",\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"inserted_at\": \"2020-03-25T00:00:00.000000\",\n    \"data_url\": \"https://downloads.exports.meltwater.com/v1/one-time/12345?data_key=abcdef0123456789\",\n    \"format\": \"JSON\",\n    \"custom_categories\": {\n      \"ids\": [\n        {\n          \"name\": \"My Category\",\n          \"id\": 321,\n          \"type\": \"include\"\n        },\n        {\n          \"name\": \"My Category\",\n          \"id\": 321,\n          \"type\": \"include\"\n        }\n      ],\n      \"filter\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18c63aa3-8b7c-4f5c-a6d6-2f4abe357f4c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"onetime_export\": {\n    \"end_date\": \"2020-03-29T23:59:59Z\",\n    \"start_date\": \"2020-03-25T00:00:00Z\",\n    \"search_ids\": [\n      123\n    ],\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Invalid data\",\n      \"details\": \"Invalid JSON payload\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e79fe3a1-f0f0-45ee-8986-ec9ccac115c3",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"onetime_export\": {\n    \"end_date\": \"2020-03-29T23:59:59Z\",\n    \"start_date\": \"2020-03-25T00:00:00Z\",\n    \"search_ids\": [\n      123\n    ],\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"AUTH\",\n      \"title\": \"Unauthorized\",\n      \"details\": \"Invalid or expired authorization header\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a32df97a-b23d-41f7-8ecb-909c7e6648b3",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"onetime_export\": {\n    \"end_date\": \"2020-03-29T23:59:59Z\",\n    \"start_date\": \"2020-03-25T00:00:00Z\",\n    \"search_ids\": [\n      123\n    ],\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"ENTITLEMENT\",\n      \"title\": \"Entitlement missing\",\n      \"details\": \"You are missing required entitlements, in order to access given content: [\\\"news\\\", \\\"social\\\"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "346fed0f-1165-489c-8346-f3056cc36f2e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"onetime_export\": {\n    \"end_date\": \"2020-03-29T23:59:59Z\",\n    \"start_date\": \"2020-03-25T00:00:00Z\",\n    \"search_ids\": [\n      123\n    ],\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"EXPORT\",\n      \"title\": \"Unknown resource\",\n      \"details\": \"The resource id you provided (1234) is unknown\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86f3e9b8-31d8-4bac-9f3e-64549f580003",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"onetime_export\": {\n    \"end_date\": \"2020-03-29T23:59:59Z\",\n    \"start_date\": \"2020-03-25T00:00:00Z\",\n    \"search_ids\": [\n      123\n    ],\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Validation error for field: window_size\",\n      \"details\": \"is not a valid integer\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c60242a-253e-4549-a4fa-2c98cc88b308",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"onetime_export\": {\n    \"end_date\": \"2020-03-29T23:59:59Z\",\n    \"start_date\": \"2020-03-25T00:00:00Z\",\n    \"search_ids\": [\n      123\n    ],\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"INTERNAL\",\n      \"title\": \"Internal Server error\",\n      \"details\": \"Something went wrong behind the scenes...\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f960abe-12d4-447a-8257-b6deb64ffa1c",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"onetime_export\": {\n    \"end_date\": \"2020-03-29T23:59:59Z\",\n    \"start_date\": \"2020-03-25T00:00:00Z\",\n    \"search_ids\": [\n      123\n    ],\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"SEARCH\",\n      \"title\": \"Service unavailable\",\n      \"details\": \"Temporarily unable to handle the request, try again later\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02125fc3-d378-4c3e-b146-e3acb022a0ad",
+          "name": "Get a list of all your one-time exports",
+          "request": {
+            "name": "Get a list of all your one-time exports",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "exports",
+                "one-time"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "57d502e6-84fe-4d66-945e-46074ca88268",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"onetime_exports\": [\n    {\n      \"end_date\": \"2020-03-29T23:59:59.000000Z\",\n      \"start_date\": \"2020-03-25T00:00:00.000000Z\",\n      \"searches\": [\n        {\n          \"name\": \"Elections\",\n          \"id\": 123\n        },\n        {\n          \"name\": \"Elections\",\n          \"id\": 123\n        }\n      ],\n      \"company_name\": \"string\",\n      \"id\": 4372,\n      \"updated_at\": \"2020-03-25T00:00:00.000000\",\n      \"tags\": [\n        {\n          \"id\": 12345,\n          \"name\": \"My Custom Tag\"\n        },\n        {\n          \"id\": 12345,\n          \"name\": \"My Custom Tag\"\n        }\n      ],\n      \"status_reason\": \"string\",\n      \"status\": \"EXPIRED\",\n      \"template\": {\n        \"name\": \"legacy\"\n      },\n      \"sample\": {\n        \"count\": 1200,\n        \"percentage\": 50\n      },\n      \"inserted_at\": \"2020-03-25T00:00:00.000000\",\n      \"data_url\": \"https://downloads.exports.meltwater.com/v1/one-time/12345?data_key=abcdef0123456789\",\n      \"format\": \"CSV\",\n      \"custom_categories\": {\n        \"ids\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"filter\": true\n      }\n    },\n    {\n      \"end_date\": \"2020-03-29T23:59:59.000000Z\",\n      \"start_date\": \"2020-03-25T00:00:00.000000Z\",\n      \"searches\": [\n        {\n          \"name\": \"Elections\",\n          \"id\": 123\n        },\n        {\n          \"name\": \"Elections\",\n          \"id\": 123\n        }\n      ],\n      \"company_name\": \"string\",\n      \"id\": 7582,\n      \"updated_at\": \"2020-03-25T00:00:00.000000\",\n      \"tags\": [\n        {\n          \"id\": 12345,\n          \"name\": \"My Custom Tag\"\n        },\n        {\n          \"id\": 12345,\n          \"name\": \"My Custom Tag\"\n        }\n      ],\n      \"status_reason\": \"string\",\n      \"status\": \"FINISHED\",\n      \"template\": {\n        \"name\": \"legacy\"\n      },\n      \"sample\": {\n        \"count\": 1200,\n        \"percentage\": 50\n      },\n      \"inserted_at\": \"2020-03-25T00:00:00.000000\",\n      \"data_url\": \"https://downloads.exports.meltwater.com/v1/one-time/12345?data_key=abcdef0123456789\",\n      \"format\": \"CSV\",\n      \"custom_categories\": {\n        \"ids\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"filter\": true\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc0594a0-2e03-424b-8fce-413067adf48f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Invalid data\",\n      \"details\": \"Invalid JSON payload\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c45ae82-c872-4edf-8fad-a81e073a456c",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"AUTH\",\n      \"title\": \"Unauthorized\",\n      \"details\": \"Invalid or expired authorization header\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98c21301-c4dd-40c9-a6a4-e9c7c1cceeba",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"ENTITLEMENT\",\n      \"title\": \"Entitlement missing\",\n      \"details\": \"You are missing required entitlements, in order to access given content: [\\\"news\\\", \\\"social\\\"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "530ad181-522d-49b1-b123-7adfabb7a09d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"EXPORT\",\n      \"title\": \"Unknown resource\",\n      \"details\": \"The resource id you provided (1234) is unknown\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e962f3cc-40a1-49b5-a0f0-04d6a3a5adcb",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Validation error for field: window_size\",\n      \"details\": \"is not a valid integer\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7a56ed7-af63-4136-b6e4-4be1fd61441e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"INTERNAL\",\n      \"title\": \"Internal Server error\",\n      \"details\": \"Something went wrong behind the scenes...\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e06af67d-00e5-4e9d-bd0e-49bf2df3f1ce",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"SEARCH\",\n      \"title\": \"Service unavailable\",\n      \"details\": \"Temporarily unable to handle the request, try again later\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee01e99a-988c-41d3-b107-4e5495308698",
+          "name": "Get details of a one-time export",
+          "request": {
+            "name": "Get details of a one-time export",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "exports",
+                "one-time",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) One-time export id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "469b675c-20fb-4c51-8c46-0cbe1b4a0259",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"onetime_export\": {\n    \"end_date\": \"2020-03-29T23:59:59.000000Z\",\n    \"start_date\": \"2020-03-25T00:00:00.000000Z\",\n    \"searches\": [\n      {\n        \"name\": \"Elections\",\n        \"id\": 123\n      },\n      {\n        \"name\": \"Elections\",\n        \"id\": 123\n      }\n    ],\n    \"company_name\": \"string\",\n    \"id\": 2904,\n    \"updated_at\": \"2020-03-25T00:00:00.000000\",\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"status_reason\": \"string\",\n    \"status\": \"EXPIRED\",\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"inserted_at\": \"2020-03-25T00:00:00.000000\",\n    \"data_url\": \"https://downloads.exports.meltwater.com/v1/one-time/12345?data_key=abcdef0123456789\",\n    \"format\": \"JSON\",\n    \"custom_categories\": {\n      \"ids\": [\n        {\n          \"name\": \"My Category\",\n          \"id\": 321,\n          \"type\": \"include\"\n        },\n        {\n          \"name\": \"My Category\",\n          \"id\": 321,\n          \"type\": \"include\"\n        }\n      ],\n      \"filter\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d85b308f-de4d-4ff4-9683-28f0973b3b9c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Invalid data\",\n      \"details\": \"Invalid JSON payload\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2440d8c-547f-47f9-92b3-e0b4f94f47c0",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"AUTH\",\n      \"title\": \"Unauthorized\",\n      \"details\": \"Invalid or expired authorization header\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4824e7b4-4610-4e7d-a3c6-ba7442d9a185",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"ENTITLEMENT\",\n      \"title\": \"Entitlement missing\",\n      \"details\": \"You are missing required entitlements, in order to access given content: [\\\"news\\\", \\\"social\\\"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e70f0ea-eba8-4c18-ad73-2edad718b713",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"EXPORT\",\n      \"title\": \"Unknown resource\",\n      \"details\": \"The resource id you provided (1234) is unknown\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a832aa7-560f-4140-8167-9b9cff66afd4",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Validation error for field: window_size\",\n      \"details\": \"is not a valid integer\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5979e655-e5e0-4ce3-b6e6-31a29dd40a99",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"INTERNAL\",\n      \"title\": \"Internal Server error\",\n      \"details\": \"Something went wrong behind the scenes...\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82776f61-076a-41d0-9233-0db1483bbd87",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"SEARCH\",\n      \"title\": \"Service unavailable\",\n      \"details\": \"Temporarily unable to handle the request, try again later\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "805e05fb-8936-40b5-8167-5f5f079c4ae2",
+          "name": "Removes an existing one-time export",
+          "request": {
+            "name": "Removes an existing one-time export",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "exports",
+                "one-time",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) One-time export id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "11c48dfa-5adb-48f2-a52c-1e3bd07c193f",
+              "name": "No content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a7582783-bb7f-4eb1-9c55-85a531dd0d6e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Invalid data\",\n      \"details\": \"Invalid JSON payload\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "948c23b2-95d4-4636-9806-d3ff31719988",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"AUTH\",\n      \"title\": \"Unauthorized\",\n      \"details\": \"Invalid or expired authorization header\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3010a54e-530f-4e6a-910a-b35743d831e4",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"ENTITLEMENT\",\n      \"title\": \"Entitlement missing\",\n      \"details\": \"You are missing required entitlements, in order to access given content: [\\\"news\\\", \\\"social\\\"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ba45db0-d431-4d11-a647-394dfc806120",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"EXPORT\",\n      \"title\": \"Unknown resource\",\n      \"details\": \"The resource id you provided (1234) is unknown\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1afd2bf-31a8-417c-948d-6f426fbaa971",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Validation error for field: window_size\",\n      \"details\": \"is not a valid integer\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8bd50f78-c55f-48f0-958f-ce7e141da81a",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"INTERNAL\",\n      \"title\": \"Internal Server error\",\n      \"details\": \"Something went wrong behind the scenes...\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "718544c5-f1b1-42c6-a661-f72ebb5fe548",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "one-time",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) One-time export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"SEARCH\",\n      \"title\": \"Service unavailable\",\n      \"details\": \"Temporarily unable to handle the request, try again later\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9f38964-d596-4934-97c6-7c86e82bb887",
+          "name": "Creates a new recurring export",
+          "request": {
+            "name": "Creates a new recurring export",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "exports",
+                "recurring"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "Company which owns the given search_id. If not specified your default company is used."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recurring_export\": {\n    \"search_ids\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"window_weekday\": 1,\n    \"window_time_unit\": \"DAY\",\n    \"window_time\": \"00:00:00\",\n    \"window_size\": 1,\n    \"window_monthday\": 1,\n    \"timezone\": \"Etc/UTC\",\n    \"tags\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"<string>\"\n    },\n    \"sample\": {\n      \"count\": \"<integer>\",\n      \"percentage\": \"<double>\"\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ccbf1783-40d0-423f-a56c-efc0c4af22ed",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recurring_export\": {\n    \"search_ids\": [\n      123\n    ],\n    \"window_weekday\": 1,\n    \"window_time_unit\": \"DAY\",\n    \"window_time\": \"00:00:00\",\n    \"window_size\": 1,\n    \"window_monthday\": 1,\n    \"timezone\": \"Etc/UTC\",\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"recurring_export\": {\n    \"searches\": [\n      {\n        \"name\": \"Elections\",\n        \"id\": 123\n      },\n      {\n        \"name\": \"Elections\",\n        \"id\": 123\n      }\n    ],\n    \"company_name\": \"string\",\n    \"id\": 6338,\n    \"window_weekday\": 1,\n    \"window_time_unit\": \"DAY\",\n    \"window_time\": \"00:00:00\",\n    \"window_size\": 1,\n    \"window_monthday\": 1,\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"updated_at\": \"string\",\n    \"timezone\": \"Etc/UTC\",\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"status_reason\": \"string\",\n    \"status\": \"ACTIVE\",\n    \"next_run_date\": \"string\",\n    \"inserted_at\": \"string\",\n    \"data_url\": \"string\",\n    \"format\": \"JSON\",\n    \"custom_categories\": {\n      \"ids\": [\n        {\n          \"name\": \"My Category\",\n          \"id\": 321,\n          \"type\": \"include\"\n        },\n        {\n          \"name\": \"My Category\",\n          \"id\": 321,\n          \"type\": \"include\"\n        }\n      ],\n      \"filter\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcd0476a-f040-4dbe-ad6a-792bccbb532e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recurring_export\": {\n    \"search_ids\": [\n      123\n    ],\n    \"window_weekday\": 1,\n    \"window_time_unit\": \"DAY\",\n    \"window_time\": \"00:00:00\",\n    \"window_size\": 1,\n    \"window_monthday\": 1,\n    \"timezone\": \"Etc/UTC\",\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Invalid data\",\n      \"details\": \"Invalid JSON payload\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbcd2bb1-fc8d-4a33-ae37-a6b94261aa3a",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recurring_export\": {\n    \"search_ids\": [\n      123\n    ],\n    \"window_weekday\": 1,\n    \"window_time_unit\": \"DAY\",\n    \"window_time\": \"00:00:00\",\n    \"window_size\": 1,\n    \"window_monthday\": 1,\n    \"timezone\": \"Etc/UTC\",\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"AUTH\",\n      \"title\": \"Unauthorized\",\n      \"details\": \"Invalid or expired authorization header\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ceb5462d-91a0-4eb3-a069-7fdb46ad06e2",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recurring_export\": {\n    \"search_ids\": [\n      123\n    ],\n    \"window_weekday\": 1,\n    \"window_time_unit\": \"DAY\",\n    \"window_time\": \"00:00:00\",\n    \"window_size\": 1,\n    \"window_monthday\": 1,\n    \"timezone\": \"Etc/UTC\",\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"ENTITLEMENT\",\n      \"title\": \"Entitlement missing\",\n      \"details\": \"You are missing required entitlements, in order to access given content: [\\\"news\\\", \\\"social\\\"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44fa3e87-e768-4631-8568-f088dcad0d3f",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recurring_export\": {\n    \"search_ids\": [\n      123\n    ],\n    \"window_weekday\": 1,\n    \"window_time_unit\": \"DAY\",\n    \"window_time\": \"00:00:00\",\n    \"window_size\": 1,\n    \"window_monthday\": 1,\n    \"timezone\": \"Etc/UTC\",\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"EXPORT\",\n      \"title\": \"Unknown resource\",\n      \"details\": \"The resource id you provided (1234) is unknown\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb0219f5-fa4d-4fb7-8ef1-2a19a5d862bd",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recurring_export\": {\n    \"search_ids\": [\n      123\n    ],\n    \"window_weekday\": 1,\n    \"window_time_unit\": \"DAY\",\n    \"window_time\": \"00:00:00\",\n    \"window_size\": 1,\n    \"window_monthday\": 1,\n    \"timezone\": \"Etc/UTC\",\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Validation error for field: window_size\",\n      \"details\": \"is not a valid integer\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a68dbbe9-d6aa-431c-8e1d-1d906c81c942",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recurring_export\": {\n    \"search_ids\": [\n      123\n    ],\n    \"window_weekday\": 1,\n    \"window_time_unit\": \"DAY\",\n    \"window_time\": \"00:00:00\",\n    \"window_size\": 1,\n    \"window_monthday\": 1,\n    \"timezone\": \"Etc/UTC\",\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"INTERNAL\",\n      \"title\": \"Internal Server error\",\n      \"details\": \"Something went wrong behind the scenes...\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "915e1df0-33d9-4980-9027-1523abe02186",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recurring_export\": {\n    \"search_ids\": [\n      123\n    ],\n    \"window_weekday\": 1,\n    \"window_time_unit\": \"DAY\",\n    \"window_time\": \"00:00:00\",\n    \"window_size\": 1,\n    \"window_monthday\": 1,\n    \"timezone\": \"Etc/UTC\",\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"format\": \"<string>\",\n    \"custom_categories\": {\n      \"ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"filter\": \"<boolean>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"SEARCH\",\n      \"title\": \"Service unavailable\",\n      \"details\": \"Temporarily unable to handle the request, try again later\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a849c42-fa62-47cd-b404-cc7a68d1052a",
+          "name": "Get a list of all your recurring exports",
+          "request": {
+            "name": "Get a list of all your recurring exports",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "exports",
+                "recurring"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3603a6a6-029a-4495-809f-4ed28123e2cd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"recurring_exports\": [\n    {\n      \"searches\": [\n        {\n          \"name\": \"Elections\",\n          \"id\": 123\n        },\n        {\n          \"name\": \"Elections\",\n          \"id\": 123\n        }\n      ],\n      \"company_name\": \"string\",\n      \"id\": 3270,\n      \"window_weekday\": 1,\n      \"window_time_unit\": \"DAY\",\n      \"window_time\": \"00:00:00\",\n      \"window_size\": 1,\n      \"window_monthday\": 1,\n      \"sample\": {\n        \"count\": 1200,\n        \"percentage\": 50\n      },\n      \"template\": {\n        \"name\": \"legacy\"\n      },\n      \"updated_at\": \"string\",\n      \"timezone\": \"Etc/UTC\",\n      \"tags\": [\n        {\n          \"id\": 12345,\n          \"name\": \"My Custom Tag\"\n        },\n        {\n          \"id\": 12345,\n          \"name\": \"My Custom Tag\"\n        }\n      ],\n      \"status_reason\": \"string\",\n      \"status\": \"ACTIVE\",\n      \"next_run_date\": \"string\",\n      \"inserted_at\": \"string\",\n      \"data_url\": \"string\",\n      \"format\": \"JSON\",\n      \"custom_categories\": {\n        \"ids\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"filter\": false\n      }\n    },\n    {\n      \"searches\": [\n        {\n          \"name\": \"Elections\",\n          \"id\": 123\n        },\n        {\n          \"name\": \"Elections\",\n          \"id\": 123\n        }\n      ],\n      \"company_name\": \"string\",\n      \"id\": 9563,\n      \"window_weekday\": 1,\n      \"window_time_unit\": \"DAY\",\n      \"window_time\": \"00:00:00\",\n      \"window_size\": 1,\n      \"window_monthday\": 1,\n      \"sample\": {\n        \"count\": 1200,\n        \"percentage\": 50\n      },\n      \"template\": {\n        \"name\": \"legacy\"\n      },\n      \"updated_at\": \"string\",\n      \"timezone\": \"Etc/UTC\",\n      \"tags\": [\n        {\n          \"id\": 12345,\n          \"name\": \"My Custom Tag\"\n        },\n        {\n          \"id\": 12345,\n          \"name\": \"My Custom Tag\"\n        }\n      ],\n      \"status_reason\": \"string\",\n      \"status\": \"PENDING\",\n      \"next_run_date\": \"string\",\n      \"inserted_at\": \"string\",\n      \"data_url\": \"string\",\n      \"format\": \"CSV\",\n      \"custom_categories\": {\n        \"ids\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"filter\": true\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6beb09e7-0288-40e2-8a03-719c1cdb939f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Invalid data\",\n      \"details\": \"Invalid JSON payload\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fd845b1-08f6-454e-86c9-46f1fa054a71",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"AUTH\",\n      \"title\": \"Unauthorized\",\n      \"details\": \"Invalid or expired authorization header\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f06c410-02f4-4e17-bcc9-7103af5af6d0",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"ENTITLEMENT\",\n      \"title\": \"Entitlement missing\",\n      \"details\": \"You are missing required entitlements, in order to access given content: [\\\"news\\\", \\\"social\\\"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2dd726d2-a685-4f6c-b7ce-26f8561064c2",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"EXPORT\",\n      \"title\": \"Unknown resource\",\n      \"details\": \"The resource id you provided (1234) is unknown\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5680d8f1-bdcb-4aec-9116-41f06e81ada9",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Validation error for field: window_size\",\n      \"details\": \"is not a valid integer\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e47883d-1888-4f46-84c0-3e96e48fcf9a",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"INTERNAL\",\n      \"title\": \"Internal Server error\",\n      \"details\": \"Something went wrong behind the scenes...\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f217ae7-54d6-41c3-8444-ea39d96611b4",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"SEARCH\",\n      \"title\": \"Service unavailable\",\n      \"details\": \"Temporarily unable to handle the request, try again later\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed28de0a-8011-4dc8-9499-4c084b0a2ee1",
+          "name": "Get details of a recurring export",
+          "request": {
+            "name": "Get details of a recurring export",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "exports",
+                "recurring",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Export id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1cced665-b25c-4194-ae7e-ba9aa0443d28",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"recurring_export\": {\n    \"searches\": [\n      {\n        \"name\": \"Elections\",\n        \"id\": 123\n      },\n      {\n        \"name\": \"Elections\",\n        \"id\": 123\n      }\n    ],\n    \"company_name\": \"string\",\n    \"id\": 3666,\n    \"window_weekday\": 1,\n    \"window_time_unit\": \"DAY\",\n    \"window_time\": \"00:00:00\",\n    \"window_size\": 1,\n    \"window_monthday\": 1,\n    \"sample\": {\n      \"count\": 1200,\n      \"percentage\": 50\n    },\n    \"template\": {\n      \"name\": \"legacy\"\n    },\n    \"updated_at\": \"string\",\n    \"timezone\": \"Etc/UTC\",\n    \"tags\": [\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      },\n      {\n        \"id\": 12345,\n        \"name\": \"My Custom Tag\"\n      }\n    ],\n    \"status_reason\": \"string\",\n    \"status\": \"ACTIVE\",\n    \"next_run_date\": \"string\",\n    \"inserted_at\": \"string\",\n    \"data_url\": \"string\",\n    \"format\": \"CSV\",\n    \"custom_categories\": {\n      \"ids\": [\n        {\n          \"name\": \"My Category\",\n          \"id\": 321,\n          \"type\": \"include\"\n        },\n        {\n          \"name\": \"My Category\",\n          \"id\": 321,\n          \"type\": \"include\"\n        }\n      ],\n      \"filter\": false\n    },\n    \"previous_runs\": [\n      {\n        \"status\": \"FINISHED\",\n        \"start_date\": \"2020-03-25T00:00:00.000000Z\",\n        \"end_date\": \"2020-03-29T23:59:59.000000Z\",\n        \"inserted_at\": \"2020-03-25T00:00:00.000000\",\n        \"updated_at\": \"2020-03-25T00:00:00.000000\"\n      },\n      {\n        \"status\": \"EXPIRED\",\n        \"start_date\": \"2020-03-25T00:00:00.000000Z\",\n        \"end_date\": \"2020-03-29T23:59:59.000000Z\",\n        \"inserted_at\": \"2020-03-25T00:00:00.000000\",\n        \"updated_at\": \"2020-03-25T00:00:00.000000\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "444957e7-471e-4c38-83bf-091006284868",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Invalid data\",\n      \"details\": \"Invalid JSON payload\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34d3a81a-d7fb-47b0-b1c3-ff11f377493f",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"AUTH\",\n      \"title\": \"Unauthorized\",\n      \"details\": \"Invalid or expired authorization header\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "444dc1b2-bc24-4ab6-935b-9c5c84c940f2",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"ENTITLEMENT\",\n      \"title\": \"Entitlement missing\",\n      \"details\": \"You are missing required entitlements, in order to access given content: [\\\"news\\\", \\\"social\\\"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2195ec80-771d-4057-a3ee-969c38e32fb7",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"EXPORT\",\n      \"title\": \"Unknown resource\",\n      \"details\": \"The resource id you provided (1234) is unknown\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1221f291-ac0d-4321-9a58-a575f46285aa",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Validation error for field: window_size\",\n      \"details\": \"is not a valid integer\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "deb55671-7512-4580-9c9d-047d924468e9",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"INTERNAL\",\n      \"title\": \"Internal Server error\",\n      \"details\": \"Something went wrong behind the scenes...\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0838068-af49-4509-b18d-be381c97932f",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"SEARCH\",\n      \"title\": \"Service unavailable\",\n      \"details\": \"Temporarily unable to handle the request, try again later\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ecd70d7-db81-49c6-98c0-d2bd4f48a8a3",
+          "name": "Removes an existing recurring export",
+          "request": {
+            "name": "Removes an existing recurring export",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "exports",
+                "recurring",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Export id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bd86806b-5ed1-4618-898f-37cfd1fd6247",
+              "name": "No content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "91b4a14b-9405-4bbc-acf2-ede277f16c07",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Invalid data\",\n      \"details\": \"Invalid JSON payload\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "234b1651-0bb7-41c3-b7d5-ed67bacc28f0",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"AUTH\",\n      \"title\": \"Unauthorized\",\n      \"details\": \"Invalid or expired authorization header\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29c4afd8-9045-4b1a-924a-e38b39ef380b",
+              "name": "Permission Denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"ENTITLEMENT\",\n      \"title\": \"Entitlement missing\",\n      \"details\": \"You are missing required entitlements, in order to access given content: [\\\"news\\\", \\\"social\\\"]. Please contact your sales representative to add the necessary entitlement to your Meltwater account.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0356766c-8f35-47eb-b832-20b0a50b6c98",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"EXPORT\",\n      \"title\": \"Unknown resource\",\n      \"details\": \"The resource id you provided (1234) is unknown\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28c3224d-a3be-471a-9ba0-b4ceca59cf40",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"VALIDATION\",\n      \"title\": \"Validation error for field: window_size\",\n      \"details\": \"is not a valid integer\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcb098af-4165-44cd-92e9-5e1a43d5c6a3",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"INTERNAL\",\n      \"title\": \"Internal Server error\",\n      \"details\": \"Something went wrong behind the scenes...\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2151f569-8124-493f-86bd-f4dcb89e45ba",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "exports",
+                    "recurring",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Export id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"SEARCH\",\n      \"title\": \"Service unavailable\",\n      \"details\": \"Temporarily unable to handle the request, try again later\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.meltwater.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bcbcf5f5-57fe-430d-99cb-f824479fe2a6",
+    "name": "Meltwater Account Management Listening Exports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Meltwater Public API\n\nContact Support:\n Name: Meltwater Support\n Email: support@api.meltwater.com",
+      "type": "text/plain"
+    }
+  }
+}

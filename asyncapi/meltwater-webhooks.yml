@@ -1,0 +1,74 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.meltwater.com/guides/listening/streaming-mentions
+spec_type: none
+asyncapi_published: false
+note: >-
+  Meltwater publishes no AsyncAPI document. It does ship a real push surface: Listening data
+  streams, called "hooks" in the API for historical reasons. A hook binds a saved search to a
+  target URL and Meltwater POSTs batches of matching documents to it. The catalogue below is
+  transcribed from Meltwater's own streaming guide and from the hook operations declared in the
+  v3 OpenAPI - nothing here is invented, and no AsyncAPI is authored on Meltwater's behalf.
+surface:
+  name: Listening Data Streams (hooks)
+  transport: outbound HTTP POST from Meltwater to a customer endpoint
+  content_type: application/json
+  expected_response: HTTP 200
+  requires: the "Data Streams" feature in the customer's API package
+  docs: https://developer.meltwater.com/guides/listening/streaming-mentions
+management_operations:
+  spec: openapi/_original/meltwater-api-openapi.yaml
+  operations:
+    - operationId: createHook
+      method: POST
+      path: /v3/hooks
+      summary: Creates a hook
+    - operationId: getAllHooks
+      method: GET
+      path: /v3/hooks
+      summary: List all hooks
+    - operationId: getHook
+      method: GET
+      path: /v3/hooks/{hook_id}
+      summary: Get an individual hook
+    - operationId: deleteHook
+      method: DELETE
+      path: /v3/hooks/{hook_id}
+      summary: Delete an existing hook
+subscription:
+  request_fields:
+    - name: search_id
+      description: id of an existing Meltwater saved search; obtain it from GET /v3/searches
+      required: true
+    - name: target_url
+      description: customer endpoint that accepts HTTP POST with a JSON body
+      required: true
+    - name: template
+      description: 'output template, e.g. {"name": "api.json"}; omitting it selects the legacy template'
+      required: false
+  response_fields: [search_id, target_url, updated, hook_id, template, version, status, status_reason]
+  lifecycle_states:
+    - state: PENDING
+      status_reason: Hook is in a starting state and documents will start being sent shortly
+messages:
+  - name: documentBatch
+    description: A batch of one or more documents matching the bound saved search.
+    payload_shape:
+      request:
+        company_id: the id of the account that owns the inputs used
+        hook_id: the id of the stream/hook in the Meltwater system that pushed the data
+        inputs: the inputs used for the stream, ie. the search
+      documents: an object per document, shaped by the chosen output template
+    templates:
+      - api.json
+      - app-standard
+      - legacy-json
+      - legacy-csv
+    template_docs: https://developer.meltwater.com/api-reference/templates/overview
+verification:
+  docs: https://developer.meltwater.com/guides/listening/datastreams-document-verification
+  note: Meltwater documents a separate procedure for verifying documents received on a data stream.
+gaps:
+  - No signature or shared-secret verification of the delivered payload is documented.
+  - No retry/backoff policy is documented beyond the expectation that the endpoint returns 200.
+  - No AsyncAPI, no channel/message schemas, no bindings.

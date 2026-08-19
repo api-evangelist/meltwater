@@ -1,57 +1,113 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.meltwater.com/guides/getting-started/usage-limits
 name: Meltwater API Rate Limits
-description: Meltwater enforces rate limits at both the endpoint level and globally per IP address. Contract-specific limits may also apply to daily API call quotas depending on the customer's API package.
-url: https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
+description: >-
+  Meltwater limits the API on four independent axes: per-endpoint request rate, a daily
+  analytics call budget, a monthly document allowance, and a monthly export count. The
+  monthly and daily budgets are contract terms, not published numbers - what is published
+  are the "inclusive API access" defaults that ship with the core Meltwater packages.
+url: https://developer.meltwater.com/guides/getting-started/usage-limits
+limit_count: 7
 limits:
-  - name: Export Endpoints Rate Limit
-    description: Rate limit applied specifically to export-type endpoints (e.g., exporting mentions as CSV or JSON).
-    scope: per_endpoint_type
+  - name: Export endpoint rate limit
+    description: Applies to the export creation endpoints.
+    scope: per_endpoint
     requests: 20
     period: per_minute
-    applies_to: export endpoints
-
-  - name: General Endpoints Rate Limit
-    description: Default rate limit for all non-export API endpoints including search, analytics, and social metrics.
-    scope: per_endpoint
-    requests: 100
-    period: per_minute
-    applies_to: all other endpoints
-
-  - name: Global IP Rate Limit
-    description: Platform-wide rate limit applied across all requests from a single IP address.
-    scope: per_ip
-    requests: 2000
-    period: per_hour
-    applies_to: all endpoints
-
-  - name: Mira AI API Rate Limit
-    description: Rate limit for the Mira AI API which enables prompt-based AI insights.
-    scope: per_api_key
-    requests: 60
-    period: per_minute
-    applies_to: mira ai endpoints
-    notes: Mira API also enforces a monthly prompt quota specified in the customer contract.
-
-  - name: Contract-Based Daily Quota
-    description: Customers with an API package have a daily call limit defined in their contract.
+    applies_to:
+      - POST /export/v1/exports/one-time
+      - POST /export/v1/exports/recurring
+      - POST /v3/exports/one-time
+      - POST /v3/exports/recurring
+  - name: Daily analytics calls (inclusive API access)
+    description: Analytics and earned-media search calls share one daily budget.
+    scope: per_account
+    requests: 50
+    period: per_day
+    applies_to: analytics and search endpoints
+    notes: >-
+      Customers with an API package have a contract number instead (Meltwater's own example is
+      100/day). The day window starts at the first request after the counter resets, not at
+      midnight UTC.
+  - name: Daily analytics calls (API package)
     scope: per_contract
     requests: varies
     period: per_day
-    applies_to: all endpoints
-    notes: Example baseline is 100 calls/day; higher quotas available by agreement.
-
+    applies_to: analytics and search endpoints
+    notes: Stated in the customer contract; surfaced at runtime in the RateLimit-Day-Limit header.
+  - name: Documents per month (inclusive API access)
+    scope: per_account
+    requests: 30000
+    unit: documents
+    period: per_month
+    applies_to: exports, searches, data streams and Explore+ searches (shared pool)
+    notes: >-
+      Resets on the 1st. Documents are NOT de-duplicated - exporting the same document twice
+      costs two. Documents imported through BYOC and read back do not count.
+  - name: Exports per month (inclusive API access)
+    scope: per_account
+    requests: 50
+    unit: exports
+    period: per_month
+    notes: >-
+      One export may cover up to 5 saved searches or tags and still counts as one. API package
+      customers have a contract number (Meltwater's example is 100/month).
+  - name: Documents per export
+    scope: per_request
+    requests: 2000000
+    unit: documents
+    period: per_export
+    notes: An export forecast above this is randomly sampled down to approximately 2,000,000 documents.
+  - name: MCP endpoint rate limit
+    scope: per_key
+    requests: 60
+    period: per_minute
+    applies_to: https://api.meltwater.com/v2/mcp
+    method: probed
+    notes: >-
+      Not documented anywhere. Observed on a live unauthenticated POST to the MCP endpoint on
+      2026-08-13, which returned RateLimit-Limit 60, RateLimit-Remaining 59, RateLimit-Reset 55
+      and X-RateLimit-Limit-Minute 60 alongside the 401.
 headers:
-  - name: apikey
-    description: API authentication token passed as a request header for all API calls.
-    type: authentication
-
+  documented:
+    - name: RateLimit-Day-Limit
+      description: Daily API credits available under the customer's API package.
+      returned_on: every analytics request
+    - name: RateLimit-Day-Remaining
+      description: Credits left before rate limiting; at 0 all further requests fail.
+      returned_on: every analytics request
+    - name: RateLimit-Day-Reset
+      description: Unix timestamp of the next reset.
+      returned_on: every analytics request
+    - name: Retry-After
+      description: On an Earned Analytics 429 ("Service overloaded, please try again later"), the timestamp after which to retry.
+  observed:
+    - name: RateLimit-Limit
+    - name: RateLimit-Remaining
+    - name: RateLimit-Reset
+    - name: X-RateLimit-Limit-Minute
+    - name: X-RateLimit-Remaining-Minute
+    - name: X-Request-Id
+  note: >-
+    The `observed` set was read off a live response from https://api.meltwater.com/v2/mcp on
+    2026-08-13. The `documented` set is what the Usage Limits guide promises on analytics
+    responses.
 error_codes:
   - code: 429
-    description: Too Many Requests — returned when rate limits are exceeded.
-
-notes:
-  - Export endpoints are more restrictive (20/min) than general endpoints (100/min).
-  - The 2,000 requests/hour global limit is the overarching ceiling for all requests from one IP.
-  - Mira AI prompt budgets reset monthly and are contract-specific.
+    description: Too Many Requests - rate limit or quota exceeded, or the analytics service is overloaded.
+  - code: 403
+    description: Also returned when the daily API credit budget is exhausted.
+alerts:
+  - trigger: 90% of the monthly document or export quota
+    channel: "'API Usage' system alert to account administrators"
+  - trigger: 100% of the monthly quota
+    channel: "'API Usage' system alert to account administrators"
+usage_endpoints:
+  - GET /v3/usage/me/metrics/{metric}
+  - GET /v3/usage/me/requests
+  - note: both accept an optional token_id query parameter to break usage down by API token (added 2026-03-03)
 sources:
-  - https://developer.meltwater.com/docs/meltwater-api/getting-started/usage-limits/
-  - https://developer.meltwater.com/docs/meltwater-api/reference/usage-limits/
+  - https://developer.meltwater.com/guides/getting-started/usage-limits
+  - https://developer.meltwater.com/api-reference/api-reference-overview
+  - https://developer.meltwater.com/guides/getting-started/accessing-usage-statistics

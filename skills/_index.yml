@@ -1,0 +1,30 @@
+generated: '2026-08-13'
+method: generated
+source: openapi/_original/meltwater-api-openapi.yaml + openapi/meltwater-api-v4-openapi.yml + developer.meltwater.com guides
+note: >-
+  Generated Agent Skills for Meltwater's marquee flows. Every operationId named in a skill was
+  grepped out of the published specs verbatim. Meltwater publishes no AGENTS.md or first-party
+  skill files, so these are ours, not theirs. Explore+, Mira and Owned Analytics are deliberately
+  not covered: those operations carry no operationId in the published OpenAPI, so a skill could
+  not be grounded in one without inventing it.
+skills:
+  - file: meltwater-export-earned-media.md
+    name: Export earned media for a saved search
+    api: openapi/meltwater-listening-exports-api-openapi.yml
+    operations: [list_searches, search_count, create_onetime_export, list_onetime_exports, show_onetime_export, delete_onetime_export, create_recurring_export, list_recurring_exports, show_recurring_export, delete_recurring_export]
+  - file: meltwater-stream-mentions-to-a-webhook.md
+    name: Stream mentions to a webhook
+    api: openapi/meltwater-listening-streaming-api-openapi.yml
+    operations: [list_searches, createHook, getAllHooks, getHook, deleteHook]
+  - file: meltwater-analyze-a-saved-search.md
+    name: Analyze a saved search
+    api: openapi/meltwater-listening-analytics-api-openapi.yml
+    operations: [list_searches, getV3Analytics-searchId-start-end-tz-source-country-language-company_id, getV3AnalyticsTop_tags-searchId-start-end-tz-source-country-language-size-company_id, getV3AnalyticsTop_entities-searchId-start-end-tz-source-country-language-size-sentiment-company_id, getV3AnalyticsTop_sources-searchId-start-end-tz-source-country-language-size-min_authority-company_id, getV3AnalyticsTop_keyphrases-searchId-start-end-tz-source-country-language-size-sentiment-company_id, getV3AnalyticsTop_locations-searchId-start-end-tz-source-country-language-size-level-company_id, getV3AnalyticsTop_mentions-searchId-start-end-tz-source, getV3AnalyticsTop_topics-searchId-start-end-tz-source, getV3AnalyticsTop_shared-searchId-start-end-tz-source-country-language-size-sort_by-company_id, getV3AnalyticsTop_sharedLinks-searchId-start-end-tz-source-country-language-size-sentiment-company_id]
+  - file: meltwater-tag-earned-media.md
+    name: Tag and search earned media documents
+    api: openapi/meltwater-listening-search-management-api-openapi.yml
+    operations: [list_searches, create-earned-search, list_tags, add_tags, remove_tags, list_filter_sets, list_custom_categories]
+  - file: meltwater-track-ai-visibility.md
+    name: Track brand visibility in AI assistants (v4)
+    api: openapi/meltwater-api-v4-openapi.yml
+    operations: [listLLMPrompts, listLLMFolders, analyze, createExport, listExports, getExport, deleteExport]

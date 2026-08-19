@@ -1,0 +1,151 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Meltwater Account Management API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of all your companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/accounts/me/companies",
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of all your companies"
+        },
+        {
+          "info": {
+            "name": "Get a list of all your workspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/accounts/me/workspaces",
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of all your workspaces"
+        },
+        {
+          "info": {
+            "name": "Get a list of all your API tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/accounts/me/tokens",
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of all your API tokens"
+        },
+        {
+          "info": {
+            "name": "Get usage information on specific metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/usage/me/metrics/:metric",
+            "params": [
+              {
+                "name": "metric",
+                "value": "",
+                "type": "path",
+                "description": "The metric type name. The following metrics are allowed for these features: exports - [export_count, document_count], streaming - [document_count], imports - [uploaded_documents]"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional API token ID to filter usage"
+              },
+              {
+                "name": "feature",
+                "value": "",
+                "type": "query",
+                "description": "The feature name of the statistics your want to query"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "The time period for this statistics query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get usage information on specific metric"
+        },
+        {
+          "info": {
+            "name": "Get usage statistics for your API calls",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/usage/me/requests",
+            "params": [
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional API token ID to filter usage"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "The time period for this statistics query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get usage statistics for your API calls"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,483 @@
+{
+  "item": [
+    {
+      "id": "ce2d25f3-287a-497a-90b0-a51917117d8c",
+      "name": "Explore+ Analytics",
+      "description": {
+        "content": "Fetch analytics on data within your private index.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d77aef92-5248-4649-972d-8405de4ac154",
+          "name": "Analyse earned data in your private index.",
+          "request": {
+            "name": "Analyse earned data in your private index.",
+            "description": {
+              "content": "Analyse earned data in your private index.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "explore_plus",
+                "analytics",
+                "custom"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workspace_id",
+                  "value": "<string>",
+                  "description": "(Required) Set the workspace to search by. If accessing the company space, set to `none`"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "Set the company to search by"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"analysis\": {\n    \"analysis\": {\n      \"value\": \"<Circular reference to #/components/schemas/explore_plus.Analytic detected>\"\n    },\n    \"custom_field_id\": \"<integer>\",\n    \"dimension\": \"<string>\",\n    \"granularity\": \"<string>\",\n    \"limit\": \"<integer>\",\n    \"measures\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"searches\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"type\": \"<string>\"\n  },\n  \"end\": \"<string>\",\n  \"searches\": {\n    \"all\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"any\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"none\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"start\": \"<string>\",\n  \"tz\": \"<string>\",\n  \"filters\": {\n    \"countries\": {\n      \"all\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"any\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"none\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"custom_fields\": {\n      \"key_0\": {\n        \"all\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"any\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"none\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      \"key_1\": {\n        \"all\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"any\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"none\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      \"key_2\": {\n        \"all\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"any\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"none\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      \"key_3\": {\n        \"all\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"any\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"none\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      }\n    },\n    \"languages\": {\n      \"all\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"any\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"none\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"sentiments\": {\n      \"all\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"any\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"none\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"sources\": {\n      \"all\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"any\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"none\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b67a09ff-4bc3-4430-9f9a-e6ec08ebee20",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "explore_plus",
+                    "analytics",
+                    "custom"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"searches\": {\n    \"all\": [\n      123\n    ],\n    \"any\": [\n      456\n    ],\n    \"none\": [\n      789\n    ]\n  },\n  \"start\": \"2025-01-01T00:00:00\",\n  \"end\": \"2025-01-01T00:00:00\",\n  \"tz\": \"UTC\",\n  \"analysis\": {\n    \"type\": \"document_count\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"searches\": {\n    \"all\": [\n      123\n    ],\n    \"any\": [\n      456\n    ],\n    \"none\": [\n      789\n    ]\n  },\n  \"start\": \"2025-01-01T00:00:00\",\n  \"end\": \"2025-01-01T00:00:00\",\n  \"tz\": \"UTC\",\n  \"analysis\": {\n    \"type\": \"document_count\"\n  },\n  \"result\": {\n    \"document_count\": 123456\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2ffebdd-b6ba-4308-8d07-3710aa0d73be",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "explore_plus",
+                    "analytics",
+                    "custom"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"searches\": {\n    \"all\": [\n      123\n    ],\n    \"any\": [\n      456\n    ],\n    \"none\": [\n      789\n    ]\n  },\n  \"start\": \"2025-01-01T00:00:00\",\n  \"end\": \"2025-01-01T00:00:00\",\n  \"tz\": \"UTC\",\n  \"analysis\": {\n    \"type\": \"document_count\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8ef46ec-5e71-448d-a589-a0c0a99de5b5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "explore_plus",
+                    "analytics",
+                    "custom"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"searches\": {\n    \"all\": [\n      123\n    ],\n    \"any\": [\n      456\n    ],\n    \"none\": [\n      789\n    ]\n  },\n  \"start\": \"2025-01-01T00:00:00\",\n  \"end\": \"2025-01-01T00:00:00\",\n  \"tz\": \"UTC\",\n  \"analysis\": {\n    \"type\": \"document_count\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7bb84a4e-95e9-4ef9-b99c-f244d659dfa2",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "explore_plus",
+                    "analytics",
+                    "custom"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"searches\": {\n    \"all\": [\n      123\n    ],\n    \"any\": [\n      456\n    ],\n    \"none\": [\n      789\n    ]\n  },\n  \"start\": \"2025-01-01T00:00:00\",\n  \"end\": \"2025-01-01T00:00:00\",\n  \"tz\": \"UTC\",\n  \"analysis\": {\n    \"type\": \"document_count\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c55fbfa0-a1f9-476f-a7d7-777f9bd5b0ae",
+          "name": "Fetch available analytics options.",
+          "request": {
+            "name": "Fetch available analytics options.",
+            "description": {
+              "content": "Fetch available analytics options.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "explore_plus",
+                "analytics",
+                "custom",
+                "catalog"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "affcce97-23d6-4e24-9d5e-dcfc194bd714",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "explore_plus",
+                    "analytics",
+                    "custom",
+                    "catalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dimensions\": [\n    \"author_age\",\n    \"author_gender\"\n  ],\n  \"measures\": [\n    \"engagement\",\n    \"estimated_views\"\n  ],\n  \"types\": [\n    \"document_count\",\n    \"top_terms\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.meltwater.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7a3d4999-bcef-444b-9d8a-77ce1f040dcc",
+    "name": "Meltwater Account Management Explore+ Analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Meltwater Public API\n\nContact Support:\n Name: Meltwater Support\n Email: support@api.meltwater.com",
+      "type": "text/plain"
+    }
+  }
+}

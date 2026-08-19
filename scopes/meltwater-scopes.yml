@@ -1,0 +1,50 @@
+generated: '2026-08-13'
+method: probed
+source: https://api.meltwater.com/.well-known/oauth-protected-resource
+docs: https://developer.meltwater.com/guides/meltwater-mcp/connecting
+note: >-
+  The OpenAPI declares only an apiKey scheme, so nothing scope-shaped is derivable from the
+  specs. The scopes below were read from Meltwater's own live OAuth discovery documents
+  (RFC 9728 protected-resource metadata on api.meltwater.com, RFC 8414 authorization-server
+  metadata on app.meltwater.com), which are already served even though the MCP connecting
+  guide still describes OAuth 2.0 as "planned for later this year".
+authorization_server: https://app.meltwater.com
+protected_resource: https://api.meltwater.com/v2/mcp
+schemes:
+  - name: oauth2
+    source: https://app.meltwater.com/.well-known/oauth-authorization-server
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://app.meltwater.com/oauth/authorize
+        tokenUrl: https://app.meltwater.com/oauth/token
+        pkce: [S256]
+    registration_endpoint: https://app.meltwater.com/oauth/register
+    revocation_endpoint: https://app.meltwater.com/oauth/revoke
+    grant_types: [authorization_code, refresh_token]
+    token_endpoint_auth_methods: [none, client_secret_post, client_secret_basic]
+scopes:
+  - scope: tools:read
+    description: List the MCP tools exposed to the caller's Meltwater package.
+    flows: [authorizationCode]
+    sources: ['https://api.meltwater.com/.well-known/oauth-protected-resource', 'https://app.meltwater.com/.well-known/oauth-authorization-server']
+  - scope: tools:call
+    description: Invoke an MCP tool against the caller's Meltwater assets and data.
+    flows: [authorizationCode]
+    sources: ['https://api.meltwater.com/.well-known/oauth-protected-resource', 'https://app.meltwater.com/.well-known/oauth-authorization-server']
+  - scope: openid
+    description: OpenID Connect authentication scope advertised by the authorization server.
+    flows: [authorizationCode]
+    sources: ['https://app.meltwater.com/.well-known/oauth-authorization-server']
+  - scope: profile
+    description: Profile claims.
+    flows: [authorizationCode]
+    sources: ['https://app.meltwater.com/.well-known/oauth-authorization-server']
+  - scope: email
+    description: Email claim.
+    flows: [authorizationCode]
+    sources: ['https://app.meltwater.com/.well-known/oauth-authorization-server']
+x-evidence:
+  - url: https://api.meltwater.com/.well-known/oauth-protected-resource
+    status: 200
+  - url: https://app.meltwater.com/.well-known/oauth-authorization-server
+    status: 200

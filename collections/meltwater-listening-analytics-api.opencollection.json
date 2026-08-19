@@ -1,0 +1,730 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Meltwater Account Management Listening Analytics API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Listening Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "A summary of analytics for a Saved Search.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/analytics/:searchId",
+            "params": [
+              {
+                "name": "searchId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Saved Search."
+              },
+              {
+                "name": "start",
+                "value": "2021-09-27T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the start of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "end",
+                "value": "2021-09-28T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the end of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "tz",
+                "value": "",
+                "type": "query",
+                "description": "The timezone ID for all timestamps in the request and response.\n\nAn identifier from the IANA TimeZone Database (tzdb),\nor a timezone offset, from UTC.\n\nAn offset, or `UTC`, will provide a stable timezone that remains\nthe same, year-round.\n\nA location ID, such as `Europe/London`, will automatically\nincorporate that location's local timezone rules, including\ndaylight-savings (if applicable), and any other adjustments to\nlocal time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).\n\nAs a consequence: when using a location ID, it is possible for\ntime-ranges that cross a timezone adjustment in that locale to be\nlonger or shorter than you might expect; e.g. a day with 23 or 25\nhours when a daylight savings adjustment occurs.\n\nThe `start` and `end` parameters in your request will be interpreted\nto be local to this timezone.\n\nAll timestamps, dates and times in the response will be generated\nlocal to this timezone."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The data source to query. By default all available sources are included however you can also provide multiple source values to filter."
+              },
+              {
+                "name": "country",
+                "value": "US",
+                "type": "query",
+                "description": "The origin country of documents to include in the query.\n\nThe two-letter ISO 3166-1 Alpha-2 country code, or 'ZZ'.\n\nBesides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)\nof a country, 'ZZ' may be used to indicate 'Unknown country of origin'.\n\nThis restricts the documents queried to include only those that\noriginated from a particular country.\n\nIf multiple countries are specified, documents that originated from any\nof those countries will be included in results.\n\nDocuments that originated in some countries may be restricted from your\nqueries automatically, based on your jurisdiction and entitlements."
+              },
+              {
+                "name": "language",
+                "value": "en",
+                "type": "query",
+                "description": "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given searchId. If not specified your default company is used."
+              }
+            ]
+          },
+          "docs": "The summary is produced only for documents matching the Saved Search,\nfrom the specified document sources, and within the specified time-range.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents that are included in the analysis.\n\nThe `unique_authors` value can only be calculated for sources other than `news`.\nWhen run against `news` it will return 0.\n"
+        },
+        {
+          "info": {
+            "name": "The top tags that occur in a Saved Search.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/analytics/:searchId/top_tags",
+            "params": [
+              {
+                "name": "searchId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Saved Search."
+              },
+              {
+                "name": "start",
+                "value": "2021-09-27T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the start of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "end",
+                "value": "2021-09-28T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the end of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "tz",
+                "value": "",
+                "type": "query",
+                "description": "The timezone ID for all timestamps in the request and response.\n\nAn identifier from the IANA TimeZone Database (tzdb),\nor a timezone offset, from UTC.\n\nAn offset, or `UTC`, will provide a stable timezone that remains\nthe same, year-round.\n\nA location ID, such as `Europe/London`, will automatically\nincorporate that location's local timezone rules, including\ndaylight-savings (if applicable), and any other adjustments to\nlocal time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).\n\nAs a consequence: when using a location ID, it is possible for\ntime-ranges that cross a timezone adjustment in that locale to be\nlonger or shorter than you might expect; e.g. a day with 23 or 25\nhours when a daylight savings adjustment occurs.\n\nThe `start` and `end` parameters in your request will be interpreted\nto be local to this timezone.\n\nAll timestamps, dates and times in the response will be generated\nlocal to this timezone."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The data source to query. By default all available sources are included however you can also provide multiple source values to filter."
+              },
+              {
+                "name": "country",
+                "value": "US",
+                "type": "query",
+                "description": "The origin country of documents to include in the query.\n\nThe two-letter ISO 3166-1 Alpha-2 country code, or 'ZZ'.\n\nBesides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)\nof a country, 'ZZ' may be used to indicate 'Unknown country of origin'.\n\nThis restricts the documents queried to include only those that\noriginated from a particular country.\n\nIf multiple countries are specified, documents that originated from any\nof those countries will be included in results.\n\nDocuments that originated in some countries may be restricted from your\nqueries automatically, based on your jurisdiction and entitlements."
+              },
+              {
+                "name": "language",
+                "value": "en",
+                "type": "query",
+                "description": "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to produce.\n\nFrom 1 to 1000 inclusive.\n\nOnly the top/first results will be produced."
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given searchId. If not specified your default company is used."
+              }
+            ]
+          },
+          "docs": "Produces a ranked list of tags that occur in documents matching the\nSaved Search, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top tags produced,\ndefaulting to the top `10` tags.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents that have their tags included.\n\nThe type of tags included, such as Twitter \"hashtags\", will depend on the\nselected sources."
+        },
+        {
+          "info": {
+            "name": "The top locations that occur in a Saved Search.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/analytics/:searchId/top_locations",
+            "params": [
+              {
+                "name": "searchId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Saved Search."
+              },
+              {
+                "name": "start",
+                "value": "2021-09-27T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the start of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "end",
+                "value": "2021-09-28T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the end of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "tz",
+                "value": "",
+                "type": "query",
+                "description": "The timezone ID for all timestamps in the request and response.\n\nAn identifier from the IANA TimeZone Database (tzdb),\nor a timezone offset, from UTC.\n\nAn offset, or `UTC`, will provide a stable timezone that remains\nthe same, year-round.\n\nA location ID, such as `Europe/London`, will automatically\nincorporate that location's local timezone rules, including\ndaylight-savings (if applicable), and any other adjustments to\nlocal time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).\n\nAs a consequence: when using a location ID, it is possible for\ntime-ranges that cross a timezone adjustment in that locale to be\nlonger or shorter than you might expect; e.g. a day with 23 or 25\nhours when a daylight savings adjustment occurs.\n\nThe `start` and `end` parameters in your request will be interpreted\nto be local to this timezone.\n\nAll timestamps, dates and times in the response will be generated\nlocal to this timezone."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The data source to query. By default all available sources are included however you can also provide multiple source values to filter."
+              },
+              {
+                "name": "country",
+                "value": "US",
+                "type": "query",
+                "description": "The origin country of documents to include in the query.\n\nThe two-letter ISO 3166-1 Alpha-2 country code, or 'ZZ'.\n\nBesides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)\nof a country, 'ZZ' may be used to indicate 'Unknown country of origin'.\n\nThis restricts the documents queried to include only those that\noriginated from a particular country.\n\nIf multiple countries are specified, documents that originated from any\nof those countries will be included in results.\n\nDocuments that originated in some countries may be restricted from your\nqueries automatically, based on your jurisdiction and entitlements."
+              },
+              {
+                "name": "language",
+                "value": "en",
+                "type": "query",
+                "description": "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to produce.\n\nFrom 1 to 1000 inclusive.\n\nOnly the top/first results will be produced."
+              },
+              {
+                "name": "level",
+                "value": "",
+                "type": "query",
+                "description": "The level of location to be used, may be one of: country, state, city"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given searchId. If not specified your default company is used."
+              }
+            ]
+          },
+          "docs": "Produces a ranked list of locations that occur in documents matching the\nSaved Search, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top locations produced,\ndefaulting to the top `100` locations.\n\nThe level parameter allows you to select the level of location you want from country, state or city.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents that have their keyphrases inclu"
+        },
+        {
+          "info": {
+            "name": "The top shared documents that occur in a Saved Search.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/analytics/:searchId/top_shared",
+            "params": [
+              {
+                "name": "searchId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Saved Search."
+              },
+              {
+                "name": "start",
+                "value": "2021-09-27T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the start of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "end",
+                "value": "2021-09-28T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the end of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "tz",
+                "value": "",
+                "type": "query",
+                "description": "The timezone ID for all timestamps in the request and response.\n\nAn identifier from the IANA TimeZone Database (tzdb),\nor a timezone offset, from UTC.\n\nAn offset, or `UTC`, will provide a stable timezone that remains\nthe same, year-round.\n\nA location ID, such as `Europe/London`, will automatically\nincorporate that location's local timezone rules, including\ndaylight-savings (if applicable), and any other adjustments to\nlocal time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).\n\nAs a consequence: when using a location ID, it is possible for\ntime-ranges that cross a timezone adjustment in that locale to be\nlonger or shorter than you might expect; e.g. a day with 23 or 25\nhours when a daylight savings adjustment occurs.\n\nThe `start` and `end` parameters in your request will be interpreted\nto be local to this timezone.\n\nAll timestamps, dates and times in the response will be generated\nlocal to this timezone."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The data source to query. By default all available sources are included however you can also provide multiple source values to filter."
+              },
+              {
+                "name": "country",
+                "value": "US",
+                "type": "query",
+                "description": "The origin country of documents to include in the query.\n\nThe two-letter ISO 3166-1 Alpha-2 country code, or 'ZZ'.\n\nBesides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)\nof a country, 'ZZ' may be used to indicate 'Unknown country of origin'.\n\nThis restricts the documents queried to include only those that\noriginated from a particular country.\n\nIf multiple countries are specified, documents that originated from any\nof those countries will be included in results.\n\nDocuments that originated in some countries may be restricted from your\nqueries automatically, based on your jurisdiction and entitlements."
+              },
+              {
+                "name": "language",
+                "value": "en",
+                "type": "query",
+                "description": "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to produce.\n\nFrom 1 to 100 inclusive.\n\nOnly the top/first results will be produced."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to rank results by."
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given searchId. If not specified your default company is used."
+              }
+            ]
+          },
+          "docs": "Produces a ranked list of documents matching the Saved Search that were\nthe most shared, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top shared documents\nproduced, defaulting to the top `10` top shared documents.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents that are included.\n\nThe `sort_by` parameter controls the ranking of the results. For example,\nif `sort_by=retweets`"
+        },
+        {
+          "info": {
+            "name": "The top named entities that occur in a Saved Search.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/analytics/:searchId/top_entities",
+            "params": [
+              {
+                "name": "searchId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Saved Search."
+              },
+              {
+                "name": "start",
+                "value": "2021-09-27T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the start of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "end",
+                "value": "2021-09-28T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the end of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "tz",
+                "value": "",
+                "type": "query",
+                "description": "The timezone ID for all timestamps in the request and response.\n\nAn identifier from the IANA TimeZone Database (tzdb),\nor a timezone offset, from UTC.\n\nAn offset, or `UTC`, will provide a stable timezone that remains\nthe same, year-round.\n\nA location ID, such as `Europe/London`, will automatically\nincorporate that location's local timezone rules, including\ndaylight-savings (if applicable), and any other adjustments to\nlocal time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).\n\nAs a consequence: when using a location ID, it is possible for\ntime-ranges that cross a timezone adjustment in that locale to be\nlonger or shorter than you might expect; e.g. a day with 23 or 25\nhours when a daylight savings adjustment occurs.\n\nThe `start` and `end` parameters in your request will be interpreted\nto be local to this timezone.\n\nAll timestamps, dates and times in the response will be generated\nlocal to this timezone."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The data source to query. By default all available sources are included however you can also provide multiple source values to filter."
+              },
+              {
+                "name": "country",
+                "value": "US",
+                "type": "query",
+                "description": "The origin country of documents to include in the query.\n\nThe two-letter ISO 3166-1 Alpha-2 country code, or 'ZZ'.\n\nBesides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)\nof a country, 'ZZ' may be used to indicate 'Unknown country of origin'.\n\nThis restricts the documents queried to include only those that\noriginated from a particular country.\n\nIf multiple countries are specified, documents that originated from any\nof those countries will be included in results.\n\nDocuments that originated in some countries may be restricted from your\nqueries automatically, based on your jurisdiction and entitlements."
+              },
+              {
+                "name": "language",
+                "value": "en",
+                "type": "query",
+                "description": "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to produce.\n\nFrom 1 to 1000 inclusive.\n\nOnly the top/first results will be produced."
+              },
+              {
+                "name": "sentiment",
+                "value": "positive",
+                "type": "query",
+                "description": "The overall sentiment of the document to filter on, positive, neutral or negative."
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given searchId. If not specified your default company is used."
+              }
+            ]
+          },
+          "docs": "Produces a ranked list of entities that occur in documents matching the\nSaved Search, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top keyphrases produced,\ndefaulting to the top `100` keyphrases.\n\nThe sentiment parameter allows you to select the sentiment of the documents to analyze.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents that have their keyphrases included.\n"
+        },
+        {
+          "info": {
+            "name": "The top sources that occur in a Saved Search.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/analytics/:searchId/top_sources",
+            "params": [
+              {
+                "name": "searchId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Saved Search."
+              },
+              {
+                "name": "start",
+                "value": "2021-09-27T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the start of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "end",
+                "value": "2021-09-28T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the end of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "tz",
+                "value": "",
+                "type": "query",
+                "description": "The timezone ID for all timestamps in the request and response.\n\nAn identifier from the IANA TimeZone Database (tzdb),\nor a timezone offset, from UTC.\n\nAn offset, or `UTC`, will provide a stable timezone that remains\nthe same, year-round.\n\nA location ID, such as `Europe/London`, will automatically\nincorporate that location's local timezone rules, including\ndaylight-savings (if applicable), and any other adjustments to\nlocal time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).\n\nAs a consequence: when using a location ID, it is possible for\ntime-ranges that cross a timezone adjustment in that locale to be\nlonger or shorter than you might expect; e.g. a day with 23 or 25\nhours when a daylight savings adjustment occurs.\n\nThe `start` and `end` parameters in your request will be interpreted\nto be local to this timezone.\n\nAll timestamps, dates and times in the response will be generated\nlocal to this timezone."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The data source to query. By default all available sources are included however you can also provide multiple source values to filter."
+              },
+              {
+                "name": "country",
+                "value": "US",
+                "type": "query",
+                "description": "The origin country of documents to include in the query.\n\nThe two-letter ISO 3166-1 Alpha-2 country code, or 'ZZ'.\n\nBesides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)\nof a country, 'ZZ' may be used to indicate 'Unknown country of origin'.\n\nThis restricts the documents queried to include only those that\noriginated from a particular country.\n\nIf multiple countries are specified, documents that originated from any\nof those countries will be included in results.\n\nDocuments that originated in some countries may be restricted from your\nqueries automatically, based on your jurisdiction and entitlements."
+              },
+              {
+                "name": "language",
+                "value": "en",
+                "type": "query",
+                "description": "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to produce.\n\nFrom 1 to 1000 inclusive.\n\nOnly the top/first results will be produced."
+              },
+              {
+                "name": "min_authority",
+                "value": "",
+                "type": "query",
+                "description": "The minimum authority score of sources to include.\n\nWhen provided, sets a lower-bound on the authority score of sources produced\nin the results.\n\nFrom 0 to 10 inclusive.\n"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given searchId. If not specified your default company is used."
+              }
+            ]
+          },
+          "docs": "Produces a ranked list of \"sources\" that provided the documents matching the Saved Search.\n\nFor social sources, a \"source\" will be the author of that document.\n\nThe `size` parameter controls the maximum number of sources to produce, defaulting\nto the top `10` sources.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents whose sources will be produced.\n"
+        },
+        {
+          "info": {
+            "name": "The top keyphrases that occur in a Saved Search.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/analytics/:searchId/top_keyphrases",
+            "params": [
+              {
+                "name": "searchId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Saved Search."
+              },
+              {
+                "name": "start",
+                "value": "2021-09-27T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the start of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "end",
+                "value": "2021-09-28T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the end of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "tz",
+                "value": "",
+                "type": "query",
+                "description": "The timezone ID for all timestamps in the request and response.\n\nAn identifier from the IANA TimeZone Database (tzdb),\nor a timezone offset, from UTC.\n\nAn offset, or `UTC`, will provide a stable timezone that remains\nthe same, year-round.\n\nA location ID, such as `Europe/London`, will automatically\nincorporate that location's local timezone rules, including\ndaylight-savings (if applicable), and any other adjustments to\nlocal time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).\n\nAs a consequence: when using a location ID, it is possible for\ntime-ranges that cross a timezone adjustment in that locale to be\nlonger or shorter than you might expect; e.g. a day with 23 or 25\nhours when a daylight savings adjustment occurs.\n\nThe `start` and `end` parameters in your request will be interpreted\nto be local to this timezone.\n\nAll timestamps, dates and times in the response will be generated\nlocal to this timezone."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The data source to query. By default all available sources are included however you can also provide multiple source values to filter."
+              },
+              {
+                "name": "country",
+                "value": "US",
+                "type": "query",
+                "description": "The origin country of documents to include in the query.\n\nThe two-letter ISO 3166-1 Alpha-2 country code, or 'ZZ'.\n\nBesides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)\nof a country, 'ZZ' may be used to indicate 'Unknown country of origin'.\n\nThis restricts the documents queried to include only those that\noriginated from a particular country.\n\nIf multiple countries are specified, documents that originated from any\nof those countries will be included in results.\n\nDocuments that originated in some countries may be restricted from your\nqueries automatically, based on your jurisdiction and entitlements."
+              },
+              {
+                "name": "language",
+                "value": "en",
+                "type": "query",
+                "description": "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to produce.\n\nFrom 1 to 1000 inclusive.\n\nOnly the top/first results will be produced."
+              },
+              {
+                "name": "sentiment",
+                "value": "positive",
+                "type": "query",
+                "description": "The overall sentiment of the document to filter on, positive, neutral or negative."
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given searchId. If not specified your default company is used."
+              }
+            ]
+          },
+          "docs": "Produces a ranked list of keyphrases that occur in documents matching the\nSaved Search, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top keyphrases produced,\ndefaulting to the top `100` keyphrases.\n\nThe sentiment parameter allows you to select the sentiment of the documents to analyze.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents that have their keyphrases included.\n"
+        },
+        {
+          "info": {
+            "name": "The top mentions that occur in a Saved Search.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/analytics/:searchId/top_mentions",
+            "params": [
+              {
+                "name": "searchId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Saved Search."
+              },
+              {
+                "name": "start",
+                "value": "2021-09-27T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the start of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "end",
+                "value": "2021-09-28T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the end of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "tz",
+                "value": "",
+                "type": "query",
+                "description": "The timezone ID for all timestamps in the request and response.\n\nAn identifier from the IANA TimeZone Database (tzdb),\nor a timezone offset, from UTC.\n\nAn offset, or `UTC`, will provide a stable timezone that remains\nthe same, year-round.\n\nA location ID, such as `Europe/London`, will automatically\nincorporate that location's local timezone rules, including\ndaylight-savings (if applicable), and any other adjustments to\nlocal time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).\n\nAs a consequence: when using a location ID, it is possible for\ntime-ranges that cross a timezone adjustment in that locale to be\nlonger or shorter than you might expect; e.g. a day with 23 or 25\nhours when a daylight savings adjustment occurs.\n\nThe `start` and `end` parameters in your request will be interpreted\nto be local to this timezone.\n\nAll timestamps, dates and times in the response will be generated\nlocal to this timezone."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The data source to query. By default all available sources are included however you can also provide multiple source values to filter."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to produce.\n\nFrom 1 to 1000 inclusive.\n\nOnly the top/first results will be produced."
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given searchId. If not specified your default company is used."
+              }
+            ]
+          },
+          "docs": "Produces a ranked list of mentions that occur in documents matching the\nSaved Search, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top tags produced,\ndefaulting to the top `10` mentions."
+        },
+        {
+          "info": {
+            "name": "The top topics that occur in a Saved Search.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/analytics/:searchId/top_topics",
+            "params": [
+              {
+                "name": "searchId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Saved Search."
+              },
+              {
+                "name": "start",
+                "value": "2021-09-27T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the start of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "end",
+                "value": "2021-09-28T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the end of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "tz",
+                "value": "",
+                "type": "query",
+                "description": "The timezone ID for all timestamps in the request and response.\n\nAn identifier from the IANA TimeZone Database (tzdb),\nor a timezone offset, from UTC.\n\nAn offset, or `UTC`, will provide a stable timezone that remains\nthe same, year-round.\n\nA location ID, such as `Europe/London`, will automatically\nincorporate that location's local timezone rules, including\ndaylight-savings (if applicable), and any other adjustments to\nlocal time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).\n\nAs a consequence: when using a location ID, it is possible for\ntime-ranges that cross a timezone adjustment in that locale to be\nlonger or shorter than you might expect; e.g. a day with 23 or 25\nhours when a daylight savings adjustment occurs.\n\nThe `start` and `end` parameters in your request will be interpreted\nto be local to this timezone.\n\nAll timestamps, dates and times in the response will be generated\nlocal to this timezone."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The data source to query. By default all available sources are included however you can also provide multiple source values to filter."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to produce.\n\nFrom 1 to 1000 inclusive.\n\nOnly the top/first results will be produced."
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given searchId. If not specified your default company is used."
+              }
+            ]
+          },
+          "docs": "Produces a ranked list of topics and their sub topics that occur in documents matching the\nSaved Search, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top topics produced,\ndefaulting to the top `10` mentions."
+        },
+        {
+          "info": {
+            "name": "The top shared links that occur in a Saved Search.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/analytics/:searchId/top_shared_links",
+            "params": [
+              {
+                "name": "searchId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Saved Search."
+              },
+              {
+                "name": "start",
+                "value": "2021-09-27T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the start of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "end",
+                "value": "2021-09-28T00:00:00",
+                "type": "query",
+                "description": "The timestamp of the end of the time-range to query.\n\nAn ISO8601 timestamp, excluding timezone/offset.\n\nIncludes both the date and time components of the ISO8601 timestamp, but\n_excludes_ the timezone offset component. The timestamp represents the\nlocal time at the timezone given in the `tz` parameter."
+              },
+              {
+                "name": "tz",
+                "value": "",
+                "type": "query",
+                "description": "The timezone ID for all timestamps in the request and response.\n\nAn identifier from the IANA TimeZone Database (tzdb),\nor a timezone offset, from UTC.\n\nAn offset, or `UTC`, will provide a stable timezone that remains\nthe same, year-round.\n\nA location ID, such as `Europe/London`, will automatically\nincorporate that location's local timezone rules, including\ndaylight-savings (if applicable), and any other adjustments to\nlocal time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).\n\nAs a consequence: when using a location ID, it is possible for\ntime-ranges that cross a timezone adjustment in that locale to be\nlonger or shorter than you might expect; e.g. a day with 23 or 25\nhours when a daylight savings adjustment occurs.\n\nThe `start` and `end` parameters in your request will be interpreted\nto be local to this timezone.\n\nAll timestamps, dates and times in the response will be generated\nlocal to this timezone."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The data source to query. By default all available sources are included however you can also provide multiple source values to filter."
+              },
+              {
+                "name": "country",
+                "value": "US",
+                "type": "query",
+                "description": "The origin country of documents to include in the query.\n\nThe two-letter ISO 3166-1 Alpha-2 country code, or 'ZZ'.\n\nBesides the two letter [ISO 3166-1 Alpha-2 country code](https://www.iso.org/obp/ui/#search/code/)\nof a country, 'ZZ' may be used to indicate 'Unknown country of origin'.\n\nThis restricts the documents queried to include only those that\noriginated from a particular country.\n\nIf multiple countries are specified, documents that originated from any\nof those countries will be included in results.\n\nDocuments that originated in some countries may be restricted from your\nqueries automatically, based on your jurisdiction and entitlements."
+              },
+              {
+                "name": "language",
+                "value": "en",
+                "type": "query",
+                "description": "The language of documents to include in the query.\n\nA primary language subtag from the IANA language tag registry, 'zh-Hant',\n'zh-Hans' or 'zz'.\n\nIn addition to two and three letter primary subtags from the\n[IANA language tag registry](https://www.w3.org/International/articles/language-tags/#language),\nthe following special language codes are also supported:\n\n  * `zh-Hans` - for Simplified Chinese\n  * `zh-Hant` - for Traditional Chinese\n  * `zz` - for unknown language\n\nThis restricts the documents queried to include only those in a\nparticular language.\n\nIf multiple languages are specified, documents in any of those languages\nwill be included in the results."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to produce.\nFrom 1 to 1000 inclusive.\nOnly the top/first results will be produced."
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given searchId. If not specified your default company is used."
+              }
+            ]
+          },
+          "docs": "Produces a ranked list of links that occur in documents matching the\nSaved Search, from the specified document sources, and within the\nspecified time-range.\n\nThe `size` parameter controls the number of top shared links  produced,\ndefaulting to the top `100` links.\n\nAny other parameters provided, such as language or country, will further\nrestrict the documents that have their links included.\n"
+        },
+        {
+          "info": {
+            "name": "Create a custom analytics request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/analytics/:searchId/custom",
+            "params": [
+              {
+                "name": "searchId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Saved Search"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a custom analytics request with your choice of filters and analytic types and configuration.\n\nPlease see example requests/responses below or our guide on Custom Analytics [here](/guides/listening/analyzing-mentions) for more information."
+        },
+        {
+          "info": {
+            "name": "Fetch the latest custom analytics options",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/analytics/custom/catalog"
+          },
+          "docs": "Fetch the latest dimensions, measures, and analytic types you can use to create your custom analytic requests."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

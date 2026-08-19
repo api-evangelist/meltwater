@@ -1,0 +1,178 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Meltwater Account Management Bring Your Own Content (BYOC) API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bring Your Own Content (BYOC)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ingest BYOC documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/imports/documents",
+            "params": [
+              {
+                "name": "import_tag",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of import tags to assigned to the imported documents."
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company where the change will be applied. If not specified your default company is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Handles the import of documents into the Meltwater Platform."
+        },
+        {
+          "info": {
+            "name": "List import batches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/imports/batches",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start date for filtering batches (ISO 8601 local timestamp without timezone). Must be used with the 'tz' parameter to specify timezone, defaults to UTC."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End date for filtering batches (ISO 8601 local timestamp without timezone). Must be used with the 'tz' parameter to specify timezone, defaults to UTC."
+              },
+              {
+                "name": "tz",
+                "value": "",
+                "type": "query",
+                "description": "The timezone ID for timestamps in the request and response.\n\nAn identifier from the IANA TimeZone Database (tzdb), or a timezone offset, from UTC.\n\nAn offset, or `UTC`, will provide a stable timezone that remains the same, year-round.\n\nA location ID, such as `Europe/London`, will automatically incorporate that location's local timezone rules, including daylight-savings (if applicable), and any other adjustments to local time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of statuses (pending,finished,failed) for filtering batches"
+              },
+              {
+                "name": "import_tag",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of import tags. The response will include any batches that were assigned to at least one of the import tags in the list."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination (must be > 0)"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (must be > 0 and <= 100)"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Meltwater company id if running a request on behalf of another company."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of import batches. Supports filtering by date range (start/end) and batch status. Dates are interpreted in the specified timezone (defaults to UTC)."
+        },
+        {
+          "info": {
+            "name": "Get import batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/imports/batches/:batch_id",
+            "params": [
+              {
+                "name": "batch_id",
+                "value": "",
+                "type": "path",
+                "description": "Batch ID to retrieve"
+              },
+              {
+                "name": "tz",
+                "value": "",
+                "type": "query",
+                "description": "The timezone ID for timestamps in the response.\n\nAn identifier from the IANA TimeZone Database (tzdb), or a timezone offset, from UTC.\n\nAn offset, or `UTC`, will provide a stable timezone that remains the same, year-round.\n\nA location ID, such as `Europe/London`, will automatically incorporate that location's local timezone rules, including daylight-savings (if applicable), and any other adjustments to local time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)."
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Meltwater company id if running a request on behalf of another company"
+              }
+            ]
+          },
+          "docs": "Retrieves status and statistics about an import batch."
+        },
+        {
+          "info": {
+            "name": "Get import tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/imports/import_tags/:import_tag",
+            "params": [
+              {
+                "name": "import_tag",
+                "value": "",
+                "type": "path",
+                "description": "Import tag to retrieve"
+              },
+              {
+                "name": "tz",
+                "value": "",
+                "type": "query",
+                "description": "The timezone ID for timestamps in the response.\n\nAn identifier from the IANA TimeZone Database (tzdb),\nor a timezone offset, from UTC.\n\nAn offset, or `UTC`, will provide a stable timezone that remains\nthe same, year-round.\n\nA location ID, such as `Europe/London`, will automatically\nincorporate that location's local timezone rules, including\ndaylight-savings (if applicable), and any other adjustments to\nlocal time. There is a full list available on [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)."
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Meltwater company id if running a request on behalf of another company"
+              }
+            ]
+          },
+          "docs": "Retrieves status and statistics about an import tag."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

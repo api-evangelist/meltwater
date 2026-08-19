@@ -1,0 +1,888 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Meltwater Account Management Explore+ Assets API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Explore+ Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all custom fields.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/custom_fields",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of custom fields to return per request. Min: 1, Max: 100"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all custom fields."
+        },
+        {
+          "info": {
+            "name": "Create a new custom field.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/custom_fields",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new custom field."
+        },
+        {
+          "info": {
+            "name": "Fetch a given custom field.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/custom_fields/:custom_field_id",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch a given custom field."
+        },
+        {
+          "info": {
+            "name": "Update a given custom field.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/custom_fields/:custom_field_id",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a given custom field."
+        },
+        {
+          "info": {
+            "name": "Delete a given custom field.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/custom_fields/:custom_field_id",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a given custom field."
+        },
+        {
+          "info": {
+            "name": "Create a new custom field value.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/custom_fields/:custom_field_id/values",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new custom field value."
+        },
+        {
+          "info": {
+            "name": "Fetch a given custom field value.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/custom_fields/:custom_field_id/values/:value_id",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field ID"
+              },
+              {
+                "name": "value_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field Value ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch a given custom field value."
+        },
+        {
+          "info": {
+            "name": "Update a given custom field value.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/custom_fields/:custom_field_id/values/:value_id",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field ID"
+              },
+              {
+                "name": "value_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field Value ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a given custom field value."
+        },
+        {
+          "info": {
+            "name": "Delete a given custom field value.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/custom_fields/:custom_field_id/values/:value_id",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field ID"
+              },
+              {
+                "name": "value_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field Value ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a given custom field value."
+        },
+        {
+          "info": {
+            "name": "Create a new assignment rule.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/custom_fields/:custom_field_id/values/:value_id/rules",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field ID"
+              },
+              {
+                "name": "value_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field Value ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new assignment rule."
+        },
+        {
+          "info": {
+            "name": "Fetch a given assignment rule.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/custom_fields/:custom_field_id/values/:value_id/rules/:rule_id",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field ID"
+              },
+              {
+                "name": "value_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field Value ID"
+              },
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path",
+                "description": "Assignment Rule ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch a given assignment rule."
+        },
+        {
+          "info": {
+            "name": "Update a given assignment rule.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/custom_fields/:custom_field_id/values/:value_id/rules/:rule_id",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field ID"
+              },
+              {
+                "name": "value_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field Value ID"
+              },
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path",
+                "description": "Assignment Rule ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a given assignment rule."
+        },
+        {
+          "info": {
+            "name": "Delete a given assignment rule.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/custom_fields/:custom_field_id/values/:value_id/rules/:rule_id",
+            "params": [
+              {
+                "name": "custom_field_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field ID"
+              },
+              {
+                "name": "value_id",
+                "value": "",
+                "type": "path",
+                "description": "Custom Field Value ID"
+              },
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path",
+                "description": "Assignment Rule ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a given assignment rule."
+        },
+        {
+          "info": {
+            "name": "List all custom field folders.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/custom_fields/folders",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of custom field folders to return per request. Min: 1, Max: 100"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all custom field folders."
+        },
+        {
+          "info": {
+            "name": "List all searches.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/searches",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of searches to return per request. Min: 1, Max: 100"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              },
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the folder to search by"
+              },
+              {
+                "name": "show_hidden",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include searches within hidden folders"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all searches."
+        },
+        {
+          "info": {
+            "name": "Create a new search.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/searches",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new search."
+        },
+        {
+          "info": {
+            "name": "Fetch a given search.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/searches/:search_id",
+            "params": [
+              {
+                "name": "search_id",
+                "value": "",
+                "type": "path",
+                "description": "Search ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch a given search."
+        },
+        {
+          "info": {
+            "name": "Update a given search.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/searches/:search_id",
+            "params": [
+              {
+                "name": "search_id",
+                "value": "",
+                "type": "path",
+                "description": "Search ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a given search."
+        },
+        {
+          "info": {
+            "name": "Delete a given search.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/searches/:search_id",
+            "params": [
+              {
+                "name": "search_id",
+                "value": "",
+                "type": "path",
+                "description": "Search ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a given search."
+        },
+        {
+          "info": {
+            "name": "List all search folders.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/explore_plus/assets/searches/folders",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of folders to return per request. Min: 1, Max: 100"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the workspace to search by. If accessing the company space, set to `none`"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company to search by"
+              },
+              {
+                "name": "show_hidden",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include searches within hidden folders"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all search folders."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

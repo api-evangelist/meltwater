@@ -1,15 +1,51 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/meltwater-api-openapi.yaml
+generated: '2026-08-13'
+method: searched
+source: https://developer.meltwater.com/api-reference/api-reference-overview
+docs:
+  - https://developer.meltwater.com/api-reference/api-reference-overview
+  - https://developer.meltwater.com/guides/getting-started/api-credentials
+  - https://developer.meltwater.com/guides/meltwater-mcp/connecting
 summary:
   types:
   - apiKey
+  - oauth2
   api_key_in:
   - header
+  oauth2_flows:
+  - authorizationCode
+  note: >-
+    The REST API is API-token only. OAuth 2.0 exists today only in front of the Meltwater MCP
+    server and is not declared in any OpenAPI - it was found in Meltwater's live RFC 9728 /
+    RFC 8414 discovery documents.
 schemes:
 - name: apikey
   type: apiKey
   in: header
   parameter: apikey
+  description: >-
+    All REST calls authenticate with a Meltwater API token sent in an `apikey` request header.
+    HTTPS is mandatory - plain HTTP calls fail, and unauthenticated calls fail.
   sources:
-  - openapi/meltwater-api-openapi.yaml
+  - openapi/_original/meltwater-api-openapi.yaml
+  - openapi/meltwater-api-v4-openapi.yml
+  - https://developer.meltwater.com/api-reference/api-reference-overview
+- name: oauth2
+  type: oauth2
+  applies_to: https://api.meltwater.com/v2/mcp
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://app.meltwater.com/oauth/authorize
+    tokenUrl: https://app.meltwater.com/oauth/token
+    pkce: [S256]
+    scopes: [tools:read, tools:call, openid, profile, email]
+  dynamic_client_registration: https://app.meltwater.com/oauth/register
+  sources:
+  - https://api.meltwater.com/.well-known/oauth-protected-resource
+  - https://app.meltwater.com/.well-known/oauth-authorization-server
+token_management:
+  console: Account > Meltwater API in the Meltwater application
+  create: Create Token; the token value is shown once and cannot be retrieved later
+  revoke: Revoke button invalidates the token immediately
+  usage: per-token usage is visible in the app and via the `token_id` query parameter on the usage endpoints
+  permission_required: Admin level access on the Meltwater API permission
+  docs: https://developer.meltwater.com/guides/getting-started/api-credentials

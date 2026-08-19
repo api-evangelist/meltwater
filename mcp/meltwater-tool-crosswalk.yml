@@ -1,0 +1,123 @@
+generated: '2026-08-13'
+method: derived
+source: mcp/meltwater-mcp.yml + openapi/_original/meltwater-api-openapi.yaml + openapi/meltwater-api-v4-openapi.yml
+note: 'Meltwater ships a remote MCP server AND an OpenAPI, so the crosswalk is in scope. The live tools/list
+  is auth-gated (HTTP 401) and Meltwater publishes no tool names in llms.txt or the docs, so no tool-to-operation
+  row can be written without fabricating the tool names. crosswalk[] is therefore empty by measurement,
+  not by omission: what is recorded here is the REST side of the union and the fact that the MCP side
+  cannot be enumerated anonymously. Re-run with an authenticated token to complete it.'
+surfaces:
+  openapi:
+  - file: openapi/_original/meltwater-api-openapi.yaml
+    version: v3
+    operations: 80
+  - file: openapi/meltwater-api-v4-openapi.yml
+    version: 4.0.0-beta
+    operations: 7
+  graphql: null
+  mcp:
+    url: https://api.meltwater.com/v2/mcp
+    tools_list: gated (HTTP 401, apikey required)
+  mcp_orchestrated:
+    url: https://api.meltwater.com/mcp
+    tools_list: gated (HTTP 401)
+crosswalk: []
+mcp_only: []
+rest_only:
+- capability: Account Management
+  spec: openapi/_original/meltwater-api-openapi.yaml
+  operations:
+  - list_companies
+  - list_tokens
+  - list_workspaces
+- capability: Bring Your Own Content (BYOC)
+  spec: openapi/_original/meltwater-api-openapi.yaml
+  operations:
+  - handleByocDocuments
+- capability: Explore+ Analytics
+  spec: openapi/_original/meltwater-api-openapi.yaml
+  operations: []
+- capability: Explore+ Assets
+  spec: openapi/_original/meltwater-api-openapi.yaml
+  operations: []
+- capability: Explore+ Search
+  spec: openapi/_original/meltwater-api-openapi.yaml
+  operations: []
+- capability: Listening Analytics
+  spec: openapi/_original/meltwater-api-openapi.yaml
+  operations:
+  - getV3Analytics-searchId-start-end-tz-source-country-language-company_id
+  - getV3AnalyticsTop_entities-searchId-start-end-tz-source-country-language-size-sentiment-company_id
+  - getV3AnalyticsTop_keyphrases-searchId-start-end-tz-source-country-language-size-sentiment-company_id
+  - getV3AnalyticsTop_locations-searchId-start-end-tz-source-country-language-size-level-company_id
+  - getV3AnalyticsTop_mentions-searchId-start-end-tz-source
+  - getV3AnalyticsTop_shared-searchId-start-end-tz-source-country-language-size-sort_by-company_id
+  - getV3AnalyticsTop_sharedLinks-searchId-start-end-tz-source-country-language-size-sentiment-company_id
+  - getV3AnalyticsTop_sources-searchId-start-end-tz-source-country-language-size-min_authority-company_id
+  - getV3AnalyticsTop_tags-searchId-start-end-tz-source-country-language-size-company_id
+  - getV3AnalyticsTop_topics-searchId-start-end-tz-source
+- capability: Listening Exports
+  spec: openapi/_original/meltwater-api-openapi.yaml
+  operations:
+  - create_onetime_export
+  - create_recurring_export
+  - delete_onetime_export
+  - delete_recurring_export
+  - list_onetime_exports
+  - list_recurring_exports
+  - show_onetime_export
+  - show_recurring_export
+- capability: Listening Search
+  spec: openapi/_original/meltwater-api-openapi.yaml
+  operations:
+  - create-earned-search
+- capability: Listening Search Management
+  spec: openapi/_original/meltwater-api-openapi.yaml
+  operations:
+  - add_tags
+  - create_search
+  - delete_search
+  - get_search
+  - list_custom_categories
+  - list_filter_sets
+  - list_searches
+  - list_tags
+  - remove_tags
+  - search_count
+  - update_search
+- capability: Listening Streaming
+  spec: openapi/_original/meltwater-api-openapi.yaml
+  operations:
+  - createHook
+  - deleteHook
+  - getAllHooks
+  - getHook
+- capability: Mira API
+  spec: openapi/_original/meltwater-api-openapi.yaml
+  operations: []
+- capability: Owned Analytics
+  spec: openapi/_original/meltwater-api-openapi.yaml
+  operations: []
+- capability: v4 Analyze
+  spec: openapi/meltwater-api-v4-openapi.yml
+  operations:
+  - analyze
+- capability: v4 Export
+  spec: openapi/meltwater-api-v4-openapi.yml
+  operations:
+  - createExport
+  - deleteExport
+  - getExport
+  - listExports
+- capability: v4 LLM
+  spec: openapi/meltwater-api-v4-openapi.yml
+  operations:
+  - listLLMFolders
+  - listLLMPrompts
+coverage:
+  tools_named: 0
+  tools_bound: 0
+  mcp_only: 0
+  rest_operations_total: 45
+  rest_operations_with_tool: 0
+  reason: mcp tools/list auth-gated

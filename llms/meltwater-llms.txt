@@ -1,0 +1,168 @@
+# Meltwater Developer Portal
+
+> News & social intelligence for your solution.
+
+This file contains links to documentation sections following the llmstxt.org standard.
+
+## Table of Contents
+
+- [AI Visibility Analytics Options](https://developer.meltwater.com/api-reference/analytics-options/ai-visibility.md): The metrics and dimensions available for AI Visibility (GenAI Lens) analytics requests to the Meltwater API.
+- [Explore+ Analytics Options](https://developer.meltwater.com/api-reference/analytics-options/explore-plus.md): This page details the dimensions and measures you can use in your Explore+ analysis queries.
+- [Listening Analytics Options](https://developer.meltwater.com/api-reference/analytics-options/listening.md): The API supports a number of [pre-defined](#predefined) analysis options, plus the ability to specify a custom analysis using the supported [dimens...
+- [Analytics Options](https://developer.meltwater.com/api-reference/analytics-options/overview.md): Analytics options describe the dimensions and metrics you can request when calling the Meltwater analytics endpoints. The options available depend ...
+- [Owned Social Analytics Options](https://developer.meltwater.com/api-reference/analytics-options/owned-social.md): The tables below summarise the metrics and dimensions available for owned social analytics, organised by social network. Learn more about owned soc...
+- [Overview](https://developer.meltwater.com/api-reference/api-reference-overview.md): The Meltwater API is a RESTful API at https://api.meltwater.com that provides programmatic access to Meltwater content, analytics and insights.
+- [API JSON](https://developer.meltwater.com/api-reference/templates/api-json.md): The recommended general-purpose template for most API integrations. Includes all data fields most customers need.
+- [Popular Fields & Metrics](https://developer.meltwater.com/api-reference/templates/app-standard.md): A curated selection of the most commonly used fields, designed for analysts bringing data into spreadsheets and BI tools.
+- [Legacy CSV](https://developer.meltwater.com/api-reference/templates/legacy-csv.md): :::warning Deprecated
+- [Legacy JSON](https://developer.meltwater.com/api-reference/templates/legacy-json.md): :::warning Deprecated
+- [Content Output Templates](https://developer.meltwater.com/api-reference/templates/overview.md): Output templates control the shape of the data returned by the API for export, search and streaming features. You specify a template by setting the...
+- [Add tags to documents](https://developer.meltwater.com/api-reference/v3/add-tags.md): Triggers a request to add a list of specified tags to a given set of documents. This is an asynchronous operation.
+- [Allows to fetch the top posts for owned social accounts](https://developer.meltwater.com/api-reference/v3/allows-to-fetch-the-top-posts-for-owned-social-accounts.md): Allows to fetch the top posts for owned social accounts. You might do this to report the most engaged with posts in a period of time for example. T...
+- [Analyse earned data in your private index.](https://developer.meltwater.com/api-reference/v3/analyse-earned-data-in-your-private-index.md): Analyse earned data in your private index.
+- [Chat completion endpoint](https://developer.meltwater.com/api-reference/v3/chat-completion-endpoint.md): Processes chat completion requests and returns responses in streaming or non-streaming mode.
+- [Chat responses endpoint](https://developer.meltwater.com/api-reference/v3/chat-responses-endpoint.md): Processes chat responses requests with multiple input messages and returns responses in streaming or non-streaming mode.
+- [Create a custom analytics request](https://developer.meltwater.com/api-reference/v3/create-a-custom-analytics-request.md): Create a custom analytics request with your choice of filters and analytic types and configuration.
+- [Create a new assignment rule.](https://developer.meltwater.com/api-reference/v3/create-a-new-assignment-rule.md): Create a new assignment rule.
+- [Create a new custom field value.](https://developer.meltwater.com/api-reference/v3/create-a-new-custom-field-value.md): Create a new custom field value.
+- [Create a new custom field.](https://developer.meltwater.com/api-reference/v3/create-a-new-custom-field.md): Create a new custom field.
+- [Create a new search.](https://developer.meltwater.com/api-reference/v3/create-a-new-search.md): Create a new search.
+- [Create a new tag](https://developer.meltwater.com/api-reference/v3/create-a-new-tag.md): Create a new tag for tagging documents. Tag names must be unique and a maximum of 128 characters.
+- [Search for Meltwater earned data using a saved search and optional filters.](https://developer.meltwater.com/api-reference/v3/create-earned-search.md): Search for Meltwater earned data using a saved search and optional filters.
+- [Creates a hook](https://developer.meltwater.com/api-reference/v3/create-hook.md): Creates a hook for one of your predefined searches.
+- [Creates a new one-time export](https://developer.meltwater.com/api-reference/v3/create-onetime-export.md): <Heading
+- [Creates a new recurring export](https://developer.meltwater.com/api-reference/v3/create-recurring-export.md): <Heading
+- [Create a search](https://developer.meltwater.com/api-reference/v3/create-search.md): <Heading
+- [Delete a given assignment rule.](https://developer.meltwater.com/api-reference/v3/delete-a-given-assignment-rule.md): Delete a given assignment rule.
+- [Delete a given custom field value.](https://developer.meltwater.com/api-reference/v3/delete-a-given-custom-field-value.md): Delete a given custom field value.
+- [Delete a given custom field.](https://developer.meltwater.com/api-reference/v3/delete-a-given-custom-field.md): Delete a given custom field.
+- [Delete a given search.](https://developer.meltwater.com/api-reference/v3/delete-a-given-search.md): Delete a given search.
+- [Delete an existing tag.](https://developer.meltwater.com/api-reference/v3/delete-an-existing-tag.md): Deletes a given tag. Any documents that possess this tag will have it removed following tag deletion.
+- [Delete an existing hook.](https://developer.meltwater.com/api-reference/v3/delete-hook.md): Delete an existing hook.
+- [Removes an existing one-time export](https://developer.meltwater.com/api-reference/v3/delete-onetime-export.md): <Heading
+- [Removes an existing recurring export](https://developer.meltwater.com/api-reference/v3/delete-recurring-export.md): <Heading
+- [Delete an individual search](https://developer.meltwater.com/api-reference/v3/delete-search.md): <Heading
+- [Fetch a given assignment rule.](https://developer.meltwater.com/api-reference/v3/fetch-a-given-assignment-rule.md): Fetch a given assignment rule.
+- [Fetch a given custom field value.](https://developer.meltwater.com/api-reference/v3/fetch-a-given-custom-field-value.md): Fetch a given custom field value.
+- [Fetch a given custom field.](https://developer.meltwater.com/api-reference/v3/fetch-a-given-custom-field.md): Fetch a given custom field.
+- [Fetch a given search.](https://developer.meltwater.com/api-reference/v3/fetch-a-given-search.md): Fetch a given search.
+- [Fetch available analytics options.](https://developer.meltwater.com/api-reference/v3/fetch-available-analytics-options.md): Fetch available analytics options.
+- [Fetch the latest custom analytics options](https://developer.meltwater.com/api-reference/v3/fetch-the-latest-custom-analytics-options.md): Fetch the latest dimensions, measures, and analytic types you can use to create your custom analytic requests.
+- [List all hooks.](https://developer.meltwater.com/api-reference/v3/get-all-hooks.md): List all hooks.
+- [Get an individual hook.](https://developer.meltwater.com/api-reference/v3/get-hook.md): Get an individual hook.
+- [Get import batch](https://developer.meltwater.com/api-reference/v3/get-import-batch.md): Retrieves status and statistics about an import batch.
+- [Get import tag](https://developer.meltwater.com/api-reference/v3/get-import-tag.md): Retrieves status and statistics about an import tag.
+- [Get an individual search](https://developer.meltwater.com/api-reference/v3/get-search.md): <Heading
+- [Get usage information on specific metric](https://developer.meltwater.com/api-reference/v3/get-usage-information-on-specific-metric.md): Get usage information on specific metric
+- [Get usage statistics for your API calls](https://developer.meltwater.com/api-reference/v3/get-usage-statistics-for-your-api-calls.md): Get usage statistics for your API calls
+- [A summary of analytics for a Saved Search.](https://developer.meltwater.com/api-reference/v3/get-v-3-analytics-search-id-start-end-tz-source-country-language-company-id.md): The summary is produced only for documents matching the Saved Search,
+- [The top named entities that occur in a Saved Search.](https://developer.meltwater.com/api-reference/v3/get-v-3-analytics-top-entities-search-id-start-end-tz-source-country-language-size-sentiment-company-id.md): Produces a ranked list of entities that occur in documents matching the
+- [The top keyphrases that occur in a Saved Search.](https://developer.meltwater.com/api-reference/v3/get-v-3-analytics-top-keyphrases-search-id-start-end-tz-source-country-language-size-sentiment-company-id.md): Produces a ranked list of keyphrases that occur in documents matching the
+- [The top locations that occur in a Saved Search.](https://developer.meltwater.com/api-reference/v3/get-v-3-analytics-top-locations-search-id-start-end-tz-source-country-language-size-level-company-id.md): Produces a ranked list of locations that occur in documents matching the
+- [The top mentions that occur in a Saved Search.](https://developer.meltwater.com/api-reference/v3/get-v-3-analytics-top-mentions-search-id-start-end-tz-source.md): Produces a ranked list of mentions that occur in documents matching the
+- [The top shared links that occur in a Saved Search.](https://developer.meltwater.com/api-reference/v3/get-v-3-analytics-top-shared-links-search-id-start-end-tz-source-country-language-size-sentiment-company-id.md): Produces a ranked list of links that occur in documents matching the
+- [The top shared documents that occur in a Saved Search.](https://developer.meltwater.com/api-reference/v3/get-v-3-analytics-top-shared-search-id-start-end-tz-source-country-language-size-sort-by-company-id.md): Produces a ranked list of documents matching the Saved Search that were
+- [The top sources that occur in a Saved Search.](https://developer.meltwater.com/api-reference/v3/get-v-3-analytics-top-sources-search-id-start-end-tz-source-country-language-size-min-authority-company-id.md): Produces a ranked list of 'sources' that provided the documents matching the Saved Search.
+- [The top tags that occur in a Saved Search.](https://developer.meltwater.com/api-reference/v3/get-v-3-analytics-top-tags-search-id-start-end-tz-source-country-language-size-company-id.md): Produces a ranked list of tags that occur in documents matching the
+- [The top topics that occur in a Saved Search.](https://developer.meltwater.com/api-reference/v3/get-v-3-analytics-top-topics-search-id-start-end-tz-source.md): Produces a ranked list of topics and their sub topics that occur in documents matching the
+- [Ingest BYOC documents](https://developer.meltwater.com/api-reference/v3/handle-byoc-documents.md): Handles the import of documents into the Meltwater Platform.
+- [List all custom field folders.](https://developer.meltwater.com/api-reference/v3/list-all-custom-field-folders.md): List all custom field folders.
+- [List all custom fields.](https://developer.meltwater.com/api-reference/v3/list-all-custom-fields.md): List all custom fields.
+- [List all search folders.](https://developer.meltwater.com/api-reference/v3/list-all-search-folders.md): List all search folders.
+- [List all searches.](https://developer.meltwater.com/api-reference/v3/list-all-searches.md): List all searches.
+- [List available projects](https://developer.meltwater.com/api-reference/v3/list-available-projects.md): Retrieve all projects available to the authenticated user with pagination support
+- [Get a list of all your companies](https://developer.meltwater.com/api-reference/v3/list-companies.md): <Heading
+- [Get a list of all search custom categories](https://developer.meltwater.com/api-reference/v3/list-custom-categories.md): Get a list of all search custom categories
+- [Get a list of all search filter sets](https://developer.meltwater.com/api-reference/v3/list-filter-sets.md): Get a list of all search filter sets
+- [List import batches](https://developer.meltwater.com/api-reference/v3/list-import-batches.md): Retrieves a list of import batches. Supports filtering by date range (start/end) and batch status. Dates are interpreted in the specified timezone ...
+- [Get a list of all your one-time exports](https://developer.meltwater.com/api-reference/v3/list-onetime-exports.md): <Heading
+- [Get a list of all your recurring exports](https://developer.meltwater.com/api-reference/v3/list-recurring-exports.md): <Heading
+- [Get a list of all your searches](https://developer.meltwater.com/api-reference/v3/list-searches.md): <Heading
+- [Get a list of all your tags](https://developer.meltwater.com/api-reference/v3/list-tags.md): <Heading
+- [Get a list of all your API tokens](https://developer.meltwater.com/api-reference/v3/list-tokens.md): <Heading
+- [Get a list of all your workspaces](https://developer.meltwater.com/api-reference/v3/list-workspaces.md): <Heading
+- [Remove tags from documents](https://developer.meltwater.com/api-reference/v3/remove-tags.md): Triggers a request to remove a list of specified tags from a given set of documents. This is an asynchronous operation.
+- [Returns a break-down over date and time](https://developer.meltwater.com/api-reference/v3/returns-a-break-down-over-date-and-time.md): A 'heatmap' metric is an analysis that provides a break-down over date and time. For example, the `page_fans_heatmap` metric breaks down the audien...
+- [Returns a double-level breakdown by two categories or concepts](https://developer.meltwater.com/api-reference/v3/returns-a-double-level-breakdown-by-two-categories-or-concepts.md): A 'nested-breakdown' metric is an analysis that provides a double-level breakdown by two categories or concepts. For example, the `demographics_gen...
+- [Returns a list of social account connections for a given company/user account](https://developer.meltwater.com/api-reference/v3/returns-a-list-of-social-account-connections-for-a-given-company-user-account.md): Returns a list of social account connections for a given company/user account
+- [Returns a list of supported metrics](https://developer.meltwater.com/api-reference/v3/returns-a-list-of-supported-metrics.md): Returns a list of supported metrics
+- [Returns a single-level breakdown by a category or concept](https://developer.meltwater.com/api-reference/v3/returns-a-single-level-breakdown-by-a-category-or-concept.md): A 'breakdown' metric is an analysis that provides a single-level breakdown by a category or concept. For example, the `demographics_audience_countr...
+- [Returns simple metrics for a social account](https://developer.meltwater.com/api-reference/v3/returns-simple-metrics-for-a-social-account.md): A numeric metric is the most basic type of metrics you can get for your social media account, like the number of page fans. All timestamps in this ...
+- [Get an approximate count of results for the search over a particular period](https://developer.meltwater.com/api-reference/v3/search-count.md): <Heading
+- [Search for data in your private index.](https://developer.meltwater.com/api-reference/v3/search-for-data-in-your-private-index.md): Search for data in your private index.
+- [Get details of a one-time export](https://developer.meltwater.com/api-reference/v3/show-onetime-export.md): <Heading
+- [Get details of a recurring export](https://developer.meltwater.com/api-reference/v3/show-recurring-export.md): <Heading
+- [Update a given assignment rule.](https://developer.meltwater.com/api-reference/v3/update-a-given-assignment-rule.md): Update a given assignment rule.
+- [Update a given custom field value.](https://developer.meltwater.com/api-reference/v3/update-a-given-custom-field-value.md): Update a given custom field value.
+- [Update a given custom field.](https://developer.meltwater.com/api-reference/v3/update-a-given-custom-field.md): Update a given custom field.
+- [Update a given search.](https://developer.meltwater.com/api-reference/v3/update-a-given-search.md): Update a given search.
+- [Update an individual search](https://developer.meltwater.com/api-reference/v3/update-search.md): <Heading
+- [Perform analytics analysis](https://developer.meltwater.com/api-reference/v4/analyze.md): Execute analytics queries with support for nested analyses.
+- [Create export](https://developer.meltwater.com/api-reference/v4/create-export.md): Create a new content export job.
+- [Delete export](https://developer.meltwater.com/api-reference/v4/delete-export.md): Delete an export job.
+- [Get export details](https://developer.meltwater.com/api-reference/v4/get-export.md): Get details of a specific export job.
+- [List exports](https://developer.meltwater.com/api-reference/v4/list-exports.md): Get a list of all content exports.
+- [List LLM prompt folders](https://developer.meltwater.com/api-reference/v4/list-llm-folders.md): Get a flat list of the caller's LLM prompt folders. A folder `id` returned
+- [List LLM prompts](https://developer.meltwater.com/api-reference/v4/list-llm-prompts.md): Get a flat, paginated list of the caller's LLM prompts, optionally
+- [Analyzing Prompts](https://developer.meltwater.com/guides/ai-visibility/analyzing-prompts.md): Fetch AI Visibility metrics for your GenAI Lens prompts - aggregate metric totals, date histograms, and top terms - using the Meltwater analytics API.
+- [Fetching Prompts](https://developer.meltwater.com/guides/ai-visibility/managing-prompts.md): Fetch your GenAI Lens prompts and prompt folders using the Meltwater API, and use their IDs to drive AI Visibility analytics requests.
+- [Overview](https://developer.meltwater.com/guides/ai-visibility/overview.md): The Meltwater AI Visibility API lets you track how your brand appears in AI assistants and answer engines like ChatGPT, Gemini, and Perplexity - me...
+- [Custom Fields Management](https://developer.meltwater.com/guides/bring-your-own-content/custom-fields-management.md): In this section, you'll learn how to use **custom fields** with **Explore+** when sending your own content via the Bring Your Own Content (BYOC) API.
+- [Managing Imported Data](https://developer.meltwater.com/guides/bring-your-own-content/managing-imported-data.md): In this tutorial, you'll learn how to manage your imported data, including how to update and delete documents.
+- [Monitoring Imported Data](https://developer.meltwater.com/guides/bring-your-own-content/monitoring-imported-data.md): In this section, you'll learn how to monitor your imported data — the progress and status of documents you have submitted to the Meltwater API.
+- [Overview](https://developer.meltwater.com/guides/bring-your-own-content/overview.md): Bring Your Own Content (BYOC) lets you import custom documents into the Meltwater platform so they can be searched, analysed, and surfaced alongsid...
+- [Analyzing Mentions](https://developer.meltwater.com/guides/explore-plus/analyzing-mentions.md): In this tutorial we'll cover the basics of analyzing mentions from Explore+ using the API.
+- [Managing Custom Fields](https://developer.meltwater.com/guides/explore-plus/custom-fields-management.md): In this guide we'll cover the basics of creating, updating and deleting Custom Fields in Explore+ using the API.
+- [Exporting Mentions](https://developer.meltwater.com/guides/explore-plus/exporting-mentions.md): Create exports of mentions from your Explore+ searches using the v4 Meltwater API.
+- [Managing Searches](https://developer.meltwater.com/guides/explore-plus/managing-searches.md): In this tutorial we'll cover the basics of creating, updating and deleting searches in Explore+ using the API.
+- [Overview](https://developer.meltwater.com/guides/explore-plus/overview.md): The Explore+ API provides advanced search, filtering, and analytics on news and social mentions, with support for custom fields and managed searches.
+- [Searching Mentions](https://developer.meltwater.com/guides/explore-plus/searching-mentions.md): In this tutorial we'll cover the basics of searching and fetching mentions from Explore+ using the API.
+- [Accessing Usage Statistics](https://developer.meltwater.com/guides/getting-started/accessing-usage-statistics.md): To understand your usage of API features you can access usage statistics both in the Meltwater application, and through the API directly.
+- [API Credentials](https://developer.meltwater.com/guides/getting-started/api-credentials.md): How to create and manage API tokens for authenticating with the Meltwater API.
+- [Multiple Companies](https://developer.meltwater.com/guides/getting-started/multiple-companies.md): Most Meltwater customers have one **company**. This company is associated with their API package, API token, and with the searches they create in t...
+- [Overview](https://developer.meltwater.com/guides/getting-started/overview.md): Get started with the Meltwater API — create your API token, understand usage limits, and explore features including Listening, Mira AI, Social Anal...
+- [Usage Limits](https://developer.meltwater.com/guides/getting-started/usage-limits.md): Rate limits, quotas, and usage caps that apply to the Meltwater API, including export limits, analytics calls, and data stream restrictions.
+- [Data Studio](https://developer.meltwater.com/guides/integrations/data-studio.md): API customers can use Meltwater's Data Studio Connector to bring earned media and owned social metrics into their dashboards. This guide explains h...
+- [Domo](https://developer.meltwater.com/guides/integrations/domo.md): Domo offers a connector for the Meltwater API that allows you to bring results of earned media exports and analytics into their platform.
+- [Generic Integration](https://developer.meltwater.com/guides/integrations/generic.md): There are a wide range of marketing, BI, analytics, dashboarding and CRM tools on the market. Many of these tools have the ability to import data i...
+- [Overview](https://developer.meltwater.com/guides/integrations/overview.md): Connect the Meltwater API to BI and analytics tools including Microsoft Power BI, Data Studio, Domo, and custom integrations.
+- [Power BI Service](https://developer.meltwater.com/guides/integrations/power-bi-service.md): Meltwater offers a Power BI connector as described in [this guide](/guides/integrations/power-bi), however as this connector is not yet certified b...
+- [Power BI](https://developer.meltwater.com/guides/integrations/power-bi.md): API customers can use Meltwater's Power BI Connector to bring earned media content and metrics, plus owned social metrics into their workbooks. Thi...
+- [Tableau](https://developer.meltwater.com/guides/integrations/tableau.md): :::warning Connector deprecated
+- [Analyzing Mentions](https://developer.meltwater.com/guides/listening/analyzing-mentions.md): In this tutorial we'll get you up and running to make your first analytics calls.
+- [Datastreams Document Verification](https://developer.meltwater.com/guides/listening/datastreams-document-verification.md): When a new document is pushed to your `target_url`, you may want to verify that the document is actually coming from Meltwater.
+- [Exporting Mentions](https://developer.meltwater.com/guides/listening/exporting-mentions.md): In this tutorial we'll cover the basics of creating an **earned media** export using the API.
+- [Managing Searches](https://developer.meltwater.com/guides/listening/managing-searches.md): You can use the Meltwater API to manage the earned media Saved Searches for your Meltwater account.
+- [Overview](https://developer.meltwater.com/guides/listening/overview.md): The Meltwater Listening API lets you export, search, stream, and analyse news and social media mentions using saved searches and the Meltwater data...
+- [Rehydrating X Posts](https://developer.meltwater.com/guides/listening/rehydrating-x-posts.md): Due to X terms of service, when you export X posts from the Meltwater API you will receive only the ID of the post and the post's author. In this g...
+- [Searching Mentions](https://developer.meltwater.com/guides/listening/searching-mentions.md): In this tutorial we'll get you up and running to make your first search calls.
+- [Streaming Mentions](https://developer.meltwater.com/guides/listening/streaming-mentions.md): In this tutorial we'll cover the basics of streaming real-time content through the API.
+- [Tagging Earned Media](https://developer.meltwater.com/guides/listening/tagging-earned-media.md): In this tutorial we'll get you up and running with adding and removing tags from earned media documents. We'll also explain later in the guide how ...
+- [Connecting a custom agent to Meltwater MCP](https://developer.meltwater.com/guides/meltwater-mcp/connecting.md): How to connect a custom AI agent to the Meltwater MCP server - including the endpoint, API token authentication, and configuration examples for dev...
+- [Example: Executive media brief](https://developer.meltwater.com/guides/meltwater-mcp/exec-media-brief.md): An example agent built on Meltwater MCP that produces a branded executive daily media brief - news and social, selected, ranked and rendered - head...
+- [Overview](https://developer.meltwater.com/guides/meltwater-mcp/overview.md): Meltwater MCP is a single remote MCP server that gives your custom AI agents tool-based access to your Meltwater assets and data - so you can orche...
+- [Example: Reputation watchdog](https://developer.meltwater.com/guides/meltwater-mcp/reputation-watchdog.md): An example agent that fuses Meltwater MCP with your own first-party data - it spots a coverage anomaly, cross-references your internal systems for ...
+- [Example: Social insight sub-agent](https://developer.meltwater.com/guides/meltwater-mcp/social-brief-subagent.md): An example that plugs Meltwater MCP into your own agent as a specialist insight sub-agent - it returns a grounded landscape insight, and your agent...
+- [Chat Completion](https://developer.meltwater.com/guides/mira-api/chat-completion.md): In this tutorial we'll get you up and running with the chat-completion features of the Mira API.
+- [MCP Server](https://developer.meltwater.com/guides/mira-api/mcp-server.md): [MCP](https://modelcontextprotocol.io/introduction) is quickly becoming the recognised standard for integrating remote tools and resources into LLMs.
+- [Overview](https://developer.meltwater.com/guides/mira-api/overview.md): The Mira API is Meltwater's AI assistant and agent layer, delivering responses grounded in real-time news and social data. Supports streaming, mult...
+- [Projects](https://developer.meltwater.com/guides/mira-api/projects.md): In this guide we'll explain how you can get started with Mira Projects when using the Mira API. Mira Projects allow you to ground Mira API response...
+- [Responses](https://developer.meltwater.com/guides/mira-api/responses.md): In this tutorial we'll get you up and running with the responses feature of the Mira API.
+- [Overview](https://developer.meltwater.com/guides/social-analytics/overview.md): The Meltwater Social Analytics API lets you fetch performance data and posts from owned social media accounts connected to your Meltwater workspace.
+- [Fetching Owned Analytics & Posts](https://developer.meltwater.com/guides/social-analytics/v3/fetching-owned-analytics-and-posts.md): In this tutorial we'll cover the basics of accessing owned social analytics and posts using the API.
+- [API Changes 2023](https://developer.meltwater.com/help/api-changes-2023.md): This guide explains how you can prepare your integration to be ready for changes to the Meltwater API that were scheduled for 3rd April 2023.
+- [Changelog](https://developer.meltwater.com/help/changelog.md): On this page we inform you about changes to the Meltwater API.
+- [Compliance](https://developer.meltwater.com/help/compliance.md): It is important to us that we provide fully-compliant APIs to our customers. As data providers update their terms over time we need to adjust our A...
+- [FAQs](https://developer.meltwater.com/help/faqs.md): Frequently asked questions about the Meltwater API — covering access, exports, data streams, usage limits, and Bring Your Own Content.
+- [Migration to V3](https://developer.meltwater.com/help/migration-to-v3.md): This guide explains the changes made to the API resulting in version 3.
+- [Support](https://developer.meltwater.com/help/support.md): As an API user we recommend you subscribe to updates from our [Status Page](https://status.api.meltwater.com). This will make sure you are aware of...
+- [Analyze](https://developer.meltwater.com/tools/analytics-console-v4/analyze.md): :::info
+- [Connect to Meltwater API](https://developer.meltwater.com/tools/console-login.md): <BrowserOnly>
+- [Analyze](https://developer.meltwater.com/tools/listening-console/analytics.md): Use this tool to explore the analytics features of the Listening API.
+- [Export](https://developer.meltwater.com/tools/listening-console/export.md): Use this tool to manage your one-time and recurring exports on the Listening API.
+- [Search](https://developer.meltwater.com/tools/listening-console/search.md): Use this tool to better understand the search feature of the Listening API.
+- [Stream](https://developer.meltwater.com/tools/listening-console/streaming.md): Use this tool to manage your Listening API real-time streams.
+- [Tools Explorer](https://developer.meltwater.com/tools/mcp-console/tools-explorer.md): Discover which [Meltwater MCP](/guides/meltwater-mcp/overview) tools are available to your API token. Connect with your token, then browse each too...
+- [Projects](https://developer.meltwater.com/tools/mira-api-console/mira-projects.md): Use this tool to list Mira API Projects available to your account. Projects allow you to ground Mira API responses with top-level instructions and ...
+- [Responses](https://developer.meltwater.com/tools/mira-api-console/mira-responses.md): Use this tool to better understand how to send prompts and continue conversations with Mira using the Mira API.
+- [Tools Overview](https://developer.meltwater.com/tools/overview.md): Interactive browser-based tools for exploring the Meltwater API — run exports, search mentions, query analytics across providers, manage data strea...

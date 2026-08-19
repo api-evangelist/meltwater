@@ -1,0 +1,84 @@
+generated: '2026-08-13'
+method: probed
+source: live probe of /.well-known/ paths on every Meltwater host in apis.yml
+note: >-
+  Three hosts were probed. api.meltwater.com serves RFC 9728 OAuth Protected Resource
+  Metadata for the Meltwater MCP server; app.meltwater.com serves RFC 8414 Authorization
+  Server Metadata; www.meltwater.com serves an RFC 9116 security.txt. Every other
+  well-known path 404s on every host.
+hosts:
+  - host: https://api.meltwater.com
+    documents:
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        file: meltwater-oauth-protected-resource.json
+        spec: RFC 9728
+      - path: /.well-known/oauth-protected-resource/v2/mcp
+        status: 200
+        note: identical body to the root path; the resource-specific location advertised in the MCP 401 WWW-Authenticate challenge
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://app.meltwater.com
+    documents:
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: meltwater-oauth-authorization-server.json
+        spec: RFC 8414
+      - path: /oauth2/.well-known/oauth-authorization-server
+        status: 200
+        note: alternate path, same metadata document
+      - path: /.well-known/security.txt
+        status: 403
+        note: S3 AccessDenied; the security.txt Canonical field names this URL but the host does not serve it
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/agent-card.json
+        status: 403
+      - path: /.well-known/agent.json
+        status: 403
+  - host: https://www.meltwater.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: meltwater-security.txt
+        spec: RFC 9116
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://developer.meltwater.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+x-evidence:
+  fetched: '2026-08-13'
+  hits: 3
+  agent_card: not-served

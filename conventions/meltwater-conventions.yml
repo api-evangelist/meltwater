@@ -1,0 +1,88 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.meltwater.com/api-reference/api-reference-overview
+docs:
+  - https://developer.meltwater.com/api-reference/api-reference-overview
+  - https://developer.meltwater.com/guides/getting-started/usage-limits
+  - https://developer.meltwater.com/api-reference/templates/overview
+base_url: https://api.meltwater.com
+transport:
+  https_required: true
+  note: Calls made over plain HTTP fail.
+authentication:
+  style: api-key-header
+  header: apikey
+  artifact: authentication/meltwater-authentication.yml
+idempotency:
+  supported: false
+  note: >-
+    Meltwater documents no idempotency key and no OpenAPI operation declares an
+    Idempotency-Key parameter (grep across all 13 spec files returns zero hits). The nearest
+    thing is BYOC batch de-duplication - document `id` must be unique within a batch and a
+    duplicate causes the whole batch to be rejected with 400 - which is uniqueness validation,
+    not request replay safety. No Idempotency pointer is emitted.
+pagination:
+  styles:
+    - style: page-number
+      params: [page, page_size]
+      applies_to: list endpoints (searches, exports, tags, custom fields, import batches)
+    - style: size-capped top-N
+      params: [size]
+      applies_to: analytics "top" endpoints, which cap the number of returned buckets rather than paginate
+  cursor: false
+  note: No Link header or cursor token is documented; response envelopes carry the collection under a named key (searches, exports, tags).
+scoping:
+  multi_tenancy:
+    params: [company_id, workspace_id]
+    note: >-
+      Accounts can span multiple companies and workspaces. company_id appears on 62 operations
+      and workspace_id on 22; both are query parameters, so tenant selection is per-request
+      rather than per-token.
+    docs: https://developer.meltwater.com/guides/getting-started/multiple-companies
+time_windows:
+  params: [start, end, tz]
+  max_window: 12 months for analytics requests unless the contract states otherwise
+output_templates:
+  param: template.name
+  values: [api.json, app-standard, legacy-json, legacy-csv]
+  default: legacy template when none is specified
+  docs: https://developer.meltwater.com/api-reference/templates/overview
+request_tracing:
+  header: X-Request-Id
+  direction: response
+  note: Returned on every request; Meltwater asks for it when reporting a problem. Observed live on the MCP 401 response.
+  example_docs: https://developer.meltwater.com/api-reference/api-reference-overview
+versioning:
+  style: uri-path
+  values: [/v3, /v4]
+  artifact: lifecycle/meltwater-lifecycle.yml
+error_envelope:
+  shapes:
+    - schema: Errors
+      fields: ['type', 'errors[].type', 'errors[].title', 'errors[].details']
+      discriminator: type
+      values: [NotFound, ServiceUnavailable, Unauthorized, ValidationFailed]
+    - schema: ValidationFailed / NotFound
+      fields: [message, errors]
+      note: errors is a map of field name to a list of problem descriptions
+    - schema: Unauthorized
+      fields: [message]
+  rfc9457: false
+  content_type: application/json
+  artifact: errors/meltwater-problem-types.yml
+rate_limit_signalling:
+  headers_analytics: [RateLimit-Day-Limit, RateLimit-Day-Remaining, RateLimit-Day-Reset]
+  headers_observed_edge: [RateLimit-Limit, RateLimit-Remaining, RateLimit-Reset, X-RateLimit-Limit-Minute, X-RateLimit-Remaining-Minute]
+  retry_after: true
+  exhaustion_status: [403, 429]
+  artifact: rate-limits/meltwater-rate-limits.yml
+streaming:
+  content_type: text/event-stream
+  operations: 2 (Mira API chat completion and responses)
+  webhooks: asyncapi/meltwater-webhooks.yml
+notes:
+  - >-
+    developer.meltwater.com publishes an llms.txt listing 160 documentation pages, but every
+    URL in it carries a `.md` suffix and every `.md` URL 404s - the HTML page at the same path
+    without the suffix returns 200. An agent following the published llms.txt verbatim reaches
+    nothing. Recorded as observed on 2026-08-13.

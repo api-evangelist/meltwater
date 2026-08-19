@@ -1,0 +1,107 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.meltwater.com/help/changelog
+scheme: dated entries, no semantic version on the REST API
+current_version: v4 (4.0.0-beta) alongside v3 (info.version "1.0")
+window: 2024-10 to 2026-08 (recent window only; the live page is the source of truth)
+feeds: []
+entries:
+  - date: '2026-07-08'
+    title: Meltwater MCP now available
+    type: addition
+    breaking: false
+    highlights:
+      - Single remote MCP server at https://api.meltwater.com/v2/mcp exposing Meltwater assets and data as agent tools.
+      - Authenticated with the Meltwater API token; OAuth 2.0 announced for later in the year.
+      - No-code connectors published for Claude and ChatGPT.
+  - date: '2026-07-01'
+    title: AI Visibility (GenAI Lens)
+    type: addition
+    breaking: false
+    api: v4
+    highlights:
+      - Track brand presence in ChatGPT, Gemini and Perplexity answers.
+      - Fetch prompts and prompt folders; run aggregate metrics, date histograms and top terms.
+      - v4 only.
+  - date: '2026-06-26'
+    title: Explore+ Exports (BETA)
+    type: addition
+    breaking: false
+    api: v4
+    highlights:
+      - Create exports from Explore+ searches, filtering by tags, custom fields and languages.
+      - Same output templates as Listening exports.
+  - date: '2026-04-07'
+    title: BYOC - Telegram origin platform added
+    type: addition
+    breaking: false
+    highlights:
+      - originPlatform "telegram" accepted with content types post, comment, reply, repost, quoted.
+  - date: '2026-03-03'
+    title: Usage statistics per API token
+    type: addition
+    breaking: false
+    highlights:
+      - GET usage/me/metrics/{metric} and GET usage/me/requests accept an optional token_id query parameter.
+      - Usage Data page in the app breaks usage down by token.
+  - date: '2026-01-12'
+    title: BYOC duplicate detection and import monitoring
+    type: addition
+    breaking: false
+  - date: '2025-11-26'
+    title: BYOC - user.imageUrl field added
+    type: addition
+    breaking: false
+  - date: '2025-11-13'
+    title: BYOC - Explore+ custom fields
+    type: addition
+    breaking: false
+  - date: '2025-09-22'
+    title: BYOC - id must be unique within a batch
+    type: change
+    breaking: true
+    highlights:
+      - Batches containing duplicate ids are rejected in full with 400 Bad Request.
+  - date: '2025-09-09'
+    title: BYOC - data monitoring
+    type: addition
+    breaking: false
+  - date: '2025-09-08'
+    title: BYOC - data management (delete imported documents)
+    type: addition
+    breaking: false
+  - date: '2025-08-13'
+    title: BYOC - batch size increased to 500 documents
+    type: change
+    breaking: false
+  - date: '2025-08-01'
+    title: Bring Your Own Content (BYOC) API now available
+    type: addition
+    breaking: false
+  - date: '2025-07-01'
+    title: Explore+ API now available
+    type: addition
+    breaking: false
+  - date: '2025-06-26'
+    title: Search earned media documents
+    type: addition
+    breaking: false
+  - date: '2025-04-23'
+    title: Tagging earned media documents
+    type: addition
+    breaking: false
+  - date: '2025-03-31'
+    title: Custom categories on API exports
+    type: addition
+    breaking: false
+  - date: '2024-10-21'
+    title: Facebook deprecated metrics
+    type: removal
+    breaking: true
+    highlights:
+      - Several Facebook metrics deprecated and no longer available through the API.
+related:
+  - type: compliance changes
+    url: https://developer.meltwater.com/help/compliance
+  - type: migration guide
+    url: https://developer.meltwater.com/help/migration-to-v3

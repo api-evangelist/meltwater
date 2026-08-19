@@ -1,0 +1,19 @@
+Contact: mailto:security@meltwater.com
+Contact: tel:+1-603-370-3298
+# We do accept text messages at the above number
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://app.meltwater.com/.well-known/security.txt
+Canonical: https://www.meltwater.com/.well-known/security.txt
+Canonical: https://www.linkfluence.com/.well-known/security.txt
+Canonical: https://klear.com/.well-known/security.txt
+Canonical: https://owler.com/.well-known/security.txt
+Canonical: https://corp.owler.com/.well-known/security.txt
+Hiring: https://www.meltwater.com/en/careers
+
+# Please note that we currently do not have a bug bounty
+# program but do appreciate your responsible disclosure.
+# We will consider anyone submitting well written reports
+# when we launch a private program.
+# In your vulnerability reports please include vulnerability
+# description, clear steps to reproduce, CVSS score and impact

@@ -1,0 +1,444 @@
+{
+  "item": [
+    {
+      "id": "e93f660d-2304-494d-b02f-6d7add64a0a2",
+      "name": "Listening Search",
+      "description": {
+        "content": "Search Meltwater data using saved searches to integrate with your own API connectors and internal systems.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8a08e9fd-352b-4d67-ad06-df0ebb256785",
+          "name": "Search for Meltwater earned data using a saved search and optional filters.",
+          "request": {
+            "name": "Search for Meltwater earned data using a saved search and optional filters.",
+            "description": {
+              "content": "Search for Meltwater earned data using a saved search and optional filters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "search",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "Set the company to search by"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Search ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tz\": \"<string>\",\n  \"countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"end\": \"<string>\",\n  \"languages\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"sentiments\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sort_by\": \"<string>\",\n  \"sort_order\": \"<string>\",\n  \"sources\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"start\": \"<string>\",\n  \"template\": {\n    \"name\": \"<string>\"\n  },\n  \"keywords\": \"<array>\",\n  \"emojis\": \"<array>\",\n  \"custom_categories\": \"<array>\",\n  \"filter_set\": \"<string>\",\n  \"author_lists\": \"<array>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b2ac189c-4037-4750-9fe5-61d6b155d5d1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "search",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Search ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tz\": \"Europe/London\",\n  \"countries\": [\n    \"gb\",\n    \"us\"\n  ],\n  \"end\": \"2021-09-28T00:00:00\",\n  \"languages\": [\n    \"en\",\n    \"fr\"\n  ],\n  \"page\": 1,\n  \"page_size\": 10,\n  \"sentiments\": [\n    \"positive\",\n    \"negative\"\n  ],\n  \"sort_by\": \"date\",\n  \"sort_order\": \"desc\",\n  \"sources\": [\n    \"x\",\n    \"news\",\n    \"broadcast\"\n  ],\n  \"start\": \"2021-09-27T00:00:00\",\n  \"template\": {\n    \"name\": \"legacy\"\n  },\n  \"keywords\": [\n    \"USA\",\n    \"UK\"\n  ],\n  \"emojis\": [\n    \"😀\",\n    \"😢\"\n  ],\n  \"custom_categories\": [\n    \"1234\",\n    \"5678\"\n  ],\n  \"filter_set\": \"\\\"4321\\\"\",\n  \"author_lists\": [\n    \"1111\",\n    \"2222\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tz\": \"Europe/London\",\n  \"countries\": [\n    \"gb\",\n    \"us\"\n  ],\n  \"end\": \"2021-09-28T00:00:00\",\n  \"languages\": [\n    \"en\",\n    \"fr\"\n  ],\n  \"page\": 1,\n  \"page_size\": 10,\n  \"result\": {\n    \"document_count\": 100,\n    \"documents\": [\n      {\n        \"opening_text\": \"This is a document ...\"\n      },\n      {\n        \"opening_text\": \"This is a document ...\"\n      }\n    ]\n  },\n  \"search_id\": 12345,\n  \"sentiments\": [\n    \"positive\",\n    \"negative\"\n  ],\n  \"sort_by\": \"date\",\n  \"sort_order\": \"desc\",\n  \"sources\": [\n    \"x\",\n    \"news\"\n  ],\n  \"start\": \"2021-09-27T00:00:00\",\n  \"template\": {\n    \"name\": \"legacy\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8d029c1-7bb9-4748-98c0-e238ac31c968",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "search",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Search ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tz\": \"Europe/London\",\n  \"countries\": [\n    \"gb\",\n    \"us\"\n  ],\n  \"end\": \"2021-09-28T00:00:00\",\n  \"languages\": [\n    \"en\",\n    \"fr\"\n  ],\n  \"page\": 1,\n  \"page_size\": 10,\n  \"sentiments\": [\n    \"positive\",\n    \"negative\"\n  ],\n  \"sort_by\": \"date\",\n  \"sort_order\": \"desc\",\n  \"sources\": [\n    \"x\",\n    \"news\",\n    \"broadcast\"\n  ],\n  \"start\": \"2021-09-27T00:00:00\",\n  \"template\": {\n    \"name\": \"legacy\"\n  },\n  \"keywords\": [\n    \"USA\",\n    \"UK\"\n  ],\n  \"emojis\": [\n    \"😀\",\n    \"😢\"\n  ],\n  \"custom_categories\": [\n    \"1234\",\n    \"5678\"\n  ],\n  \"filter_set\": \"\\\"4321\\\"\",\n  \"author_lists\": [\n    \"1111\",\n    \"2222\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b214253a-9dcd-4559-8270-ba3e5d4052c1",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "search",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Search ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tz\": \"Europe/London\",\n  \"countries\": [\n    \"gb\",\n    \"us\"\n  ],\n  \"end\": \"2021-09-28T00:00:00\",\n  \"languages\": [\n    \"en\",\n    \"fr\"\n  ],\n  \"page\": 1,\n  \"page_size\": 10,\n  \"sentiments\": [\n    \"positive\",\n    \"negative\"\n  ],\n  \"sort_by\": \"date\",\n  \"sort_order\": \"desc\",\n  \"sources\": [\n    \"x\",\n    \"news\",\n    \"broadcast\"\n  ],\n  \"start\": \"2021-09-27T00:00:00\",\n  \"template\": {\n    \"name\": \"legacy\"\n  },\n  \"keywords\": [\n    \"USA\",\n    \"UK\"\n  ],\n  \"emojis\": [\n    \"😀\",\n    \"😢\"\n  ],\n  \"custom_categories\": [\n    \"1234\",\n    \"5678\"\n  ],\n  \"filter_set\": \"\\\"4321\\\"\",\n  \"author_lists\": [\n    \"1111\",\n    \"2222\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Not Found\",\n  \"errors\": {\n    \":searchId\": [\n      \"A Saved Search with that ID could not be found\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91d4e06f-acc0-41b8-827c-c81e9d6ae5d8",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "search",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Search ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tz\": \"Europe/London\",\n  \"countries\": [\n    \"gb\",\n    \"us\"\n  ],\n  \"end\": \"2021-09-28T00:00:00\",\n  \"languages\": [\n    \"en\",\n    \"fr\"\n  ],\n  \"page\": 1,\n  \"page_size\": 10,\n  \"sentiments\": [\n    \"positive\",\n    \"negative\"\n  ],\n  \"sort_by\": \"date\",\n  \"sort_order\": \"desc\",\n  \"sources\": [\n    \"x\",\n    \"news\",\n    \"broadcast\"\n  ],\n  \"start\": \"2021-09-27T00:00:00\",\n  \"template\": {\n    \"name\": \"legacy\"\n  },\n  \"keywords\": [\n    \"USA\",\n    \"UK\"\n  ],\n  \"emojis\": [\n    \"😀\",\n    \"😢\"\n  ],\n  \"custom_categories\": [\n    \"1234\",\n    \"5678\"\n  ],\n  \"filter_set\": \"\\\"4321\\\"\",\n  \"author_lists\": [\n    \"1111\",\n    \"2222\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"type\": \"Unauthorized\",\n  \"errors\": [\n    {\n      \"type\": \"string\",\n      \"title\": \"string\",\n      \"details\": \"string\"\n    },\n    {\n      \"type\": \"string\",\n      \"title\": \"string\",\n      \"details\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b7f886b-c0af-43e2-bab5-f00223ac7740",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "search",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Search ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tz\": \"Europe/London\",\n  \"countries\": [\n    \"gb\",\n    \"us\"\n  ],\n  \"end\": \"2021-09-28T00:00:00\",\n  \"languages\": [\n    \"en\",\n    \"fr\"\n  ],\n  \"page\": 1,\n  \"page_size\": 10,\n  \"sentiments\": [\n    \"positive\",\n    \"negative\"\n  ],\n  \"sort_by\": \"date\",\n  \"sort_order\": \"desc\",\n  \"sources\": [\n    \"x\",\n    \"news\",\n    \"broadcast\"\n  ],\n  \"start\": \"2021-09-27T00:00:00\",\n  \"template\": {\n    \"name\": \"legacy\"\n  },\n  \"keywords\": [\n    \"USA\",\n    \"UK\"\n  ],\n  \"emojis\": [\n    \"😀\",\n    \"😢\"\n  ],\n  \"custom_categories\": [\n    \"1234\",\n    \"5678\"\n  ],\n  \"filter_set\": \"\\\"4321\\\"\",\n  \"author_lists\": [\n    \"1111\",\n    \"2222\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"Unauthorized\",\n  \"errors\": [\n    {\n      \"type\": \"string\",\n      \"title\": \"string\",\n      \"details\": \"string\"\n    },\n    {\n      \"type\": \"string\",\n      \"title\": \"string\",\n      \"details\": \"string\"\n    }\n  ],\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.meltwater.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dca0cf32-f2d2-4356-b16d-684703f10533",
+    "name": "Meltwater Account Management Listening Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Meltwater Public API\n\nContact Support:\n Name: Meltwater Support\n Email: support@api.meltwater.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Meltwater Account Management Listening Streaming API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Listening Streaming",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all hooks.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/hooks",
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all hooks.\n\nDelivers all previously generated hooks."
+        },
+        {
+          "info": {
+            "name": "Creates a hook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/hooks",
+            "headers": [
+              {
+                "name": "X-Hook-Secret",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company that owns the specified search_id. If not specified your default company is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a hook for one of your predefined searches.\n Delivers search results for the query referenced by the `search_id` to the `target_url` via HTTP POST. Note that a `hook_id` will be returned on successful creation, this id is needed to delete the hook.\n\n We are also returning the header: `X-Hook-Secret`, a shared secret used to sign the document body pushed to your `target_url`.\n\n\n Specify `company_id` if your `search_id` is not in your default company."
+        },
+        {
+          "info": {
+            "name": "Get an individual hook.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/hooks/:hook_id",
+            "params": [
+              {
+                "name": "hook_id",
+                "value": "",
+                "type": "path",
+                "description": "Hook ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get an individual hook.\n\nRetrieves an existing hook."
+        },
+        {
+          "info": {
+            "name": "Delete an existing hook.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.meltwater.com/v3/hooks/:hook_id",
+            "params": [
+              {
+                "name": "hook_id",
+                "value": "",
+                "type": "path",
+                "description": "Hook ID received from creating a hook"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete an existing hook.\n Removes the hook and stops sending any search results to the target_url."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

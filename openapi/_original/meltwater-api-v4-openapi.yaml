@@ -1,0 +1,1389 @@
+openapi: 3.0.3
+info:
+  title: Meltwater API v4
+  description: |
+    The Meltwater Public API v4 provides unified access to
+    content export and analytics across Meltwater Explore+
+    data sources, plus LLM lens prompts.
+
+    ## Key Features
+    - Unified query interface across all data sources
+    - Consistent pagination and error handling
+    - Comprehensive analytics with nested analysis support
+  contact:
+    name: Meltwater API Support
+    url: https://developer.meltwater.com/
+    email: support@api.meltwater.com
+  version: 4.0.0-beta
+servers:
+  - url: https://api.meltwater.com/v4
+    description: Production server
+security:
+  - apiKey: []
+tags:
+  - name: Export
+    description: Export content and manage export jobs
+  - name: Analyze
+    description: Analyze data with metrics and KPIs for LLM prompts
+  - name: LLM
+    description: Endpoints to list LLM prompts and folders available for analytics
+paths:
+  /content/export:
+    get:
+      tags:
+        - Export
+      summary: List exports
+      description: Get a list of all content exports.
+      operationId: listExports
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - name: provider
+          in: query
+          required: true
+          description: Data source provider to list exports for.
+          schema:
+            type: string
+            enum:
+              - explore_plus
+        - name: schedule_type
+          in: query
+          required: false
+          description: Filter exports by schedule type.
+          schema:
+            type: string
+            enum:
+              - onetime
+              - recurring
+        - name: page
+          in: query
+          required: false
+          description: Page number (1-based).
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 1
+        - name: page_size
+          in: query
+          required: false
+          description: Number of items per page.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
+      responses:
+        '200':
+          description: List of exports
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - count
+                  - page
+                  - page_size
+                  - data
+                properties:
+                  count:
+                    type: integer
+                    description: Total number of exports matching the query.
+                  page:
+                    type: integer
+                    description: Current page number (1-based).
+                  page_size:
+                    type: integer
+                    description: Number of items per page.
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/export'
+              example:
+                count: 2
+                page: 1
+                page_size: 10
+                data:
+                  - provider: explore_plus
+                    type: onetime
+                    tz: UTC
+                    period:
+                      start: '2026-04-01T00:00:00'
+                      end: '2026-04-30T23:59:59'
+                    config:
+                      id: 99
+                      company_id: 0a12bc34de56f07890ab12cd
+                      url: https://exports.meltwater.io/v4/explore-plus-one-time/99?data_key=EXAMPLE_DATA_KEY
+                      created_at: '2026-04-01T00:00:00Z'
+                      updated_at: '2026-04-01T00:05:00Z'
+                      status: FINISHED
+                      status_reason: ''
+                    query:
+                      searches:
+                        all:
+                          - id: 12345
+                            name: Brand mentions
+                    output:
+                      format: json
+                      template: api.json
+                  - provider: explore_plus
+                    type: recurring
+                    tz: UTC
+                    period:
+                      cron: 0 6 15 8 *
+                    config:
+                      id: 100
+                      company_id: 0a12bc34de56f07890ab12cd
+                      url: https://exports.meltwater.io/v4/explore-plus-recurring/100?data_key=EXAMPLE_DATA_KEY
+                      created_at: '2026-04-01T00:00:00Z'
+                      updated_at: '2026-05-01T00:05:00Z'
+                      next_run_date: '2026-08-15T06:00:00Z'
+                      status: ACTIVE
+                      status_reason: ''
+                    query:
+                      searches:
+                        all:
+                          - id: 12345
+                            name: Brand mentions
+                    output:
+                      format: json
+                      template: api.json
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      tags:
+        - Export
+      summary: Create export
+      description: Create a new content export job.
+      operationId: createExport
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/export-query'
+            examples:
+              oneTime:
+                summary: One-time export over a fixed period
+                value:
+                  provider: explore_plus
+                  type: onetime
+                  tz: UTC
+                  period:
+                    start: '2026-04-01T00:00:00'
+                    end: '2026-04-30T23:59:59'
+                  query:
+                    searches:
+                      all:
+                        - 12345
+                  output:
+                    format: json
+                    template: api.json
+              recurring:
+                summary: Recurring export on a cron schedule
+                value:
+                  provider: explore_plus
+                  type: recurring
+                  tz: UTC
+                  period:
+                    cron: 0 6 15 8 *
+                    window_size: 1
+                    window_unit: day
+                  query:
+                    searches:
+                      all:
+                        - 12345
+                  output:
+                    format: json
+                    template: api.json
+      responses:
+        '201':
+          description: Export created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/export'
+              examples:
+                oneTime:
+                  summary: One-time export (processing)
+                  value:
+                    provider: explore_plus
+                    type: onetime
+                    tz: UTC
+                    period:
+                      start: '2026-04-01T00:00:00'
+                      end: '2026-04-30T23:59:59'
+                    config:
+                      id: 1
+                      company_id: 0a12bc34de56f07890ab12cd
+                      url: https://exports.meltwater.io/v4/explore-plus-one-time/1?data_key=EXAMPLE_DATA_KEY
+                      created_at: '2026-04-01T00:00:00Z'
+                      updated_at: '2026-04-01T00:00:00Z'
+                      status: PENDING
+                      status_reason: Export run has not completed yet
+                    query:
+                      searches:
+                        all:
+                          - id: 12345
+                            name: Brand mentions
+                    output:
+                      format: json
+                      template: api.json
+                recurring:
+                  summary: Recurring export (scheduled)
+                  value:
+                    provider: explore_plus
+                    type: recurring
+                    tz: UTC
+                    period:
+                      cron: 0 6 15 8 *
+                      window_size: 1
+                      window_unit: day
+                    config:
+                      id: 2
+                      company_id: 0a12bc34de56f07890ab12cd
+                      url: https://exports.meltwater.io/v4/explore-plus-recurring/2?data_key=EXAMPLE_DATA_KEY
+                      created_at: '2026-04-01T00:00:00Z'
+                      updated_at: '2026-04-01T00:00:00Z'
+                      next_run_date: '2026-08-15T06:00:00Z'
+                      status: ACTIVE
+                      status_reason: ''
+                    query:
+                      searches:
+                        all:
+                          - id: 12345
+                            name: Brand mentions
+                    output:
+                      format: json
+                      template: api.json
+        '400':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /content/export/{exportId}:
+    get:
+      tags:
+        - Export
+      summary: Get export details
+      description: Get details of a specific export job.
+      operationId: getExport
+      parameters:
+        - name: exportId
+          in: path
+          required: true
+          description: Export job id.
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/CompanyId'
+      responses:
+        '200':
+          description: Export details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/export'
+              examples:
+                oneTime:
+                  summary: One-time export (completed)
+                  value:
+                    provider: explore_plus
+                    type: onetime
+                    tz: UTC
+                    period:
+                      start: '2026-04-01T00:00:00'
+                      end: '2026-04-30T23:59:59'
+                    config:
+                      id: 99
+                      company_id: 0a12bc34de56f07890ab12cd
+                      url: https://exports.meltwater.io/v4/explore-plus-one-time/99?data_key=EXAMPLE_DATA_KEY
+                      created_at: '2026-04-01T00:00:00Z'
+                      updated_at: '2026-04-01T00:05:00Z'
+                      status: FINISHED
+                      status_reason: ''
+                    query:
+                      searches:
+                        all:
+                          - id: 12345
+                            name: Brand mentions
+                    output:
+                      format: json
+                      template: api.json
+                recurring:
+                  summary: Recurring export with run history
+                  value:
+                    provider: explore_plus
+                    type: recurring
+                    tz: UTC
+                    period:
+                      cron: 0 6 15 8 *
+                    config:
+                      id: 100
+                      company_id: 0a12bc34de56f07890ab12cd
+                      url: https://exports.meltwater.io/v4/explore-plus-recurring/100?data_key=EXAMPLE_DATA_KEY
+                      created_at: '2026-04-01T00:00:00Z'
+                      updated_at: '2026-05-01T00:05:00Z'
+                      next_run_date: '2026-08-15T06:00:00Z'
+                      status: ACTIVE
+                      status_reason: ''
+                    query:
+                      searches:
+                        all:
+                          - id: 12345
+                            name: Brand mentions
+                    output:
+                      format: json
+                      template: api.json
+                    history:
+                      - status: FINISHED
+                        period:
+                          start: '2026-04-01T00:00:00'
+                          end: '2026-04-30T23:59:59'
+                        created_at: '2026-05-01T00:00:00Z'
+                        updated_at: '2026-05-01T00:05:00Z'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags:
+        - Export
+      summary: Delete export
+      description: Delete an export job.
+      operationId: deleteExport
+      parameters:
+        - name: exportId
+          in: path
+          required: true
+          description: Export job id.
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/CompanyId'
+      responses:
+        '204':
+          description: Export deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /analytics/analyze:
+    post:
+      tags:
+        - Analyze
+      summary: Perform analytics analysis
+      description: Execute analytics queries with support for nested analyses.
+      operationId: analyze
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/analytics-query'
+            examples:
+              Metrics:
+                summary: Fetch metrics for LLM prompts
+                value:
+                  provider: llm
+                  tz: UTC
+                  period:
+                    start: '2024-01-01T00:00:00'
+                    end: '2024-01-31T23:59:59'
+                  query:
+                    prompts:
+                      all:
+                        - 65f0a1b2c3d4e5f600000001
+                  analysis:
+                    type: metrics
+                    metrics:
+                      - mentions
+                      - prominence
+                      - sentiment
+              date_histogram:
+                summary: Daily mentions trend for LLM prompts
+                value:
+                  provider: llm
+                  tz: UTC
+                  period:
+                    start: '2024-01-01T00:00:00'
+                    end: '2024-01-31T23:59:59'
+                  query:
+                    prompts:
+                      all:
+                        - 65f0a1b2c3d4e5f600000001
+                  analysis:
+                    type: date_histogram
+                    granularity: day
+                    analysis:
+                      type: metrics
+                      metrics:
+                        - mentions
+              llm_prompt_folders:
+                summary: Mentions for prompts in a folder
+                value:
+                  provider: llm
+                  tz: UTC
+                  period:
+                    start: '2024-01-01T00:00:00'
+                    end: '2024-01-31T23:59:59'
+                  query:
+                    prompt_folders:
+                      all:
+                        - 65f0a1b2c3d4e5f600000001
+                  analysis:
+                    type: metrics
+                    metrics:
+                      - mentions
+              top_terms:
+                summary: Top LLMs by mentions for a prompt
+                value:
+                  provider: llm
+                  tz: UTC
+                  period:
+                    start: '2024-01-01T00:00:00'
+                    end: '2024-01-31T23:59:59'
+                  query:
+                    prompts:
+                      all:
+                        - 65f0a1b2c3d4e5f600000001
+                  analysis:
+                    type: top_terms
+                    dimension: llms
+                    limit: 5
+                    analysis:
+                      type: metrics
+                      metrics:
+                        - mentions
+      responses:
+        '200':
+          description: Analysis results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  provider:
+                    type: string
+                    enum:
+                      - llm
+                  tz:
+                    type: string
+                    description: IANA timezone name (e.g. America/New_York, UTC)
+                  period:
+                    $ref: '#/components/schemas/analysis-period'
+                  query:
+                    $ref: '#/components/schemas/query'
+                  analysis:
+                    $ref: '#/components/schemas/analysis'
+                  result:
+                    type: object
+                    properties:
+                      document_count:
+                        type: integer
+                        description: Total number of matching documents. Not present for all analytic types.
+                      analysis:
+                        description: Analysis results. Structure varies by analysis type.
+              examples:
+                Metrics:
+                  summary: Metrics for LLM prompts
+                  value:
+                    provider: llm
+                    tz: UTC
+                    period:
+                      start: '2024-01-01T00:00:00'
+                      end: '2024-01-31T23:59:59'
+                    query:
+                      prompts:
+                        all:
+                          - 65f0a1b2c3d4e5f600000001
+                    analysis:
+                      type: metrics
+                      metrics:
+                        - mentions
+                        - prominence
+                        - sentiment
+                    result:
+                      analysis:
+                        mentions: 1284
+                        prominence: 42.75
+                        sentiment: 0.63
+                Date Histogram:
+                  summary: Daily mentions trend for LLM prompts
+                  value:
+                    provider: llm
+                    tz: UTC
+                    period:
+                      start: '2024-01-01T00:00:00'
+                      end: '2024-01-31T23:59:59'
+                    query:
+                      prompts:
+                        all:
+                          - 65f0a1b2c3d4e5f600000001
+                    analysis:
+                      type: date_histogram
+                      granularity: day
+                      analysis:
+                        type: metrics
+                        metrics:
+                          - mentions
+                    result:
+                      analysis:
+                        - key: '2024-01-01T00:00:00'
+                          analysis:
+                            mentions: 42
+                        - key: '2024-01-02T00:00:00'
+                          analysis:
+                            mentions: 57
+                Top Terms with Metrics:
+                  summary: Top LLMs by mentions for a prompt folder
+                  value:
+                    provider: llm
+                    tz: UTC
+                    period:
+                      start: '2024-01-01T00:00:00'
+                      end: '2024-01-31T23:59:59'
+                    query:
+                      prompt_folders:
+                        all:
+                          - 65f0a1b2c3d4e5f600000001
+                    analysis:
+                      type: top_terms
+                      dimension: llms
+                      limit: 5
+                      analysis:
+                        type: metrics
+                        metrics:
+                          - mentions
+                    result:
+                      analysis:
+                        - key: ChatGPT
+                          analysis:
+                            mentions: 812
+                        - key: Gemini
+                          analysis:
+                            mentions: 534
+                        - key: Copilot
+                          analysis:
+                            mentions: 201
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Error'
+  /account/llm/prompts:
+    get:
+      tags:
+        - LLM
+      summary: List LLM prompts
+      description: |
+        Get a flat, paginated list of the caller's LLM prompts, optionally
+        filtered to a single folder. The prompt IDs returned here can be used in the
+        `query.prompts` field of an analytics request when `provider` is `llm`.
+      operationId: listLLMPrompts
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - name: folder_id
+          in: query
+          description: Filter prompts to a single folder by its id. Omit to return prompts across all folders.
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Page number (1-indexed).
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 1
+        - name: page_size
+          in: query
+          description: Number of prompts per page.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
+      responses:
+        '200':
+          description: A page of prompts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/prompts'
+              examples:
+                Prompts:
+                  summary: Get a list of available prompts
+                  value:
+                    count: 2
+                    page: 1
+                    page_size: 10
+                    data:
+                      - id: prompt-1
+                        name: My Prompt
+                        prompt_text: What are the big news stories of the day?
+                        folder:
+                          id: folder-1
+                          name: My Folder
+                      - id: prompt-2
+                        name: My Second Prompt
+                        prompt_text: What is happening in the United States?
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /account/llm/prompts/folders:
+    get:
+      tags:
+        - LLM
+      summary: List LLM prompt folders
+      description: |
+        Get a flat list of the caller's LLM prompt folders. A folder `id` returned
+        here can be used as the `folder_id` filter on the prompts endpoint, or in the
+        `query.prompt_folders` field of an analytics request when `provider` is `llm`.
+      operationId: listLLMFolders
+      parameters:
+        - $ref: '#/components/parameters/CompanyId'
+        - name: page
+          in: query
+          description: Page number (1-indexed).
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 1
+        - name: page_size
+          in: query
+          description: Number of folders per page.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
+      responses:
+        '200':
+          description: List of prompt folders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/folders'
+              examples:
+                Folders:
+                  summary: Get a list of available prompt folders
+                  value:
+                    count: 1
+                    page: 1
+                    page_size: 10
+                    data:
+                      - id: folder-1
+                        name: My Folder
+                        prompt_count: 1
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: apikey
+  schemas:
+    period:
+      type: object
+      description: Time range for the query. One-time queries/exports use start + end; recurring exports instead use cron (optionally with window_size + window_unit) and omit start/end. Exactly one of those two forms must be supplied.
+      oneOf:
+        - required:
+            - start
+            - end
+        - required:
+            - cron
+      properties:
+        start:
+          type: string
+          description: Start of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-01T00:00:00). Required for one-time queries and exports.
+        end:
+          type: string
+          description: End of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-31T23:59:59). Required for one-time queries and exports.
+        window_size:
+          type: integer
+          description: Rolling window size for recurring exports. Optional; combined with window_unit to define the rolling range.
+        window_unit:
+          type: string
+          description: Unit for the rolling window (e.g. day, week) for recurring exports. Optional; the API applies a default when omitted.
+        cron:
+          type: string
+          description: Cron expression scheduling a recurring export. Required for recurring exports.
+    detailed-breakdown-item:
+      type: object
+      description: A selected resource with its resolved id and name.
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    detailed-breakdown:
+      type: object
+      description: Selection broken into all / any / none groups. In export responses each entry is enriched with the resolved id and name of the selected resource.
+      properties:
+        all:
+          type: array
+          items:
+            $ref: '#/components/schemas/detailed-breakdown-item'
+        any:
+          type: array
+          items:
+            $ref: '#/components/schemas/detailed-breakdown-item'
+        none:
+          type: array
+          items:
+            $ref: '#/components/schemas/detailed-breakdown-item'
+    export:
+      type: object
+      description: An export job, as returned by the create, list and get export endpoints.
+      properties:
+        provider:
+          type: string
+          description: Data source provider the export runs against.
+          enum:
+            - explore_plus
+        type:
+          type: string
+          description: Export schedule type.
+          enum:
+            - onetime
+            - recurring
+        tz:
+          type: string
+          description: IANA timezone the export was scheduled in.
+        period:
+          $ref: '#/components/schemas/period'
+        config:
+          type: object
+          description: Server-assigned configuration and status for the export job.
+          properties:
+            id:
+              type: integer
+              description: Unique export job id.
+            company_id:
+              type: string
+            workspace_id:
+              type: string
+            url:
+              type: string
+              format: uri
+              description: Download URL for the export output. Populated once the job has produced data.
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+            next_run_date:
+              type: string
+              format: date-time
+              description: Next scheduled run. Only present for recurring exports.
+            status:
+              type: string
+              description: Current export status.
+              enum:
+                - ACTIVE
+                - PENDING
+                - FINISHED
+                - PAUSED
+                - FAILED
+                - FAILING
+                - CANCELLED
+                - EXPIRED
+            status_reason:
+              type: string
+              description: Human-readable detail for the current status (e.g. why it is pending, paused or failed). Empty when not applicable.
+        query:
+          type: object
+          description: The submitted query, echoed back with selected resources resolved to id + name.
+          properties:
+            searches:
+              $ref: '#/components/schemas/detailed-breakdown'
+            tags:
+              $ref: '#/components/schemas/detailed-breakdown'
+            filters:
+              type: object
+              description: Filters applied to the query.
+              additionalProperties: true
+        output:
+          type: object
+          description: Output configuration for the export.
+          properties:
+            format:
+              type: string
+              enum:
+                - json
+                - csv
+                - xlsx
+            template:
+              type: string
+            sample:
+              type: object
+              description: Sampling configuration, when the export is sampled.
+              properties:
+                count:
+                  type: integer
+                  description: Number of documents sampled.
+        history:
+          type: array
+          description: Run history. Only included on the get-export endpoint for recurring exports.
+          items:
+            type: object
+            properties:
+              status:
+                type: string
+                description: Status of this individual run.
+                enum:
+                  - ACTIVE
+                  - PENDING
+                  - FINISHED
+                  - PAUSED
+                  - FAILED
+                  - FAILING
+                  - CANCELLED
+                  - EXPIRED
+              period:
+                type: object
+                properties:
+                  start:
+                    type: string
+                  end:
+                    type: string
+              created_at:
+                type: string
+                format: date-time
+              updated_at:
+                type: string
+                format: date-time
+    error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code
+          enum:
+            - INVALID_QUERY
+            - RESOURCE_NOT_FOUND
+            - UNAUTHORIZED
+            - FORBIDDEN
+            - RATE_LIMITED
+            - INTERNAL_ERROR
+            - VALIDATION_ERROR
+            - PROVIDER_ERROR
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          description: Additional error context
+          additionalProperties: true
+        request_id:
+          type: string
+          description: Unique request identifier for debugging
+    id-filter:
+      type: object
+      properties:
+        all:
+          type: array
+          items:
+            type: integer
+        any:
+          type: array
+          items:
+            type: integer
+        none:
+          type: array
+          items:
+            type: integer
+    string-filter:
+      type: object
+      properties:
+        all:
+          type: array
+          items:
+            type: string
+        any:
+          type: array
+          items:
+            type: string
+        none:
+          type: array
+          items:
+            type: string
+    source:
+      type: string
+      description: Content source. Accepted values for Explore+ (case-insensitive).
+      enum:
+        - facebook
+        - instagram
+        - reddit
+        - blogs
+        - product_reviews
+        - forums
+        - comments
+        - x
+        - wechat
+        - sina_weibo
+        - pinterest
+        - twitch
+        - tiktok
+        - douyin
+        - little_red_book
+        - google_reviews
+        - threads
+        - kakaotalk
+        - linevoom
+        - news_online
+        - news_print
+        - news_app
+        - broadcast
+        - youku
+        - bilibili
+        - rss
+        - youtube
+        - social_reviews
+    source-filter:
+      type: object
+      description: Source filter broken into all / any / none groups, restricted to supported sources.
+      properties:
+        all:
+          type: array
+          items:
+            $ref: '#/components/schemas/source'
+        any:
+          type: array
+          items:
+            $ref: '#/components/schemas/source'
+        none:
+          type: array
+          items:
+            $ref: '#/components/schemas/source'
+    country:
+      type: string
+      description: ISO 3166-1 alpha-2 country code (e.g. us, gb, de). Case-insensitive on input.
+      pattern: ^[A-Za-z]{2}$
+    country-filter:
+      type: object
+      description: Country filter broken into all / any / none groups.
+      properties:
+        all:
+          type: array
+          items:
+            $ref: '#/components/schemas/country'
+        any:
+          type: array
+          items:
+            $ref: '#/components/schemas/country'
+        none:
+          type: array
+          items:
+            $ref: '#/components/schemas/country'
+    sentiment:
+      type: string
+      description: Sentiment value (case-insensitive).
+      enum:
+        - positive
+        - negative
+        - neutral
+    sentiment-filter:
+      type: object
+      description: Sentiment filter broken into all / any / none groups.
+      properties:
+        all:
+          type: array
+          items:
+            $ref: '#/components/schemas/sentiment'
+        any:
+          type: array
+          items:
+            $ref: '#/components/schemas/sentiment'
+        none:
+          type: array
+          items:
+            $ref: '#/components/schemas/sentiment'
+    explore-plus-query:
+      type: object
+      description: Query for an Explore+ content export. Select saved searches with `searches` (required), and optionally narrow results with `filters`.
+      required:
+        - searches
+      properties:
+        searches:
+          type: object
+          description: Saved search IDs to export.
+          properties:
+            all:
+              type: array
+              items:
+                type: integer
+            any:
+              type: array
+              items:
+                type: integer
+            none:
+              type: array
+              items:
+                type: integer
+        filters:
+          type: object
+          description: Filters accepted by Explore+ exports.
+          properties:
+            tags:
+              $ref: '#/components/schemas/id-filter'
+            languages:
+              $ref: '#/components/schemas/string-filter'
+            filter_sets:
+              $ref: '#/components/schemas/id-filter'
+            custom_fields:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/id-filter'
+              description: Custom field filters keyed by custom field ID.
+            author_lists:
+              $ref: '#/components/schemas/id-filter'
+            sources:
+              $ref: '#/components/schemas/source-filter'
+            countries:
+              $ref: '#/components/schemas/country-filter'
+            sentiments:
+              $ref: '#/components/schemas/sentiment-filter'
+    export-query:
+      type: object
+      description: Request body for creating a content export.
+      required:
+        - provider
+        - type
+        - tz
+        - period
+        - query
+        - output
+      properties:
+        provider:
+          type: string
+          description: Data source provider to export.
+          enum:
+            - explore_plus
+        type:
+          type: string
+          description: Export schedule type. `onetime` runs once over the given period; `recurring` runs on a schedule (see period.cron / period.window_size).
+          enum:
+            - onetime
+            - recurring
+        tz:
+          type: string
+          description: IANA timezone name (e.g. America/New_York, UTC)
+        period:
+          $ref: '#/components/schemas/period'
+        query:
+          $ref: '#/components/schemas/explore-plus-query'
+        output:
+          type: object
+          required:
+            - format
+            - template
+          description: Output configuration
+          properties:
+            format:
+              type: string
+              enum:
+                - json
+                - csv
+                - xlsx
+              description: Output format
+            template:
+              type: string
+              description: Output template name
+            sample:
+              type: object
+              description: Optional sampling configuration.
+              properties:
+                count:
+                  type: integer
+                  description: Number of documents to sample.
+                  minimum: 0
+                  maximum: 2000000
+    analysis-period:
+      type: object
+      description: Time range for the analysis. Both start and end are required (ISO 8601 datetimes without timezone).
+      required:
+        - start
+        - end
+      properties:
+        start:
+          type: string
+          description: Start of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-01T00:00:00).
+        end:
+          type: string
+          description: End of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-31T23:59:59).
+    query:
+      type: object
+      properties:
+        prompts:
+          type: object
+          description: Prompt IDs to query. Used when provider is [llm]; at least one ID in [all] or [any], unless prompt_folders is supplied instead.
+          properties:
+            all:
+              type: array
+              items:
+                type: string
+            any:
+              type: array
+              items:
+                type: string
+            none:
+              type: array
+              items:
+                type: string
+        prompt_folders:
+          type: object
+          description: Prompt folder IDs to query, selecting prompts by the folder they belong to. Used when provider is [llm]; at least one ID in [all] or [any], unless prompts is supplied instead. When combined with prompts, both must match.
+          properties:
+            all:
+              type: array
+              items:
+                type: string
+            any:
+              type: array
+              items:
+                type: string
+            none:
+              type: array
+              items:
+                type: string
+        filters:
+          type: object
+          description: Optional filters to apply to the query.
+          properties:
+            tags:
+              $ref: '#/components/schemas/id-filter'
+            post_types:
+              $ref: '#/components/schemas/string-filter'
+            languages:
+              $ref: '#/components/schemas/string-filter'
+            filter_sets:
+              $ref: '#/components/schemas/id-filter'
+            custom_categories:
+              $ref: '#/components/schemas/id-filter'
+            author_lists:
+              $ref: '#/components/schemas/id-filter'
+            custom_fields:
+              type: object
+              description: Custom field filters keyed by custom field ID.
+              additionalProperties:
+                $ref: '#/components/schemas/id-filter'
+            sources:
+              $ref: '#/components/schemas/string-filter'
+            countries:
+              $ref: '#/components/schemas/string-filter'
+            sentiments:
+              $ref: '#/components/schemas/string-filter'
+    analysis:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - document_count
+            - date_histogram
+            - metrics
+            - top_terms
+          description: Type of analysis to perform
+        dimension:
+          type: string
+          description: Dimension to group results by (for top_terms)
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 100
+          description: Maximum number of results to return (for top_terms). Minimum number of terms is 1 while maximum is dimension dependent but never higher than 100
+        granularity:
+          type: string
+          enum:
+            - day
+            - week
+            - month
+          description: Time granularity (for date_histogram)
+        metrics:
+          type: array
+          items:
+            type: string
+          description: Metrics to calculate (for metrics and top_terms types)
+        analysis:
+          description: Nested sub-analysis
+          allOf:
+            - $ref: '#/components/schemas/analysis'
+    analytics-query:
+      type: object
+      required:
+        - provider
+        - tz
+        - period
+        - query
+        - analysis
+      properties:
+        provider:
+          type: string
+          enum:
+            - llm
+        tz:
+          type: string
+          description: IANA timezone name (e.g. America/New_York, UTC)
+        period:
+          $ref: '#/components/schemas/analysis-period'
+        query:
+          $ref: '#/components/schemas/query'
+        analysis:
+          $ref: '#/components/schemas/analysis'
+    prompts:
+      type: object
+      required:
+        - count
+        - page
+        - page_size
+        - data
+      properties:
+        count:
+          type: integer
+          description: Total number of prompts matching the filter, across all pages
+        page:
+          type: integer
+          description: The page number returned (1-indexed)
+        page_size:
+          type: integer
+          description: Number of prompts per page
+        data:
+          type: array
+          items:
+            type: object
+            required:
+              - id
+              - name
+              - prompt_text
+            properties:
+              id:
+                type: string
+                description: Unique identifier for the prompt
+              name:
+                type: string
+                description: Display name of the prompt
+              prompt_text:
+                type: string
+                description: The prompt text
+              folder:
+                type: object
+                description: The folder the prompt belongs to. Omitted for uncategorised prompts.
+                required:
+                  - id
+                  - name
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier for the folder (use as `folder_id` when filtering prompts, or in `query.prompt_folders` of an analytics request)
+                  name:
+                    type: string
+                    description: Display name of the folder
+    folders:
+      type: object
+      required:
+        - count
+        - page
+        - page_size
+        - data
+      properties:
+        count:
+          type: integer
+          description: Total number of prompt folders, across all pages
+        page:
+          type: integer
+          description: The page number returned (1-indexed)
+        page_size:
+          type: integer
+          description: Number of folders per page
+        data:
+          type: array
+          items:
+            type: object
+            required:
+              - id
+              - name
+            properties:
+              id:
+                type: string
+                description: Unique identifier for the folder (use as `folder_id` when filtering prompts, or in `query.prompt_folders` of an analytics request)
+              name:
+                type: string
+                description: Display name of the folder
+              prompt_count:
+                type: integer
+                description: Number of prompts in the folder. Returned by the folders endpoint; omitted when the folder is nested inside a prompt.
+  parameters:
+    CompanyId:
+      name: company_id
+      in: query
+      description: Company which owns the resource. If not specified, your default company is used.
+      required: false
+      schema:
+        type: string
+  responses:
+    Error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            code: RESOURCE_NOT_FOUND
+            message: Not Found
+            request_id: 123e4567-e89b-12d3-a456-426614174000
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            code: UNAUTHORIZED
+            message: Not Authorized
+            request_id: 123e4567-e89b-12d3-a456-426614174000
+    TooManyRequests:
+      description: The company has been blocked from creating new exports because it has reached its usage limits.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            code: RATE_LIMITED
+            message: Too Many Requests
+            details:
+              restricted:
+                - Review your subscriptions and contact your Meltwater representative to update your limit
+            request_id: 123e4567-e89b-12d3-a456-426614174000
+x-tagGroups:
+  - name: Content
+    tags:
+      - Export
+  - name: Analytics
+    tags:
+      - Analyze
+  - name: Account
+    tags:
+      - LLM

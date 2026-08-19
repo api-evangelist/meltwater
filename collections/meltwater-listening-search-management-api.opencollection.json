@@ -1,0 +1,425 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Meltwater Account Management Listening Search Management API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Listening Search Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of all your searches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/searches",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given search. If not specified your default company is used."
+              },
+              {
+                "name": "query_type",
+                "value": "",
+                "type": "query",
+                "description": "Only return searches of the specified query type, if omitted searches of all query types will be returned"
+              },
+              {
+                "name": "expand_combined",
+                "value": "",
+                "type": "query",
+                "description": "For combined searches, show whether the ids belongs to a search, filter set or custom category"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of all your searches"
+        },
+        {
+          "info": {
+            "name": "Create a search",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/searches",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given search. If not specified your default company is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a search"
+        },
+        {
+          "info": {
+            "name": "Get an individual search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/searches/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1234",
+                "type": "path",
+                "description": "Search id"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given search. If not specified your default company is used."
+              },
+              {
+                "name": "expand_combined",
+                "value": "",
+                "type": "query",
+                "description": "For combined searches, show whether the ids belongs to a search, filter set or custom category"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get an individual search"
+        },
+        {
+          "info": {
+            "name": "Update an individual search",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.meltwater.com/v3/searches/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1234",
+                "type": "path",
+                "description": "Search id"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given search. If not specified your default company is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update an individual search"
+        },
+        {
+          "info": {
+            "name": "Delete an individual search",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.meltwater.com/v3/searches/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "1234",
+                "type": "path",
+                "description": "Search id"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given search. If not specified your default company is used."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete an individual search"
+        },
+        {
+          "info": {
+            "name": "Get an approximate count of results for the search over a particular period",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/searches/:id/count",
+            "params": [
+              {
+                "name": "id",
+                "value": "1234",
+                "type": "path",
+                "description": "Search id"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given search. If not specified your default company is used."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The start date of the search to count result for. Default: `two weeks ago` in ISO8601 format."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end date of the search to count result for. Default: `now` in ISO8601 format."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get an approximate count of results for the search over a particular period"
+        },
+        {
+          "info": {
+            "name": "Get a list of all your tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/tags",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given tags. If not specified your default company is used."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of all your tags"
+        },
+        {
+          "info": {
+            "name": "Create a new tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/tags",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which will own the new tag. If not specified, your default company is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new tag for tagging documents. Tag names must be unique and a maximum of 128 characters."
+        },
+        {
+          "info": {
+            "name": "Delete an existing tag.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.meltwater.com/v3/tags/:tag_id",
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path",
+                "description": "Tag ID"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the tag to be deleted. If not specified, your default company is used."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a given tag. Any documents that possess this tag will have it removed following tag deletion."
+        },
+        {
+          "info": {
+            "name": "Add tags to documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/documents/add_tags",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company where the change will be applied"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a request to add a list of specified tags to a given set of documents. This is an asynchronous operation."
+        },
+        {
+          "info": {
+            "name": "Remove tags from documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/documents/remove_tags",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Set the company where the change will be applied"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a request to remove a list of specified tags from a given set of documents. This is an asynchronous operation."
+        },
+        {
+          "info": {
+            "name": "Get a list of all search filter sets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/filter_sets",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given filter sets. If not specified your default company is used."
+              },
+              {
+                "name": "include_quickpicks",
+                "value": "",
+                "type": "query",
+                "description": "Include meltwater-provided QUICKPICK filter sets, default \"false\""
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of all search filter sets"
+        },
+        {
+          "info": {
+            "name": "Get a list of all search custom categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/custom_categories",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given custom categories. If not specified your default company is used."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a list of all search custom categories"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

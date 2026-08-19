@@ -1,0 +1,376 @@
+{
+  "item": [
+    {
+      "id": "cded43d5-6ab4-4ce2-b7d6-8a41500ad95f",
+      "name": "Explore+ Search",
+      "description": {
+        "content": "Export earned documents from your private index.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "260f10af-5d45-43b1-be26-3827fca6c921",
+          "name": "Search for data in your private index.",
+          "request": {
+            "name": "Search for data in your private index.",
+            "description": {
+              "content": "Search for data in your private index.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "explore_plus",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workspace_id",
+                  "value": "<string>",
+                  "description": "(Required) Set the workspace to search by. If accessing the company space, set to `none`"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "Set the company to search by"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tz\": \"<string>\",\n  \"doc_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"end\": \"<string>\",\n  \"filters\": {\n    \"countries\": {\n      \"all\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"any\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"none\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"custom_fields\": {\n      \"key_0\": {\n        \"all\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"any\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"none\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      \"key_1\": {\n        \"all\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"any\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"none\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      }\n    },\n    \"languages\": {\n      \"all\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"any\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"none\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"sentiments\": {\n      \"all\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"any\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"none\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"sources\": {\n      \"all\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"any\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"none\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"page\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"searches\": {\n    \"all\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"any\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"none\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"sort_by\": \"<string>\",\n  \"sort_order\": \"<string>\",\n  \"start\": \"<string>\",\n  \"template\": {\n    \"name\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d84a7bea-e849-4a1e-9a1b-964cea295290",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "explore_plus",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"searches\": {\n    \"all\": [\n      123\n    ],\n    \"any\": [\n      456\n    ],\n    \"none\": [\n      789\n    ]\n  },\n  \"filters\": {\n    \"countries\": {\n      \"all\": [\n        \"gb\"\n      ]\n    }\n  },\n  \"start\": \"2025-01-01T00:00:00\",\n  \"end\": \"2025-01-01T00:00:00\",\n  \"page\": 1,\n  \"page_size\": 10,\n  \"sort_by\": \"date\",\n  \"sort_order\": \"desc\",\n  \"tz\": \"UTC\",\n  \"template\": {\n    \"name\": \"api.json\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"documents\": [\n    {\n      \"id\": \"document1\",\n      \"opening_text\": \"this is a document\"\n    }\n  ],\n  \"count\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6a9ad8c-516d-459f-89aa-2f6dbf10fcc0",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "explore_plus",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"searches\": {\n    \"all\": [\n      123\n    ],\n    \"any\": [\n      456\n    ],\n    \"none\": [\n      789\n    ]\n  },\n  \"filters\": {\n    \"countries\": {\n      \"all\": [\n        \"gb\"\n      ]\n    }\n  },\n  \"start\": \"2025-01-01T00:00:00\",\n  \"end\": \"2025-01-01T00:00:00\",\n  \"page\": 1,\n  \"page_size\": 10,\n  \"sort_by\": \"date\",\n  \"sort_order\": \"desc\",\n  \"tz\": \"UTC\",\n  \"template\": {\n    \"name\": \"api.json\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "654b3e8d-943f-4e4d-bd08-dfb36b27a32d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "explore_plus",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"searches\": {\n    \"all\": [\n      123\n    ],\n    \"any\": [\n      456\n    ],\n    \"none\": [\n      789\n    ]\n  },\n  \"filters\": {\n    \"countries\": {\n      \"all\": [\n        \"gb\"\n      ]\n    }\n  },\n  \"start\": \"2025-01-01T00:00:00\",\n  \"end\": \"2025-01-01T00:00:00\",\n  \"page\": 1,\n  \"page_size\": 10,\n  \"sort_by\": \"date\",\n  \"sort_order\": \"desc\",\n  \"tz\": \"UTC\",\n  \"template\": {\n    \"name\": \"api.json\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8bdf11a-9c2b-4896-ada1-e50bf5bd91b0",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "explore_plus",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"searches\": {\n    \"all\": [\n      123\n    ],\n    \"any\": [\n      456\n    ],\n    \"none\": [\n      789\n    ]\n  },\n  \"filters\": {\n    \"countries\": {\n      \"all\": [\n        \"gb\"\n      ]\n    }\n  },\n  \"start\": \"2025-01-01T00:00:00\",\n  \"end\": \"2025-01-01T00:00:00\",\n  \"page\": 1,\n  \"page_size\": 10,\n  \"sort_by\": \"date\",\n  \"sort_order\": \"desc\",\n  \"tz\": \"UTC\",\n  \"template\": {\n    \"name\": \"api.json\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.meltwater.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "970cfa81-f030-4b52-8cc3-c8e455ff2c2f",
+    "name": "Meltwater Account Management Explore+ Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Meltwater Public API\n\nContact Support:\n Name: Meltwater Support\n Email: support@api.meltwater.com",
+      "type": "text/plain"
+    }
+  }
+}

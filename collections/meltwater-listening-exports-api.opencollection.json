@@ -1,0 +1,170 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Meltwater Account Management Listening Exports API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Listening Exports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of all your one-time exports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/exports/one-time"
+          },
+          "docs": "Get a list of all your one-time exports"
+        },
+        {
+          "info": {
+            "name": "Creates a new one-time export",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/exports/one-time",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given search_id. If not specified your default company is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new one-time export"
+        },
+        {
+          "info": {
+            "name": "Get details of a one-time export",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/exports/one-time/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "123",
+                "type": "path",
+                "description": "One-time export id"
+              }
+            ]
+          },
+          "docs": "Get details of a one-time export"
+        },
+        {
+          "info": {
+            "name": "Removes an existing one-time export",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.meltwater.com/v3/exports/one-time/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "123",
+                "type": "path",
+                "description": "One-time export id"
+              }
+            ]
+          },
+          "docs": "Removes an existing one-time export"
+        },
+        {
+          "info": {
+            "name": "Get a list of all your recurring exports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/exports/recurring"
+          },
+          "docs": "Get a list of all your recurring exports"
+        },
+        {
+          "info": {
+            "name": "Creates a new recurring export",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.meltwater.com/v3/exports/recurring",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Company which owns the given search_id. If not specified your default company is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new recurring export"
+        },
+        {
+          "info": {
+            "name": "Get details of a recurring export",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/exports/recurring/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "123",
+                "type": "path",
+                "description": "Export id"
+              }
+            ]
+          },
+          "docs": "Get details of a recurring export"
+        },
+        {
+          "info": {
+            "name": "Removes an existing recurring export",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.meltwater.com/v3/exports/recurring/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "123",
+                "type": "path",
+                "description": "Export id"
+              }
+            ]
+          },
+          "docs": "Removes an existing recurring export"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

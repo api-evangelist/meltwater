@@ -1,0 +1,25 @@
+generated: '2026-08-13'
+method: probed
+probe: true
+url: https://trust.meltwater.com/
+platform: Vanta Trust Center
+certifications: []
+note: >-
+  trust.meltwater.com returns HTTP 200 with the title "Meltwater Trust Center" and is a
+  Vanta-hosted trust page, so the trust center genuinely exists. The certification list is
+  rendered client-side by the Vanta app and the underlying API (api.vanta.com) answers 401
+  anonymously, so no named certification could be read without fabricating it - the empty
+  list means "checked, not machine-readable", not "none held". No `Compliance` pointer is
+  emitted for that reason.
+evidence:
+  - source: https://trust.meltwater.com/
+    status: 200
+    kind: vanta trust center (JS-rendered)
+    keywords: [Trust, Security, Compliance]
+related:
+  - type: data-provider compliance changes
+    url: https://developer.meltwater.com/help/compliance
+    note: >-
+      Meltwater's developer portal also publishes a Compliance page, but it documents API field
+      removals made to stay within X/Twitter and YouTube terms of service - it is not a security
+      certification statement.

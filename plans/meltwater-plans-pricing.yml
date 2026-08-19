@@ -1,3 +1,30 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.meltwater.com/en/suite/data-api-integration
+plan_count: 3
+note: >-
+  Meltwater publishes no price list. Every tier is quoted through sales, and API access is a
+  paid add-on with quotas written into the contract rather than into a public plan. The price
+  ranges below are third-party (Vendr) market data, not a Meltwater-published figure, and are
+  marked as such. What IS published by Meltwater is the packaging: the Usage Limits guide names
+  the core packages that carry an inclusive API allowance - MI Advanced, Social Essentials,
+  Social Advanced, Essentials Suite and Advanced Suite - and says anything beyond that requires
+  a Meltwater Insights API package.
+inclusive_api_access:
+  packages: [MI Advanced, Social Essentials, Social Advanced, Essentials Suite, Advanced Suite]
+  documents_per_month: 30000
+  exports_per_month: 50
+  analytics_calls_per_day: 50
+  historical_access: 12 months
+  source: https://developer.meltwater.com/guides/getting-started/usage-limits
+paid_api_package:
+  name: Meltwater Insights API
+  quotas: stated in the customer contract
+  historical_access: contract-specified, or the full archive when unspecified
+mcp_package:
+  name: Meltwater MCP
+  note: Access to the MCP server requires a Meltwater MCP package in the subscription; tools exposed depend on the products in the package.
+  source: https://developer.meltwater.com/guides/meltwater-mcp/overview
 name: Meltwater Plans and Pricing
 description: Meltwater offers tiered subscription plans for its media intelligence platform and API access. Pricing is primarily enterprise-focused and negotiated per contract. API access is an add-on to platform subscriptions.
 url: https://www.meltwater.com/en/suite/data-api-integration
@@ -11,6 +38,7 @@ plans:
       max: 8000
       currency: USD
       period: per_user_per_year
+      source: third-party (vendr.com) market data, not published by Meltwater
     features:
       - Media monitoring
       - News search and alerts
@@ -27,6 +55,7 @@ plans:
       max: 3000
       currency: USD
       period: per_user_per_year
+      source: third-party (vendr.com) market data, not published by Meltwater
     features:
       - All Essentials features
       - Social analytics (owned accounts)

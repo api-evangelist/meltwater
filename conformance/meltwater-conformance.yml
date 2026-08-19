@@ -1,0 +1,48 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/meltwater-api-openapi.yaml, openapi/meltwater-api-v4-openapi.yml, live well-known probes
+standards:
+  - id: openapi-3.0
+    conforms: true
+    evidence: both published specs declare openapi 3.0.3; Meltwater links the v3 document from its API reference page
+  - id: oauth2
+    conforms: true
+    evidence: RFC 8414 authorization-server metadata live at https://app.meltwater.com/.well-known/oauth-authorization-server (authorization_code + refresh_token, PKCE S256)
+    scope: Meltwater MCP only - the REST API is API-token authenticated
+  - id: oidc
+    conforms: partial
+    evidence: the authorization server advertises openid/profile/email scopes, but /.well-known/openid-configuration returns 403 on app.meltwater.com and 404 elsewhere, so there is no OIDC discovery document
+  - id: rfc8414-authorization-server-metadata
+    conforms: true
+    evidence: https://app.meltwater.com/.well-known/oauth-authorization-server returns 200
+  - id: rfc9728-protected-resource-metadata
+    conforms: true
+    evidence: https://api.meltwater.com/.well-known/oauth-protected-resource returns 200 and the MCP 401 challenge points at it via WWW-Authenticate
+  - id: rfc9116-security-txt
+    conforms: true
+    evidence: https://www.meltwater.com/.well-known/security.txt returns 200 with Contact, Expires, Preferred-Languages, Canonical and Hiring fields
+  - id: mcp
+    conforms: true
+    evidence: remote MCP server at https://api.meltwater.com/v2/mcp answering tools/list with a 401 OAuth challenge; second orchestrated server at https://api.meltwater.com/mcp
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: no application/problem+json media type anywhere in either spec; errors use vendor JSON envelopes
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: no Sunset or Deprecation header documented or declared
+  - id: asyncapi
+    conforms: false
+    evidence: webhooks ("hooks"/data streams) are documented in prose only; no AsyncAPI document is published
+  - id: json-api
+    conforms: false
+  - id: odata
+    conforms: false
+  - id: scim
+    conforms: false
+  - id: fhir
+    conforms: false
+  - id: fapi
+    conforms: false
+  - id: a2a
+    conforms: false
+    evidence: /.well-known/agent-card.json and /.well-known/agent.json return 404 or 403 on every Meltwater host probed

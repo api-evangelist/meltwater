@@ -1,0 +1,2461 @@
+{
+  "item": [
+    {
+      "id": "8c6b749d-e54b-41a2-b814-37d7b2a03746",
+      "name": "Owned Analytics",
+      "description": {
+        "content": "Retrieve owned social metrics and analytics.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "124106c4-5916-4610-9a9f-10056d13f30a",
+          "name": "Returns a list of social account connections for a given company/user account",
+          "request": {
+            "name": "Returns a list of social account connections for a given company/user account",
+            "description": {
+              "content": "Returns a list of social account connections for a given company/user account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "owned",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "Meltwater company id if running query on behalf of another company"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "48abb6e3-bce3-492d-b9b4-d7005c898405",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accounts\": [\n    {\n      \"id\": \"string\",\n      \"logo\": \"string\",\n      \"name\": \"string\",\n      \"source\": \"string\",\n      \"username\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"logo\": \"string\",\n      \"name\": \"string\",\n      \"source\": \"string\",\n      \"username\": \"string\"\n    }\n  ],\n  \"count\": 2612\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5131f877-e5b0-4472-91a6-9e1431d91d7d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e2d687e-6ad0-473a-84f7-1cae4de70324",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c7297cb-b900-40fa-a4fa-0df2a00c64ef",
+          "name": "Returns a single-level breakdown by a category or concept",
+          "request": {
+            "name": "Returns a single-level breakdown by a category or concept",
+            "description": {
+              "content": "A 'breakdown' metric is an analysis that provides a single-level breakdown by a category or concept. For example, the `demographics_audience_country` metric breaks down the audience for a Facebook page by country. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "owned",
+                "accounts",
+                "metrics",
+                "breakdown"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "(Required) The social media source name"
+                },
+                {
+                  "disabled": false,
+                  "key": "account_ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma separated list of account ids. Maximum: 10"
+                },
+                {
+                  "disabled": false,
+                  "key": "metrics",
+                  "value": "<string>",
+                  "description": "(Required) Comma separated list of metric ids. Maximum: 10"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "(Required) The timestamp of the start of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2022-01-01"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "(Required) The timestamp of the end of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2021-01-28"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "Meltwater company id if running query on behalf of another company"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6e2d75cd-2c61-4ffa-8295-3c7d71239235",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "breakdown"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accounts\": [\n    {\n      \"daily_values\": [\n        {\n          \"date\": \"string\",\n          \"demographics_audience_city\": {\n            \"key\": \"string\",\n            \"value\": 2592.019843964579,\n            \"key_label\": \"string\"\n          },\n          \"demographics_audience_country\": {\n            \"key\": \"string\",\n            \"value\": 7720.668983082362,\n            \"key_label\": \"string\"\n          }\n        },\n        {\n          \"date\": \"string\",\n          \"demographics_audience_city\": {\n            \"key\": \"string\",\n            \"value\": 2302.4409105946143,\n            \"key_label\": \"string\"\n          },\n          \"demographics_audience_country\": {\n            \"key\": \"string\",\n            \"value\": 8473.61925962449,\n            \"key_label\": \"string\"\n          }\n        }\n      ],\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"source\": \"string\",\n      \"username\": \"string\"\n    },\n    {\n      \"daily_values\": [\n        {\n          \"date\": \"string\",\n          \"demographics_audience_city\": {\n            \"key\": \"string\",\n            \"value\": 2387.9280382264546,\n            \"key_label\": \"string\"\n          },\n          \"demographics_audience_country\": {\n            \"key\": \"string\",\n            \"value\": 9282.755867112537,\n            \"key_label\": \"string\"\n          }\n        },\n        {\n          \"date\": \"string\",\n          \"demographics_audience_city\": {\n            \"key\": \"string\",\n            \"value\": 1920.2423321093897,\n            \"key_label\": \"string\"\n          },\n          \"demographics_audience_country\": {\n            \"key\": \"string\",\n            \"value\": 7563.8734239514815,\n            \"key_label\": \"string\"\n          }\n        }\n      ],\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"source\": \"string\",\n      \"username\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "335a1c35-f4e1-47fb-a77a-358cf792c11f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "breakdown"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "deb9eac1-4fbc-49ba-a5ce-8ad368163ea7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "breakdown"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aac0552e-f042-4abd-8d59-9dc76269e67c",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "breakdown"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "118dafb5-e910-4a32-96b4-8d371a79b6d4",
+          "name": "Returns a break-down over date and time",
+          "request": {
+            "name": "Returns a break-down over date and time",
+            "description": {
+              "content": "A 'heatmap' metric is an analysis that provides a break-down over date and time. For example, the `page_fans_heatmap` metric breaks down the audience for a Facebook page by how active they are each day and hour. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "owned",
+                "accounts",
+                "metrics",
+                "heatmap"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "(Required) The social media source name"
+                },
+                {
+                  "disabled": false,
+                  "key": "account_ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma separated list of account ids. Maximum: 10"
+                },
+                {
+                  "disabled": false,
+                  "key": "metrics",
+                  "value": "<string>",
+                  "description": "(Required) Comma separated list of metric ids. Maximum: 10"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "(Required) The timestamp of the start of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2022-01-01"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "(Required) The timestamp of the end of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2021-01-28"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "Meltwater company id if running query on behalf of another company"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "12bb293a-28ad-4fdc-91ca-fdb8db814856",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "heatmap"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accounts\": [\n    {\n      \"daily_values\": [\n        {\n          \"date\": \"string\",\n          \"page_fans_heatmap\": {\n            \"hour\": 5890,\n            \"value\": 4829.924495862804\n          }\n        },\n        {\n          \"date\": \"string\",\n          \"page_fans_heatmap\": {\n            \"hour\": 6439,\n            \"value\": 6501.910996015437\n          }\n        }\n      ],\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"source\": \"string\",\n      \"username\": \"string\"\n    },\n    {\n      \"daily_values\": [\n        {\n          \"date\": \"string\",\n          \"page_fans_heatmap\": {\n            \"hour\": 363,\n            \"value\": 9267.2554077625\n          }\n        },\n        {\n          \"date\": \"string\",\n          \"page_fans_heatmap\": {\n            \"hour\": 716,\n            \"value\": 2747.6859026266134\n          }\n        }\n      ],\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"source\": \"string\",\n      \"username\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "514af5e3-dd85-4411-9b3f-ef591e98d0b2",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "heatmap"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2e980fc-b8b1-410d-ae63-6b57499f81f3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "heatmap"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a71432f7-2c11-458d-981c-52ea52ef438b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "heatmap"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e96445f-e96e-4783-9573-c99af768ba8f",
+          "name": "Returns a double-level breakdown by two categories or concepts",
+          "request": {
+            "name": "Returns a double-level breakdown by two categories or concepts",
+            "description": {
+              "content": "A 'nested-breakdown' metric is an analysis that provides a double-level breakdown by two categories or concepts. For example, the `demographics_gender_age` metric breaks down the audience for a Facebook page by firstly gender, then age group. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "owned",
+                "accounts",
+                "metrics",
+                "nested_breakdown"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "(Required) The social media source name"
+                },
+                {
+                  "disabled": false,
+                  "key": "account_ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma separated list of account ids. Maximum: 10"
+                },
+                {
+                  "disabled": false,
+                  "key": "metrics",
+                  "value": "<string>",
+                  "description": "(Required) Comma separated list of metric ids. Maximum: 10"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "(Required) The timestamp of the start of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2022-01-01"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "(Required) The timestamp of the end of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2021-01-28"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "Meltwater company id if running query on behalf of another company"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8c232391-5a73-471c-8ad2-c75f18e5d0e4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "nested_breakdown"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accounts\": [\n    {\n      \"daily_values\": [\n        {\n          \"date\": \"string\",\n          \"demographics_gender_age\": {\n            \"key\": \"string\",\n            \"subkey\": \"string\",\n            \"value\": 1320.4783764549488\n          }\n        },\n        {\n          \"date\": \"string\",\n          \"demographics_gender_age\": {\n            \"key\": \"string\",\n            \"subkey\": \"string\",\n            \"value\": 160.84748783812276\n          }\n        }\n      ],\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"source\": \"string\",\n      \"username\": \"string\"\n    },\n    {\n      \"daily_values\": [\n        {\n          \"date\": \"string\",\n          \"demographics_gender_age\": {\n            \"key\": \"string\",\n            \"subkey\": \"string\",\n            \"value\": 8617.522185969874\n          }\n        },\n        {\n          \"date\": \"string\",\n          \"demographics_gender_age\": {\n            \"key\": \"string\",\n            \"subkey\": \"string\",\n            \"value\": 3994.1565180018624\n          }\n        }\n      ],\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"source\": \"string\",\n      \"username\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0398ecca-e2d1-4549-8cf2-f7cd41ab8399",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "nested_breakdown"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac31d64c-5535-4c81-b1f5-f823b701f933",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "nested_breakdown"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2ff9df5-91b1-4b31-b07b-3806c7ef33ea",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "nested_breakdown"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e42ffcfb-0fa6-4eff-bb9b-4ac021567139",
+          "name": "Returns simple metrics for a social account",
+          "request": {
+            "name": "Returns simple metrics for a social account",
+            "description": {
+              "content": "A numeric metric is the most basic type of metrics you can get for your social media account, like the number of page fans. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "owned",
+                "accounts",
+                "metrics",
+                "numeric"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "(Required) The social media source name"
+                },
+                {
+                  "disabled": false,
+                  "key": "account_ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma separated list of account ids. Maximum: 10"
+                },
+                {
+                  "disabled": false,
+                  "key": "metrics",
+                  "value": "<string>",
+                  "description": "(Required) Comma separated list of metric ids. Maximum: 10"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "(Required) The timestamp of the start of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2022-01-01"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "(Required) The timestamp of the end of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2021-01-28"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "Meltwater company id if running query on behalf of another company"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "14348436-df4d-4c1e-bbd3-be926c6000ba",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "numeric"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accounts\": [\n    {\n      \"daily_values\": [\n        {\n          \"date\": \"string\",\n          \"follower_count\": 7548,\n          \"impressions\": 4973,\n          \"page_fan_removes\": 6453,\n          \"page_fans\": 4659,\n          \"page_fans_ads\": 4210,\n          \"page_impressions\": 5353,\n          \"page_impressions_organic\": 2910,\n          \"page_impressions_paid\": 5403,\n          \"page_post_engagements\": 1105,\n          \"page_vide_views\": 1077,\n          \"profile_views\": 519,\n          \"total_followers_counts\": 8108,\n          \"website_clicks\": 2207\n        },\n        {\n          \"date\": \"string\",\n          \"follower_count\": 9496,\n          \"impressions\": 2459,\n          \"page_fan_removes\": 7577,\n          \"page_fans\": 5982,\n          \"page_fans_ads\": 2675,\n          \"page_impressions\": 7817,\n          \"page_impressions_organic\": 3028,\n          \"page_impressions_paid\": 5420,\n          \"page_post_engagements\": 700,\n          \"page_vide_views\": 2424,\n          \"profile_views\": 6679,\n          \"total_followers_counts\": 1716,\n          \"website_clicks\": 9698\n        }\n      ],\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"source\": \"string\",\n      \"username\": \"string\"\n    },\n    {\n      \"daily_values\": [\n        {\n          \"date\": \"string\",\n          \"follower_count\": 6998,\n          \"impressions\": 8366,\n          \"page_fan_removes\": 8019,\n          \"page_fans\": 7388,\n          \"page_fans_ads\": 6941,\n          \"page_impressions\": 8813,\n          \"page_impressions_organic\": 1650,\n          \"page_impressions_paid\": 1853,\n          \"page_post_engagements\": 7006,\n          \"page_vide_views\": 5788,\n          \"profile_views\": 3495,\n          \"total_followers_counts\": 281,\n          \"website_clicks\": 1374\n        },\n        {\n          \"date\": \"string\",\n          \"follower_count\": 6114,\n          \"impressions\": 9517,\n          \"page_fan_removes\": 2488,\n          \"page_fans\": 7981,\n          \"page_fans_ads\": 4736,\n          \"page_impressions\": 4186,\n          \"page_impressions_organic\": 4005,\n          \"page_impressions_paid\": 5842,\n          \"page_post_engagements\": 4289,\n          \"page_vide_views\": 801,\n          \"profile_views\": 8680,\n          \"total_followers_counts\": 4663,\n          \"website_clicks\": 7394\n        }\n      ],\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"source\": \"string\",\n      \"username\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9dd6244b-98dd-4329-91b0-18b3407b3f6e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "numeric"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4863e869-9037-47cf-b84d-7e97a740b542",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "numeric"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5748a5c-b893-4c43-a02f-4a8210c1fa69",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "metrics",
+                    "numeric"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a1f4fa6-f0f4-4206-9ffc-be13973049db",
+          "name": "Allows to fetch the top posts for owned social accounts",
+          "request": {
+            "name": "Allows to fetch the top posts for owned social accounts",
+            "description": {
+              "content": "Allows to fetch the top posts for owned social accounts. You might do this to report the most engaged with posts in a period of time for example. Timestamps in this endpoint for Facebook and Instagram sources work on PST timezone (Meta's preferred timezone).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "owned",
+                "accounts",
+                "posts",
+                "top_posts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "(Required) The social media source name"
+                },
+                {
+                  "disabled": false,
+                  "key": "account_ids",
+                  "value": "<string>",
+                  "description": "(Required) Comma separated list of account ids. Maximum: 10"
+                },
+                {
+                  "disabled": false,
+                  "key": "metrics",
+                  "value": "<string>",
+                  "description": "Comma separated list of metric ids. Maximum: 10"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "(Required) The timestamp of the start of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2022-01-01"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "(Required) The timestamp of the end of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2021-01-28"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "Meltwater company id if running a query on behalf of another company"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Used for paginating results"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "10",
+                  "description": "The number of results to return per request"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "created_time",
+                  "description": "Field on which the response will be sorted"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "desc",
+                  "description": "The sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "post_types",
+                  "value": "<string>",
+                  "description": "The type of posts to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "Optional list of tags to filter the documents by"
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "Optional list of tags to filter the documents by"
+                },
+                {
+                  "disabled": false,
+                  "key": "match_all_tags",
+                  "value": "false",
+                  "description": "If true, only documents with all tags provided will be returned"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "275c5082-360d-4ccf-96ca-d2081fced750",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "posts",
+                    "top_posts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_time"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "post_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "match_all_tags",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 7057,\n  \"page\": 5301,\n  \"page_size\": 993,\n  \"posts\": [\n    {\n      \"account\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"source\": \"string\",\n        \"username\": \"string\"\n      },\n      \"content\": \"string\",\n      \"created_at\": \"string\",\n      \"media_url\": \"string\",\n      \"metrics\": {\n        \"comments_count\": 3069,\n        \"engagement\": 2079,\n        \"engagement_rate\": 4733.81037229621,\n        \"followers_count_engagement_rate\": 3454.4246273294752,\n        \"impressions\": 7105,\n        \"like_count\": 8392,\n        \"page_fans_engagement_rate\": 904.1185991132916,\n        \"post_clicks\": 4061,\n        \"post_clicks_unique\": 1481,\n        \"post_engaged_users\": 5087,\n        \"post_impressions\": 8624,\n        \"post_impressions_organic\": 6519,\n        \"post_impressions_organic_unique\": 9283,\n        \"post_impressions_paid\": 9521,\n        \"post_impressions_paid_unique\": 9201,\n        \"post_impressions_unique\": 2503,\n        \"post_reactions_anger_total\": 5510,\n        \"post_reactions_haha_total\": 8838,\n        \"post_reactions_like_total\": 4584,\n        \"post_reactions_love_total\": 2265,\n        \"post_reactions_sorry_total\": 44,\n        \"post_reactions_wow_total\": 593,\n        \"post_video_avg_time_watched\": 3537,\n        \"post_video_view_time\": 3030,\n        \"post_video_views\": 9019,\n        \"post_video_views_organic\": 8469,\n        \"post_video_views_paid\": 4706,\n        \"reach\": 802,\n        \"reactions_count\": 4889,\n        \"saved\": 77,\n        \"shares_count\": 7747,\n        \"video_views\": 4123\n      },\n      \"post_id\": \"string\",\n      \"post_type\": \"string\",\n      \"post_subtype\": \"string\",\n      \"tags\": [\n        \"My Tag\",\n        \"My Other Tag\"\n      ],\n      \"url\": \"string\"\n    },\n    {\n      \"account\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"source\": \"string\",\n        \"username\": \"string\"\n      },\n      \"content\": \"string\",\n      \"created_at\": \"string\",\n      \"media_url\": \"string\",\n      \"metrics\": {\n        \"comments_count\": 4246,\n        \"engagement\": 9929,\n        \"engagement_rate\": 1164.5851684494135,\n        \"followers_count_engagement_rate\": 8597.964467541127,\n        \"impressions\": 5359,\n        \"like_count\": 8245,\n        \"page_fans_engagement_rate\": 7636.846102549884,\n        \"post_clicks\": 91,\n        \"post_clicks_unique\": 1298,\n        \"post_engaged_users\": 213,\n        \"post_impressions\": 7289,\n        \"post_impressions_organic\": 9971,\n        \"post_impressions_organic_unique\": 2838,\n        \"post_impressions_paid\": 4,\n        \"post_impressions_paid_unique\": 6659,\n        \"post_impressions_unique\": 4479,\n        \"post_reactions_anger_total\": 8167,\n        \"post_reactions_haha_total\": 9128,\n        \"post_reactions_like_total\": 6621,\n        \"post_reactions_love_total\": 7236,\n        \"post_reactions_sorry_total\": 7472,\n        \"post_reactions_wow_total\": 2974,\n        \"post_video_avg_time_watched\": 8651,\n        \"post_video_view_time\": 2738,\n        \"post_video_views\": 211,\n        \"post_video_views_organic\": 3160,\n        \"post_video_views_paid\": 8562,\n        \"reach\": 8841,\n        \"reactions_count\": 7760,\n        \"saved\": 6487,\n        \"shares_count\": 3453,\n        \"video_views\": 4461\n      },\n      \"post_id\": \"string\",\n      \"post_type\": \"string\",\n      \"post_subtype\": \"string\",\n      \"tags\": [\n        \"My Tag\",\n        \"My Other Tag\"\n      ],\n      \"url\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb9a156c-5a15-4b39-b6f3-7e2dbaf88244",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "posts",
+                    "top_posts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_time"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "post_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "match_all_tags",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9eddd82b-ac6a-4e7c-847e-c5bb18b25299",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "accounts",
+                    "posts",
+                    "top_posts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_time"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "post_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "match_all_tags",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3fd76261-381d-45be-a19a-b21d372decfa",
+          "name": "Returns a list of supported metrics",
+          "request": {
+            "name": "Returns a list of supported metrics",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "owned",
+                "supported_metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e5261b37-979f-44ca-87f6-659560bd51ca",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "supported_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sources\": [\n    {\n      \"account_metrics\": [\n        {\n          \"description\": \"string\",\n          \"metric\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"description\": \"string\",\n          \"metric\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"name\": \"string\",\n      \"post_metrics\": [\n        {\n          \"description\": \"string\",\n          \"metric\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"description\": \"string\",\n          \"metric\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"source\": \"string\"\n    },\n    {\n      \"account_metrics\": [\n        {\n          \"description\": \"string\",\n          \"metric\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"description\": \"string\",\n          \"metric\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"name\": \"string\",\n      \"post_metrics\": [\n        {\n          \"description\": \"string\",\n          \"metric\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"description\": \"string\",\n          \"metric\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"source\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e3e8228-8d2d-4ccc-8142-e33fbc7eef32",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "supported_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c7e6444-ca52-4f5d-9feb-e7c4eaddb70c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "supported_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bd1097c-d257-4543-9be9-0e2dba9ce970",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "owned",
+                    "supported_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.meltwater.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e09cdf9e-3650-4b32-ba13-26413dc6836e",
+    "name": "Meltwater Account Management Owned Analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Meltwater Public API\n\nContact Support:\n Name: Meltwater Support\n Email: support@api.meltwater.com",
+      "type": "text/plain"
+    }
+  }
+}

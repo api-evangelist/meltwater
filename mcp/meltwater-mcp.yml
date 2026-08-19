@@ -1,0 +1,76 @@
+generated: '2026-08-13'
+method: probed
+status: published
+source: https://developer.meltwater.com/guides/meltwater-mcp/overview
+docs:
+  - https://developer.meltwater.com/guides/meltwater-mcp/overview
+  - https://developer.meltwater.com/guides/meltwater-mcp/connecting
+  - https://developer.meltwater.com/tools/mcp-console/tools-explorer
+  - https://developer.meltwater.com/guides/mira-api/mcp-server
+deployment:
+  mode: remote
+  endpoint: https://api.meltwater.com/v2/mcp
+  auth: api-key
+  verified: probed
+  note: >-
+    Meltwater ships TWO remote MCP servers and no stdio package. Meltwater MCP
+    (https://api.meltwater.com/v2/mcp) exposes granular tools over the customer's
+    Meltwater assets and data for agents the customer orchestrates. The Mira API MCP
+    server (https://api.meltwater.com/mcp) is the orchestrated variant - Meltwater's own
+    assistant plans and answers from a natural-language prompt. Both answered a live
+    tools/list POST with HTTP 401, which is what verifies the endpoints exist.
+servers:
+  - name: Meltwater MCP
+    transport: http
+    url: https://api.meltwater.com/v2/mcp
+    auth: apikey header (Meltwater API token)
+    oauth:
+      status: discovery-live
+      protected_resource_metadata: https://api.meltwater.com/.well-known/oauth-protected-resource
+      authorization_server: https://app.meltwater.com
+      scopes: [tools:read, tools:call]
+      note: >-
+        The connecting guide still says "OAuth 2.0 is planned for later this year", but the
+        RFC 9728 and RFC 8414 discovery documents are already live and the 401 challenge
+        returns a Bearer WWW-Authenticate with resource_metadata - the OAuth surface is
+        deployed ahead of the documentation.
+    probe:
+      method: POST tools/list
+      http_status: 401
+      body: no bearer token
+      www_authenticate: 'Bearer resource_metadata="https://api.meltwater.com/.well-known/oauth-protected-resource/v2/mcp"'
+      rate_limit_headers: [RateLimit-Limit, RateLimit-Remaining, RateLimit-Reset, X-RateLimit-Limit-Minute, X-RateLimit-Remaining-Minute]
+      observed_limit: 60 requests/minute
+  - name: Mira API (MCP)
+    transport: http
+    url: https://api.meltwater.com/mcp
+    auth: apikey header (Meltwater API token)
+    probe:
+      method: POST tools/list
+      http_status: 401
+      body: '{"message": "Unauthorized"}'
+tools:
+  status: gated
+  note: >-
+    tools/list requires an authenticated Meltwater API token, and the published llms.txt
+    does not enumerate tool names, so the live tool set and its inputSchemas could not be
+    captured anonymously. Meltwater states the tool set varies per customer package.
+    Meltwater publishes a browser-based Tools Explorer that lists a token's tools at
+    https://developer.meltwater.com/tools/mcp-console/tools-explorer.
+  documented_groups:
+    - name: Your assets
+      description: Tools that find and work with objects configured in Meltwater - saved searches, tags, and other assets.
+    - name: Meltwater data
+      description: Tools that retrieve mentions, analytics, and insights from the Meltwater platform.
+clients:
+  - name: Claude connector
+    type: no-code connector
+    note: Documented as available for end users via the Meltwater community site.
+  - name: ChatGPT connector
+    type: no-code connector
+  - name: OpenAI Responses API
+    type: remote MCP reference
+    note: Documented code sample passes the apikey header via the tool headers block.
+access:
+  requires: Meltwater MCP package in the customer subscription
+  contact: account manager or Meltwater sales

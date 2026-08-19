@@ -1,0 +1,385 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Meltwater Account Management Owned Analytics API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Owned Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns a list of social account connections for a given company/user account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/owned/accounts",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Meltwater company id if running query on behalf of another company"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of social account connections for a given company/user account"
+        },
+        {
+          "info": {
+            "name": "Returns a single-level breakdown by a category or concept",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/owned/accounts/metrics/breakdown",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The social media source name"
+              },
+              {
+                "name": "account_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of account ids. Maximum: 10"
+              },
+              {
+                "name": "metrics",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of metric ids. Maximum: 10"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The timestamp of the start of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2022-01-01"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The timestamp of the end of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2021-01-28"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Meltwater company id if running query on behalf of another company"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "A 'breakdown' metric is an analysis that provides a single-level breakdown by a category or concept. For example, the `demographics_audience_country` metric breaks down the audience for a Facebook page by country. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone)."
+        },
+        {
+          "info": {
+            "name": "Returns a break-down over date and time",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/owned/accounts/metrics/heatmap",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The social media source name"
+              },
+              {
+                "name": "account_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of account ids. Maximum: 10"
+              },
+              {
+                "name": "metrics",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of metric ids. Maximum: 10"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The timestamp of the start of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2022-01-01"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The timestamp of the end of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2021-01-28"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Meltwater company id if running query on behalf of another company"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "A 'heatmap' metric is an analysis that provides a break-down over date and time. For example, the `page_fans_heatmap` metric breaks down the audience for a Facebook page by how active they are each day and hour. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone)."
+        },
+        {
+          "info": {
+            "name": "Returns a double-level breakdown by two categories or concepts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/owned/accounts/metrics/nested_breakdown",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The social media source name"
+              },
+              {
+                "name": "account_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of account ids. Maximum: 10"
+              },
+              {
+                "name": "metrics",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of metric ids. Maximum: 10"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The timestamp of the start of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2022-01-01"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The timestamp of the end of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2021-01-28"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Meltwater company id if running query on behalf of another company"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "A 'nested-breakdown' metric is an analysis that provides a double-level breakdown by two categories or concepts. For example, the `demographics_gender_age` metric breaks down the audience for a Facebook page by firstly gender, then age group. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone)."
+        },
+        {
+          "info": {
+            "name": "Returns simple metrics for a social account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/owned/accounts/metrics/numeric",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The social media source name"
+              },
+              {
+                "name": "account_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of account ids. Maximum: 10"
+              },
+              {
+                "name": "metrics",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of metric ids. Maximum: 10"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The timestamp of the start of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2022-01-01"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The timestamp of the end of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2021-01-28"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Meltwater company id if running query on behalf of another company"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "A numeric metric is the most basic type of metrics you can get for your social media account, like the number of page fans. All timestamps in this endpoint work on PST timezone (Meta's preferred timezone)."
+        },
+        {
+          "info": {
+            "name": "Allows to fetch the top posts for owned social accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/owned/accounts/posts/top_posts",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "The social media source name"
+              },
+              {
+                "name": "account_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of account ids. Maximum: 10"
+              },
+              {
+                "name": "metrics",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of metric ids. Maximum: 10"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The timestamp of the start of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2022-01-01"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The timestamp of the end of the time-range to query. An ISO8601 timestamp, excluding time and timezone/offset component. Example: 2021-01-28"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Meltwater company id if running a query on behalf of another company"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Used for paginating results"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return per request"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Field on which the response will be sorted"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "The sort order"
+              },
+              {
+                "name": "post_types",
+                "value": "",
+                "type": "query",
+                "description": "The type of posts to retrieve"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Optional list of tags to filter the documents by"
+              },
+              {
+                "name": "match_all_tags",
+                "value": "",
+                "type": "query",
+                "description": "If true, only documents with all tags provided will be returned"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Allows to fetch the top posts for owned social accounts. You might do this to report the most engaged with posts in a period of time for example. Timestamps in this endpoint for Facebook and Instagram sources work on PST timezone (Meta's preferred timezone)."
+        },
+        {
+          "info": {
+            "name": "Returns a list of supported metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.meltwater.com/v3/owned/supported_metrics",
+            "auth": {
+              "type": "apikey",
+              "key": "apikey",
+              "value": "{{apikey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a list of supported metrics"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

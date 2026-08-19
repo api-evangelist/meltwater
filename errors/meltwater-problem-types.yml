@@ -1,0 +1,86 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.meltwater.com/api-reference/api-reference-overview
+derived_from:
+  - openapi/_original/meltwater-api-openapi.yaml
+  - openapi/meltwater-api-v4-openapi.yml
+format: vendor-json
+rfc9457: false
+note: >-
+  Meltwater does not use application/problem+json. Errors return application/json in one of
+  three vendor envelopes: the discriminated `Errors` shape (type + errors[] of type/title/details),
+  the `ValidationFailed`/`NotFound` shape (message + a field-keyed map of problem strings), and the
+  bare `Unauthorized` shape (message only). Status codes and their meanings below are Meltwater's
+  own published table, cross-checked against every 4xx/5xx response declared in the two specs.
+envelopes:
+  - name: Errors
+    fields: ['type', 'errors[].type', 'errors[].title', 'errors[].details']
+    discriminator: type
+    values: [NotFound, ServiceUnavailable, Unauthorized, ValidationFailed]
+  - name: ValidationFailed
+    fields: [message, errors]
+    example_message: Validation Failed
+  - name: NotFound
+    fields: [message, errors]
+    example_message: Not Found
+  - name: Unauthorized
+    fields: [message]
+    example_message: Unauthorized
+  - name: RateLimitedError
+    fields: [message, errors]
+    example_message: Service Overloaded
+problems:
+  - status: 400
+    title: Bad request
+    remediation: >-
+      There is an issue with your request. Check you are providing all required parameters.
+    declared_on_operations: 75
+    example_operations: [add_tags, analyze, createExport]
+  - status: 401
+    title: Unauthorized
+    remediation: >-
+      Check you are providing the correct authentication header and API token.
+    declared_on_operations: 67
+    example_operations: [add_tags, analyze, createHook]
+  - status: 403
+    title: Forbidden
+    remediation: >-
+      You are not authorized to access the endpoint. Also returned when a daily API credit limit is exhausted.
+    declared_on_operations: 35
+    example_operations: [create-earned-search, createHook, create_onetime_export]
+  - status: 404
+    title: Not found
+    remediation: >-
+      The referenced resource (for example a saved search id) does not exist on this account.
+    declared_on_operations: 33
+    example_operations: [analyze, create-earned-search, createHook]
+  - status: 409
+    title: Conflict
+    remediation: >-
+      The change you're making conflicts with a resource or query that already exists.
+    declared_on_operations: 11
+    example_operations: [createHook, create_search, delete_search]
+  - status: 422
+    title: Unprocessable entity
+    remediation: >-
+      The request was well formed but failed validation; the ValidationFailed envelope lists the offending fields.
+    declared_on_operations: 19
+    example_operations: [analyze, create_onetime_export, create_recurring_export]
+  - status: 429
+    title: Too many requests
+    remediation: >-
+      You have reached your rate limit. For Earned Analytics a 429 with "Service overloaded, please try again later" means the service is busy - retry after the timestamp in the Retry-After header.
+    declared_on_operations: 14
+    example_operations: [create-earned-search, createExport, getV3Analytics-searchId-start-end-tz-source-country-language-company_id]
+  - status: 500
+    title: Internal service error
+    remediation: >-
+      An error occurred on the Meltwater servers.
+    declared_on_operations: 66
+    example_operations: [add_tags, createHook, create_onetime_export]
+  - status: 503
+    title: Service unavailable
+    remediation: >-
+      An error occurred on the Meltwater servers.
+    declared_on_operations: 32
+    example_operations: [create-earned-search, create_onetime_export, create_recurring_export]

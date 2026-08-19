@@ -1,0 +1,915 @@
+{
+  "item": [
+    {
+      "id": "0a2d532a-3cd0-425a-8653-07ffb5cb9812",
+      "name": "Mira API",
+      "description": {
+        "content": "AI-powered chat completion and project listing features.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7ad96caf-04e8-4f00-b5d2-d0b572c24901",
+          "name": "Chat completion endpoint",
+          "request": {
+            "name": "Chat completion endpoint",
+            "description": {
+              "content": "Processes chat completion requests and returns responses in streaming or non-streaming mode.\nIf thread_id is provided, it will use that thread. If not, it will create a new thread or use the latest one.\nIf X-Project-ID header is provided, the thread will be associated with that project for enhanced context.\nThe thread ID is returned in the Thread-ID response header.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "mira",
+                "chat"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "The ID of the company to access. If not provided, your default company will be used."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Project ID for thread association",
+                "key": "X-Project-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_prompt\": \"<string>\",\n  \"stream\": false,\n  \"thread_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9395e98a-c705-4d5b-bf00-66e28aeb8e55",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "mira",
+                    "chat"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Project ID for thread association",
+                    "key": "X-Project-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_prompt\": \"<string>\",\n  \"stream\": false,\n  \"thread_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9350aea-6622-4d88-aa9f-22223423b3b4",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "mira",
+                    "chat"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Project ID for thread association",
+                    "key": "X-Project-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_prompt\": \"<string>\",\n  \"stream\": false,\n  \"thread_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a200707f-b539-492d-812c-95377a5c078f",
+              "name": "Thread not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "mira",
+                    "chat"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Project ID for thread association",
+                    "key": "X-Project-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_prompt\": \"<string>\",\n  \"stream\": false,\n  \"thread_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "de721978-e77d-4720-9d12-d0a7c6b6df27",
+              "name": "Failed to get completion",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "mira",
+                    "chat"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Project ID for thread association",
+                    "key": "X-Project-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_prompt\": \"<string>\",\n  \"stream\": false,\n  \"thread_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c2e6283-2ffb-4454-acb3-25e0ff8d81b0",
+          "name": "Chat responses endpoint",
+          "request": {
+            "name": "Chat responses endpoint",
+            "description": {
+              "content": "Processes chat responses requests with multiple input messages and returns responses in streaming or non-streaming mode.\nIf Thread-ID header is provided, uses the existing thread; otherwise creates a new thread with all messages and passes only the last user message to Mira.\nThe thread ID is returned in the Thread-ID response header.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "mira",
+                "responses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "The ID of the company to access. If not provided, your default company will be used."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Optional thread ID. If provided, uses the existing thread; otherwise creates a new thread",
+                "key": "Thread-ID",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Optional project ID for enhanced context",
+                "key": "Project-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"stream\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "37e1facb-b565-47ce-b8ea-60d2e0ab23fc",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "mira",
+                    "responses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional thread ID. If provided, uses the existing thread; otherwise creates a new thread",
+                    "key": "Thread-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional project ID for enhanced context",
+                    "key": "Project-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"stream\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3998143a-b772-4f87-968f-50631c18b3df",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "mira",
+                    "responses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional thread ID. If provided, uses the existing thread; otherwise creates a new thread",
+                    "key": "Thread-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional project ID for enhanced context",
+                    "key": "Project-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"stream\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8afd1dad-2248-4945-953f-b50ba4266c1b",
+              "name": "Failed to get response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "mira",
+                    "responses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional thread ID. If provided, uses the existing thread; otherwise creates a new thread",
+                    "key": "Thread-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Optional project ID for enhanced context",
+                    "key": "Project-ID",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"stream\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4659d4e8-e5de-4362-b638-293352b5200f",
+          "name": "List available projects",
+          "request": {
+            "name": "List available projects",
+            "description": {
+              "content": "Retrieve all projects available to the authenticated user with pagination support",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "mira",
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (default: 1, min: 1)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "10",
+                  "description": "Items per page (default: 10, min: 1, max: 100)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "desc",
+                  "description": "Sort order: asc or desc (default: desc)"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "The ID of the company to access. If not provided, your default company will be used."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "apikey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b9973c02-b44b-4030-8051-b9e4627d7f1d",
+              "name": "Successfully retrieved projects with pagination",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "mira",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"projects\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"share_level\": \"string\",\n      \"created_at\": \"1983-04-09T00:33:04.055Z\",\n      \"updated_at\": \"1997-12-15T16:29:36.900Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"share_level\": \"string\",\n      \"created_at\": \"1995-07-28T19:00:51.076Z\",\n      \"updated_at\": \"2024-08-15T04:26:28.162Z\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": 9314,\n    \"page_size\": 6004,\n    \"total_items\": 7967,\n    \"total_pages\": 5181\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8a30fde-05f6-4734-9af9-2ebea6cf54db",
+              "name": "Invalid query parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "mira",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7ea9a40e-5ef5-427e-b24e-32e6b63fd0f4",
+              "name": "Failed to get projects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "mira",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.meltwater.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e5611762-783d-48a5-87aa-5ff8faf76827",
+    "name": "Meltwater Account Management Mira API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Meltwater Public API\n\nContact Support:\n Name: Meltwater Support\n Email: support@api.meltwater.com",
+      "type": "text/plain"
+    }
+  }
+}
