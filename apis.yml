@@ -402,6 +402,10 @@ apis:
   tags:
   - MCP
   - Agents
+  - Artificial Intelligence
+  tags_raw:
+  - MCP
+  - Agents
   - Model Context Protocol
   - AI
   properties:
