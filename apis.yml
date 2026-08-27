@@ -367,36 +367,14 @@ apis:
     url: overlays/meltwater-owned-analytics-api-overlay.yaml
   - type: APIReference
     url: https://developer.meltwater.com/api-reference/api-reference-overview
-- aid: meltwater:meltwater-api-v4
-  name: Meltwater API v4
-  description: The Meltwater Public API v4 provides unified access to content export and analytics across Meltwater Explore+ data sources, plus LLM lens prompts for AI Visibility (GenAI Lens). v4 is the version Meltwater is building out to eventually carry all features; it is currently 4.0.0-beta and carries exports, a single unified analyze endpoint, and the LLM prompt endpoints.
-  humanURL: https://developer.meltwater.com/api-reference/api-reference-overview
-  baseURL: https://api.meltwater.com/v4
-  tags:
-  - Export
-  - Analyze
-  - LLM
-  - AI Visibility
-  properties:
-  - type: OpenAPI
-    url: openapi/meltwater-api-v4-openapi.yml
-  - type: Overlay
-    url: overlays/meltwater-api-v4-overlay.yaml
-  - type: Documentation
-    url: https://developer.meltwater.com/docs/
-  - type: APIReference
-    url: https://developer.meltwater.com/api-reference/api-reference-overview
-  - type: GettingStarted
-    url: https://developer.meltwater.com/guides/getting-started/overview
-  - type: ChangeLog
-    url: https://developer.meltwater.com/help/changelog
-  - type: RateLimits
-    url: https://developer.meltwater.com/guides/getting-started/usage-limits
-  - type: HowToGuides
-    url: https://developer.meltwater.com/guides/ai-visibility/overview
 - aid: meltwater:meltwater-mcp
   name: Meltwater MCP
-  description: Meltwater MCP is a single remote Model Context Protocol server that exposes a customer's Meltwater assets (saved searches, tags and other configured objects) and Meltwater data (news and social mentions, analytics and insights) as tools an AI agent can discover and call. It is authenticated with a Meltwater API token today, with OAuth 2.0 discovery documents already live. A second, orchestrated server at https://api.meltwater.com/mcp fronts the Mira assistant.
+  description: >-
+    Meltwater MCP is a single remote Model Context Protocol server that exposes a customer's Meltwater
+    assets (saved searches, tags and other configured objects) and Meltwater data (news and social mentions,
+    analytics and insights) as tools an AI agent can discover and call. It is authenticated with a Meltwater
+    API token today, with OAuth 2.0 discovery documents already live. A second, orchestrated server at
+    https://api.meltwater.com/mcp fronts the Mira assistant.
   humanURL: https://developer.meltwater.com/guides/meltwater-mcp/overview
   baseURL: https://api.meltwater.com/v2/mcp
   tags:
@@ -421,7 +399,75 @@ apis:
     url: scopes/meltwater-scopes.yml
   - type: Console
     url: https://developer.meltwater.com/tools/mcp-console/tools-explorer
+- aid: meltwater:meltwater-analyze-api
+  name: Meltwater Analyze API
+  description: Analyze data with metrics and KPIs for LLM prompts
+  humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  baseURL: https://api.meltwater.com
+  tags:
+  - Analyze
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-analyze-api-openapi.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
+  - type: GettingStarted
+    url: https://developer.meltwater.com/guides/getting-started/overview
+  - type: ChangeLog
+    url: https://developer.meltwater.com/help/changelog
+  - type: RateLimits
+    url: https://developer.meltwater.com/guides/getting-started/usage-limits
+  - type: HowToGuides
+    url: https://developer.meltwater.com/guides/ai-visibility/overview
+- aid: meltwater:meltwater-export-api
+  name: Meltwater Export API
+  description: Export content and manage export jobs
+  humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  baseURL: https://api.meltwater.com
+  tags:
+  - Export
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-export-api-openapi.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
+  - type: GettingStarted
+    url: https://developer.meltwater.com/guides/getting-started/overview
+  - type: ChangeLog
+    url: https://developer.meltwater.com/help/changelog
+  - type: RateLimits
+    url: https://developer.meltwater.com/guides/getting-started/usage-limits
+  - type: HowToGuides
+    url: https://developer.meltwater.com/guides/ai-visibility/overview
+- aid: meltwater:meltwater-llm-api
+  name: Meltwater LLM API
+  description: Endpoints to list LLM prompts and folders available for analytics
+  humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
+  baseURL: https://api.meltwater.com
+  tags:
+  - LLM
+  properties:
+  - type: OpenAPI
+    url: openapi/meltwater-llm-api-openapi.yml
+  - type: Documentation
+    url: https://developer.meltwater.com/docs/
+  - type: APIReference
+    url: https://developer.meltwater.com/api-reference/api-reference-overview
+  - type: GettingStarted
+    url: https://developer.meltwater.com/guides/getting-started/overview
+  - type: ChangeLog
+    url: https://developer.meltwater.com/help/changelog
+  - type: RateLimits
+    url: https://developer.meltwater.com/guides/getting-started/usage-limits
+  - type: HowToGuides
+    url: https://developer.meltwater.com/guides/ai-visibility/overview
 common:
+- type: Overlay
+  url: overlays/meltwater-api-v4-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/meltwater-agentic-access.yml
 - type: VulnerabilityDisclosure
