@@ -1,0 +1,485 @@
+openapi: 3.2.0
+info:
+  title: Meltwater API v4 Analyze API
+  description: 'The Meltwater Public API v4 provides unified access to
+
+    content export and analytics across Meltwater Explore+
+
+    data sources, plus LLM lens prompts.
+
+
+    ## Key Features
+
+    - Unified query interface across all data sources
+
+    - Consistent pagination and error handling
+
+    - Comprehensive analytics with nested analysis support
+
+    '
+  contact:
+    name: Meltwater API Support
+    url: https://developer.meltwater.com/
+    email: support@api.meltwater.com
+  version: 4.0.0-beta
+servers:
+- url: https://api.meltwater.com/v4
+  description: Production server
+security:
+- apiKey: []
+tags:
+- name: Analyze
+  description: Analyze data with metrics and KPIs for LLM prompts
+paths:
+  /analytics/analyze:
+    post:
+      tags:
+      - Analyze
+      summary: Perform analytics analysis
+      description: Execute analytics queries with support for nested analyses.
+      operationId: analyze
+      parameters:
+      - $ref: '#/components/parameters/CompanyId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/analytics-query'
+            examples:
+              Metrics:
+                summary: Fetch metrics for LLM prompts
+                value:
+                  provider: llm
+                  tz: UTC
+                  period:
+                    start: '2024-01-01T00:00:00'
+                    end: '2024-01-31T23:59:59'
+                  query:
+                    prompts:
+                      all:
+                      - 65f0a1b2c3d4e5f600000001
+                  analysis:
+                    type: metrics
+                    metrics:
+                    - mentions
+                    - prominence
+                    - sentiment
+              date_histogram:
+                summary: Daily mentions trend for LLM prompts
+                value:
+                  provider: llm
+                  tz: UTC
+                  period:
+                    start: '2024-01-01T00:00:00'
+                    end: '2024-01-31T23:59:59'
+                  query:
+                    prompts:
+                      all:
+                      - 65f0a1b2c3d4e5f600000001
+                  analysis:
+                    type: date_histogram
+                    granularity: day
+                    analysis:
+                      type: metrics
+                      metrics:
+                      - mentions
+              llm_prompt_folders:
+                summary: Mentions for prompts in a folder
+                value:
+                  provider: llm
+                  tz: UTC
+                  period:
+                    start: '2024-01-01T00:00:00'
+                    end: '2024-01-31T23:59:59'
+                  query:
+                    prompt_folders:
+                      all:
+                      - 65f0a1b2c3d4e5f600000001
+                  analysis:
+                    type: metrics
+                    metrics:
+                    - mentions
+              top_terms:
+                summary: Top LLMs by mentions for a prompt
+                value:
+                  provider: llm
+                  tz: UTC
+                  period:
+                    start: '2024-01-01T00:00:00'
+                    end: '2024-01-31T23:59:59'
+                  query:
+                    prompts:
+                      all:
+                      - 65f0a1b2c3d4e5f600000001
+                  analysis:
+                    type: top_terms
+                    dimension: llms
+                    limit: 5
+                    analysis:
+                      type: metrics
+                      metrics:
+                      - mentions
+      responses:
+        '200':
+          description: Analysis results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  provider:
+                    type: string
+                    enum:
+                    - llm
+                  tz:
+                    type: string
+                    description: IANA timezone name (e.g. America/New_York, UTC)
+                  period:
+                    $ref: '#/components/schemas/analysis-period'
+                  query:
+                    $ref: '#/components/schemas/query'
+                  analysis:
+                    $ref: '#/components/schemas/analysis'
+                  result:
+                    type: object
+                    properties:
+                      document_count:
+                        type: integer
+                        description: Total number of matching documents. Not present for all analytic types.
+                      analysis:
+                        description: Analysis results. Structure varies by analysis type.
+              examples:
+                Metrics:
+                  summary: Metrics for LLM prompts
+                  value:
+                    provider: llm
+                    tz: UTC
+                    period:
+                      start: '2024-01-01T00:00:00'
+                      end: '2024-01-31T23:59:59'
+                    query:
+                      prompts:
+                        all:
+                        - 65f0a1b2c3d4e5f600000001
+                    analysis:
+                      type: metrics
+                      metrics:
+                      - mentions
+                      - prominence
+                      - sentiment
+                    result:
+                      analysis:
+                        mentions: 1284
+                        prominence: 42.75
+                        sentiment: 0.63
+                Date Histogram:
+                  summary: Daily mentions trend for LLM prompts
+                  value:
+                    provider: llm
+                    tz: UTC
+                    period:
+                      start: '2024-01-01T00:00:00'
+                      end: '2024-01-31T23:59:59'
+                    query:
+                      prompts:
+                        all:
+                        - 65f0a1b2c3d4e5f600000001
+                    analysis:
+                      type: date_histogram
+                      granularity: day
+                      analysis:
+                        type: metrics
+                        metrics:
+                        - mentions
+                    result:
+                      analysis:
+                      - key: '2024-01-01T00:00:00'
+                        analysis:
+                          mentions: 42
+                      - key: '2024-01-02T00:00:00'
+                        analysis:
+                          mentions: 57
+                Top Terms with Metrics:
+                  summary: Top LLMs by mentions for a prompt folder
+                  value:
+                    provider: llm
+                    tz: UTC
+                    period:
+                      start: '2024-01-01T00:00:00'
+                      end: '2024-01-31T23:59:59'
+                    query:
+                      prompt_folders:
+                        all:
+                        - 65f0a1b2c3d4e5f600000001
+                    analysis:
+                      type: top_terms
+                      dimension: llms
+                      limit: 5
+                      analysis:
+                        type: metrics
+                        metrics:
+                        - mentions
+                    result:
+                      analysis:
+                      - key: ChatGPT
+                        analysis:
+                          mentions: 812
+                      - key: Gemini
+                        analysis:
+                          mentions: 534
+                      - key: Copilot
+                        analysis:
+                          mentions: 201
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Error'
+components:
+  schemas:
+    analysis-period:
+      type: object
+      description: Time range for the analysis. Both start and end are required (ISO 8601 datetimes without timezone).
+      required:
+      - start
+      - end
+      properties:
+        start:
+          type: string
+          description: Start of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-01T00:00:00).
+        end:
+          type: string
+          description: End of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-31T23:59:59).
+    analysis:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - document_count
+          - date_histogram
+          - metrics
+          - top_terms
+          description: Type of analysis to perform
+        dimension:
+          type: string
+          description: Dimension to group results by (for top_terms)
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 100
+          description: Maximum number of results to return (for top_terms). Minimum number of terms is 1 while maximum is dimension dependent but never higher than 100
+        granularity:
+          type: string
+          enum:
+          - day
+          - week
+          - month
+          description: Time granularity (for date_histogram)
+        metrics:
+          type: array
+          items:
+            type: string
+          description: Metrics to calculate (for metrics and top_terms types)
+        analysis:
+          description: Nested sub-analysis
+          allOf:
+          - $ref: '#/components/schemas/analysis'
+    string-filter:
+      type: object
+      properties:
+        all:
+          type: array
+          items:
+            type: string
+        any:
+          type: array
+          items:
+            type: string
+        none:
+          type: array
+          items:
+            type: string
+    analytics-query:
+      type: object
+      required:
+      - provider
+      - tz
+      - period
+      - query
+      - analysis
+      properties:
+        provider:
+          type: string
+          enum:
+          - llm
+        tz:
+          type: string
+          description: IANA timezone name (e.g. America/New_York, UTC)
+        period:
+          $ref: '#/components/schemas/analysis-period'
+        query:
+          $ref: '#/components/schemas/query'
+        analysis:
+          $ref: '#/components/schemas/analysis'
+    id-filter:
+      type: object
+      properties:
+        all:
+          type: array
+          items:
+            type: integer
+        any:
+          type: array
+          items:
+            type: integer
+        none:
+          type: array
+          items:
+            type: integer
+    query:
+      type: object
+      properties:
+        prompts:
+          type: object
+          description: Prompt IDs to query. Used when provider is [llm]; at least one ID in [all] or [any], unless prompt_folders is supplied instead.
+          properties:
+            all:
+              type: array
+              items:
+                type: string
+            any:
+              type: array
+              items:
+                type: string
+            none:
+              type: array
+              items:
+                type: string
+        prompt_folders:
+          type: object
+          description: Prompt folder IDs to query, selecting prompts by the folder they belong to. Used when provider is [llm]; at least one ID in [all] or [any], unless prompts is supplied instead. When combined with prompts, both must match.
+          properties:
+            all:
+              type: array
+              items:
+                type: string
+            any:
+              type: array
+              items:
+                type: string
+            none:
+              type: array
+              items:
+                type: string
+        filters:
+          type: object
+          description: Optional filters to apply to the query.
+          properties:
+            tags:
+              $ref: '#/components/schemas/id-filter'
+            post_types:
+              $ref: '#/components/schemas/string-filter'
+            languages:
+              $ref: '#/components/schemas/string-filter'
+            filter_sets:
+              $ref: '#/components/schemas/id-filter'
+            custom_categories:
+              $ref: '#/components/schemas/id-filter'
+            author_lists:
+              $ref: '#/components/schemas/id-filter'
+            custom_fields:
+              type: object
+              description: Custom field filters keyed by custom field ID.
+              additionalProperties:
+                $ref: '#/components/schemas/id-filter'
+            sources:
+              $ref: '#/components/schemas/string-filter'
+            countries:
+              $ref: '#/components/schemas/string-filter'
+            sentiments:
+              $ref: '#/components/schemas/string-filter'
+    error:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code
+          enum:
+          - INVALID_QUERY
+          - RESOURCE_NOT_FOUND
+          - UNAUTHORIZED
+          - FORBIDDEN
+          - RATE_LIMITED
+          - INTERNAL_ERROR
+          - VALIDATION_ERROR
+          - PROVIDER_ERROR
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          description: Additional error context
+          additionalProperties: true
+        request_id:
+          type: string
+          description: Unique request identifier for debugging
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            code: UNAUTHORIZED
+            message: Not Authorized
+            request_id: 123e4567-e89b-12d3-a456-426614174000
+    Error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            code: RESOURCE_NOT_FOUND
+            message: Not Found
+            request_id: 123e4567-e89b-12d3-a456-426614174000
+  parameters:
+    CompanyId:
+      name: company_id
+      in: query
+      description: Company which owns the resource. If not specified, your default company is used.
+      required: false
+      schema:
+        type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: apikey
+x-tagGroups:
+- name: Content
+  tags:
+  - Export
+- name: Analytics
+  tags:
+  - Analyze
+- name: Account
+  tags:
+  - LLM

@@ -1,0 +1,307 @@
+openapi: 3.2.0
+info:
+  title: Meltwater API v4 LLM API
+  description: 'The Meltwater Public API v4 provides unified access to
+
+    content export and analytics across Meltwater Explore+
+
+    data sources, plus LLM lens prompts.
+
+
+    ## Key Features
+
+    - Unified query interface across all data sources
+
+    - Consistent pagination and error handling
+
+    - Comprehensive analytics with nested analysis support
+
+    '
+  contact:
+    name: Meltwater API Support
+    url: https://developer.meltwater.com/
+    email: support@api.meltwater.com
+  version: 4.0.0-beta
+servers:
+- url: https://api.meltwater.com/v4
+  description: Production server
+security:
+- apiKey: []
+tags:
+- name: LLM
+  description: Endpoints to list LLM prompts and folders available for analytics
+paths:
+  /account/llm/prompts:
+    get:
+      tags:
+      - LLM
+      summary: List LLM prompts
+      description: 'Get a flat, paginated list of the caller''s LLM prompts, optionally
+
+        filtered to a single folder. The prompt IDs returned here can be used in the
+
+        `query.prompts` field of an analytics request when `provider` is `llm`.
+
+        '
+      operationId: listLLMPrompts
+      parameters:
+      - $ref: '#/components/parameters/CompanyId'
+      - name: folder_id
+        in: query
+        description: Filter prompts to a single folder by its id. Omit to return prompts across all folders.
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Page number (1-indexed).
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 1
+      - name: page_size
+        in: query
+        description: Number of prompts per page.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+      responses:
+        '200':
+          description: A page of prompts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/prompts'
+              examples:
+                Prompts:
+                  summary: Get a list of available prompts
+                  value:
+                    count: 2
+                    page: 1
+                    page_size: 10
+                    data:
+                    - id: prompt-1
+                      name: My Prompt
+                      prompt_text: What are the big news stories of the day?
+                      folder:
+                        id: folder-1
+                        name: My Folder
+                    - id: prompt-2
+                      name: My Second Prompt
+                      prompt_text: What is happening in the United States?
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /account/llm/prompts/folders:
+    get:
+      tags:
+      - LLM
+      summary: List LLM prompt folders
+      description: 'Get a flat list of the caller''s LLM prompt folders. A folder `id` returned
+
+        here can be used as the `folder_id` filter on the prompts endpoint, or in the
+
+        `query.prompt_folders` field of an analytics request when `provider` is `llm`.
+
+        '
+      operationId: listLLMFolders
+      parameters:
+      - $ref: '#/components/parameters/CompanyId'
+      - name: page
+        in: query
+        description: Page number (1-indexed).
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 1
+      - name: page_size
+        in: query
+        description: Number of folders per page.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+      responses:
+        '200':
+          description: List of prompt folders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/folders'
+              examples:
+                Folders:
+                  summary: Get a list of available prompt folders
+                  value:
+                    count: 1
+                    page: 1
+                    page_size: 10
+                    data:
+                    - id: folder-1
+                      name: My Folder
+                      prompt_count: 1
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            code: UNAUTHORIZED
+            message: Not Authorized
+            request_id: 123e4567-e89b-12d3-a456-426614174000
+    Error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  schemas:
+    folders:
+      type: object
+      required:
+      - count
+      - page
+      - page_size
+      - data
+      properties:
+        count:
+          type: integer
+          description: Total number of prompt folders, across all pages
+        page:
+          type: integer
+          description: The page number returned (1-indexed)
+        page_size:
+          type: integer
+          description: Number of folders per page
+        data:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - name
+            properties:
+              id:
+                type: string
+                description: Unique identifier for the folder (use as `folder_id` when filtering prompts, or in `query.prompt_folders` of an analytics request)
+              name:
+                type: string
+                description: Display name of the folder
+              prompt_count:
+                type: integer
+                description: Number of prompts in the folder. Returned by the folders endpoint; omitted when the folder is nested inside a prompt.
+    prompts:
+      type: object
+      required:
+      - count
+      - page
+      - page_size
+      - data
+      properties:
+        count:
+          type: integer
+          description: Total number of prompts matching the filter, across all pages
+        page:
+          type: integer
+          description: The page number returned (1-indexed)
+        page_size:
+          type: integer
+          description: Number of prompts per page
+        data:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - name
+            - prompt_text
+            properties:
+              id:
+                type: string
+                description: Unique identifier for the prompt
+              name:
+                type: string
+                description: Display name of the prompt
+              prompt_text:
+                type: string
+                description: The prompt text
+              folder:
+                type: object
+                description: The folder the prompt belongs to. Omitted for uncategorised prompts.
+                required:
+                - id
+                - name
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier for the folder (use as `folder_id` when filtering prompts, or in `query.prompt_folders` of an analytics request)
+                  name:
+                    type: string
+                    description: Display name of the folder
+    error:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code
+          enum:
+          - INVALID_QUERY
+          - RESOURCE_NOT_FOUND
+          - UNAUTHORIZED
+          - FORBIDDEN
+          - RATE_LIMITED
+          - INTERNAL_ERROR
+          - VALIDATION_ERROR
+          - PROVIDER_ERROR
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          description: Additional error context
+          additionalProperties: true
+        request_id:
+          type: string
+          description: Unique request identifier for debugging
+  parameters:
+    CompanyId:
+      name: company_id
+      in: query
+      description: Company which owns the resource. If not specified, your default company is used.
+      required: false
+      schema:
+        type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: apikey
+x-tagGroups:
+- name: Content
+  tags:
+  - Export
+- name: Analytics
+  tags:
+  - Analyze
+- name: Account
+  tags:
+  - LLM
