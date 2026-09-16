@@ -1,6 +1,10 @@
 aid: meltwater
 name: Meltwater
-description: Meltwater is a media intelligence platform providing REST APIs for media monitoring, social listening, journalist outreach, PR analytics, and brand reputation management. The API enables programmatic access to billions of editorial, blog, and social media conversations across news sources and social networks, with capabilities for searching, exporting, streaming, and analyzing mentions, as well as fetching owned social account analytics.
+description: Meltwater is a media intelligence platform providing REST APIs for media monitoring, social
+  listening, journalist outreach, PR analytics, and brand reputation management. The API enables programmatic
+  access to billions of editorial, blog, and social media conversations across news sources and social
+  networks, with capabilities for searching, exporting, streaming, and analyzing mentions, as well as
+  fetching owned social account analytics.
 deliveryModel:
   model: saas
   open_source: false
@@ -29,7 +33,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/meltwater.png
 url: https://raw.githubusercontent.com/api-evangelist/meltwater/refs/heads/main/apis.yml
 created: '2026-06-13'
-modified: '2026-08-13'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 tags:
 - Media Monitoring
@@ -182,8 +186,8 @@ apis:
     url: https://developer.meltwater.com/api-reference/api-reference-overview
 - aid: meltwater:meltwater-listening-analytics-api
   name: Meltwater Listening Analytics API
-  description: >-
-    Analyse multiple types of Meltwater data, run volume time series, top tags and sentiment counts.
+  description: Analyse multiple types of Meltwater data, run volume time series, top tags and sentiment
+    counts.
   humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
   baseURL: https://api.meltwater.com
   tags:
@@ -239,9 +243,8 @@ apis:
     url: https://developer.meltwater.com/api-reference/api-reference-overview
 - aid: meltwater:meltwater-listening-search-api
   name: Meltwater Listening Search API
-  description: >-
-    Search Meltwater data using saved searches to integrate with your own API connectors and internal
-    systems.
+  description: Search Meltwater data using saved searches to integrate with your own API connectors and
+    internal systems.
   humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
   baseURL: https://api.meltwater.com
   tags:
@@ -324,7 +327,7 @@ apis:
   - type: APIReference
     url: https://developer.meltwater.com/api-reference/api-reference-overview
 - aid: meltwater:meltwater-mira-api-api
-  name: Meltwater Mira API API
+  name: Meltwater Mira API
   description: AI-powered chat completion and project listing features.
   humanURL: https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/
   baseURL: https://api.meltwater.com
@@ -381,12 +384,11 @@ apis:
     url: https://developer.meltwater.com/api-reference/api-reference-overview
 - aid: meltwater:meltwater-mcp
   name: Meltwater MCP
-  description: >-
-    Meltwater MCP is a single remote Model Context Protocol server that exposes a customer's Meltwater
-    assets (saved searches, tags and other configured objects) and Meltwater data (news and social mentions,
-    analytics and insights) as tools an AI agent can discover and call. It is authenticated with a Meltwater
-    API token today, with OAuth 2.0 discovery documents already live. A second, orchestrated server at
-    https://api.meltwater.com/mcp fronts the Mira assistant.
+  description: Meltwater MCP is a single remote Model Context Protocol server that exposes a customer's
+    Meltwater assets (saved searches, tags and other configured objects) and Meltwater data (news and
+    social mentions, analytics and insights) as tools an AI agent can discover and call. It is authenticated
+    with a Meltwater API token today, with OAuth 2.0 discovery documents already live. A second, orchestrated
+    server at https://api.meltwater.com/mcp fronts the Mira assistant.
   humanURL: https://developer.meltwater.com/guides/meltwater-mcp/overview
   baseURL: https://api.meltwater.com/v2/mcp
   tags:
@@ -589,7 +591,9 @@ x-enrichment:
 x-coverage:
   state: covered
   reason: machine-readable-contract-and-agent-surface-found
-  detail: Meltwater publishes a downloadable v3 OpenAPI at developer.meltwater.com/v3.yaml, a previously uncaptured v4 OpenAPI at /v4.yaml, an llms.txt, two live remote MCP endpoints, and RFC 9728 plus RFC 8414 OAuth discovery documents - all fetched and saved this pass.
+  detail: Meltwater publishes a downloadable v3 OpenAPI at developer.meltwater.com/v3.yaml, a previously
+    uncaptured v4 OpenAPI at /v4.yaml, an llms.txt, two live remote MCP endpoints, and RFC 9728 plus RFC
+    8414 OAuth discovery documents - all fetched and saved this pass.
   evidence:
   - url: https://developer.meltwater.com/v4.yaml
     status: 200
