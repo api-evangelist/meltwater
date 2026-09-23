@@ -14,9 +14,7 @@ info:
 
     - Consistent pagination and error handling
 
-    - Comprehensive analytics with nested analysis support
-
-    '
+    - Comprehensive analytics with nested analysis support'
   contact:
     name: Meltwater API Support
     url: https://developer.meltwater.com/
@@ -40,9 +38,7 @@ paths:
 
         filtered to a single folder. The prompt IDs returned here can be used in the
 
-        `query.prompts` field of an analytics request when `provider` is `llm`.
-
-        '
+        `query.prompts` field of an analytics request when `provider` is `llm`.'
       operationId: listLLMPrompts
       parameters:
       - $ref: '#/components/parameters/CompanyId'
@@ -107,9 +103,7 @@ paths:
 
         here can be used as the `folder_id` filter on the prompts endpoint, or in the
 
-        `query.prompt_folders` field of an analytics request when `provider` is `llm`.
-
-        '
+        `query.prompt_folders` field of an analytics request when `provider` is `llm`.'
       operationId: listLLMFolders
       parameters:
       - $ref: '#/components/parameters/CompanyId'
@@ -154,23 +148,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-          example:
-            code: UNAUTHORIZED
-            message: Not Authorized
-            request_id: 123e4567-e89b-12d3-a456-426614174000
-    Error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
   schemas:
     folders:
       type: object
@@ -206,6 +183,34 @@ components:
               prompt_count:
                 type: integer
                 description: Number of prompts in the folder. Returned by the folders endpoint; omitted when the folder is nested inside a prompt.
+    error:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code
+          enum:
+          - INVALID_QUERY
+          - RESOURCE_NOT_FOUND
+          - UNAUTHORIZED
+          - FORBIDDEN
+          - RATE_LIMITED
+          - INTERNAL_ERROR
+          - VALIDATION_ERROR
+          - PROVIDER_ERROR
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          description: Additional error context
+          additionalProperties: true
+        request_id:
+          type: string
+          description: Unique request identifier for debugging
     prompts:
       type: object
       required:
@@ -254,34 +259,23 @@ components:
                   name:
                     type: string
                     description: Display name of the folder
-    error:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code
-          enum:
-          - INVALID_QUERY
-          - RESOURCE_NOT_FOUND
-          - UNAUTHORIZED
-          - FORBIDDEN
-          - RATE_LIMITED
-          - INTERNAL_ERROR
-          - VALIDATION_ERROR
-          - PROVIDER_ERROR
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: object
-          description: Additional error context
-          additionalProperties: true
-        request_id:
-          type: string
-          description: Unique request identifier for debugging
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            code: UNAUTHORIZED
+            message: Not Authorized
+            request_id: 123e4567-e89b-12d3-a456-426614174000
+    Error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   parameters:
     CompanyId:
       name: company_id

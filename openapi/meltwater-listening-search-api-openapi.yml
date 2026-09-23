@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Meltwater Account Management Listening Search API
+  title: Meltwater Listening Search API
   description: The Meltwater Public API
   contact:
     name: Meltwater Support
@@ -20,7 +20,7 @@ paths:
     post:
       tags:
       - Listening Search
-      summary: Search for Meltwater earned data using a saved search and optional filters.
+      summary: Search for Meltwater earned data using a saved search and optional filters
       description: Search for Meltwater earned data using a saved search and optional filters.
       parameters:
       - name: id
@@ -75,61 +75,36 @@ paths:
       operationId: create-earned-search
 components:
   schemas:
-    DocumentResponse:
-      type: object
-      properties:
-        document_count:
-          type: integer
-          example: 100
-        documents:
-          type: array
-          items:
-            type: object
-            example:
-              id: 123abc123
-              opening_text: This is a document ...
-    ErrorDetails:
+    Errors:
       required:
       - type
-      - title
-      - details
       type: object
       properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+          description: List of problems with the request
         type:
           type: string
-          description: Category of error
-        title:
+          enum:
+          - NotFound
+          - ServiceUnavailable
+          - Unauthorized
+          - ValidationFailed
+      description: Errors
+      discriminator:
+        propertyName: type
+    Unauthorized:
+      required:
+      - message
+      type: object
+      properties:
+        message:
           type: string
-          description: Title of error
-        details:
-          type: string
-          description: Details about the error
-    RateLimitedError:
-      description: RateLimitedError
+          description: A message describing, in brief, the problem.
       example:
-        message: Service Overloaded
-        errors: {}
-      allOf:
-      - $ref: '#/components/schemas/Errors'
-      - required:
-        - message
-        type: object
-        properties:
-          message:
-            type: string
-        description: RateLimitedError
-    AnalyticsServiceUnavailable:
-      description: ServiceUnavailable
-      example:
-        message: Service Unavailable
-        errors: {}
-      allOf:
-      - $ref: '#/components/schemas/Errors'
-      - type: object
-        properties:
-          message:
-            type: string
-        description: ServiceUnavailable
+        message: Unauthorized
     NotFound:
       required:
       - errors
@@ -153,16 +128,19 @@ components:
         errors:
           :searchId:
           - A Saved Search with that ID could not be found
-    Unauthorized:
-      required:
-      - message
+    DocumentResponse:
       type: object
       properties:
-        message:
-          type: string
-          description: A message describing, in brief, the problem.
-      example:
-        message: Unauthorized
+        document_count:
+          type: integer
+          example: 100
+        documents:
+          type: array
+          items:
+            type: object
+            example:
+              id: 123abc123
+              opening_text: This is a document ...
     SearchResponse:
       required:
       - tz
@@ -242,6 +220,26 @@ components:
         tz:
           type: string
           example: Europe/London
+    AnalyticsServiceUnavailable:
+      description: ServiceUnavailable
+      example:
+        message: Service Unavailable
+        errors: {}
+      allOf:
+      - $ref: '#/components/schemas/Errors'
+      - type: object
+        properties:
+          message:
+            type: string
+        description: ServiceUnavailable
+    TemplateConfiguration:
+      type: object
+      title: Template Configuration
+      properties:
+        name:
+          type: string
+          example: legacy
+          description: The name of the template being requested
     SearchRequest:
       required:
       - tz
@@ -345,34 +343,36 @@ components:
           - '1111'
           - '2222'
           description: List of author list IDs to filter documents by.
-    TemplateConfiguration:
-      type: object
-      title: Template Configuration
-      properties:
-        name:
-          type: string
-          example: legacy
-          description: The name of the template being requested
-    Errors:
+    RateLimitedError:
+      description: RateLimitedError
+      example:
+        message: Service Overloaded
+        errors: {}
+      allOf:
+      - $ref: '#/components/schemas/Errors'
+      - required:
+        - message
+        type: object
+        properties:
+          message:
+            type: string
+        description: RateLimitedError
+    ErrorDetails:
       required:
       - type
+      - title
+      - details
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDetails'
-          description: List of problems with the request
         type:
           type: string
-          enum:
-          - NotFound
-          - ServiceUnavailable
-          - Unauthorized
-          - ValidationFailed
-      description: Errors
-      discriminator:
-        propertyName: type
+          description: Category of error
+        title:
+          type: string
+          description: Title of error
+        details:
+          type: string
+          description: Details about the error
   securitySchemes:
     apikey:
       type: apiKey

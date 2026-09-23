@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Meltwater Account Management Explore+ Search API
+  title: Meltwater Explore+ Search API
   description: The Meltwater Public API
   contact:
     name: Meltwater Support
@@ -20,7 +20,7 @@ paths:
     post:
       tags:
       - Explore+ Search
-      summary: Search for data in your private index.
+      summary: Search for data in your private index
       description: Search for data in your private index.
       parameters:
       - name: workspace_id
@@ -122,28 +122,10 @@ paths:
                 $ref: '#/components/schemas/controllers.APIError'
       security:
       - apikey: []
+      operationId: postV3ExplorePlusSearch
+      x-operation-id-source: derived
 components:
   schemas:
-    explore_plus.Filters:
-      type: object
-      properties:
-        countries:
-          $ref: '#/components/schemas/explore_plus.StringBreakdown'
-        custom_fields:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/explore_plus.IntBreakdown'
-        languages:
-          $ref: '#/components/schemas/explore_plus.StringBreakdown'
-        sentiments:
-          $ref: '#/components/schemas/explore_plus.SentimentBreakdown'
-        sources:
-          $ref: '#/components/schemas/explore_plus.StringBreakdown'
-    controllers.APIError:
-      type: object
-      properties:
-        message:
-          type: string
     explore_plus.Template:
       type: object
       properties:
@@ -183,6 +165,26 @@ components:
           type: array
           items:
             type: object
+    explore_plus.Filters:
+      type: object
+      properties:
+        countries:
+          $ref: '#/components/schemas/explore_plus.StringBreakdown'
+        custom_fields:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/explore_plus.IntBreakdown'
+        languages:
+          $ref: '#/components/schemas/explore_plus.StringBreakdown'
+        sentiments:
+          $ref: '#/components/schemas/explore_plus.SentimentBreakdown'
+        sources:
+          $ref: '#/components/schemas/explore_plus.StringBreakdown'
+    controllers.APIError:
+      type: object
+      properties:
+        message:
+          type: string
     controllers.APIValidationError:
       type: object
       properties:
@@ -194,30 +196,30 @@ components:
               type: string
         message:
           type: string
-    explore_plus.StringBreakdown:
+    explore_plus.IntBreakdown:
       type: object
       properties:
         all:
           type: array
           example:
-          - abc
-          - def
+          - 123
+          - 456
           items:
-            type: string
+            type: integer
         any:
           type: array
           example:
-          - abc
-          - def
+          - 123
+          - 456
           items:
-            type: string
+            type: integer
         none:
           type: array
           example:
-          - abc
-          - def
+          - 123
+          - 456
           items:
-            type: string
+            type: integer
     explore_plus.ExplorePlusParameters:
       required:
       - tz
@@ -270,30 +272,30 @@ components:
         tz:
           type: string
           example: Europe/London
-    explore_plus.IntBreakdown:
+    explore_plus.StringBreakdown:
       type: object
       properties:
         all:
           type: array
           example:
-          - 123
-          - 456
+          - abc
+          - def
           items:
-            type: integer
+            type: string
         any:
           type: array
           example:
-          - 123
-          - 456
+          - abc
+          - def
           items:
-            type: integer
+            type: string
         none:
           type: array
           example:
-          - 123
-          - 456
+          - abc
+          - def
           items:
-            type: integer
+            type: string
   securitySchemes:
     apikey:
       type: apiKey

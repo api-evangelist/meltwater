@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Meltwater Account Management Bring Your Own Content (BYOC) API
+  title: Meltwater Bring Your Own Content (BYOC) API
   description: The Meltwater Public API
   contact:
     name: Meltwater Support
@@ -151,6 +151,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ByocResultAPIError'
+      operationId: getV3ImportsBatches
+      x-operation-id-source: derived
   /v3/imports/batches/{batch_id}:
     get:
       tags:
@@ -215,6 +217,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ByocResultAPIError'
+      operationId: getV3ImportsBatchesByBatchId
+      x-operation-id-source: derived
   /v3/imports/import_tags/{import_tag}:
     get:
       tags:
@@ -288,6 +292,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ByocResultAPIError'
+      operationId: getV3ImportsImportTagsByImportTag
+      x-operation-id-source: derived
 components:
   schemas:
     ByocListBatchesResult:
@@ -303,108 +309,6 @@ components:
           type: integer
         total:
           type: integer
-    ByocCoordinates:
-      required:
-      - lat
-      - lon
-      type: object
-      properties:
-        lat:
-          type: number
-          description: Latitude of the location
-          format: float
-          example: 52.52
-        lon:
-          type: number
-          description: Longitude of the location
-          format: float
-          example: 13.405
-      description: Coordinates of the location
-    ByocImportsDocumentsResult:
-      type: object
-      properties:
-        batchId:
-          type: string
-        count:
-          type: integer
-          format: int32
-    ByocContent:
-      type: object
-      properties:
-        title:
-          maxLength: 10000
-          minLength: 0
-          type: string
-          description: Title of the content
-          example: Example Title
-        subtitle:
-          maxLength: 10000
-          minLength: 0
-          type: string
-          description: Subtitle of the content
-          example: Example Subtitle
-        text:
-          type: string
-          description: Text content
-          example: Example text content
-        duration:
-          type: integer
-          description: Duration of the content in seconds
-          format: int32
-          example: 120
-      description: Content details of the document
-    ByocParent:
-      type: object
-      properties:
-        id:
-          maxLength: 1000
-          minLength: 0
-          type: string
-          description: Unique identifier for the parent document
-          example: parent123
-        url:
-          type: string
-          description: URL of the parent document
-          format: url
-          example: http://example.com
-        title:
-          maxLength: 10000
-          minLength: 0
-          type: string
-          description: Title of the parent document
-          example: Parent Document Title
-      description: Parent document details
-    ByocIngestionBatch:
-      type: object
-      properties:
-        batch_id:
-          type: string
-        created_at:
-          type: string
-        import_tags:
-          type: array
-          items:
-            type: string
-        statistics:
-          $ref: '#/components/schemas/ByocIngestionBatchStatistics'
-        status:
-          type: string
-    ByocLocation:
-      type: object
-      properties:
-        countryCode:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-          example: DE
-        locationString:
-          maxLength: 1000
-          minLength: 0
-          type: string
-          description: Location string
-          example: Berlin, Germany
-        coordinates:
-          $ref: '#/components/schemas/ByocCoordinates'
-      description: Location details of the user
     Location:
       required:
       - document_count
@@ -424,6 +328,21 @@ components:
           type: number
           format: double
       description: Location
+    ByocGetBatchesResult:
+      type: object
+      properties:
+        batch_id:
+          type: string
+        created_at:
+          type: string
+        import_tags:
+          type: array
+          items:
+            type: string
+        statistics:
+          $ref: '#/components/schemas/ByocIngestionBatchStatistics'
+        status:
+          type: string
     ByocDocument:
       required:
       - contentType
@@ -536,55 +455,45 @@ components:
             $ref: '#/components/schemas/ByocCustomField'
           maxItems: 100
           minItems: 1
-    ByocResultAPIError:
+    ByocGetImportTagsResult:
       type: object
       properties:
-        message:
+        created_at:
           type: string
-    ByocResultAPIValidationError:
+        import_tag:
+          type: string
+        statistics:
+          $ref: '#/components/schemas/ByocIngestionBatchStatistics'
+        status:
+          type: string
+    ByocImportsDocumentsResult:
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            type: object
-            required:
-            - type
-            - details
-            - title
-            properties:
-              type:
-                type: string
-                example: VALIDATION
-                description: Category of error
-              title:
-                type: string
-                example: 'Validation error for field: type'
-                description: Title of error
-              details:
-                type: string
-                example: This field cannot be updated
-                description: Details about the error
-            additionalProperties: false
-          description: List of problems with the request
-      example:
-        errors:
-        - type: VALIDATION
-          title: Invalid data
-          details: 'field: invalid value'
-      description: Bad Request
-    ByocProduct:
+        batchId:
+          type: string
+        count:
+          type: integer
+          format: int32
+    ByocSource:
       required:
       - name
+      - url
       type: object
       properties:
         name:
           maxLength: 1000
           minLength: 0
           type: string
-          description: Name of the product
-          example: John Doe
-      description: Product details
+          description: Name of the source
+          example: The Meltwater Times
+        url:
+          type: string
+          description: URL of the source
+          format: url
+          example: http://example.com
+        location:
+          $ref: '#/components/schemas/Location'
+      description: Source details of the document
     ByocMetrics:
       type: object
       properties:
@@ -651,50 +560,26 @@ components:
           - Urgent
       additionalProperties: false
       description: Custom fields associated with the document
-    ByocIngestionBatchStatistics:
+    ByocIngestionBatch:
       type: object
       properties:
-        documents_indexed:
-          type: integer
-        documents_sent:
-          type: integer
-        documents_marked_duplicate:
-          type: integer
-        subgroups:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/ByocIngestionSubGroup'
-    ByocImportsDocumentsRequest:
-      required:
-      - documents
-      type: object
-      properties:
-        documents:
-          maxItems: 500
-          minItems: 0
+        batch_id:
+          type: string
+        created_at:
+          type: string
+        import_tags:
           type: array
           items:
-            $ref: '#/components/schemas/ByocDocument'
-    ByocSource:
-      required:
-      - name
-      - url
+            type: string
+        statistics:
+          $ref: '#/components/schemas/ByocIngestionBatchStatistics'
+        status:
+          type: string
+    ByocResultAPIError:
       type: object
       properties:
-        name:
-          maxLength: 1000
-          minLength: 0
+        message:
           type: string
-          description: Name of the source
-          example: The Meltwater Times
-        url:
-          type: string
-          description: URL of the source
-          format: url
-          example: http://example.com
-        location:
-          $ref: '#/components/schemas/Location'
-      description: Source details of the document
     ByocAttachment:
       required:
       - mime
@@ -738,21 +623,108 @@ components:
           format: url
           example: http://example.com
       description: List of attachments associated with the document
-    ByocGetBatchesResult:
+    ByocProduct:
+      required:
+      - name
       type: object
       properties:
-        batch_id:
+        name:
+          maxLength: 1000
+          minLength: 0
           type: string
-        created_at:
+          description: Name of the product
+          example: John Doe
+      description: Product details
+    ByocLocation:
+      type: object
+      properties:
+        countryCode:
           type: string
-        import_tags:
+          description: ISO 3166-1 alpha-2 country code
+          example: DE
+        locationString:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Location string
+          example: Berlin, Germany
+        coordinates:
+          $ref: '#/components/schemas/ByocCoordinates'
+      description: Location details of the user
+    ByocImportsDocumentsRequest:
+      required:
+      - documents
+      type: object
+      properties:
+        documents:
+          maxItems: 500
+          minItems: 0
           type: array
           items:
-            type: string
-        statistics:
-          $ref: '#/components/schemas/ByocIngestionBatchStatistics'
-        status:
+            $ref: '#/components/schemas/ByocDocument'
+    ByocContent:
+      type: object
+      properties:
+        title:
+          maxLength: 10000
+          minLength: 0
           type: string
+          description: Title of the content
+          example: Example Title
+        subtitle:
+          maxLength: 10000
+          minLength: 0
+          type: string
+          description: Subtitle of the content
+          example: Example Subtitle
+        text:
+          type: string
+          description: Text content
+          example: Example text content
+        duration:
+          type: integer
+          description: Duration of the content in seconds
+          format: int32
+          example: 120
+      description: Content details of the document
+    ByocCoordinates:
+      required:
+      - lat
+      - lon
+      type: object
+      properties:
+        lat:
+          type: number
+          description: Latitude of the location
+          format: float
+          example: 52.52
+        lon:
+          type: number
+          description: Longitude of the location
+          format: float
+          example: 13.405
+      description: Coordinates of the location
+    ByocParent:
+      type: object
+      properties:
+        id:
+          maxLength: 1000
+          minLength: 0
+          type: string
+          description: Unique identifier for the parent document
+          example: parent123
+        url:
+          type: string
+          description: URL of the parent document
+          format: url
+          example: http://example.com
+        title:
+          maxLength: 10000
+          minLength: 0
+          type: string
+          description: Title of the parent document
+          example: Parent Document Title
+      description: Parent document details
     ByocUser:
       type: object
       properties:
@@ -788,17 +760,6 @@ components:
         location:
           $ref: '#/components/schemas/ByocLocation'
       description: User / author / speaker / presenter details associated with the document
-    ByocGetImportTagsResult:
-      type: object
-      properties:
-        created_at:
-          type: string
-        import_tag:
-          type: string
-        statistics:
-          $ref: '#/components/schemas/ByocIngestionBatchStatistics'
-        status:
-          type: string
     ByocIngestionSubGroup:
       type: object
       properties:
@@ -806,6 +767,51 @@ components:
           type: integer
         documents_marked_duplicate:
           type: integer
+    ByocResultAPIValidationError:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            required:
+            - type
+            - details
+            - title
+            properties:
+              type:
+                type: string
+                example: VALIDATION
+                description: Category of error
+              title:
+                type: string
+                example: 'Validation error for field: type'
+                description: Title of error
+              details:
+                type: string
+                example: This field cannot be updated
+                description: Details about the error
+            additionalProperties: false
+          description: List of problems with the request
+      example:
+        errors:
+        - type: VALIDATION
+          title: Invalid data
+          details: 'field: invalid value'
+      description: Bad Request
+    ByocIngestionBatchStatistics:
+      type: object
+      properties:
+        documents_indexed:
+          type: integer
+        documents_sent:
+          type: integer
+        documents_marked_duplicate:
+          type: integer
+        subgroups:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ByocIngestionSubGroup'
   securitySchemes:
     apikey:
       type: apiKey

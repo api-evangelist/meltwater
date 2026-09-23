@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Meltwater Account Management Mira API API
+  title: Meltwater Mira API
   description: The Meltwater Public API
   contact:
     name: Meltwater Support
@@ -78,6 +78,8 @@ paths:
           description: Failed to get completion
       security:
       - apikey: []
+      operationId: postV3MiraChat
+      x-operation-id-source: derived
   /v3/mira/responses:
     post:
       tags:
@@ -158,6 +160,8 @@ paths:
           description: Failed to get response
       security:
       - apikey: []
+      operationId: postV3MiraResponses
+      x-operation-id-source: derived
   /v3/mira/projects:
     get:
       tags:
@@ -245,6 +249,8 @@ paths:
           description: Failed to get projects
       security:
       - apikey: []
+      operationId: getV3MiraProjects
+      x-operation-id-source: derived
 components:
   securitySchemes:
     apikey:

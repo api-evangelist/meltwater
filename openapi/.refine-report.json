@@ -1,18 +1,8 @@
 {
   "provider": "meltwater",
   "sources": [
-    "meltwater-account-management-api-openapi.yml",
-    "meltwater-bring-your-own-content-byoc-api-openapi.yml",
-    "meltwater-explore-analytics-api-openapi.yml",
-    "meltwater-explore-assets-api-openapi.yml",
-    "meltwater-explore-search-api-openapi.yml",
-    "meltwater-listening-analytics-api-openapi.yml",
-    "meltwater-listening-exports-api-openapi.yml",
-    "meltwater-listening-search-api-openapi.yml",
-    "meltwater-listening-search-management-api-openapi.yml",
-    "meltwater-listening-streaming-api-openapi.yml",
-    "meltwater-mira-api-api-openapi.yml",
-    "meltwater-owned-analytics-api-openapi.yml"
+    "_original/meltwater-api-openapi.yaml",
+    "_original/meltwater-api-v4-openapi.yaml"
   ],
   "outputs": [
     "meltwater-account-management-api-openapi.yml",
@@ -26,11 +16,37 @@
     "meltwater-listening-search-management-api-openapi.yml",
     "meltwater-listening-streaming-api-openapi.yml",
     "meltwater-mira-api-api-openapi.yml",
-    "meltwater-owned-analytics-api-openapi.yml"
+    "meltwater-owned-analytics-api-openapi.yml",
+    "meltwater-analyze-api-openapi.yml",
+    "meltwater-export-api-openapi.yml",
+    "meltwater-llm-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "meltwater-api-openapi.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "meltwater-api-v4-openapi.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/meltwater-api-v4-openapi.yml: archived document superseded by a larger archived document",
+    "meltwater-account-management-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "meltwater-analyze-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "meltwater-bring-your-own-content-byoc-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "meltwater-explore-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "meltwater-explore-assets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "meltwater-explore-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "meltwater-export-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "meltwater-listening-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "meltwater-listening-exports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "meltwater-listening-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "meltwater-listening-search-management-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "meltwater-listening-streaming-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "meltwater-llm-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "meltwater-mira-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "meltwater-owned-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

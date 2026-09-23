@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Meltwater Account Management API
   description: The Meltwater Public API
@@ -186,7 +186,6 @@ paths:
       tags:
       - Account Management
       summary: Get usage information on specific metric
-      description: Get usage information on specific metric
       parameters:
       - name: metric
         in: path
@@ -271,12 +270,13 @@ paths:
                     message: We encountered an error fetching usage. Please try again.
       security:
       - apikey: []
+      operationId: getV3UsageMeMetricsByMetric
+      x-operation-id-source: derived
   /v3/usage/me/requests:
     get:
       tags:
       - Account Management
       summary: Get usage statistics for your API calls
-      description: Get usage statistics for your API calls
       parameters:
       - name: token_id
         in: query
@@ -334,8 +334,14 @@ paths:
                     message: We encountered an error fetching usage. Please try again.
       security:
       - apikey: []
+      operationId: getV3UsageMeRequests
+      x-operation-id-source: derived
 components:
   schemas:
+    Functions:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/UsageCount'
     Company:
       required:
       - name
@@ -356,65 +362,92 @@ components:
         id: 61d07a1eb6b501051b5af3d7
       description: Company
       additionalProperties: false
+    TokenList:
+      type: object
+      properties:
+        count:
+          type: integer
+        tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/Token'
+      title: Token List
+      description: Token List
+    MetricsTimeSeries:
+      type: object
+      properties:
+        count:
+          type: number
+        metric:
+          type: string
+          enum:
+          - export_count
+          - document_count
+        period:
+          type: string
+          enum:
+          - 24hours
+          - 7days
+          - 30days
+          - 12months
+        feature:
+          type: string
+          enum:
+          - streaming
+          - exports
+        time_series:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentMetricsTimeFrame'
+        units:
+          type: string
+          enum:
+          - hour
+          - day
+          - month
+    UsageCount:
+      type: object
+      properties:
+        count:
+          type: number
+    Workspace:
+      required:
+      - id
+      - name
+      - description
+      - created_at
+      type: object
+      properties:
+        name:
+          type: string
+          description: Workspace name
+          example: My Workspace
+        id:
+          type: string
+          description: Unique workspace identifier
+          example: 61d07a1eb6b501051b5af3d7
+        description:
+          type: string
+          description: Workspace description
+          example: This is a super cool workspace
+        created_at:
+          title: An ISO8601 date-time.
+          type: string
+          description: 'An ISO8601 date-time, including timezone offset.
+
+
+            The timezone offset is an offset in minutes from UTC.'
+          format: date-time
+      title: Workspace
+      example:
+        name: My Workspace
+        id: 61d07a1eb6b501051b5af3d7
+      description: Company
+      additionalProperties: false
     Features:
       type: object
       additionalProperties:
         $ref: '#/components/schemas/Functions'
-    Versions:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/Features'
-    CompanyList:
-      type: object
-      properties:
-        companies:
-          type: array
-          items:
-            $ref: '#/components/schemas/Company'
-      title: Company List
-      items:
-        $ref: '#/components/schemas/Company'
-      description: Company List
-    UsageInternalErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-    ValidationFailed:
-      required:
-      - errors
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message describing, in brief, the problem.
-        errors:
-          type: object
-          additionalProperties:
-            uniqueItems: true
-            type: array
-            items:
-              type: string
-              description: A description of the problem encountered on this field.
-          description: A breakdown of each problem encountered, by field.
-      example:
-        message: Validation Failed
-        errors:
-          start:
-          - '''foo'' is not a valid ISO 8601 local timestamp'
-          end:
-          - Missing required parameter
-    Unauthorized:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message describing, in brief, the problem.
-      example:
-        message: Unauthorized
     Token:
       required:
       - id
@@ -452,21 +485,41 @@ components:
         created_by: Alex Morgan
       description: Token
       additionalProperties: false
-    HttpRequestsTimeSeries:
+    Unauthorized:
+      required:
+      - message
       type: object
       properties:
-        count:
-          type: number
-        time_series:
-          type: array
-          items:
-            $ref: '#/components/schemas/HttpCallsTimeFrame'
-        units:
+        message:
           type: string
-          enum:
-          - hour
-          - day
-          - month
+          description: A message describing, in brief, the problem.
+      example:
+        message: Unauthorized
+    ValidationFailed:
+      required:
+      - errors
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing, in brief, the problem.
+        errors:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              description: A description of the problem encountered on this field.
+          description: A breakdown of each problem encountered, by field.
+      example:
+        message: Validation Failed
+        errors:
+          start:
+          - '''foo'' is not a valid ISO 8601 local timestamp'
+          end:
+          - Missing required parameter
     HttpCallsTimeFrame:
       type: object
       properties:
@@ -474,71 +527,21 @@ components:
           $ref: '#/components/schemas/Versions'
         timestamp:
           type: string
-    UsageCount:
-      type: object
-      properties:
-        count:
-          type: number
-    WorkspaceList:
-      type: object
-      properties:
-        count:
-          type: integer
-        workspaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/Workspace'
-      title: Workspace List
-      items:
-        $ref: '#/components/schemas/Workspace'
-      description: Workspace List
-    TokenList:
-      type: object
-      properties:
-        count:
-          type: integer
-        tokens:
-          type: array
-          items:
-            $ref: '#/components/schemas/Token'
-      title: Token List
-      description: Token List
-    Functions:
+    Versions:
       type: object
       additionalProperties:
-        $ref: '#/components/schemas/UsageCount'
-    MetricsTimeSeries:
+        $ref: '#/components/schemas/Features'
+    CompanyList:
       type: object
       properties:
-        count:
-          type: number
-        metric:
-          type: string
-          enum:
-          - export_count
-          - document_count
-        period:
-          type: string
-          enum:
-          - 24hours
-          - 7days
-          - 30days
-          - 12months
-        feature:
-          type: string
-          enum:
-          - streaming
-          - exports
-        time_series:
+        companies:
           type: array
           items:
-            $ref: '#/components/schemas/DocumentMetricsTimeFrame'
-        units:
-          type: string
-          enum:
-          - hour
-          - day
-          - month
+            $ref: '#/components/schemas/Company'
+      title: Company List
+      items:
+        $ref: '#/components/schemas/Company'
+      description: Company List
     ErrorDetails:
       required:
       - type
@@ -555,46 +558,10 @@ components:
         details:
           type: string
           description: Details about the error
-    Workspace:
-      required:
-      - id
-      - name
-      - description
-      - created_at
+    UsageInternalErrorResponse:
       type: object
       properties:
-        name:
-          type: string
-          description: Workspace name
-          example: My Workspace
-        id:
-          type: string
-          description: Unique workspace identifier
-          example: 61d07a1eb6b501051b5af3d7
-        description:
-          type: string
-          description: Workspace description
-          example: This is a super cool workspace
-        created_at:
-          title: An ISO8601 date-time.
-          type: string
-          description: 'An ISO8601 date-time, including timezone offset.
-
-
-            The timezone offset is an offset in minutes from UTC.'
-          format: date-time
-      title: Workspace
-      example:
-        name: My Workspace
-        id: 61d07a1eb6b501051b5af3d7
-      description: Company
-      additionalProperties: false
-    DocumentMetricsTimeFrame:
-      type: object
-      properties:
-        count:
-          type: number
-        timestamp:
+        message:
           type: string
     Errors:
       required:
@@ -616,6 +583,41 @@ components:
       description: Errors
       discriminator:
         propertyName: type
+    DocumentMetricsTimeFrame:
+      type: object
+      properties:
+        count:
+          type: number
+        timestamp:
+          type: string
+    HttpRequestsTimeSeries:
+      type: object
+      properties:
+        count:
+          type: number
+        time_series:
+          type: array
+          items:
+            $ref: '#/components/schemas/HttpCallsTimeFrame'
+        units:
+          type: string
+          enum:
+          - hour
+          - day
+          - month
+    WorkspaceList:
+      type: object
+      properties:
+        count:
+          type: integer
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workspace'
+      title: Workspace List
+      items:
+        $ref: '#/components/schemas/Workspace'
+      description: Workspace List
   securitySchemes:
     apikey:
       type: apiKey

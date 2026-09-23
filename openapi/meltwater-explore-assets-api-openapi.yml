@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Meltwater Account Management Explore+ Assets API
+  title: Meltwater Explore+ Assets API
   description: The Meltwater Public API
   contact:
     name: Meltwater Support
@@ -20,7 +20,7 @@ paths:
     get:
       tags:
       - Explore+ Assets
-      summary: List all custom fields.
+      summary: List all custom fields
       description: List all custom fields.
       parameters:
       - name: page
@@ -97,10 +97,12 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: getV3ExplorePlusAssetsCustomFields
+      x-operation-id-source: derived
     post:
       tags:
       - Explore+ Assets
-      summary: Create a new custom field.
+      summary: Create a new custom field
       description: Create a new custom field.
       parameters:
       - name: workspace_id
@@ -192,11 +194,13 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: postV3ExplorePlusAssetsCustomFields
+      x-operation-id-source: derived
   /v3/explore_plus/assets/custom_fields/{custom_field_id}:
     get:
       tags:
       - Explore+ Assets
-      summary: Fetch a given custom field.
+      summary: Fetch a given custom field
       description: Fetch a given custom field.
       parameters:
       - name: custom_field_id
@@ -271,10 +275,12 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: getV3ExplorePlusAssetsCustomFieldsByCustomFieldId
+      x-operation-id-source: derived
     put:
       tags:
       - Explore+ Assets
-      summary: Update a given custom field.
+      summary: Update a given custom field
       description: Update a given custom field.
       parameters:
       - name: custom_field_id
@@ -372,10 +378,12 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: putV3ExplorePlusAssetsCustomFieldsByCustomFieldId
+      x-operation-id-source: derived
     delete:
       tags:
       - Explore+ Assets
-      summary: Delete a given custom field.
+      summary: Delete a given custom field
       description: Delete a given custom field.
       parameters:
       - name: custom_field_id
@@ -419,11 +427,13 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: deleteV3ExplorePlusAssetsCustomFieldsByCustomFieldId
+      x-operation-id-source: derived
   /v3/explore_plus/assets/custom_fields/{custom_field_id}/values:
     post:
       tags:
       - Explore+ Assets
-      summary: Create a new custom field value.
+      summary: Create a new custom field value
       description: Create a new custom field value.
       parameters:
       - name: custom_field_id
@@ -494,11 +504,13 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: postV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValues
+      x-operation-id-source: derived
   /v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}:
     get:
       tags:
       - Explore+ Assets
-      summary: Fetch a given custom field value.
+      summary: Fetch a given custom field value
       description: Fetch a given custom field value.
       parameters:
       - name: custom_field_id
@@ -574,10 +586,12 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: getV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValuesByValueId
+      x-operation-id-source: derived
     put:
       tags:
       - Explore+ Assets
-      summary: Update a given custom field value.
+      summary: Update a given custom field value
       description: Update a given custom field value.
       parameters:
       - name: custom_field_id
@@ -667,10 +681,12 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: putV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValuesByValueId
+      x-operation-id-source: derived
     delete:
       tags:
       - Explore+ Assets
-      summary: Delete a given custom field value.
+      summary: Delete a given custom field value
       description: Delete a given custom field value.
       parameters:
       - name: custom_field_id
@@ -720,11 +736,13 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: deleteV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValuesByValueId
+      x-operation-id-source: derived
   /v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules:
     post:
       tags:
       - Explore+ Assets
-      summary: Create a new assignment rule.
+      summary: Create a new assignment rule
       description: Create a new assignment rule.
       parameters:
       - name: custom_field_id
@@ -834,11 +852,13 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: postV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValuesByValueIdRules
+      x-operation-id-source: derived
   /v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules/{rule_id}:
     get:
       tags:
       - Explore+ Assets
-      summary: Fetch a given assignment rule.
+      summary: Fetch a given assignment rule
       description: Fetch a given assignment rule.
       parameters:
       - name: custom_field_id
@@ -925,10 +945,12 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: getV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValuesByValueIdRulesByRuleId
+      x-operation-id-source: derived
     put:
       tags:
       - Explore+ Assets
-      summary: Update a given assignment rule.
+      summary: Update a given assignment rule
       description: Update a given assignment rule.
       parameters:
       - name: custom_field_id
@@ -1044,10 +1066,12 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: putV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValuesByValueIdRulesByRuleId
+      x-operation-id-source: derived
     delete:
       tags:
       - Explore+ Assets
-      summary: Delete a given assignment rule.
+      summary: Delete a given assignment rule
       description: Delete a given assignment rule.
       parameters:
       - name: custom_field_id
@@ -1103,11 +1127,13 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: deleteV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValuesByValueIdRulesByRuleId
+      x-operation-id-source: derived
   /v3/explore_plus/assets/custom_fields/folders:
     get:
       tags:
       - Explore+ Assets
-      summary: List all custom field folders.
+      summary: List all custom field folders
       description: List all custom field folders.
       parameters:
       - name: page
@@ -1173,11 +1199,13 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: getV3ExplorePlusAssetsCustomFieldsFolders
+      x-operation-id-source: derived
   /v3/explore_plus/assets/searches:
     get:
       tags:
       - Explore+ Assets
-      summary: List all searches.
+      summary: List all searches
       description: List all searches.
       parameters:
       - name: page
@@ -1264,10 +1292,12 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: getV3ExplorePlusAssetsSearches
+      x-operation-id-source: derived
     post:
       tags:
       - Explore+ Assets
-      summary: Create a new search.
+      summary: Create a new search
       description: Create a new search.
       parameters:
       - name: workspace_id
@@ -1434,11 +1464,13 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: postV3ExplorePlusAssetsSearches
+      x-operation-id-source: derived
   /v3/explore_plus/assets/searches/{search_id}:
     get:
       tags:
       - Explore+ Assets
-      summary: Fetch a given search.
+      summary: Fetch a given search
       description: Fetch a given search.
       parameters:
       - name: search_id
@@ -1552,10 +1584,12 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: getV3ExplorePlusAssetsSearchesBySearchId
+      x-operation-id-source: derived
     put:
       tags:
       - Explore+ Assets
-      summary: Update a given search.
+      summary: Update a given search
       description: Update a given search.
       parameters:
       - name: search_id
@@ -1728,10 +1762,12 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: putV3ExplorePlusAssetsSearchesBySearchId
+      x-operation-id-source: derived
     delete:
       tags:
       - Explore+ Assets
-      summary: Delete a given search.
+      summary: Delete a given search
       description: Delete a given search.
       parameters:
       - name: search_id
@@ -1775,11 +1811,13 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: deleteV3ExplorePlusAssetsSearchesBySearchId
+      x-operation-id-source: derived
   /v3/explore_plus/assets/searches/folders:
     get:
       tags:
       - Explore+ Assets
-      summary: List all search folders.
+      summary: List all search folders
       description: List all search folders.
       parameters:
       - name: page
@@ -1861,115 +1899,10 @@ paths:
                 $ref: '#/components/schemas/controllers.ExplorePlusAPIError'
       security:
       - apikey: []
+      operationId: getV3ExplorePlusAssetsSearchesFolders
+      x-operation-id-source: derived
 components:
   schemas:
-    assignment_rules.RuleQueryInput:
-      required:
-      - case_sensitivity
-      - type
-      type: object
-      properties:
-        all_keywords:
-          type: array
-          example:
-          - car
-          items:
-            type: string
-        any_keywords:
-          type: array
-          example:
-          - boat
-          items:
-            type: string
-        boolean:
-          type: string
-          example: this is a boolean
-        case_sensitivity:
-          type: string
-          example: 'yes'
-          enum:
-          - 'yes'
-          - 'no'
-          - hybrid
-        not_keywords:
-          type: array
-          example:
-          - plane
-          items:
-            type: string
-        type:
-          type: string
-          example: boolean
-          enum:
-          - keyword
-          - boolean
-    searches.CreateSearch:
-      required:
-      - name
-      type: object
-      properties:
-        color:
-          type: string
-          example: '#ffffff'
-        data_collection:
-          type: boolean
-          example: true
-        description:
-          type: string
-          example: this is an example of a description
-        folder_id:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: my search
-        query:
-          $ref: '#/components/schemas/explore_plus.QueryInput'
-    assignment_rules.AssignmentRuleInput:
-      type: object
-      properties:
-        query:
-          $ref: '#/components/schemas/assignment_rules.RuleQueryInput'
-    custom_fields.CustomFieldOutput:
-      type: object
-      properties:
-        created:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-        description:
-          type: string
-          example: this is an example of a description
-        folder_id:
-          type: integer
-          example: 2
-        id:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: my custom field
-        type:
-          type: string
-          example: boolean
-        updated:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/custom_field_values.CustomFieldValueOutput'
-    custom_fields.CustomFieldFolderOutput:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: my custom field folder
-        num_custom_fields:
-          type: integer
-          example: 1
     custom_fields.UpdateCustomField:
       required:
       - description
@@ -1990,257 +1923,16 @@ components:
       properties:
         rule:
           $ref: '#/components/schemas/assignment_rules.AssignmentRuleInput'
-    custom_fields.CustomFieldFoldersResponse:
-      type: object
-      properties:
-        folders:
-          type: array
-          items:
-            $ref: '#/components/schemas/custom_fields.CustomFieldFolderOutput'
-        page:
-          type: integer
-          example: 1
-        page_size:
-          type: integer
-          example: 10
-        total:
-          type: integer
-          example: 20
-    searches.SearchFolderOutput:
-      type: object
-      properties:
-        color:
-          type: string
-          example: '#ffffff'
-        created:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-        id:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: my search folder
-        num_searches:
-          type: integer
-          example: 2
-        parent:
-          type: integer
-          example: 1
-        updated:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-        hidden:
-          type: boolean
-          example: false
-    searches.SearchOutput:
-      type: object
-      properties:
-        color:
-          type: string
-          example: '#ffffff'
-        created:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-        data_collection:
-          type: boolean
-          example: false
-        data_collection_updated:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-        description:
-          type: string
-          example: this is an example of a description
-        folder_id:
-          type: integer
-          example: 2
-        id:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: my search
-        query:
-          type: object
-          additionalProperties:
-            type: string
-          example:
-            boolean: this is a boolean
-            type: boolean
-        updated:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-        hidden:
-          type: boolean
-          example: false
-    assignment_rules.SingleAssignmentRuleResponse:
-      type: object
-      properties:
-        rule:
-          $ref: '#/components/schemas/assignment_rules.AssignmentRuleOutput'
-    explore_plus.CombinedInput:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 123456
-        type:
-          type: string
-          example: SEARCH
-    assignment_rules.AssignmentRuleOutput:
-      type: object
-      properties:
-        created:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-        id:
-          type: integer
-          example: 1
-        query:
-          type: object
-          additionalProperties:
-            type: string
-          example:
-            boolean: this is a boolean
-            type: boolean
-        updated:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-    custom_fields.CreateCustomField:
-      required:
-      - name
-      - type
-      type: object
-      properties:
-        description:
-          type: string
-          example: this is an example of a description
-        folder_id:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: my custom field
-        type:
-          type: string
-          example: tag
-          enum:
-          - tag
-          - multi_value
-    controllers.ExplorePlusAPIError:
-      type: object
-      properties:
-        message:
-          type: string
-    searches.SearchFoldersResponse:
-      type: object
-      properties:
-        folders:
-          type: array
-          items:
-            $ref: '#/components/schemas/searches.SearchFolderOutput'
-        page:
-          type: integer
-          example: 1
-        page_size:
-          type: integer
-          example: 10
-        total:
-          type: integer
-          example: 20
-    searches.MultiSearchResponse:
-      type: object
-      properties:
-        page:
-          type: integer
-          example: 1
-        page_size:
-          type: integer
-          example: 10
-        searches:
-          type: array
-          items:
-            $ref: '#/components/schemas/searches.SearchOutput'
-        total:
-          type: integer
-          example: 20
-    custom_fields.CreateCustomFieldRequestInput:
-      type: object
-      properties:
-        custom_field:
-          $ref: '#/components/schemas/custom_fields.CreateCustomField'
-    custom_fields.SingleCustomFieldResponse:
-      type: object
-      properties:
-        custom_field:
-          $ref: '#/components/schemas/custom_fields.CustomFieldOutput'
-    custom_fields.UpdateCustomFieldRequestInput:
-      type: object
-      properties:
-        custom_field:
-          $ref: '#/components/schemas/custom_fields.UpdateCustomField'
-    searches.SingleSearchResponse:
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/searches.SearchOutput'
     custom_field_values.SingleCustomFieldValueResponse:
       type: object
       properties:
         custom_field_value:
           $ref: '#/components/schemas/custom_field_values.CustomFieldValueOutput'
-    custom_field_values.CustomFieldValueOutput:
+    assignment_rules.SingleAssignmentRuleResponse:
       type: object
       properties:
-        color:
-          type: string
-          example: '#ffffff'
-        created:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-        id:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: my custom field value
-        num_rules:
-          type: integer
-          example: 1
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/assignment_rules.AssignmentRuleOutput'
-        updated:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-    searches.CreateSearchRequestInput:
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/searches.CreateSearch'
-    controllers.ExplorePlusAPIValidationError:
-      type: object
-      properties:
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        message:
-          type: string
-    custom_field_values.CreateCustomFieldValue:
-      required:
-      - name
-      type: object
-      properties:
-        color:
-          type: string
-          example: '#ffffff'
-        name:
-          type: string
-          example: my custom field value
+        rule:
+          $ref: '#/components/schemas/assignment_rules.AssignmentRuleOutput'
     explore_plus.QueryInput:
       required:
       - type
@@ -2289,6 +1981,216 @@ components:
           - keyword
           - boolean
           - combined
+    searches.SearchFolderOutput:
+      type: object
+      properties:
+        color:
+          type: string
+          example: '#ffffff'
+        created:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my search folder
+        num_searches:
+          type: integer
+          example: 2
+        parent:
+          type: integer
+          example: 1
+        updated:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        hidden:
+          type: boolean
+          example: false
+    searches.CreateSearch:
+      required:
+      - name
+      type: object
+      properties:
+        color:
+          type: string
+          example: '#ffffff'
+        data_collection:
+          type: boolean
+          example: true
+        description:
+          type: string
+          example: this is an example of a description
+        folder_id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my search
+        query:
+          $ref: '#/components/schemas/explore_plus.QueryInput'
+    custom_fields.CustomFieldFoldersResponse:
+      type: object
+      properties:
+        folders:
+          type: array
+          items:
+            $ref: '#/components/schemas/custom_fields.CustomFieldFolderOutput'
+        page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 20
+    assignment_rules.AssignmentRuleOutput:
+      type: object
+      properties:
+        created:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        id:
+          type: integer
+          example: 1
+        query:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            boolean: this is a boolean
+            type: boolean
+        updated:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+    searches.SearchOutput:
+      type: object
+      properties:
+        color:
+          type: string
+          example: '#ffffff'
+        created:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        data_collection:
+          type: boolean
+          example: false
+        data_collection_updated:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        description:
+          type: string
+          example: this is an example of a description
+        folder_id:
+          type: integer
+          example: 2
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my search
+        query:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            boolean: this is a boolean
+            type: boolean
+        updated:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        hidden:
+          type: boolean
+          example: false
+    searches.SingleSearchResponse:
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/searches.SearchOutput'
+    custom_field_values.CustomFieldValueOutput:
+      type: object
+      properties:
+        color:
+          type: string
+          example: '#ffffff'
+        created:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my custom field value
+        num_rules:
+          type: integer
+          example: 1
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/assignment_rules.AssignmentRuleOutput'
+        updated:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+    custom_fields.CustomFieldFolderOutput:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my custom field folder
+        num_custom_fields:
+          type: integer
+          example: 1
+    custom_fields.SingleCustomFieldResponse:
+      type: object
+      properties:
+        custom_field:
+          $ref: '#/components/schemas/custom_fields.CustomFieldOutput'
+    custom_fields.CustomFieldOutput:
+      type: object
+      properties:
+        created:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        description:
+          type: string
+          example: this is an example of a description
+        folder_id:
+          type: integer
+          example: 2
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my custom field
+        type:
+          type: string
+          example: boolean
+        updated:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/custom_field_values.CustomFieldValueOutput'
+    controllers.ExplorePlusAPIValidationError:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        message:
+          type: string
     custom_fields.MultiCustomFieldsResponse:
       type: object
       properties:
@@ -2305,11 +2207,149 @@ components:
         total:
           type: integer
           example: 20
+    assignment_rules.RuleQueryInput:
+      required:
+      - case_sensitivity
+      - type
+      type: object
+      properties:
+        all_keywords:
+          type: array
+          example:
+          - car
+          items:
+            type: string
+        any_keywords:
+          type: array
+          example:
+          - boat
+          items:
+            type: string
+        boolean:
+          type: string
+          example: this is a boolean
+        case_sensitivity:
+          type: string
+          example: 'yes'
+          enum:
+          - 'yes'
+          - 'no'
+          - hybrid
+        not_keywords:
+          type: array
+          example:
+          - plane
+          items:
+            type: string
+        type:
+          type: string
+          example: boolean
+          enum:
+          - keyword
+          - boolean
+    searches.CreateSearchRequestInput:
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/searches.CreateSearch'
+    assignment_rules.AssignmentRuleInput:
+      type: object
+      properties:
+        query:
+          $ref: '#/components/schemas/assignment_rules.RuleQueryInput'
+    custom_fields.UpdateCustomFieldRequestInput:
+      type: object
+      properties:
+        custom_field:
+          $ref: '#/components/schemas/custom_fields.UpdateCustomField'
+    custom_fields.CreateCustomFieldRequestInput:
+      type: object
+      properties:
+        custom_field:
+          $ref: '#/components/schemas/custom_fields.CreateCustomField'
+    explore_plus.CombinedInput:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 123456
+        type:
+          type: string
+          example: SEARCH
     custom_field_values.CreateCustomFieldValueRequestInput:
       type: object
       properties:
         custom_field_value:
           $ref: '#/components/schemas/custom_field_values.CreateCustomFieldValue'
+    custom_fields.CreateCustomField:
+      required:
+      - name
+      - type
+      type: object
+      properties:
+        description:
+          type: string
+          example: this is an example of a description
+        folder_id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my custom field
+        type:
+          type: string
+          example: tag
+          enum:
+          - tag
+          - multi_value
+    controllers.ExplorePlusAPIError:
+      type: object
+      properties:
+        message:
+          type: string
+    searches.MultiSearchResponse:
+      type: object
+      properties:
+        page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        searches:
+          type: array
+          items:
+            $ref: '#/components/schemas/searches.SearchOutput'
+        total:
+          type: integer
+          example: 20
+    custom_field_values.CreateCustomFieldValue:
+      required:
+      - name
+      type: object
+      properties:
+        color:
+          type: string
+          example: '#ffffff'
+        name:
+          type: string
+          example: my custom field value
+    searches.SearchFoldersResponse:
+      type: object
+      properties:
+        folders:
+          type: array
+          items:
+            $ref: '#/components/schemas/searches.SearchFolderOutput'
+        page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 20
   securitySchemes:
     apikey:
       type: apiKey

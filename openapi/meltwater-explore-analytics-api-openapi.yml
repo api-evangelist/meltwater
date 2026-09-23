@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Meltwater Account Management Explore+ Analytics API
+  title: Meltwater Explore+ Analytics API
   description: The Meltwater Public API
   contact:
     name: Meltwater Support
@@ -20,7 +20,7 @@ paths:
     post:
       tags:
       - Explore+ Analytics
-      summary: Analyse earned data in your private index.
+      summary: Analyse earned data in your private index
       description: Analyse earned data in your private index.
       parameters:
       - name: workspace_id
@@ -252,11 +252,13 @@ paths:
                 $ref: '#/components/schemas/controllers.APIError'
       security:
       - apikey: []
+      operationId: postV3ExplorePlusAnalyticsCustom
+      x-operation-id-source: derived
   /v3/explore_plus/analytics/custom/catalog:
     get:
       tags:
       - Explore+ Analytics
-      summary: Fetch available analytics options.
+      summary: Fetch available analytics options
       description: Fetch available analytics options.
       responses:
         '200':
@@ -267,8 +269,84 @@ paths:
                 $ref: '#/components/schemas/explore_plus.CatalogResponse'
       security:
       - apikey: []
+      operationId: getV3ExplorePlusAnalyticsCustomCatalog
+      x-operation-id-source: derived
 components:
   schemas:
+    explore_plus.SentimentBreakdown:
+      type: object
+      properties:
+        all:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+        any:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+        none:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+    explore_plus.CustomResponse:
+      required:
+      - analysis
+      - end
+      - searches
+      - start
+      - tz
+      type: object
+      properties:
+        analysis:
+          $ref: '#/components/schemas/explore_plus.Analytic'
+        end:
+          type: string
+          example: '2021-09-28T00:00:00'
+        filters:
+          $ref: '#/components/schemas/explore_plus.Filters'
+        result:
+          $ref: '#/components/schemas/explore_plus.AnalyticResponse'
+        searches:
+          $ref: '#/components/schemas/explore_plus.IntBreakdown'
+        start:
+          type: string
+          example: '2021-09-27T00:00:00'
+        tz:
+          type: string
+          example: Europe/London
+    explore_plus.CustomAnalyticsRequest:
+      required:
+      - analysis
+      - end
+      - searches
+      - start
+      - tz
+      type: object
+      properties:
+        analysis:
+          $ref: '#/components/schemas/explore_plus.Analytic'
+        end:
+          type: string
+          example: '2021-09-28T00:00:00'
+        filters:
+          $ref: '#/components/schemas/explore_plus.Filters'
+        searches:
+          $ref: '#/components/schemas/explore_plus.IntBreakdown'
+        start:
+          type: string
+          example: '2021-09-27T00:00:00'
+        tz:
+          type: string
+          example: Europe/London
     explore_plus.Filters:
       type: object
       properties:
@@ -284,6 +362,44 @@ components:
           $ref: '#/components/schemas/explore_plus.SentimentBreakdown'
         sources:
           $ref: '#/components/schemas/explore_plus.StringBreakdown'
+    controllers.APIError:
+      type: object
+      properties:
+        message:
+          type: string
+    explore_plus.AnalyticResponse:
+      type: object
+      properties:
+        analysis:
+          type: array
+          items:
+            type: integer
+        document_count:
+          type: integer
+    explore_plus.CatalogResponse:
+      type: object
+      properties:
+        dimensions:
+          type: array
+          example:
+          - author_age
+          - author_gender
+          items:
+            type: string
+        measures:
+          type: array
+          example:
+          - engagement
+          - estimated_views
+          items:
+            type: string
+        types:
+          type: array
+          example:
+          - document_count
+          - top_terms
+          items:
+            type: string
     explore_plus.Analytic:
       type: object
       properties:
@@ -317,109 +433,6 @@ components:
         type:
           type: string
           example: document_count
-    explore_plus.CustomAnalyticsRequest:
-      required:
-      - analysis
-      - end
-      - searches
-      - start
-      - tz
-      type: object
-      properties:
-        analysis:
-          $ref: '#/components/schemas/explore_plus.Analytic'
-        end:
-          type: string
-          example: '2021-09-28T00:00:00'
-        filters:
-          $ref: '#/components/schemas/explore_plus.Filters'
-        searches:
-          $ref: '#/components/schemas/explore_plus.IntBreakdown'
-        start:
-          type: string
-          example: '2021-09-27T00:00:00'
-        tz:
-          type: string
-          example: Europe/London
-    controllers.APIError:
-      type: object
-      properties:
-        message:
-          type: string
-    explore_plus.CustomResponse:
-      required:
-      - analysis
-      - end
-      - searches
-      - start
-      - tz
-      type: object
-      properties:
-        analysis:
-          $ref: '#/components/schemas/explore_plus.Analytic'
-        end:
-          type: string
-          example: '2021-09-28T00:00:00'
-        filters:
-          $ref: '#/components/schemas/explore_plus.Filters'
-        result:
-          $ref: '#/components/schemas/explore_plus.AnalyticResponse'
-        searches:
-          $ref: '#/components/schemas/explore_plus.IntBreakdown'
-        start:
-          type: string
-          example: '2021-09-27T00:00:00'
-        tz:
-          type: string
-          example: Europe/London
-    explore_plus.SentimentBreakdown:
-      type: object
-      properties:
-        all:
-          type: array
-          example:
-          - positive
-          - negative
-          items:
-            type: string
-        any:
-          type: array
-          example:
-          - positive
-          - negative
-          items:
-            type: string
-        none:
-          type: array
-          example:
-          - positive
-          - negative
-          items:
-            type: string
-    explore_plus.CatalogResponse:
-      type: object
-      properties:
-        dimensions:
-          type: array
-          example:
-          - author_age
-          - author_gender
-          items:
-            type: string
-        measures:
-          type: array
-          example:
-          - engagement
-          - estimated_views
-          items:
-            type: string
-        types:
-          type: array
-          example:
-          - document_count
-          - top_terms
-          items:
-            type: string
     controllers.APIValidationError:
       type: object
       properties:
@@ -431,39 +444,6 @@ components:
               type: string
         message:
           type: string
-    explore_plus.AnalyticResponse:
-      type: object
-      properties:
-        analysis:
-          type: array
-          items:
-            type: integer
-        document_count:
-          type: integer
-    explore_plus.StringBreakdown:
-      type: object
-      properties:
-        all:
-          type: array
-          example:
-          - abc
-          - def
-          items:
-            type: string
-        any:
-          type: array
-          example:
-          - abc
-          - def
-          items:
-            type: string
-        none:
-          type: array
-          example:
-          - abc
-          - def
-          items:
-            type: string
     explore_plus.IntBreakdown:
       type: object
       properties:
@@ -488,6 +468,30 @@ components:
           - 456
           items:
             type: integer
+    explore_plus.StringBreakdown:
+      type: object
+      properties:
+        all:
+          type: array
+          example:
+          - abc
+          - def
+          items:
+            type: string
+        any:
+          type: array
+          example:
+          - abc
+          - def
+          items:
+            type: string
+        none:
+          type: array
+          example:
+          - abc
+          - def
+          items:
+            type: string
   securitySchemes:
     apikey:
       type: apiKey

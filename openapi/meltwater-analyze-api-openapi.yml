@@ -14,9 +14,7 @@ info:
 
     - Consistent pagination and error handling
 
-    - Comprehensive analytics with nested analysis support
-
-    '
+    - Comprehensive analytics with nested analysis support'
   contact:
     name: Meltwater API Support
     url: https://developer.meltwater.com/
@@ -241,19 +239,6 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
-    analysis-period:
-      type: object
-      description: Time range for the analysis. Both start and end are required (ISO 8601 datetimes without timezone).
-      required:
-      - start
-      - end
-      properties:
-        start:
-          type: string
-          description: Start of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-01T00:00:00).
-        end:
-          type: string
-          description: End of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-31T23:59:59).
     analysis:
       type: object
       required:
@@ -291,21 +276,6 @@ components:
           description: Nested sub-analysis
           allOf:
           - $ref: '#/components/schemas/analysis'
-    string-filter:
-      type: object
-      properties:
-        all:
-          type: array
-          items:
-            type: string
-        any:
-          type: array
-          items:
-            type: string
-        none:
-          type: array
-          items:
-            type: string
     analytics-query:
       type: object
       required:
@@ -328,21 +298,62 @@ components:
           $ref: '#/components/schemas/query'
         analysis:
           $ref: '#/components/schemas/analysis'
-    id-filter:
+    error:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code
+          enum:
+          - INVALID_QUERY
+          - RESOURCE_NOT_FOUND
+          - UNAUTHORIZED
+          - FORBIDDEN
+          - RATE_LIMITED
+          - INTERNAL_ERROR
+          - VALIDATION_ERROR
+          - PROVIDER_ERROR
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          description: Additional error context
+          additionalProperties: true
+        request_id:
+          type: string
+          description: Unique request identifier for debugging
+    string-filter:
       type: object
       properties:
         all:
           type: array
           items:
-            type: integer
+            type: string
         any:
           type: array
           items:
-            type: integer
+            type: string
         none:
           type: array
           items:
-            type: integer
+            type: string
+    analysis-period:
+      type: object
+      description: Time range for the analysis. Both start and end are required (ISO 8601 datetimes without timezone).
+      required:
+      - start
+      - end
+      properties:
+        start:
+          type: string
+          description: Start of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-01T00:00:00).
+        end:
+          type: string
+          description: End of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-31T23:59:59).
     query:
       type: object
       properties:
@@ -405,35 +416,28 @@ components:
               $ref: '#/components/schemas/string-filter'
             sentiments:
               $ref: '#/components/schemas/string-filter'
-    error:
+    id-filter:
       type: object
-      required:
-      - code
-      - message
       properties:
-        code:
-          type: string
-          description: Machine-readable error code
-          enum:
-          - INVALID_QUERY
-          - RESOURCE_NOT_FOUND
-          - UNAUTHORIZED
-          - FORBIDDEN
-          - RATE_LIMITED
-          - INTERNAL_ERROR
-          - VALIDATION_ERROR
-          - PROVIDER_ERROR
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: object
-          description: Additional error context
-          additionalProperties: true
-        request_id:
-          type: string
-          description: Unique request identifier for debugging
+        all:
+          type: array
+          items:
+            type: integer
+        any:
+          type: array
+          items:
+            type: integer
+        none:
+          type: array
+          items:
+            type: integer
   responses:
+    Error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
     Unauthorized:
       description: Authentication required
       content:
@@ -444,12 +448,6 @@ components:
             code: UNAUTHORIZED
             message: Not Authorized
             request_id: 123e4567-e89b-12d3-a456-426614174000
-    Error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
     NotFound:
       description: Resource not found
       content:

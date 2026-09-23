@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Meltwater Account Management Listening Streaming API
+  title: Meltwater Listening Streaming API
   description: The Meltwater Public API
   contact:
     name: Meltwater Support
@@ -20,7 +20,7 @@ paths:
     get:
       tags:
       - Listening Streaming
-      summary: List all hooks.
+      summary: List all hooks
       description: 'List all hooks.
 
 
@@ -45,7 +45,15 @@ paths:
       tags:
       - Listening Streaming
       summary: Creates a hook
-      description: "Creates a hook for one of your predefined searches.\n Delivers search results for the query referenced by the `search_id` to the `target_url` via HTTP POST. Note that a `hook_id` will be returned on successful creation, this id is needed to delete the hook.\n\n We are also returning the header: `X-Hook-Secret`, a shared secret used to sign the document body pushed to your `target_url`.\n\n\n Specify `company_id` if your `search_id` is not in your default company."
+      description: 'Creates a hook for one of your predefined searches.
+
+        Delivers search results for the query referenced by the `search_id` to the `target_url` via HTTP POST. Note that a `hook_id` will be returned on successful creation, this id is needed to delete the hook.
+
+
+        We are also returning the header: `X-Hook-Secret`, a shared secret used to sign the document body pushed to your `target_url`.
+
+
+        Specify `company_id` if your `search_id` is not in your default company.'
       parameters:
       - in: header
         name: X-Hook-Secret
@@ -99,8 +107,10 @@ paths:
     delete:
       tags:
       - Listening Streaming
-      summary: Delete an existing hook.
-      description: "Delete an existing hook.\n Removes the hook and stops sending any search results to the target_url."
+      summary: Delete an existing hook
+      description: 'Delete an existing hook.
+
+        Removes the hook and stops sending any search results to the target_url.'
       parameters:
       - in: path
         name: hook_id
@@ -127,7 +137,7 @@ paths:
     get:
       tags:
       - Listening Streaming
-      summary: Get an individual hook.
+      summary: Get an individual hook
       description: 'Get an individual hook.
 
 
@@ -163,6 +173,43 @@ paths:
       - apikey: []
 components:
   schemas:
+    postV2Hooks:
+      type: object
+      properties:
+        target_url:
+          type: string
+          description: Target URL to send article results
+        search_id:
+          type: integer
+          format: int32
+          description: Search ID
+        template:
+          $ref: '#/components/schemas/TemplateConfiguration'
+      required:
+      - target_url
+      - search_id
+      description: Creates a hook for one of your predefined searches.
+    ErrorsCollection:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/HookError'
+    HooksCollection:
+      type: object
+      properties:
+        hooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hook'
+      description: List all hooks. Delivers all previously generated hooks.
+    SingleHook:
+      type: object
+      properties:
+        hook:
+          $ref: '#/components/schemas/Hook'
+      description: "Get an individual hook.\n Retrieves an existing hook."
     Hook:
       type: object
       properties:
@@ -191,37 +238,6 @@ components:
           type: string
           description: The reason for current hook status if applicable
       description: "Get an individual hook.\n Retrieves an existing hook."
-    ErrorsCollection:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/HookError'
-    postV2Hooks:
-      type: object
-      properties:
-        target_url:
-          type: string
-          description: Target URL to send article results
-        search_id:
-          type: integer
-          format: int32
-          description: Search ID
-        template:
-          $ref: '#/components/schemas/TemplateConfiguration'
-      required:
-      - target_url
-      - search_id
-      description: Creates a hook for one of your predefined searches.
-    HooksCollection:
-      type: object
-      properties:
-        hooks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Hook'
-      description: List all hooks. Delivers all previously generated hooks.
     TemplateConfiguration:
       type: object
       title: Template Configuration
@@ -230,12 +246,6 @@ components:
           type: string
           example: legacy
           description: The name of the template being requested
-    SingleHook:
-      type: object
-      properties:
-        hook:
-          $ref: '#/components/schemas/Hook'
-      description: "Get an individual hook.\n Retrieves an existing hook."
     HookError:
       type: object
       properties:

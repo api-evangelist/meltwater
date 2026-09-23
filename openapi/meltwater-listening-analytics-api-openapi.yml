@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Meltwater Account Management Listening Analytics API
+  title: Meltwater Listening Analytics API
   description: The Meltwater Public API
   contact:
     name: Meltwater Support
@@ -20,7 +20,7 @@ paths:
     get:
       tags:
       - Listening Analytics
-      summary: A summary of analytics for a Saved Search.
+      summary: A summary of analytics for a Saved Search
       description: 'The summary is produced only for documents matching the Saved Search,
 
         from the specified document sources, and within the specified time-range.
@@ -33,9 +33,7 @@ paths:
 
         The `unique_authors` value can only be calculated for sources other than `news`.
 
-        When run against `news` it will return 0.
-
-        '
+        When run against `news` it will return 0.'
       operationId: getV3Analytics-searchId-start-end-tz-source-country-language-company_id
       parameters:
       - name: searchId
@@ -243,7 +241,7 @@ paths:
     get:
       tags:
       - Listening Analytics
-      summary: The top tags that occur in a Saved Search.
+      summary: The top tags that occur in a Saved Search
       description: 'Produces a ranked list of tags that occur in documents matching the
 
         Saved Search, from the specified document sources, and within the
@@ -467,7 +465,7 @@ paths:
     get:
       tags:
       - Listening Analytics
-      summary: The top locations that occur in a Saved Search.
+      summary: The top locations that occur in a Saved Search
       description: 'Produces a ranked list of locations that occur in documents matching the
 
         Saved Search, from the specified document sources, and within the
@@ -485,9 +483,7 @@ paths:
 
         Any other parameters provided, such as language or country, will further
 
-        restrict the documents that have their keyphrases included.
-
-        '
+        restrict the documents that have their keyphrases included.'
       operationId: getV3AnalyticsTop_locations-searchId-start-end-tz-source-country-language-size-level-company_id
       parameters:
       - name: searchId
@@ -713,7 +709,7 @@ paths:
     get:
       tags:
       - Listening Analytics
-      summary: The top shared documents that occur in a Saved Search.
+      summary: The top shared documents that occur in a Saved Search
       description: 'Produces a ranked list of documents matching the Saved Search that were
 
         the most shared, from the specified document sources, and within the
@@ -947,7 +943,7 @@ paths:
     get:
       tags:
       - Listening Analytics
-      summary: The top named entities that occur in a Saved Search.
+      summary: The top named entities that occur in a Saved Search
       description: 'Produces a ranked list of entities that occur in documents matching the
 
         Saved Search, from the specified document sources, and within the
@@ -965,9 +961,7 @@ paths:
 
         Any other parameters provided, such as language or country, will further
 
-        restrict the documents that have their keyphrases included.
-
-        '
+        restrict the documents that have their keyphrases included.'
       operationId: getV3AnalyticsTop_entities-searchId-start-end-tz-source-country-language-size-sentiment-company_id
       parameters:
       - name: searchId
@@ -1197,7 +1191,7 @@ paths:
     get:
       tags:
       - Listening Analytics
-      summary: The top sources that occur in a Saved Search.
+      summary: The top sources that occur in a Saved Search
       description: 'Produces a ranked list of "sources" that provided the documents matching the Saved Search.
 
 
@@ -1211,9 +1205,7 @@ paths:
 
         Any other parameters provided, such as language or country, will further
 
-        restrict the documents whose sources will be produced.
-
-        '
+        restrict the documents whose sources will be produced.'
       operationId: getV3AnalyticsTop_sources-searchId-start-end-tz-source-country-language-size-min_authority-company_id
       parameters:
       - name: searchId
@@ -1429,7 +1421,7 @@ paths:
     get:
       tags:
       - Listening Analytics
-      summary: The top keyphrases that occur in a Saved Search.
+      summary: The top keyphrases that occur in a Saved Search
       description: 'Produces a ranked list of keyphrases that occur in documents matching the
 
         Saved Search, from the specified document sources, and within the
@@ -1447,9 +1439,7 @@ paths:
 
         Any other parameters provided, such as language or country, will further
 
-        restrict the documents that have their keyphrases included.
-
-        '
+        restrict the documents that have their keyphrases included.'
       operationId: getV3AnalyticsTop_keyphrases-searchId-start-end-tz-source-country-language-size-sentiment-company_id
       parameters:
       - name: searchId
@@ -1679,7 +1669,7 @@ paths:
     get:
       tags:
       - Listening Analytics
-      summary: The top mentions that occur in a Saved Search.
+      summary: The top mentions that occur in a Saved Search
       description: 'Produces a ranked list of mentions that occur in documents matching the
 
         Saved Search, from the specified document sources, and within the
@@ -1863,7 +1853,7 @@ paths:
     get:
       tags:
       - Listening Analytics
-      summary: The top topics that occur in a Saved Search.
+      summary: The top topics that occur in a Saved Search
       description: 'Produces a ranked list of topics and their sub topics that occur in documents matching the
 
         Saved Search, from the specified document sources, and within the
@@ -2047,7 +2037,7 @@ paths:
     get:
       tags:
       - Listening Analytics
-      summary: The top shared links that occur in a Saved Search.
+      summary: The top shared links that occur in a Saved Search
       description: 'Produces a ranked list of links that occur in documents matching the
 
         Saved Search, from the specified document sources, and within the
@@ -2055,16 +2045,14 @@ paths:
         specified time-range.
 
 
-        The `size` parameter controls the number of top shared links  produced,
+        The `size` parameter controls the number of top shared links produced,
 
         defaulting to the top `100` links.
 
 
         Any other parameters provided, such as language or country, will further
 
-        restrict the documents that have their links included.
-
-        '
+        restrict the documents that have their links included.'
       operationId: getV3AnalyticsTop_sharedLinks-searchId-start-end-tz-source-country-language-size-sentiment-company_id
       parameters:
       - name: searchId
@@ -2285,7 +2273,7 @@ paths:
       description: 'Create a custom analytics request with your choice of filters and analytic types and configuration.
 
 
-        Please see example requests/responses below or our guide on Custom Analytics [here](/guides/listening/analyzing-mentions) for more information.'
+        Please see example requests/responses below or our guide on Custom Analytics here for more information.'
       parameters:
       - name: searchId
         in: path
@@ -2575,6 +2563,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AnalyticsServiceUnavailable'
+      operationId: postV3AnalyticsBySearchIdCustom
+      x-operation-id-source: derived
   /v3/analytics/custom/catalog:
     get:
       tags:
@@ -2606,88 +2596,85 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AnalyticsServiceUnavailable'
+      operationId: getV3AnalyticsCustomCatalog
+      x-operation-id-source: derived
 components:
   schemas:
-    RateLimitedError:
-      description: RateLimitedError
-      example:
-        message: Service Overloaded
-        errors: {}
-      allOf:
-      - $ref: '#/components/schemas/Errors'
-      - required:
-        - message
-        type: object
-        properties:
-          message:
-            type: string
-        description: RateLimitedError
-    Entity:
+    TopLocationsResponse:
       required:
       - document_count
-      - entity
-      - type
-      - percentage
-      type: object
-      properties:
-        entity:
-          type: string
-        type:
-          type: string
-        document_count:
-          type: integer
-          format: int64
-        percentage:
-          type: number
-          format: double
-      description: Entity
-    Sentiments:
-      required:
-      - negative
-      - neutral
-      - positive
-      - unknown
-      type: object
-      properties:
-        positive:
-          $ref: '#/components/schemas/SentimentStats'
-        negative:
-          $ref: '#/components/schemas/SentimentStats'
-        neutral:
-          $ref: '#/components/schemas/SentimentStats'
-        unknown:
-          $ref: '#/components/schemas/SentimentStats'
-      description: Sentiments
-    Link:
-      required:
-      - document_count
-      - link
-      - percentage
-      type: object
-      properties:
-        link:
-          type: string
-        document_count:
-          type: integer
-          format: int64
-        percentage:
-          type: number
-          format: double
-      description: Link
-    TopTopicsResponse:
-      required:
-      - document_count
-      - topics
+      - locations
       type: object
       properties:
         document_count:
           type: integer
           format: int64
-        mentions:
+        locations:
           type: array
           items:
-            $ref: '#/components/schemas/Topic'
-      description: TopTopicsResponse
+            $ref: '#/components/schemas/Location'
+      description: TopLocationsResponse
+    TopEntitiesResponse:
+      required:
+      - document_count
+      - entities
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        entities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Entity'
+      description: TopEntitiesResponse
+    TopSourcesResponse:
+      required:
+      - document_count
+      - sources
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      description: TopSourcesResponse
+    Location:
+      required:
+      - document_count
+      - location_id
+      - location_name
+      - percentage
+      type: object
+      properties:
+        location_name:
+          type: string
+        location_id:
+          type: string
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Location
+    TopSharedResponse:
+      required:
+      - document_count
+      - results
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Document'
+      description: TopSharedResponse
     AnalyticsTag:
       required:
       - document_count
@@ -2704,35 +2691,175 @@ components:
           type: number
           format: double
       description: Tag
-    Topic:
+    Day:
       required:
+      - date
       - document_count
-      - topic
-      - sub_topics
-      - percentage
+      - hours
       type: object
       properties:
-        topic:
+        date:
+          title: An ISO8601 date, excluding time and timezone/offset.
           type: string
-        sub_topics:
-          type: object
+          description: 'An ISO8601 date, excluding time and timezone/offset.
+
+
+            The year, month and day formatted according to ISO8601. The date
+
+            represents the local date at the timezone given in the `tz` parameter.'
+          format: date
+        document_count:
+          type: integer
+          format: int64
+        hours:
+          type: array
           items:
-            $ref: '#/components/schemas/Topic'
+            $ref: '#/components/schemas/Hour'
+      description: Day
+    CustomAnalyticsResponse:
+      type: object
+      properties:
+        start_date:
+          type: string
+          format: datetime
+          example: '2024-03-25T00:00:00'
+          description: Start date used in the request
+        end_date:
+          type: string
+          format: datetime
+          example: '2024-03-30T00:00:00'
+          description: End date used in the request
+        tz:
+          type: string
+          example: UTC
+          description: Timezone used in the request
+        languages:
+          type: array
+          example:
+          - en
+          description: Language filters used in the request
+        countries:
+          type: array
+          example:
+          - gb
+          description: Country filters used in the request
+        sources:
+          type: array
+          example:
+          - x
+          description: Source filters used in the request
+        sentiments:
+          type: array
+          example:
+          - positive
+          description: Sentiment filters used in the request
+        search_id:
+          type: number
+          example: 12393
+          description: Saved Search ID used in the request
+        analytic:
+          $ref: '#/components/schemas/CustomAnalyticsRequestAnalytic'
+        results:
+          type: object
+          properties:
+            document_count:
+              type: number
+              example: 12000
+              description: Total number of documents that matched the search and filters
+            analysis:
+              oneOf:
+              - type: array
+                items:
+                  type: object
+                  properties:
+                    document_count:
+                      type: number
+                      example: 12345
+                      description: Number of documents that are contained in either the `date_histogram` or `top_terms` bucket
+                    percentage:
+                      type: number
+                      example: 30.0
+                      description: Percentage of documents compared to the parent bucket. If the analysis has no parent, then the percentage is calculated from the total document count.
+                    key:
+                      type: string
+                      example: EN
+                    label:
+                      type: string
+                      example: English
+                      description: Some dimensions will include extra enriched information when used in a `top_terms` analytic type
+                    change:
+                      type: number
+                      example: 357
+                      description: Change in number of documents from the previous date histogram timeseries bucket
+                    analysis:
+                      type: object
+                      description: Any nested analysis is contained in the buckets of the parent analysis
+                      additionalProperties: {}
+                  additionalProperties: {}
+              - type: number
+                example: 12345
+                description: For analytic types (eg. `count_unique`) that don't involve buckets or statistic breakdowns, only the result is returned.
+      example:
+        start_date: '2024-01-01T00:00:00'
+        end_date: '2024-01-10T00:00:00'
+        tz: UTC
+        analysis:
+          type: document_count
+        results:
+          document_count: 123456
+    AnalyticsServiceUnavailable:
+      description: ServiceUnavailable
+      example:
+        message: Service Unavailable
+        errors: {}
+      allOf:
+      - $ref: '#/components/schemas/Errors'
+      - type: object
+        properties:
+          message:
+            type: string
+        description: ServiceUnavailable
+    Hour:
+      required:
+      - document_count
+      - timestamp
+      type: object
+      properties:
+        timestamp:
+          title: An ISO8601 date-time.
+          type: string
+          description: 'An ISO8601 date-time, including timezone offset.
+
+
+            The timezone offset is an offset in minutes from UTC.'
+          format: date-time
         document_count:
           type: integer
           format: int64
-        percentage:
-          type: number
-          format: double
-      description: Topic
-    Keyphrase:
+      description: Hour
+    Volume:
       required:
       - document_count
-      - keyphrase
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        per_day:
+          type: integer
+          format: int64
+        per_hour:
+          type: integer
+          format: int64
+      description: Volume
+    CountryStats:
+      required:
+      - country_code
+      - document_count
       - percentage
       type: object
       properties:
-        keyphrase:
+        country_code:
           type: string
         document_count:
           type: integer
@@ -2740,7 +2867,64 @@ components:
         percentage:
           type: number
           format: double
-      description: Keyphrase
+      description: CountryStats
+    TopSharedLinksResponse:
+      required:
+      - document_count
+      - links
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+      description: TopKeyphrasesResponse
+    Unauthorized:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing, in brief, the problem.
+      example:
+        message: Unauthorized
+    Shares:
+      type: object
+      properties:
+        retweets:
+          type: integer
+          format: int64
+        likes:
+          type: integer
+          format: int64
+      description: Shares
+    NotFound:
+      required:
+      - errors
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing, in brief, the problem.
+        errors:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              description: A description of the problem encountered on this field.
+          description: A breakdown of each problem encountered, by field.
+      example:
+        message: Not Found
+        errors:
+          :searchId:
+          - A Saved Search with that ID could not be found
     Mention:
       required:
       - document_count
@@ -2782,17 +2966,42 @@ components:
           - '''foo'' is not a valid ISO 8601 local timestamp'
           end:
           - Missing required parameter
-    Location:
+    TopTagsResponse:
       required:
       - document_count
-      - location_id
-      - location_name
+      - tags
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalyticsTag'
+      description: TopTagsResponse
+    TopTopicsResponse:
+      required:
+      - document_count
+      - topics
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        mentions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Topic'
+      description: TopTopicsResponse
+    Link:
+      required:
+      - document_count
+      - link
       - percentage
       type: object
       properties:
-        location_name:
-          type: string
-        location_id:
+        link:
           type: string
         document_count:
           type: integer
@@ -2800,49 +3009,78 @@ components:
         percentage:
           type: number
           format: double
-      description: Location
-    Hour:
-      required:
-      - document_count
-      - timestamp
+      description: Link
+    Twitter:
       type: object
       properties:
-        timestamp:
-          title: An ISO8601 date-time.
-          type: string
-          description: 'An ISO8601 date-time, including timezone offset.
-
-
-            The timezone offset is an offset in minutes from UTC.'
-          format: date-time
-        document_count:
+        followers:
           type: integer
           format: int64
-      description: Hour
-    Unauthorized:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message describing, in brief, the problem.
-      example:
-        message: Unauthorized
-    TopEntitiesResponse:
-      required:
-      - document_count
-      - entities
-      type: object
-      properties:
-        document_count:
+        following:
           type: integer
           format: int64
-        entities:
+        external_id:
+          type: string
+      description: Twitter
+    CustomAnalyticsCatalogResponse:
+      type: object
+      properties:
+        dimensions:
           type: array
           items:
-            $ref: '#/components/schemas/Entity'
-      description: TopEntitiesResponse
+            type: string
+          description: All dimensions able to be used in `top_terms` and `count_unique` analytics
+        measures:
+          type: array
+          items:
+            type: string
+          description: All measures able to be used in `measure_statistics` analytics
+        types:
+          type: array
+          items:
+            type: string
+          description: All analytic types that can be used
+      example:
+        dimensions:
+        - keyphrase
+        - language
+        measures:
+        - engagement
+        - views
+        types:
+        - document_count
+        - top_terms
+        - date_histogram
+        - measure_statistics
+        - count_unique
+    TopKeyphrasesResponse:
+      required:
+      - document_count
+      - keyphrases
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        keyphrases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Keyphrase'
+      description: TopKeyphrasesResponse
+    RateLimitedError:
+      description: RateLimitedError
+      example:
+        message: Service Overloaded
+        errors: {}
+      allOf:
+      - $ref: '#/components/schemas/Errors'
+      - required:
+        - message
+        type: object
+        properties:
+          message:
+            type: string
+        description: RateLimitedError
     Author:
       type: object
       properties:
@@ -2858,20 +3096,25 @@ components:
           type: integer
           format: int64
       description: Author
-    TopMentionsResponse:
+    Entity:
       required:
       - document_count
-      - tags
+      - entity
+      - type
+      - percentage
       type: object
       properties:
+        entity:
+          type: string
+        type:
+          type: string
         document_count:
           type: integer
           format: int64
-        mentions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Mention'
-      description: TopMentionsResponse
+        percentage:
+          type: number
+          format: double
+      description: Entity
     CustomAnalyticsRequest:
       required:
       - start_date
@@ -2981,36 +3224,19 @@ components:
           - '1111'
           - '2222'
           description: List of author list IDs to filter documents by.
-    Errors:
+    SentimentStats:
       required:
-      - type
+      - document_count
+      - percentage
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDetails'
-          description: List of problems with the request
-        type:
-          type: string
-          enum:
-          - NotFound
-          - ServiceUnavailable
-          - Unauthorized
-          - ValidationFailed
-      description: Errors
-      discriminator:
-        propertyName: type
-    Shares:
-      type: object
-      properties:
-        retweets:
+        document_count:
           type: integer
           format: int64
-        likes:
-          type: integer
-          format: int64
-      description: Shares
+        percentage:
+          type: number
+          format: double
+      description: SentimentStats
     Result:
       required:
       - author
@@ -3023,320 +3249,6 @@ components:
           type: integer
           format: int64
       description: Result
-    SummaryResponse:
-      required:
-      - sentiment
-      - time_series
-      - top_countries
-      - top_languages
-      - unique_authors
-      - volume
-      type: object
-      properties:
-        unique_authors:
-          type: integer
-          format: int64
-        top_countries:
-          type: array
-          items:
-            $ref: '#/components/schemas/CountryStats'
-        sentiment:
-          $ref: '#/components/schemas/Sentiments'
-        top_languages:
-          type: array
-          items:
-            $ref: '#/components/schemas/LanguageStats'
-        time_series:
-          type: array
-          items:
-            $ref: '#/components/schemas/Day'
-        volume:
-          $ref: '#/components/schemas/Volume'
-      description: SummaryResponse
-    AnalyticsServiceUnavailable:
-      description: ServiceUnavailable
-      example:
-        message: Service Unavailable
-        errors: {}
-      allOf:
-      - $ref: '#/components/schemas/Errors'
-      - type: object
-        properties:
-          message:
-            type: string
-        description: ServiceUnavailable
-    Day:
-      required:
-      - date
-      - document_count
-      - hours
-      type: object
-      properties:
-        date:
-          title: An ISO8601 date, excluding time and timezone/offset.
-          type: string
-          description: 'An ISO8601 date, excluding time and timezone/offset.
-
-
-            The year, month and day formatted according to ISO8601. The date
-
-            represents the local date at the timezone given in the `tz` parameter.'
-          format: date
-        document_count:
-          type: integer
-          format: int64
-        hours:
-          type: array
-          items:
-            $ref: '#/components/schemas/Hour'
-      description: Day
-    TopLocationsResponse:
-      required:
-      - document_count
-      - locations
-      type: object
-      properties:
-        document_count:
-          type: integer
-          format: int64
-        locations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Location'
-      description: TopLocationsResponse
-    CustomAnalyticsResponse:
-      type: object
-      properties:
-        start_date:
-          type: string
-          format: datetime
-          example: '2024-03-25T00:00:00'
-          description: Start date used in the request
-        end_date:
-          type: string
-          format: datetime
-          example: '2024-03-30T00:00:00'
-          description: End date used in the request
-        tz:
-          type: string
-          example: UTC
-          description: Timezone used in the request
-        languages:
-          type: array
-          example:
-          - en
-          description: Language filters used in the request
-        countries:
-          type: array
-          example:
-          - gb
-          description: Country filters used in the request
-        sources:
-          type: array
-          example:
-          - x
-          description: Source filters used in the request
-        sentiments:
-          type: array
-          example:
-          - positive
-          description: Sentiment filters used in the request
-        search_id:
-          type: number
-          example: 12393
-          description: Saved Search ID used in the request
-        analytic:
-          $ref: '#/components/schemas/CustomAnalyticsRequestAnalytic'
-        results:
-          type: object
-          properties:
-            document_count:
-              type: number
-              example: 12000
-              description: Total number of documents that matched the search and filters
-            analysis:
-              oneOf:
-              - type: array
-                items:
-                  type: object
-                  properties:
-                    document_count:
-                      type: number
-                      example: 12345
-                      description: Number of documents that are contained in either the `date_histogram` or `top_terms` bucket
-                    percentage:
-                      type: number
-                      example: 30.0
-                      description: Percentage of documents compared to the parent bucket. If the analysis has no parent, then the percentage is calculated from the total document count.
-                    key:
-                      type: string
-                      example: EN
-                    label:
-                      type: string
-                      example: English
-                      description: Some dimensions will include extra enriched information when used in a `top_terms` analytic type
-                    change:
-                      type: number
-                      example: 357
-                      description: Change in number of documents from the previous date histogram timeseries bucket
-                    analysis:
-                      type: object
-                      description: Any nested analysis is contained in the buckets of the parent analysis
-                      additionalProperties: {}
-                  additionalProperties: {}
-              - type: number
-                example: 12345
-                description: For analytic types (eg. `count_unique`) that don't involve buckets or statistic breakdowns, only the result is returned.
-      example:
-        start_date: '2024-01-01T00:00:00'
-        end_date: '2024-01-10T00:00:00'
-        tz: UTC
-        analysis:
-          type: document_count
-        results:
-          document_count: 123456
-    TopKeyphrasesResponse:
-      required:
-      - document_count
-      - keyphrases
-      type: object
-      properties:
-        document_count:
-          type: integer
-          format: int64
-        keyphrases:
-          type: array
-          items:
-            $ref: '#/components/schemas/Keyphrase'
-      description: TopKeyphrasesResponse
-    NotFound:
-      required:
-      - errors
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message describing, in brief, the problem.
-        errors:
-          type: object
-          additionalProperties:
-            uniqueItems: true
-            type: array
-            items:
-              type: string
-              description: A description of the problem encountered on this field.
-          description: A breakdown of each problem encountered, by field.
-      example:
-        message: Not Found
-        errors:
-          :searchId:
-          - A Saved Search with that ID could not be found
-    TopSharedResponse:
-      required:
-      - document_count
-      - results
-      type: object
-      properties:
-        document_count:
-          type: integer
-          format: int64
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Document'
-      description: TopSharedResponse
-    LanguageStats:
-      required:
-      - document_count
-      - language_code
-      - percentage
-      type: object
-      properties:
-        language_code:
-          type: string
-        document_count:
-          type: integer
-          format: int64
-        percentage:
-          type: number
-          format: double
-      description: LanguageStats
-    TopSharedLinksResponse:
-      required:
-      - document_count
-      - links
-      type: object
-      properties:
-        document_count:
-          type: integer
-          format: int64
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/Link'
-      description: TopKeyphrasesResponse
-    CustomAnalyticsCatalogResponse:
-      type: object
-      properties:
-        dimensions:
-          type: array
-          items:
-            type: string
-          description: All dimensions able to be used in `top_terms` and `count_unique` analytics
-        measures:
-          type: array
-          items:
-            type: string
-          description: All measures able to be used in `measure_statistics` analytics
-        types:
-          type: array
-          items:
-            type: string
-          description: All analytic types that can be used
-      example:
-        dimensions:
-        - keyphrase
-        - language
-        measures:
-        - engagement
-        - views
-        types:
-        - document_count
-        - top_terms
-        - date_histogram
-        - measure_statistics
-        - count_unique
-    TopSourcesResponse:
-      required:
-      - document_count
-      - sources
-      type: object
-      properties:
-        document_count:
-          type: integer
-          format: int64
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result'
-      description: TopSourcesResponse
-    ErrorDetails:
-      required:
-      - type
-      - title
-      - details
-      type: object
-      properties:
-        type:
-          type: string
-          description: Category of error
-        title:
-          type: string
-          description: Title of error
-        details:
-          type: string
-          description: Details about the error
     CustomAnalyticsRequestAnalytic:
       required:
       - type
@@ -3380,29 +3292,44 @@ components:
           - month
         analysis:
           $ref: '#/components/schemas/CustomAnalyticsRequestAnalytic'
-    Volume:
+    SummaryResponse:
       required:
-      - document_count
+      - sentiment
+      - time_series
+      - top_countries
+      - top_languages
+      - unique_authors
+      - volume
       type: object
       properties:
-        document_count:
+        unique_authors:
           type: integer
           format: int64
-        per_day:
-          type: integer
-          format: int64
-        per_hour:
-          type: integer
-          format: int64
-      description: Volume
-    CountryStats:
+        top_countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/CountryStats'
+        sentiment:
+          $ref: '#/components/schemas/Sentiments'
+        top_languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/LanguageStats'
+        time_series:
+          type: array
+          items:
+            $ref: '#/components/schemas/Day'
+        volume:
+          $ref: '#/components/schemas/Volume'
+      description: SummaryResponse
+    LanguageStats:
       required:
-      - country_code
       - document_count
+      - language_code
       - percentage
       type: object
       properties:
-        country_code:
+        language_code:
           type: string
         document_count:
           type: integer
@@ -3410,21 +3337,24 @@ components:
         percentage:
           type: number
           format: double
-      description: CountryStats
-    SentimentStats:
+      description: LanguageStats
+    Keyphrase:
       required:
       - document_count
+      - keyphrase
       - percentage
       type: object
       properties:
+        keyphrase:
+          type: string
         document_count:
           type: integer
           format: int64
         percentage:
           type: number
           format: double
-      description: SentimentStats
-    TopTagsResponse:
+      description: Keyphrase
+    TopMentionsResponse:
       required:
       - document_count
       - tags
@@ -3433,11 +3363,85 @@ components:
         document_count:
           type: integer
           format: int64
-        tags:
+        mentions:
           type: array
           items:
-            $ref: '#/components/schemas/AnalyticsTag'
-      description: TopTagsResponse
+            $ref: '#/components/schemas/Mention'
+      description: TopMentionsResponse
+    ErrorDetails:
+      required:
+      - type
+      - title
+      - details
+      type: object
+      properties:
+        type:
+          type: string
+          description: Category of error
+        title:
+          type: string
+          description: Title of error
+        details:
+          type: string
+          description: Details about the error
+    Sentiments:
+      required:
+      - negative
+      - neutral
+      - positive
+      - unknown
+      type: object
+      properties:
+        positive:
+          $ref: '#/components/schemas/SentimentStats'
+        negative:
+          $ref: '#/components/schemas/SentimentStats'
+        neutral:
+          $ref: '#/components/schemas/SentimentStats'
+        unknown:
+          $ref: '#/components/schemas/SentimentStats'
+      description: Sentiments
+    Errors:
+      required:
+      - type
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+          description: List of problems with the request
+        type:
+          type: string
+          enum:
+          - NotFound
+          - ServiceUnavailable
+          - Unauthorized
+          - ValidationFailed
+      description: Errors
+      discriminator:
+        propertyName: type
+    Topic:
+      required:
+      - document_count
+      - topic
+      - sub_topics
+      - percentage
+      type: object
+      properties:
+        topic:
+          type: string
+        sub_topics:
+          type: object
+          items:
+            $ref: '#/components/schemas/Topic'
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Topic
     Document:
       required:
       - author
@@ -3465,18 +3469,6 @@ components:
             The timezone offset is an offset in minutes from UTC.'
           format: date-time
       description: Document
-    Twitter:
-      type: object
-      properties:
-        followers:
-          type: integer
-          format: int64
-        following:
-          type: integer
-          format: int64
-        external_id:
-          type: string
-      description: Twitter
   securitySchemes:
     apikey:
       type: apiKey

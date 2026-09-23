@@ -1,0 +1,26 @@
+# Front Door AI Index — meltwater — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: meltwater
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.meltwater.com
+  final_host: www.meltwater.com
+  ownership: own
+  owner: meltwater
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 16
+  host_score: 16
+  density: 19.63
+  words: 815
+  tiers:
+    agentic: 0
+    core: 16
+    model: 0
+  ambiguous: 8
+  top_terms:
+    AI: 16
+    intelligence: 8
