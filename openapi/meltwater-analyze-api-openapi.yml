@@ -239,121 +239,6 @@ paths:
           $ref: '#/components/responses/Error'
 components:
   schemas:
-    analysis:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - document_count
-          - date_histogram
-          - metrics
-          - top_terms
-          description: Type of analysis to perform
-        dimension:
-          type: string
-          description: Dimension to group results by (for top_terms)
-        limit:
-          type: integer
-          minimum: 1
-          maximum: 100
-          description: Maximum number of results to return (for top_terms). Minimum number of terms is 1 while maximum is dimension dependent but never higher than 100
-        granularity:
-          type: string
-          enum:
-          - day
-          - week
-          - month
-          description: Time granularity (for date_histogram)
-        metrics:
-          type: array
-          items:
-            type: string
-          description: Metrics to calculate (for metrics and top_terms types)
-        analysis:
-          description: Nested sub-analysis
-          allOf:
-          - $ref: '#/components/schemas/analysis'
-    analytics-query:
-      type: object
-      required:
-      - provider
-      - tz
-      - period
-      - query
-      - analysis
-      properties:
-        provider:
-          type: string
-          enum:
-          - llm
-        tz:
-          type: string
-          description: IANA timezone name (e.g. America/New_York, UTC)
-        period:
-          $ref: '#/components/schemas/analysis-period'
-        query:
-          $ref: '#/components/schemas/query'
-        analysis:
-          $ref: '#/components/schemas/analysis'
-    error:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code
-          enum:
-          - INVALID_QUERY
-          - RESOURCE_NOT_FOUND
-          - UNAUTHORIZED
-          - FORBIDDEN
-          - RATE_LIMITED
-          - INTERNAL_ERROR
-          - VALIDATION_ERROR
-          - PROVIDER_ERROR
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: object
-          description: Additional error context
-          additionalProperties: true
-        request_id:
-          type: string
-          description: Unique request identifier for debugging
-    string-filter:
-      type: object
-      properties:
-        all:
-          type: array
-          items:
-            type: string
-        any:
-          type: array
-          items:
-            type: string
-        none:
-          type: array
-          items:
-            type: string
-    analysis-period:
-      type: object
-      description: Time range for the analysis. Both start and end are required (ISO 8601 datetimes without timezone).
-      required:
-      - start
-      - end
-      properties:
-        start:
-          type: string
-          description: Start of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-01T00:00:00).
-        end:
-          type: string
-          description: End of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-31T23:59:59).
     query:
       type: object
       properties:
@@ -416,6 +301,34 @@ components:
               $ref: '#/components/schemas/string-filter'
             sentiments:
               $ref: '#/components/schemas/string-filter'
+    error:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code
+          enum:
+          - INVALID_QUERY
+          - RESOURCE_NOT_FOUND
+          - UNAUTHORIZED
+          - FORBIDDEN
+          - RATE_LIMITED
+          - INTERNAL_ERROR
+          - VALIDATION_ERROR
+          - PROVIDER_ERROR
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          description: Additional error context
+          additionalProperties: true
+        request_id:
+          type: string
+          description: Unique request identifier for debugging
     id-filter:
       type: object
       properties:
@@ -431,13 +344,94 @@ components:
           type: array
           items:
             type: integer
+    analytics-query:
+      type: object
+      required:
+      - provider
+      - tz
+      - period
+      - query
+      - analysis
+      properties:
+        provider:
+          type: string
+          enum:
+          - llm
+        tz:
+          type: string
+          description: IANA timezone name (e.g. America/New_York, UTC)
+        period:
+          $ref: '#/components/schemas/analysis-period'
+        query:
+          $ref: '#/components/schemas/query'
+        analysis:
+          $ref: '#/components/schemas/analysis'
+    analysis:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - document_count
+          - date_histogram
+          - metrics
+          - top_terms
+          description: Type of analysis to perform
+        dimension:
+          type: string
+          description: Dimension to group results by (for top_terms)
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 100
+          description: Maximum number of results to return (for top_terms). Minimum number of terms is 1 while maximum is dimension dependent but never higher than 100
+        granularity:
+          type: string
+          enum:
+          - day
+          - week
+          - month
+          description: Time granularity (for date_histogram)
+        metrics:
+          type: array
+          items:
+            type: string
+          description: Metrics to calculate (for metrics and top_terms types)
+        analysis:
+          description: Nested sub-analysis
+          allOf:
+          - $ref: '#/components/schemas/analysis'
+    analysis-period:
+      type: object
+      description: Time range for the analysis. Both start and end are required (ISO 8601 datetimes without timezone).
+      required:
+      - start
+      - end
+      properties:
+        start:
+          type: string
+          description: Start of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-01T00:00:00).
+        end:
+          type: string
+          description: End of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-31T23:59:59).
+    string-filter:
+      type: object
+      properties:
+        all:
+          type: array
+          items:
+            type: string
+        any:
+          type: array
+          items:
+            type: string
+        none:
+          type: array
+          items:
+            type: string
   responses:
-    Error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
     Unauthorized:
       description: Authentication required
       content:
@@ -458,6 +452,12 @@ components:
             code: RESOURCE_NOT_FOUND
             message: Not Found
             request_id: 123e4567-e89b-12d3-a456-426614174000
+    Error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
   parameters:
     CompanyId:
       name: company_id

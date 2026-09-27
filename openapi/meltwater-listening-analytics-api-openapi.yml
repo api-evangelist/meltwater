@@ -2600,6 +2600,162 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Topic:
+      required:
+      - document_count
+      - topic
+      - sub_topics
+      - percentage
+      type: object
+      properties:
+        topic:
+          type: string
+        sub_topics:
+          type: object
+          items:
+            $ref: '#/components/schemas/Topic'
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Topic
+    Location:
+      required:
+      - document_count
+      - location_id
+      - location_name
+      - percentage
+      type: object
+      properties:
+        location_name:
+          type: string
+        location_id:
+          type: string
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Location
+    CustomAnalyticsCatalogResponse:
+      type: object
+      properties:
+        dimensions:
+          type: array
+          items:
+            type: string
+          description: All dimensions able to be used in `top_terms` and `count_unique` analytics
+        measures:
+          type: array
+          items:
+            type: string
+          description: All measures able to be used in `measure_statistics` analytics
+        types:
+          type: array
+          items:
+            type: string
+          description: All analytic types that can be used
+      example:
+        dimensions:
+        - keyphrase
+        - language
+        measures:
+        - engagement
+        - views
+        types:
+        - document_count
+        - top_terms
+        - date_histogram
+        - measure_statistics
+        - count_unique
+    Errors:
+      required:
+      - type
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+          description: List of problems with the request
+        type:
+          type: string
+          enum:
+          - NotFound
+          - ServiceUnavailable
+          - Unauthorized
+          - ValidationFailed
+      description: Errors
+      discriminator:
+        propertyName: type
+    ValidationFailed:
+      required:
+      - errors
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing, in brief, the problem.
+        errors:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              description: A description of the problem encountered on this field.
+          description: A breakdown of each problem encountered, by field.
+      example:
+        message: Validation Failed
+        errors:
+          start:
+          - '''foo'' is not a valid ISO 8601 local timestamp'
+          end:
+          - Missing required parameter
+    TopSharedLinksResponse:
+      required:
+      - document_count
+      - links
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+      description: TopKeyphrasesResponse
+    TopKeyphrasesResponse:
+      required:
+      - document_count
+      - keyphrases
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        keyphrases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Keyphrase'
+      description: TopKeyphrasesResponse
+    Result:
+      required:
+      - author
+      - document_count
+      type: object
+      properties:
+        author:
+          $ref: '#/components/schemas/Author'
+        document_count:
+          type: integer
+          format: int64
+      description: Result
     TopLocationsResponse:
       required:
       - document_count
@@ -2628,69 +2784,18 @@ components:
           items:
             $ref: '#/components/schemas/Entity'
       description: TopEntitiesResponse
-    TopSourcesResponse:
-      required:
-      - document_count
-      - sources
+    Twitter:
       type: object
       properties:
-        document_count:
+        followers:
           type: integer
           format: int64
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result'
-      description: TopSourcesResponse
-    Location:
-      required:
-      - document_count
-      - location_id
-      - location_name
-      - percentage
-      type: object
-      properties:
-        location_name:
+        following:
+          type: integer
+          format: int64
+        external_id:
           type: string
-        location_id:
-          type: string
-        document_count:
-          type: integer
-          format: int64
-        percentage:
-          type: number
-          format: double
-      description: Location
-    TopSharedResponse:
-      required:
-      - document_count
-      - results
-      type: object
-      properties:
-        document_count:
-          type: integer
-          format: int64
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Document'
-      description: TopSharedResponse
-    AnalyticsTag:
-      required:
-      - document_count
-      - percentage
-      - tag
-      type: object
-      properties:
-        tag:
-          type: string
-        document_count:
-          type: integer
-          format: int64
-        percentage:
-          type: number
-          format: double
-      description: Tag
+      description: Twitter
     Day:
       required:
       - date
@@ -2716,6 +2821,166 @@ components:
           items:
             $ref: '#/components/schemas/Hour'
       description: Day
+    TopTopicsResponse:
+      required:
+      - document_count
+      - topics
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        mentions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Topic'
+      description: TopTopicsResponse
+    SummaryResponse:
+      required:
+      - sentiment
+      - time_series
+      - top_countries
+      - top_languages
+      - unique_authors
+      - volume
+      type: object
+      properties:
+        unique_authors:
+          type: integer
+          format: int64
+        top_countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/CountryStats'
+        sentiment:
+          $ref: '#/components/schemas/Sentiments'
+        top_languages:
+          type: array
+          items:
+            $ref: '#/components/schemas/LanguageStats'
+        time_series:
+          type: array
+          items:
+            $ref: '#/components/schemas/Day'
+        volume:
+          $ref: '#/components/schemas/Volume'
+      description: SummaryResponse
+    Shares:
+      type: object
+      properties:
+        retweets:
+          type: integer
+          format: int64
+        likes:
+          type: integer
+          format: int64
+      description: Shares
+    CountryStats:
+      required:
+      - country_code
+      - document_count
+      - percentage
+      type: object
+      properties:
+        country_code:
+          type: string
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: CountryStats
+    CustomAnalyticsRequestAnalytic:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          example: top_terms
+          description: The type of analytic to query with.
+          enum:
+          - document_count
+          - top_terms
+          - count_unique
+          - date_histogram
+          - measure_statistics
+        dimension:
+          type: string
+          example: language
+          description: The dimension to use in a `top_terms` or `count_unique` analytic type. Use the `GET v3/analytics/custom/catalog` endpoint to see what dimensions are available.
+        limit:
+          type: number
+          example: 10
+          default: 10
+          maximum: 100
+          minimum: 1
+          description: The limit to the number of terms to return in a `top_terms` analytic type.
+        measures:
+          type: array
+          example:
+          - views
+          - estimated_views
+          description: The measures to use in a `measures_statistics` analytic type. Use the `GET v3/analytics/custom/catalog` endpoint to see what measures are available.
+        granularity:
+          type: string
+          example: day
+          description: The granularity to use in a `date_histogram` analytic type.
+          enum:
+          - hour
+          - day
+          - week
+          - month
+        analysis:
+          $ref: '#/components/schemas/CustomAnalyticsRequestAnalytic'
+    Entity:
+      required:
+      - document_count
+      - entity
+      - type
+      - percentage
+      type: object
+      properties:
+        entity:
+          type: string
+        type:
+          type: string
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Entity
+    AnalyticsTag:
+      required:
+      - document_count
+      - percentage
+      - tag
+      type: object
+      properties:
+        tag:
+          type: string
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Tag
+    AnalyticsServiceUnavailable:
+      description: ServiceUnavailable
+      example:
+        message: Service Unavailable
+        errors: {}
+      allOf:
+      - $ref: '#/components/schemas/Errors'
+      - type: object
+        properties:
+          message:
+            type: string
+        description: ServiceUnavailable
     CustomAnalyticsResponse:
       type: object
       properties:
@@ -2807,18 +3072,92 @@ components:
           type: document_count
         results:
           document_count: 123456
-    AnalyticsServiceUnavailable:
-      description: ServiceUnavailable
-      example:
-        message: Service Unavailable
-        errors: {}
-      allOf:
-      - $ref: '#/components/schemas/Errors'
-      - type: object
-        properties:
-          message:
-            type: string
-        description: ServiceUnavailable
+    TopTagsResponse:
+      required:
+      - document_count
+      - tags
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnalyticsTag'
+      description: TopTagsResponse
+    Document:
+      required:
+      - author
+      - shares
+      type: object
+      properties:
+        author:
+          $ref: '#/components/schemas/Author'
+        url:
+          type: string
+        country_code:
+          type: string
+        shares:
+          $ref: '#/components/schemas/Shares'
+        language_code:
+          type: string
+        external_id:
+          type: string
+        created_at:
+          title: An ISO8601 date-time.
+          type: string
+          description: 'An ISO8601 date-time, including timezone offset.
+
+
+            The timezone offset is an offset in minutes from UTC.'
+          format: date-time
+      description: Document
+    Keyphrase:
+      required:
+      - document_count
+      - keyphrase
+      - percentage
+      type: object
+      properties:
+        keyphrase:
+          type: string
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Keyphrase
+    TopSourcesResponse:
+      required:
+      - document_count
+      - sources
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      description: TopSourcesResponse
+    Volume:
+      required:
+      - document_count
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        per_day:
+          type: integer
+          format: int64
+        per_hour:
+          type: integer
+          format: int64
+      description: Volume
     Hour:
       required:
       - document_count
@@ -2837,71 +3176,6 @@ components:
           type: integer
           format: int64
       description: Hour
-    Volume:
-      required:
-      - document_count
-      type: object
-      properties:
-        document_count:
-          type: integer
-          format: int64
-        per_day:
-          type: integer
-          format: int64
-        per_hour:
-          type: integer
-          format: int64
-      description: Volume
-    CountryStats:
-      required:
-      - country_code
-      - document_count
-      - percentage
-      type: object
-      properties:
-        country_code:
-          type: string
-        document_count:
-          type: integer
-          format: int64
-        percentage:
-          type: number
-          format: double
-      description: CountryStats
-    TopSharedLinksResponse:
-      required:
-      - document_count
-      - links
-      type: object
-      properties:
-        document_count:
-          type: integer
-          format: int64
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/Link'
-      description: TopKeyphrasesResponse
-    Unauthorized:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message describing, in brief, the problem.
-      example:
-        message: Unauthorized
-    Shares:
-      type: object
-      properties:
-        retweets:
-          type: integer
-          format: int64
-        likes:
-          type: integer
-          format: int64
-      description: Shares
     NotFound:
       required:
       - errors
@@ -2925,196 +3199,16 @@ components:
         errors:
           :searchId:
           - A Saved Search with that ID could not be found
-    Mention:
+    Unauthorized:
       required:
-      - document_count
-      - mention
-      - percentage
-      type: object
-      properties:
-        mention:
-          type: string
-        document_count:
-          type: integer
-          format: int64
-        percentage:
-          type: number
-          format: double
-      description: Mention
-    ValidationFailed:
-      required:
-      - errors
       - message
       type: object
       properties:
         message:
           type: string
           description: A message describing, in brief, the problem.
-        errors:
-          type: object
-          additionalProperties:
-            uniqueItems: true
-            type: array
-            items:
-              type: string
-              description: A description of the problem encountered on this field.
-          description: A breakdown of each problem encountered, by field.
       example:
-        message: Validation Failed
-        errors:
-          start:
-          - '''foo'' is not a valid ISO 8601 local timestamp'
-          end:
-          - Missing required parameter
-    TopTagsResponse:
-      required:
-      - document_count
-      - tags
-      type: object
-      properties:
-        document_count:
-          type: integer
-          format: int64
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/AnalyticsTag'
-      description: TopTagsResponse
-    TopTopicsResponse:
-      required:
-      - document_count
-      - topics
-      type: object
-      properties:
-        document_count:
-          type: integer
-          format: int64
-        mentions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Topic'
-      description: TopTopicsResponse
-    Link:
-      required:
-      - document_count
-      - link
-      - percentage
-      type: object
-      properties:
-        link:
-          type: string
-        document_count:
-          type: integer
-          format: int64
-        percentage:
-          type: number
-          format: double
-      description: Link
-    Twitter:
-      type: object
-      properties:
-        followers:
-          type: integer
-          format: int64
-        following:
-          type: integer
-          format: int64
-        external_id:
-          type: string
-      description: Twitter
-    CustomAnalyticsCatalogResponse:
-      type: object
-      properties:
-        dimensions:
-          type: array
-          items:
-            type: string
-          description: All dimensions able to be used in `top_terms` and `count_unique` analytics
-        measures:
-          type: array
-          items:
-            type: string
-          description: All measures able to be used in `measure_statistics` analytics
-        types:
-          type: array
-          items:
-            type: string
-          description: All analytic types that can be used
-      example:
-        dimensions:
-        - keyphrase
-        - language
-        measures:
-        - engagement
-        - views
-        types:
-        - document_count
-        - top_terms
-        - date_histogram
-        - measure_statistics
-        - count_unique
-    TopKeyphrasesResponse:
-      required:
-      - document_count
-      - keyphrases
-      type: object
-      properties:
-        document_count:
-          type: integer
-          format: int64
-        keyphrases:
-          type: array
-          items:
-            $ref: '#/components/schemas/Keyphrase'
-      description: TopKeyphrasesResponse
-    RateLimitedError:
-      description: RateLimitedError
-      example:
-        message: Service Overloaded
-        errors: {}
-      allOf:
-      - $ref: '#/components/schemas/Errors'
-      - required:
-        - message
-        type: object
-        properties:
-          message:
-            type: string
-        description: RateLimitedError
-    Author:
-      type: object
-      properties:
-        username:
-          type: string
-        display_name:
-          type: string
-        twitter:
-          $ref: '#/components/schemas/Twitter'
-        avatar_url:
-          type: string
-        authority:
-          type: integer
-          format: int64
-      description: Author
-    Entity:
-      required:
-      - document_count
-      - entity
-      - type
-      - percentage
-      type: object
-      properties:
-        entity:
-          type: string
-        type:
-          type: string
-        document_count:
-          type: integer
-          format: int64
-        percentage:
-          type: number
-          format: double
-      description: Entity
+        message: Unauthorized
     CustomAnalyticsRequest:
       required:
       - start_date
@@ -3224,136 +3318,6 @@ components:
           - '1111'
           - '2222'
           description: List of author list IDs to filter documents by.
-    SentimentStats:
-      required:
-      - document_count
-      - percentage
-      type: object
-      properties:
-        document_count:
-          type: integer
-          format: int64
-        percentage:
-          type: number
-          format: double
-      description: SentimentStats
-    Result:
-      required:
-      - author
-      - document_count
-      type: object
-      properties:
-        author:
-          $ref: '#/components/schemas/Author'
-        document_count:
-          type: integer
-          format: int64
-      description: Result
-    CustomAnalyticsRequestAnalytic:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          example: top_terms
-          description: The type of analytic to query with.
-          enum:
-          - document_count
-          - top_terms
-          - count_unique
-          - date_histogram
-          - measure_statistics
-        dimension:
-          type: string
-          example: language
-          description: The dimension to use in a `top_terms` or `count_unique` analytic type. Use the `GET v3/analytics/custom/catalog` endpoint to see what dimensions are available.
-        limit:
-          type: number
-          example: 10
-          default: 10
-          maximum: 100
-          minimum: 1
-          description: The limit to the number of terms to return in a `top_terms` analytic type.
-        measures:
-          type: array
-          example:
-          - views
-          - estimated_views
-          description: The measures to use in a `measures_statistics` analytic type. Use the `GET v3/analytics/custom/catalog` endpoint to see what measures are available.
-        granularity:
-          type: string
-          example: day
-          description: The granularity to use in a `date_histogram` analytic type.
-          enum:
-          - hour
-          - day
-          - week
-          - month
-        analysis:
-          $ref: '#/components/schemas/CustomAnalyticsRequestAnalytic'
-    SummaryResponse:
-      required:
-      - sentiment
-      - time_series
-      - top_countries
-      - top_languages
-      - unique_authors
-      - volume
-      type: object
-      properties:
-        unique_authors:
-          type: integer
-          format: int64
-        top_countries:
-          type: array
-          items:
-            $ref: '#/components/schemas/CountryStats'
-        sentiment:
-          $ref: '#/components/schemas/Sentiments'
-        top_languages:
-          type: array
-          items:
-            $ref: '#/components/schemas/LanguageStats'
-        time_series:
-          type: array
-          items:
-            $ref: '#/components/schemas/Day'
-        volume:
-          $ref: '#/components/schemas/Volume'
-      description: SummaryResponse
-    LanguageStats:
-      required:
-      - document_count
-      - language_code
-      - percentage
-      type: object
-      properties:
-        language_code:
-          type: string
-        document_count:
-          type: integer
-          format: int64
-        percentage:
-          type: number
-          format: double
-      description: LanguageStats
-    Keyphrase:
-      required:
-      - document_count
-      - keyphrase
-      - percentage
-      type: object
-      properties:
-        keyphrase:
-          type: string
-        document_count:
-          type: integer
-          format: int64
-        percentage:
-          type: number
-          format: double
-      description: Keyphrase
     TopMentionsResponse:
       required:
       - document_count
@@ -3368,22 +3332,36 @@ components:
           items:
             $ref: '#/components/schemas/Mention'
       description: TopMentionsResponse
-    ErrorDetails:
+    Mention:
       required:
-      - type
-      - title
-      - details
+      - document_count
+      - mention
+      - percentage
       type: object
       properties:
-        type:
+        mention:
           type: string
-          description: Category of error
-        title:
-          type: string
-          description: Title of error
-        details:
-          type: string
-          description: Details about the error
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: Mention
+    RateLimitedError:
+      description: RateLimitedError
+      example:
+        message: Service Overloaded
+        errors: {}
+      allOf:
+      - $ref: '#/components/schemas/Errors'
+      - required:
+        - message
+        type: object
+        properties:
+          message:
+            type: string
+        description: RateLimitedError
     Sentiments:
       required:
       - negative
@@ -3401,74 +3379,96 @@ components:
         unknown:
           $ref: '#/components/schemas/SentimentStats'
       description: Sentiments
-    Errors:
+    ErrorDetails:
       required:
       - type
+      - title
+      - details
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDetails'
-          description: List of problems with the request
         type:
           type: string
-          enum:
-          - NotFound
-          - ServiceUnavailable
-          - Unauthorized
-          - ValidationFailed
-      description: Errors
-      discriminator:
-        propertyName: type
-    Topic:
+          description: Category of error
+        title:
+          type: string
+          description: Title of error
+        details:
+          type: string
+          description: Details about the error
+    TopSharedResponse:
       required:
       - document_count
-      - topic
-      - sub_topics
+      - results
+      type: object
+      properties:
+        document_count:
+          type: integer
+          format: int64
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Document'
+      description: TopSharedResponse
+    Author:
+      type: object
+      properties:
+        username:
+          type: string
+        display_name:
+          type: string
+        twitter:
+          $ref: '#/components/schemas/Twitter'
+        avatar_url:
+          type: string
+        authority:
+          type: integer
+          format: int64
+      description: Author
+    Link:
+      required:
+      - document_count
+      - link
       - percentage
       type: object
       properties:
-        topic:
+        link:
           type: string
-        sub_topics:
-          type: object
-          items:
-            $ref: '#/components/schemas/Topic'
         document_count:
           type: integer
           format: int64
         percentage:
           type: number
           format: double
-      description: Topic
-    Document:
+      description: Link
+    SentimentStats:
       required:
-      - author
-      - shares
+      - document_count
+      - percentage
       type: object
       properties:
-        author:
-          $ref: '#/components/schemas/Author'
-        url:
-          type: string
-        country_code:
-          type: string
-        shares:
-          $ref: '#/components/schemas/Shares'
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: SentimentStats
+    LanguageStats:
+      required:
+      - document_count
+      - language_code
+      - percentage
+      type: object
+      properties:
         language_code:
           type: string
-        external_id:
-          type: string
-        created_at:
-          title: An ISO8601 date-time.
-          type: string
-          description: 'An ISO8601 date-time, including timezone offset.
-
-
-            The timezone offset is an offset in minutes from UTC.'
-          format: date-time
-      description: Document
+        document_count:
+          type: integer
+          format: int64
+        percentage:
+          type: number
+          format: double
+      description: LanguageStats
   securitySchemes:
     apikey:
       type: apiKey

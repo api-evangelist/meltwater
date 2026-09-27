@@ -273,133 +273,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    explore_plus.SentimentBreakdown:
-      type: object
-      properties:
-        all:
-          type: array
-          example:
-          - positive
-          - negative
-          items:
-            type: string
-        any:
-          type: array
-          example:
-          - positive
-          - negative
-          items:
-            type: string
-        none:
-          type: array
-          example:
-          - positive
-          - negative
-          items:
-            type: string
-    explore_plus.CustomResponse:
-      required:
-      - analysis
-      - end
-      - searches
-      - start
-      - tz
-      type: object
-      properties:
-        analysis:
-          $ref: '#/components/schemas/explore_plus.Analytic'
-        end:
-          type: string
-          example: '2021-09-28T00:00:00'
-        filters:
-          $ref: '#/components/schemas/explore_plus.Filters'
-        result:
-          $ref: '#/components/schemas/explore_plus.AnalyticResponse'
-        searches:
-          $ref: '#/components/schemas/explore_plus.IntBreakdown'
-        start:
-          type: string
-          example: '2021-09-27T00:00:00'
-        tz:
-          type: string
-          example: Europe/London
-    explore_plus.CustomAnalyticsRequest:
-      required:
-      - analysis
-      - end
-      - searches
-      - start
-      - tz
-      type: object
-      properties:
-        analysis:
-          $ref: '#/components/schemas/explore_plus.Analytic'
-        end:
-          type: string
-          example: '2021-09-28T00:00:00'
-        filters:
-          $ref: '#/components/schemas/explore_plus.Filters'
-        searches:
-          $ref: '#/components/schemas/explore_plus.IntBreakdown'
-        start:
-          type: string
-          example: '2021-09-27T00:00:00'
-        tz:
-          type: string
-          example: Europe/London
-    explore_plus.Filters:
-      type: object
-      properties:
-        countries:
-          $ref: '#/components/schemas/explore_plus.StringBreakdown'
-        custom_fields:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/explore_plus.IntBreakdown'
-        languages:
-          $ref: '#/components/schemas/explore_plus.StringBreakdown'
-        sentiments:
-          $ref: '#/components/schemas/explore_plus.SentimentBreakdown'
-        sources:
-          $ref: '#/components/schemas/explore_plus.StringBreakdown'
-    controllers.APIError:
-      type: object
-      properties:
-        message:
-          type: string
-    explore_plus.AnalyticResponse:
-      type: object
-      properties:
-        analysis:
-          type: array
-          items:
-            type: integer
-        document_count:
-          type: integer
-    explore_plus.CatalogResponse:
-      type: object
-      properties:
-        dimensions:
-          type: array
-          example:
-          - author_age
-          - author_gender
-          items:
-            type: string
-        measures:
-          type: array
-          example:
-          - engagement
-          - estimated_views
-          items:
-            type: string
-        types:
-          type: array
-          example:
-          - document_count
-          - top_terms
-          items:
-            type: string
     explore_plus.Analytic:
       type: object
       properties:
@@ -433,41 +306,109 @@ components:
         type:
           type: string
           example: document_count
-    controllers.APIValidationError:
+    controllers.APIError:
       type: object
       properties:
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
         message:
           type: string
-    explore_plus.IntBreakdown:
+    explore_plus.CustomResponse:
+      required:
+      - analysis
+      - end
+      - searches
+      - start
+      - tz
       type: object
       properties:
-        all:
+        analysis:
+          $ref: '#/components/schemas/explore_plus.Analytic'
+        end:
+          type: string
+          example: '2021-09-28T00:00:00'
+        filters:
+          $ref: '#/components/schemas/explore_plus.Filters'
+        result:
+          $ref: '#/components/schemas/explore_plus.AnalyticResponse'
+        searches:
+          $ref: '#/components/schemas/explore_plus.IntBreakdown'
+        start:
+          type: string
+          example: '2021-09-27T00:00:00'
+        tz:
+          type: string
+          example: Europe/London
+    explore_plus.AnalyticResponse:
+      type: object
+      properties:
+        analysis:
           type: array
-          example:
-          - 123
-          - 456
           items:
             type: integer
-        any:
+        document_count:
+          type: integer
+    explore_plus.Filters:
+      type: object
+      properties:
+        countries:
+          $ref: '#/components/schemas/explore_plus.StringBreakdown'
+        custom_fields:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/explore_plus.IntBreakdown'
+        languages:
+          $ref: '#/components/schemas/explore_plus.StringBreakdown'
+        sentiments:
+          $ref: '#/components/schemas/explore_plus.SentimentBreakdown'
+        sources:
+          $ref: '#/components/schemas/explore_plus.StringBreakdown'
+    explore_plus.CustomAnalyticsRequest:
+      required:
+      - analysis
+      - end
+      - searches
+      - start
+      - tz
+      type: object
+      properties:
+        analysis:
+          $ref: '#/components/schemas/explore_plus.Analytic'
+        end:
+          type: string
+          example: '2021-09-28T00:00:00'
+        filters:
+          $ref: '#/components/schemas/explore_plus.Filters'
+        searches:
+          $ref: '#/components/schemas/explore_plus.IntBreakdown'
+        start:
+          type: string
+          example: '2021-09-27T00:00:00'
+        tz:
+          type: string
+          example: Europe/London
+    explore_plus.CatalogResponse:
+      type: object
+      properties:
+        dimensions:
           type: array
           example:
-          - 123
-          - 456
+          - author_age
+          - author_gender
           items:
-            type: integer
-        none:
+            type: string
+        measures:
           type: array
           example:
-          - 123
-          - 456
+          - engagement
+          - estimated_views
           items:
-            type: integer
+            type: string
+        types:
+          type: array
+          example:
+          - document_count
+          - top_terms
+          items:
+            type: string
     explore_plus.StringBreakdown:
       type: object
       properties:
@@ -492,6 +433,65 @@ components:
           - def
           items:
             type: string
+    controllers.APIValidationError:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        message:
+          type: string
+    explore_plus.SentimentBreakdown:
+      type: object
+      properties:
+        all:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+        any:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+        none:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+    explore_plus.IntBreakdown:
+      type: object
+      properties:
+        all:
+          type: array
+          example:
+          - 123
+          - 456
+          items:
+            type: integer
+        any:
+          type: array
+          example:
+          - 123
+          - 456
+          items:
+            type: integer
+        none:
+          type: array
+          example:
+          - 123
+          - 456
+          items:
+            type: integer
   securitySchemes:
     apikey:
       type: apiKey

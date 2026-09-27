@@ -75,36 +75,14 @@ paths:
       operationId: create-earned-search
 components:
   schemas:
-    Errors:
-      required:
-      - type
+    TemplateConfiguration:
       type: object
+      title: Template Configuration
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDetails'
-          description: List of problems with the request
-        type:
+        name:
           type: string
-          enum:
-          - NotFound
-          - ServiceUnavailable
-          - Unauthorized
-          - ValidationFailed
-      description: Errors
-      discriminator:
-        propertyName: type
-    Unauthorized:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message describing, in brief, the problem.
-      example:
-        message: Unauthorized
+          example: legacy
+          description: The name of the template being requested
     NotFound:
       required:
       - errors
@@ -128,19 +106,6 @@ components:
         errors:
           :searchId:
           - A Saved Search with that ID could not be found
-    DocumentResponse:
-      type: object
-      properties:
-        document_count:
-          type: integer
-          example: 100
-        documents:
-          type: array
-          items:
-            type: object
-            example:
-              id: 123abc123
-              opening_text: This is a document ...
     SearchResponse:
       required:
       - tz
@@ -220,26 +185,63 @@ components:
         tz:
           type: string
           example: Europe/London
-    AnalyticsServiceUnavailable:
-      description: ServiceUnavailable
+    Errors:
+      required:
+      - type
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+          description: List of problems with the request
+        type:
+          type: string
+          enum:
+          - NotFound
+          - ServiceUnavailable
+          - Unauthorized
+          - ValidationFailed
+      description: Errors
+      discriminator:
+        propertyName: type
+    Unauthorized:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing, in brief, the problem.
       example:
-        message: Service Unavailable
+        message: Unauthorized
+    RateLimitedError:
+      description: RateLimitedError
+      example:
+        message: Service Overloaded
         errors: {}
       allOf:
       - $ref: '#/components/schemas/Errors'
-      - type: object
+      - required:
+        - message
+        type: object
         properties:
           message:
             type: string
-        description: ServiceUnavailable
-    TemplateConfiguration:
+        description: RateLimitedError
+    DocumentResponse:
       type: object
-      title: Template Configuration
       properties:
-        name:
-          type: string
-          example: legacy
-          description: The name of the template being requested
+        document_count:
+          type: integer
+          example: 100
+        documents:
+          type: array
+          items:
+            type: object
+            example:
+              id: 123abc123
+              opening_text: This is a document ...
     SearchRequest:
       required:
       - tz
@@ -343,20 +345,6 @@ components:
           - '1111'
           - '2222'
           description: List of author list IDs to filter documents by.
-    RateLimitedError:
-      description: RateLimitedError
-      example:
-        message: Service Overloaded
-        errors: {}
-      allOf:
-      - $ref: '#/components/schemas/Errors'
-      - required:
-        - message
-        type: object
-        properties:
-          message:
-            type: string
-        description: RateLimitedError
     ErrorDetails:
       required:
       - type
@@ -373,6 +361,18 @@ components:
         details:
           type: string
           description: Details about the error
+    AnalyticsServiceUnavailable:
+      description: ServiceUnavailable
+      example:
+        message: Service Unavailable
+        errors: {}
+      allOf:
+      - $ref: '#/components/schemas/Errors'
+      - type: object
+        properties:
+          message:
+            type: string
+        description: ServiceUnavailable
   securitySchemes:
     apikey:
       type: apiKey

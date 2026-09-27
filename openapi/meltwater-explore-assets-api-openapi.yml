@@ -1903,36 +1903,183 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    custom_fields.UpdateCustomField:
-      required:
-      - description
-      - name
+    searches.SearchFolderOutput:
       type: object
       properties:
+        color:
+          type: string
+          example: '#ffffff'
+        created:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my search folder
+        num_searches:
+          type: integer
+          example: 2
+        parent:
+          type: integer
+          example: 1
+        updated:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        hidden:
+          type: boolean
+          example: false
+    custom_fields.CreateCustomFieldRequestInput:
+      type: object
+      properties:
+        custom_field:
+          $ref: '#/components/schemas/custom_fields.CreateCustomField'
+    custom_fields.UpdateCustomFieldRequestInput:
+      type: object
+      properties:
+        custom_field:
+          $ref: '#/components/schemas/custom_fields.UpdateCustomField'
+    custom_field_values.CustomFieldValueOutput:
+      type: object
+      properties:
+        color:
+          type: string
+          example: '#ffffff'
+        created:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my custom field value
+        num_rules:
+          type: integer
+          example: 1
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/assignment_rules.AssignmentRuleOutput'
+        updated:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+    custom_fields.CustomFieldOutput:
+      type: object
+      properties:
+        created:
+          type: string
+          example: '2025-01-01T00:00:00Z'
         description:
           type: string
           example: this is an example of a description
         folder_id:
           type: integer
+          example: 2
+        id:
+          type: integer
           example: 1
         name:
           type: string
           example: my custom field
-    assignment_rules.CreateAssignmentRuleRequestInput:
+        type:
+          type: string
+          example: boolean
+        updated:
+          type: string
+          example: '2025-01-01T00:00:00Z'
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/custom_field_values.CustomFieldValueOutput'
+    explore_plus.CombinedInput:
       type: object
       properties:
-        rule:
-          $ref: '#/components/schemas/assignment_rules.AssignmentRuleInput'
-    custom_field_values.SingleCustomFieldValueResponse:
+        id:
+          type: integer
+          example: 123456
+        type:
+          type: string
+          example: SEARCH
+    custom_fields.CustomFieldFolderOutput:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my custom field folder
+        num_custom_fields:
+          type: integer
+          example: 1
+    custom_fields.SingleCustomFieldResponse:
+      type: object
+      properties:
+        custom_field:
+          $ref: '#/components/schemas/custom_fields.CustomFieldOutput'
+    custom_field_values.CreateCustomFieldValueRequestInput:
       type: object
       properties:
         custom_field_value:
-          $ref: '#/components/schemas/custom_field_values.CustomFieldValueOutput'
-    assignment_rules.SingleAssignmentRuleResponse:
+          $ref: '#/components/schemas/custom_field_values.CreateCustomFieldValue'
+    assignment_rules.RuleQueryInput:
+      required:
+      - case_sensitivity
+      - type
       type: object
       properties:
-        rule:
-          $ref: '#/components/schemas/assignment_rules.AssignmentRuleOutput'
+        all_keywords:
+          type: array
+          example:
+          - car
+          items:
+            type: string
+        any_keywords:
+          type: array
+          example:
+          - boat
+          items:
+            type: string
+        boolean:
+          type: string
+          example: this is a boolean
+        case_sensitivity:
+          type: string
+          example: 'yes'
+          enum:
+          - 'yes'
+          - 'no'
+          - hybrid
+        not_keywords:
+          type: array
+          example:
+          - plane
+          items:
+            type: string
+        type:
+          type: string
+          example: boolean
+          enum:
+          - keyword
+          - boolean
+    searches.MultiSearchResponse:
+      type: object
+      properties:
+        page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        searches:
+          type: array
+          items:
+            $ref: '#/components/schemas/searches.SearchOutput'
+        total:
+          type: integer
+          example: 20
     explore_plus.QueryInput:
       required:
       - type
@@ -1981,44 +2128,12 @@ components:
           - keyword
           - boolean
           - combined
-    searches.SearchFolderOutput:
-      type: object
-      properties:
-        color:
-          type: string
-          example: '#ffffff'
-        created:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-        id:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: my search folder
-        num_searches:
-          type: integer
-          example: 2
-        parent:
-          type: integer
-          example: 1
-        updated:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-        hidden:
-          type: boolean
-          example: false
-    searches.CreateSearch:
+    custom_fields.UpdateCustomField:
       required:
+      - description
       - name
       type: object
       properties:
-        color:
-          type: string
-          example: '#ffffff'
-        data_collection:
-          type: boolean
-          example: true
         description:
           type: string
           example: this is an example of a description
@@ -2027,25 +2142,18 @@ components:
           example: 1
         name:
           type: string
-          example: my search
-        query:
-          $ref: '#/components/schemas/explore_plus.QueryInput'
-    custom_fields.CustomFieldFoldersResponse:
+          example: my custom field
+    controllers.ExplorePlusAPIValidationError:
       type: object
       properties:
-        folders:
-          type: array
-          items:
-            $ref: '#/components/schemas/custom_fields.CustomFieldFolderOutput'
-        page:
-          type: integer
-          example: 1
-        page_size:
-          type: integer
-          example: 10
-        total:
-          type: integer
-          example: 20
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        message:
+          type: string
     assignment_rules.AssignmentRuleOutput:
       type: object
       properties:
@@ -2065,6 +2173,32 @@ components:
         updated:
           type: string
           example: '2025-01-01T00:00:00Z'
+    custom_field_values.SingleCustomFieldValueResponse:
+      type: object
+      properties:
+        custom_field_value:
+          $ref: '#/components/schemas/custom_field_values.CustomFieldValueOutput'
+    custom_fields.MultiCustomFieldsResponse:
+      type: object
+      properties:
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/custom_fields.CustomFieldOutput'
+        page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 20
+    controllers.ExplorePlusAPIError:
+      type: object
+      properties:
+        message:
+          type: string
     searches.SearchOutput:
       type: object
       properties:
@@ -2110,94 +2244,13 @@ components:
       properties:
         search:
           $ref: '#/components/schemas/searches.SearchOutput'
-    custom_field_values.CustomFieldValueOutput:
+    custom_fields.CustomFieldFoldersResponse:
       type: object
       properties:
-        color:
-          type: string
-          example: '#ffffff'
-        created:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-        id:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: my custom field value
-        num_rules:
-          type: integer
-          example: 1
-        rules:
+        folders:
           type: array
           items:
-            $ref: '#/components/schemas/assignment_rules.AssignmentRuleOutput'
-        updated:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-    custom_fields.CustomFieldFolderOutput:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: my custom field folder
-        num_custom_fields:
-          type: integer
-          example: 1
-    custom_fields.SingleCustomFieldResponse:
-      type: object
-      properties:
-        custom_field:
-          $ref: '#/components/schemas/custom_fields.CustomFieldOutput'
-    custom_fields.CustomFieldOutput:
-      type: object
-      properties:
-        created:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-        description:
-          type: string
-          example: this is an example of a description
-        folder_id:
-          type: integer
-          example: 2
-        id:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: my custom field
-        type:
-          type: string
-          example: boolean
-        updated:
-          type: string
-          example: '2025-01-01T00:00:00Z'
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/custom_field_values.CustomFieldValueOutput'
-    controllers.ExplorePlusAPIValidationError:
-      type: object
-      properties:
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        message:
-          type: string
-    custom_fields.MultiCustomFieldsResponse:
-      type: object
-      properties:
-        custom_fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/custom_fields.CustomFieldOutput'
+            $ref: '#/components/schemas/custom_fields.CustomFieldFolderOutput'
         page:
           type: integer
           example: 1
@@ -2207,80 +2260,70 @@ components:
         total:
           type: integer
           example: 20
-    assignment_rules.RuleQueryInput:
-      required:
-      - case_sensitivity
-      - type
-      type: object
-      properties:
-        all_keywords:
-          type: array
-          example:
-          - car
-          items:
-            type: string
-        any_keywords:
-          type: array
-          example:
-          - boat
-          items:
-            type: string
-        boolean:
-          type: string
-          example: this is a boolean
-        case_sensitivity:
-          type: string
-          example: 'yes'
-          enum:
-          - 'yes'
-          - 'no'
-          - hybrid
-        not_keywords:
-          type: array
-          example:
-          - plane
-          items:
-            type: string
-        type:
-          type: string
-          example: boolean
-          enum:
-          - keyword
-          - boolean
-    searches.CreateSearchRequestInput:
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/searches.CreateSearch'
     assignment_rules.AssignmentRuleInput:
       type: object
       properties:
         query:
           $ref: '#/components/schemas/assignment_rules.RuleQueryInput'
-    custom_fields.UpdateCustomFieldRequestInput:
+    assignment_rules.CreateAssignmentRuleRequestInput:
       type: object
       properties:
-        custom_field:
-          $ref: '#/components/schemas/custom_fields.UpdateCustomField'
-    custom_fields.CreateCustomFieldRequestInput:
+        rule:
+          $ref: '#/components/schemas/assignment_rules.AssignmentRuleInput'
+    searches.CreateSearch:
+      required:
+      - name
       type: object
       properties:
-        custom_field:
-          $ref: '#/components/schemas/custom_fields.CreateCustomField'
-    explore_plus.CombinedInput:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 123456
-        type:
+        color:
           type: string
-          example: SEARCH
-    custom_field_values.CreateCustomFieldValueRequestInput:
+          example: '#ffffff'
+        data_collection:
+          type: boolean
+          example: true
+        description:
+          type: string
+          example: this is an example of a description
+        folder_id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: my search
+        query:
+          $ref: '#/components/schemas/explore_plus.QueryInput'
+    custom_field_values.CreateCustomFieldValue:
+      required:
+      - name
       type: object
       properties:
-        custom_field_value:
-          $ref: '#/components/schemas/custom_field_values.CreateCustomFieldValue'
+        color:
+          type: string
+          example: '#ffffff'
+        name:
+          type: string
+          example: my custom field value
+    assignment_rules.SingleAssignmentRuleResponse:
+      type: object
+      properties:
+        rule:
+          $ref: '#/components/schemas/assignment_rules.AssignmentRuleOutput'
+    searches.SearchFoldersResponse:
+      type: object
+      properties:
+        folders:
+          type: array
+          items:
+            $ref: '#/components/schemas/searches.SearchFolderOutput'
+        page:
+          type: integer
+          example: 1
+        page_size:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 20
     custom_fields.CreateCustomField:
       required:
       - name
@@ -2302,54 +2345,11 @@ components:
           enum:
           - tag
           - multi_value
-    controllers.ExplorePlusAPIError:
+    searches.CreateSearchRequestInput:
       type: object
       properties:
-        message:
-          type: string
-    searches.MultiSearchResponse:
-      type: object
-      properties:
-        page:
-          type: integer
-          example: 1
-        page_size:
-          type: integer
-          example: 10
-        searches:
-          type: array
-          items:
-            $ref: '#/components/schemas/searches.SearchOutput'
-        total:
-          type: integer
-          example: 20
-    custom_field_values.CreateCustomFieldValue:
-      required:
-      - name
-      type: object
-      properties:
-        color:
-          type: string
-          example: '#ffffff'
-        name:
-          type: string
-          example: my custom field value
-    searches.SearchFoldersResponse:
-      type: object
-      properties:
-        folders:
-          type: array
-          items:
-            $ref: '#/components/schemas/searches.SearchFolderOutput'
-        page:
-          type: integer
-          example: 1
-        page_size:
-          type: integer
-          example: 10
-        total:
-          type: integer
-          example: 20
+        search:
+          $ref: '#/components/schemas/searches.CreateSearch'
   securitySchemes:
     apikey:
       type: apiKey

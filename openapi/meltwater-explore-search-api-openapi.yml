@@ -132,30 +132,11 @@ components:
         name:
           type: string
           example: api.json
-    explore_plus.SentimentBreakdown:
+    controllers.APIError:
       type: object
       properties:
-        all:
-          type: array
-          example:
-          - positive
-          - negative
-          items:
-            type: string
-        any:
-          type: array
-          example:
-          - positive
-          - negative
-          items:
-            type: string
-        none:
-          type: array
-          example:
-          - positive
-          - negative
-          items:
-            type: string
+        message:
+          type: string
     explore_plus.Response:
       type: object
       properties:
@@ -180,46 +161,6 @@ components:
           $ref: '#/components/schemas/explore_plus.SentimentBreakdown'
         sources:
           $ref: '#/components/schemas/explore_plus.StringBreakdown'
-    controllers.APIError:
-      type: object
-      properties:
-        message:
-          type: string
-    controllers.APIValidationError:
-      type: object
-      properties:
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        message:
-          type: string
-    explore_plus.IntBreakdown:
-      type: object
-      properties:
-        all:
-          type: array
-          example:
-          - 123
-          - 456
-          items:
-            type: integer
-        any:
-          type: array
-          example:
-          - 123
-          - 456
-          items:
-            type: integer
-        none:
-          type: array
-          example:
-          - 123
-          - 456
-          items:
-            type: integer
     explore_plus.ExplorePlusParameters:
       required:
       - tz
@@ -296,6 +237,65 @@ components:
           - def
           items:
             type: string
+    controllers.APIValidationError:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        message:
+          type: string
+    explore_plus.SentimentBreakdown:
+      type: object
+      properties:
+        all:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+        any:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+        none:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+    explore_plus.IntBreakdown:
+      type: object
+      properties:
+        all:
+          type: array
+          example:
+          - 123
+          - 456
+          items:
+            type: integer
+        any:
+          type: array
+          example:
+          - 123
+          - 456
+          items:
+            type: integer
+        none:
+          type: array
+          example:
+          - 123
+          - 456
+          items:
+            type: integer
   securitySchemes:
     apikey:
       type: apiKey

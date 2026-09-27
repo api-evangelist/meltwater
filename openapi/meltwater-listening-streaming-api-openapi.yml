@@ -173,6 +173,14 @@ paths:
       - apikey: []
 components:
   schemas:
+    TemplateConfiguration:
+      type: object
+      title: Template Configuration
+      properties:
+        name:
+          type: string
+          example: legacy
+          description: The name of the template being requested
     postV2Hooks:
       type: object
       properties:
@@ -189,27 +197,6 @@ components:
       - target_url
       - search_id
       description: Creates a hook for one of your predefined searches.
-    ErrorsCollection:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/HookError'
-    HooksCollection:
-      type: object
-      properties:
-        hooks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Hook'
-      description: List all hooks. Delivers all previously generated hooks.
-    SingleHook:
-      type: object
-      properties:
-        hook:
-          $ref: '#/components/schemas/Hook'
-      description: "Get an individual hook.\n Retrieves an existing hook."
     Hook:
       type: object
       properties:
@@ -238,14 +225,6 @@ components:
           type: string
           description: The reason for current hook status if applicable
       description: "Get an individual hook.\n Retrieves an existing hook."
-    TemplateConfiguration:
-      type: object
-      title: Template Configuration
-      properties:
-        name:
-          type: string
-          example: legacy
-          description: The name of the template being requested
     HookError:
       type: object
       properties:
@@ -261,6 +240,27 @@ components:
         meta:
           type: object
           description: Additional meta-information to qualify error
+    SingleHook:
+      type: object
+      properties:
+        hook:
+          $ref: '#/components/schemas/Hook'
+      description: "Get an individual hook.\n Retrieves an existing hook."
+    ErrorsCollection:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/HookError'
+    HooksCollection:
+      type: object
+      properties:
+        hooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hook'
+      description: List all hooks. Delivers all previously generated hooks.
   securitySchemes:
     apikey:
       type: apiKey
