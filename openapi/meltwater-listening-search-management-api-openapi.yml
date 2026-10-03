@@ -191,7 +191,7 @@ paths:
                       name: Electric Cars
                       query:
                         filter_set: null
-                        case_sensitivity: false
+                        case_sensitivity: 'no'
                         boolean: cars AND electric
                 Keyword Search:
                   summary: Keyword Search
@@ -222,7 +222,7 @@ paths:
                       name: Meltwater Combined
                       query:
                         filter_set: null
-                        case_sensitivity: false
+                        case_sensitivity: 'no'
                         not_searches: []
                         any_searches: []
                         all_searches:
@@ -362,7 +362,7 @@ paths:
                       name: Meltwater Combined
                       query:
                         filter_set: null
-                        case_sensitivity: false
+                        case_sensitivity: 'no'
                         not_searches: []
                         any_searches: []
                         all_searches:
@@ -459,7 +459,7 @@ paths:
                     name: Keyword Search
                     query:
                       filter_set: null
-                      case_sensitivity: false
+                      case_sensitivity: 'no'
                       not_keywords:
                       - Tesla
                       any_keywords:
@@ -515,7 +515,7 @@ paths:
                       name: Electric Cars
                       query:
                         filter_set: null
-                        case_sensitivity: false
+                        case_sensitivity: 'no'
                         boolean: cars AND electric
                 Keyword Search:
                   summary: Keyword Search
@@ -546,7 +546,7 @@ paths:
                       name: Meltwater Combined
                       query:
                         filter_set: null
-                        case_sensitivity: false
+                        case_sensitivity: 'no'
                         not_searches: []
                         any_searches: []
                         all_searches:
@@ -1175,26 +1175,126 @@ paths:
       - apikey: []
 components:
   schemas:
-    Tag:
+    InternalServerErrorResponse:
+      type: object
+      title: Internal Server error
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            title: Error object
+            required:
+            - type
+            - details
+            - title
+            properties:
+              type:
+                type: string
+                example: VALIDATION
+                description: Category of error
+              title:
+                type: string
+                example: 'Validation error for field: type'
+                description: Title of error
+              details:
+                type: string
+                example: This field cannot be updated
+                description: Details about the error
+            additionalProperties: false
+          description: List of problems with the request
+      example:
+        errors:
+        - type: INTERNAL
+          title: Internal Server error
+          details: Something went wrong behind the scenes...
+      description: Internal Server error
+    SearchListResponse:
+      type: object
+      properties:
+        searches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchV2'
+      title: Search List Response
       required:
-      - id
-      - name
+      - searches
+      description: Search List Response
+      additionalProperties: false
+    CombinedQuery:
+      type: object
+      properties:
+        filter_set:
+          $ref: '#/components/schemas/FilterSet'
+        not_searches:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: None of these searches should match
+        any_searches:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: At least one of these searches must match
+        all_searches:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: All of these searches must match
+    DocModTag:
       type: object
       properties:
         id:
           type: integer
-          description: Tag id
-          example: 12345
         name:
           type: string
-          description: Tag name
-          example: My Custom Tag
-      title: Tag
-      example:
-        id: 12345
-        name: My Custom Tag
-      description: Tag
+    SingleSearch:
+      required:
+      - search
+      type: object
+      properties:
+        search:
+          $ref: '#/components/schemas/SearchV2'
+      title: Search Resource
+      description: Search Resource
       additionalProperties: false
+    MissingResourceResponse:
+      type: object
+      title: Unknown resource
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            title: Error object
+            required:
+            - type
+            - details
+            - title
+            properties:
+              type:
+                type: string
+                example: VALIDATION
+                description: Category of error
+              title:
+                type: string
+                example: 'Validation error for field: type'
+                description: Title of error
+              details:
+                type: string
+                example: This field cannot be updated
+                description: Details about the error
+            additionalProperties: false
+          description: List of problems with the request
+      example:
+        errors:
+        - type: SEARCH
+          title: Unknown search
+          details: The search id (123) you provided is unknown
+      description: Unknown resource
     KeywordQuery:
       required:
       - case_sensitivity
@@ -1224,26 +1324,141 @@ components:
           items:
             type: string
           description: All of these keywords must match
-    Errors:
-      required:
-      - type
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDetails'
-          description: List of problems with the request
-        type:
-          type: string
-          enum:
-          - NotFound
-          - ServiceUnavailable
-          - Unauthorized
-          - ValidationFailed
-      description: Errors
+    FilterSet:
+      description: The optional Filter Set to apply to this search
+      oneOf:
+      - $ref: '#/components/schemas/SavedFilterSet'
+      - $ref: '#/components/schemas/EmbeddedFilterSet'
       discriminator:
         propertyName: type
+        mapping:
+          saved: '#/components/schemas/SavedFilterSet'
+          embedded: '#/components/schemas/EmbeddedFilterSet'
+    SavedFilterSet:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID number for the Saved Filter Set
+          format: int64
+        name:
+          type: string
+          description: Name of the Saved Filter Set, is optional when referencing one
+        subtype:
+          type: string
+          description: Type of Saved Filter Set, may be CUSTOM for user-created or QUICKPICK for meltwater-created, is optional when referencing one
+          enum:
+          - custom
+          - quickpick
+    CreateTagResponse:
+      type: object
+      title: Tag
+      example:
+        tag:
+          id: 123
+          name: new-tag
+      properties:
+        tag:
+          $ref: '#/components/schemas/CreateTagResponseConfig'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+    SearchV2:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        updated:
+          type: string
+          format: date-time
+          example: '2020-08-23T08:25:56.000Z'
+          description: UTC date time (in ISO-8601 format) when the search was last updated
+        id:
+          type: integer
+          format: int64
+          example: 1024
+          description: Identifier
+        name:
+          type: string
+          example: Electric cars
+          description: Search name
+        query:
+          $ref: '#/components/schemas/Query'
+      title: Search
+      example:
+        updated: '2020-08-23T08:25:56.000Z'
+        query:
+          type: boolean
+          filter_set: null
+          case_sensitivity: false
+          boolean: Tesla OR (Volvo NEAR electric)
+        name: Electric cars
+        id: 1999
+      description: Search
+      additionalProperties: false
+    Tag:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Tag id
+          example: 12345
+        name:
+          type: string
+          description: Tag name
+          example: My Custom Tag
+      title: Tag
+      example:
+        id: 12345
+        name: My Custom Tag
+      description: Tag
+      additionalProperties: false
+    Count:
+      required:
+      - total
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total count
+          format: int64
+          example: 901382
+      description: Number of results for the search
+      title: Count
+      additionalProperties: false
+    EmbeddedFilterSet:
+      type: object
+    BooleanQuery:
+      required:
+      - case_sensitivity
+      - boolean
+      type: object
+      properties:
+        filter_set:
+          $ref: '#/components/schemas/FilterSet'
+        case_sensitivity:
+          type: string
+          description: The case sensitivity for this query
+          enum:
+          - 'yes'
+          - 'no'
+          - hybrid
+        boolean:
+          type: string
+          description: The boolean query string
+    CreateTagConfig:
+      type: object
+      properties:
+        name:
+          type: string
     CreateTagRequest:
       type: object
       title: Tag
@@ -1253,6 +1468,181 @@ components:
       properties:
         tag:
           $ref: '#/components/schemas/CreateTagConfig'
+    FilterSetList:
+      type: object
+      properties:
+        filter_sets:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilterSet'
+    CreateTagResponseConfig:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    UnauthorizedResponse:
+      type: object
+      title: Unauthorized request
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            title: Error object
+            required:
+            - type
+            - details
+            - title
+            properties:
+              type:
+                type: string
+                example: VALIDATION
+                description: Category of error
+              title:
+                type: string
+                example: 'Validation error for field: type'
+                description: Title of error
+              details:
+                type: string
+                example: This field cannot be updated
+                description: Details about the error
+            additionalProperties: false
+          description: List of problems with the request
+      example:
+        errors:
+        - type: AUTH
+          title: Unauthorized
+          details: Invalid or expired authorization header
+      description: Unauthorized request
+    MWAPIErrorDetails:
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        details:
+          type: string
+    DocumentTagsPayload:
+      type: object
+      required:
+      - document_ids
+      - tags
+      properties:
+        document_ids:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            type: string
+        tags:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/DocModTag'
+    SearchRequestV2:
+      required:
+      - name
+      - query
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name associated with this search
+          example: Electric cars
+        query:
+          $ref: '#/components/schemas/Query'
+        id:
+          type: integer
+          example: 1024
+          description: Identifier
+      title: Search
+      example:
+        query:
+          type: boolean
+          filter_set: null
+          case_sensitivity: false
+          boolean: Tesla OR (Volvo NEAR electric)
+        name: Electric cars
+      description: Search
+      additionalProperties: false
+    ValidationError:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        message:
+          type: string
+    Query:
+      description: Query associated with a search
+      oneOf:
+      - $ref: '#/components/schemas/BooleanQuery'
+      - $ref: '#/components/schemas/KeywordQuery'
+      - $ref: '#/components/schemas/CombinedQuery'
+      discriminator:
+        propertyName: type
+        mapping:
+          boolean: '#/components/schemas/BooleanQuery'
+          keyword: '#/components/schemas/KeywordQuery'
+          combined: '#/components/schemas/CombinedQuery'
+    MWAPIError:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/MWAPIErrorDetails'
+    TagList:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+      title: Tag List
+      items:
+        $ref: '#/components/schemas/Tag'
+      description: Tag List
+    InvalidPermissionsResponse:
+      type: object
+      title: Invalid Permissions
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            title: Error object
+            required:
+            - type
+            - details
+            - title
+            properties:
+              type:
+                type: string
+                example: VALIDATION
+                description: Category of error
+              title:
+                type: string
+                example: 'Validation error for field: type'
+                description: Title of error
+              details:
+                type: string
+                example: This field cannot be updated
+                description: Details about the error
+            additionalProperties: false
+          description: List of problems with the request
+      example:
+        errors:
+        - type: SEARCH
+          title: Missing company permissions
+          details: You do not have enough permissions to manage searches for the given company
+      description: Invalid Permissions
     UnprocessableEntityCompanyId:
       type: object
       title: Invalid company id
@@ -1291,246 +1681,6 @@ components:
             field: company_id
           details: Company id is expected to contain alphanumeric characters only
       description: Invalid company id
-    SearchRequestV2:
-      required:
-      - name
-      - query
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name associated with this search
-          example: Electric cars
-        query:
-          $ref: '#/components/schemas/Query'
-        id:
-          type: integer
-          example: 1024
-          description: Identifier
-      title: Search
-      example:
-        query:
-          type: boolean
-          filter_set: null
-          case_sensitivity: false
-          boolean: Tesla OR (Volvo NEAR electric)
-        name: Electric cars
-      description: Search
-      additionalProperties: false
-    EmbeddedFilterSet:
-      type: object
-    SingleSearchRequest:
-      required:
-      - search
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/SearchRequestV2'
-      title: Search Resource
-      description: Search Resource
-      additionalProperties: false
-    ValidationMetadata:
-      type: object
-      title: Metadata
-      required:
-      - field
-      properties:
-        validation:
-          type: string
-          example: complexity
-          enum:
-          - syntax
-          - complexity
-          - length
-          - cast
-          - inclusion
-          - required
-          - content_type
-          description: The cause of the validation error
-        field:
-          type: string
-          example: boolean
-          description: Name of the field that failed its validation checks
-      description: Metadata for the error
-      additionalProperties: true
-    BooleanQuery:
-      required:
-      - case_sensitivity
-      - boolean
-      type: object
-      properties:
-        filter_set:
-          $ref: '#/components/schemas/FilterSet'
-        case_sensitivity:
-          type: string
-          description: The case sensitivity for this query
-          enum:
-          - 'yes'
-          - 'no'
-          - hybrid
-        boolean:
-          type: string
-          description: The boolean query string
-    SearchListResponse:
-      type: object
-      properties:
-        searches:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchV2'
-      title: Search List Response
-      required:
-      - searches
-      description: Search List Response
-      additionalProperties: false
-    CustomCategory:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Custom category id
-          format: int64
-          example: 11234
-        name:
-          type: string
-          description: Name of the custom category
-          example: My Custom Category
-        type:
-          type: string
-          description: Type of the category, can be `include` or `exclude`
-          example: include
-    CombinedQuery:
-      type: object
-      properties:
-        filter_set:
-          $ref: '#/components/schemas/FilterSet'
-        not_searches:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: None of these searches should match
-        any_searches:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: At least one of these searches must match
-        all_searches:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: All of these searches must match
-    MWAPIError:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/MWAPIErrorDetails'
-    ValidationError:
-      type: object
-      properties:
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        message:
-          type: string
-    Query:
-      description: Query associated with a search
-      oneOf:
-      - $ref: '#/components/schemas/BooleanQuery'
-      - $ref: '#/components/schemas/KeywordQuery'
-      - $ref: '#/components/schemas/CombinedQuery'
-      discriminator:
-        propertyName: type
-        mapping:
-          boolean: '#/components/schemas/BooleanQuery'
-          keyword: '#/components/schemas/KeywordQuery'
-          combined: '#/components/schemas/CombinedQuery'
-    Count:
-      required:
-      - total
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total count
-          format: int64
-          example: 901382
-      description: Number of results for the search
-      title: Count
-      additionalProperties: false
-    InternalServerErrorResponse:
-      type: object
-      title: Internal Server error
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            title: Error object
-            required:
-            - type
-            - details
-            - title
-            properties:
-              type:
-                type: string
-                example: VALIDATION
-                description: Category of error
-              title:
-                type: string
-                example: 'Validation error for field: type'
-                description: Title of error
-              details:
-                type: string
-                example: This field cannot be updated
-                description: Details about the error
-            additionalProperties: false
-          description: List of problems with the request
-      example:
-        errors:
-        - type: INTERNAL
-          title: Internal Server error
-          details: Something went wrong behind the scenes...
-      description: Internal Server error
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-    DocumentTagsPayload:
-      type: object
-      required:
-      - document_ids
-      - tags
-      properties:
-        document_ids:
-          type: array
-          minItems: 1
-          maxItems: 100
-          items:
-            type: string
-        tags:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/DocModTag'
-    SingleSearch:
-      required:
-      - search
-      type: object
-      properties:
-        search:
-          $ref: '#/components/schemas/SearchV2'
-      title: Search Resource
-      description: Search Resource
-      additionalProperties: false
     ServiceUnavailable:
       type: object
       title: Service Unavailable
@@ -1565,115 +1715,22 @@ components:
           title: Service unavailable
           details: Temporarily unable to handle the request, try again later
       description: Service Unavailable
-    FilterSetList:
-      type: object
-      properties:
-        filter_sets:
-          type: array
-          items:
-            $ref: '#/components/schemas/FilterSet'
-    DocModTag:
+    CustomCategory:
       type: object
       properties:
         id:
           type: integer
-        name:
-          type: string
-    CreateTagResponseConfig:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-    SavedFilterSet:
-      required:
-      - id
-      type: object
-      properties:
-        id:
-          type: integer
-          description: ID number for the Saved Filter Set
+          description: Custom category id
           format: int64
+          example: 11234
         name:
           type: string
-          description: Name of the Saved Filter Set, is optional when referencing one
-        subtype:
+          description: Name of the custom category
+          example: My Custom Category
+        type:
           type: string
-          description: Type of Saved Filter Set, may be CUSTOM for user-created or QUICKPICK for meltwater-created, is optional when referencing one
-          enum:
-          - custom
-          - quickpick
-    CreateTagResponse:
-      type: object
-      title: Tag
-      example:
-        tag:
-          id: 123
-          name: new-tag
-      properties:
-        tag:
-          $ref: '#/components/schemas/CreateTagResponseConfig'
-    UnauthorizedResponse:
-      type: object
-      title: Unauthorized request
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            title: Error object
-            required:
-            - type
-            - details
-            - title
-            properties:
-              type:
-                type: string
-                example: VALIDATION
-                description: Category of error
-              title:
-                type: string
-                example: 'Validation error for field: type'
-                description: Title of error
-              details:
-                type: string
-                example: This field cannot be updated
-                description: Details about the error
-            additionalProperties: false
-          description: List of problems with the request
-      example:
-        errors:
-        - type: AUTH
-          title: Unauthorized
-          details: Invalid or expired authorization header
-      description: Unauthorized request
-    CreateTagConfig:
-      type: object
-      properties:
-        name:
-          type: string
-    FilterSet:
-      description: The optional Filter Set to apply to this search
-      oneOf:
-      - $ref: '#/components/schemas/SavedFilterSet'
-      - $ref: '#/components/schemas/EmbeddedFilterSet'
-      discriminator:
-        propertyName: type
-        mapping:
-          saved: '#/components/schemas/SavedFilterSet'
-          embedded: '#/components/schemas/EmbeddedFilterSet'
-    TagList:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-      title: Tag List
-      items:
-        $ref: '#/components/schemas/Tag'
-      description: Tag List
+          description: Type of the category, can be `include` or `exclude`
+          example: include
     CustomCategoriesList:
       type: object
       properties:
@@ -1686,6 +1743,36 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CustomCategory'
+    Errors:
+      required:
+      - type
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+          description: List of problems with the request
+        type:
+          type: string
+          enum:
+          - NotFound
+          - ServiceUnavailable
+          - Unauthorized
+          - ValidationFailed
+      description: Errors
+      discriminator:
+        propertyName: type
+    SearchCountResponse:
+      required:
+      - count
+      type: object
+      properties:
+        count:
+          $ref: '#/components/schemas/Count'
+      title: Search Count
+      description: Number of results for the search
+      additionalProperties: false
     ErrorDetails:
       required:
       - type
@@ -1702,127 +1789,40 @@ components:
         details:
           type: string
           description: Details about the error
-    MissingResourceResponse:
+    ValidationMetadata:
       type: object
-      title: Unknown resource
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            title: Error object
-            required:
-            - type
-            - details
-            - title
-            properties:
-              type:
-                type: string
-                example: VALIDATION
-                description: Category of error
-              title:
-                type: string
-                example: 'Validation error for field: type'
-                description: Title of error
-              details:
-                type: string
-                example: This field cannot be updated
-                description: Details about the error
-            additionalProperties: false
-          description: List of problems with the request
-      example:
-        errors:
-        - type: SEARCH
-          title: Unknown search
-          details: The search id (123) you provided is unknown
-      description: Unknown resource
-    InvalidPermissionsResponse:
-      type: object
-      title: Invalid Permissions
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            title: Error object
-            required:
-            - type
-            - details
-            - title
-            properties:
-              type:
-                type: string
-                example: VALIDATION
-                description: Category of error
-              title:
-                type: string
-                example: 'Validation error for field: type'
-                description: Title of error
-              details:
-                type: string
-                example: This field cannot be updated
-                description: Details about the error
-            additionalProperties: false
-          description: List of problems with the request
-      example:
-        errors:
-        - type: SEARCH
-          title: Missing company permissions
-          details: You do not have enough permissions to manage searches for the given company
-      description: Invalid Permissions
-    SearchV2:
+      title: Metadata
       required:
-      - id
-      - name
-      type: object
+      - field
       properties:
-        updated:
+        validation:
           type: string
-          format: date-time
-          example: '2020-08-23T08:25:56.000Z'
-          description: UTC date time (in ISO-8601 format) when the search was last updated
-        id:
-          type: integer
-          format: int64
-          example: 1024
-          description: Identifier
-        name:
+          example: complexity
+          enum:
+          - syntax
+          - complexity
+          - length
+          - cast
+          - inclusion
+          - required
+          - content_type
+          description: The cause of the validation error
+        field:
           type: string
-          example: Electric cars
-          description: Search name
-        query:
-          $ref: '#/components/schemas/Query'
-      title: Search
-      example:
-        updated: '2020-08-23T08:25:56.000Z'
-        query:
-          type: boolean
-          filter_set: null
-          case_sensitivity: false
-          boolean: Tesla OR (Volvo NEAR electric)
-        name: Electric cars
-        id: 1999
-      description: Search
-      additionalProperties: false
-    SearchCountResponse:
+          example: boolean
+          description: Name of the field that failed its validation checks
+      description: Metadata for the error
+      additionalProperties: true
+    SingleSearchRequest:
       required:
-      - count
+      - search
       type: object
       properties:
-        count:
-          $ref: '#/components/schemas/Count'
-      title: Search Count
-      description: Number of results for the search
+        search:
+          $ref: '#/components/schemas/SearchRequestV2'
+      title: Search Resource
+      description: Search Resource
       additionalProperties: false
-    MWAPIErrorDetails:
-      type: object
-      properties:
-        type:
-          type: string
-        title:
-          type: string
-        details:
-          type: string
   securitySchemes:
     apikey:
       type: apiKey

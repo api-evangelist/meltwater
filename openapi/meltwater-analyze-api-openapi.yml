@@ -238,7 +238,43 @@ paths:
         '422':
           $ref: '#/components/responses/Error'
 components:
+  parameters:
+    CompanyId:
+      name: company_id
+      in: query
+      description: Company which owns the resource. If not specified, your default company is used.
+      required: false
+      schema:
+        type: string
   schemas:
+    id-filter:
+      type: object
+      properties:
+        all:
+          type: array
+          items:
+            type: integer
+        any:
+          type: array
+          items:
+            type: integer
+        none:
+          type: array
+          items:
+            type: integer
+    analysis-period:
+      type: object
+      description: Time range for the analysis. Both start and end are required (ISO 8601 datetimes without timezone).
+      required:
+      - start
+      - end
+      properties:
+        start:
+          type: string
+          description: Start of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-01T00:00:00).
+        end:
+          type: string
+          description: End of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-31T23:59:59).
     query:
       type: object
       properties:
@@ -301,49 +337,6 @@ components:
               $ref: '#/components/schemas/string-filter'
             sentiments:
               $ref: '#/components/schemas/string-filter'
-    error:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code
-          enum:
-          - INVALID_QUERY
-          - RESOURCE_NOT_FOUND
-          - UNAUTHORIZED
-          - FORBIDDEN
-          - RATE_LIMITED
-          - INTERNAL_ERROR
-          - VALIDATION_ERROR
-          - PROVIDER_ERROR
-        message:
-          type: string
-          description: Human-readable error message
-        details:
-          type: object
-          description: Additional error context
-          additionalProperties: true
-        request_id:
-          type: string
-          description: Unique request identifier for debugging
-    id-filter:
-      type: object
-      properties:
-        all:
-          type: array
-          items:
-            type: integer
-        any:
-          type: array
-          items:
-            type: integer
-        none:
-          type: array
-          items:
-            type: integer
     analytics-query:
       type: object
       required:
@@ -366,6 +359,21 @@ components:
           $ref: '#/components/schemas/query'
         analysis:
           $ref: '#/components/schemas/analysis'
+    string-filter:
+      type: object
+      properties:
+        all:
+          type: array
+          items:
+            type: string
+        any:
+          type: array
+          items:
+            type: string
+        none:
+          type: array
+          items:
+            type: string
     analysis:
       type: object
       required:
@@ -403,34 +411,34 @@ components:
           description: Nested sub-analysis
           allOf:
           - $ref: '#/components/schemas/analysis'
-    analysis-period:
+    error:
       type: object
-      description: Time range for the analysis. Both start and end are required (ISO 8601 datetimes without timezone).
       required:
-      - start
-      - end
+      - code
+      - message
       properties:
-        start:
+        code:
           type: string
-          description: Start of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-01T00:00:00).
-        end:
+          description: Machine-readable error code
+          enum:
+          - INVALID_QUERY
+          - RESOURCE_NOT_FOUND
+          - UNAUTHORIZED
+          - FORBIDDEN
+          - RATE_LIMITED
+          - INTERNAL_ERROR
+          - VALIDATION_ERROR
+          - PROVIDER_ERROR
+        message:
           type: string
-          description: End of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-31T23:59:59).
-    string-filter:
-      type: object
-      properties:
-        all:
-          type: array
-          items:
-            type: string
-        any:
-          type: array
-          items:
-            type: string
-        none:
-          type: array
-          items:
-            type: string
+          description: Human-readable error message
+        details:
+          type: object
+          description: Additional error context
+          additionalProperties: true
+        request_id:
+          type: string
+          description: Unique request identifier for debugging
   responses:
     Unauthorized:
       description: Authentication required
@@ -442,6 +450,12 @@ components:
             code: UNAUTHORIZED
             message: Not Authorized
             request_id: 123e4567-e89b-12d3-a456-426614174000
+    Error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
     NotFound:
       description: Resource not found
       content:
@@ -452,20 +466,6 @@ components:
             code: RESOURCE_NOT_FOUND
             message: Not Found
             request_id: 123e4567-e89b-12d3-a456-426614174000
-    Error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
-  parameters:
-    CompanyId:
-      name: company_id
-      in: query
-      description: Company which owns the resource. If not specified, your default company is used.
-      required: false
-      schema:
-        type: string
   securitySchemes:
     apiKey:
       type: apiKey

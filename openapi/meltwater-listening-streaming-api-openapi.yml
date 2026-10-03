@@ -173,30 +173,20 @@ paths:
       - apikey: []
 components:
   schemas:
-    TemplateConfiguration:
-      type: object
-      title: Template Configuration
-      properties:
-        name:
-          type: string
-          example: legacy
-          description: The name of the template being requested
-    postV2Hooks:
+    HooksCollection:
       type: object
       properties:
-        target_url:
-          type: string
-          description: Target URL to send article results
-        search_id:
-          type: integer
-          format: int32
-          description: Search ID
-        template:
-          $ref: '#/components/schemas/TemplateConfiguration'
-      required:
-      - target_url
-      - search_id
-      description: Creates a hook for one of your predefined searches.
+        hooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hook'
+      description: List all hooks. Delivers all previously generated hooks.
+    SingleHook:
+      type: object
+      properties:
+        hook:
+          $ref: '#/components/schemas/Hook'
+      description: "Get an individual hook.\n Retrieves an existing hook."
     Hook:
       type: object
       properties:
@@ -225,6 +215,37 @@ components:
           type: string
           description: The reason for current hook status if applicable
       description: "Get an individual hook.\n Retrieves an existing hook."
+    postV2Hooks:
+      type: object
+      properties:
+        target_url:
+          type: string
+          description: Target URL to send article results
+        search_id:
+          type: integer
+          format: int32
+          description: Search ID
+        template:
+          $ref: '#/components/schemas/TemplateConfiguration'
+      required:
+      - target_url
+      - search_id
+      description: Creates a hook for one of your predefined searches.
+    ErrorsCollection:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/HookError'
+    TemplateConfiguration:
+      type: object
+      title: Template Configuration
+      properties:
+        name:
+          type: string
+          example: legacy
+          description: The name of the template being requested
     HookError:
       type: object
       properties:
@@ -240,27 +261,6 @@ components:
         meta:
           type: object
           description: Additional meta-information to qualify error
-    SingleHook:
-      type: object
-      properties:
-        hook:
-          $ref: '#/components/schemas/Hook'
-      description: "Get an individual hook.\n Retrieves an existing hook."
-    ErrorsCollection:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/HookError'
-    HooksCollection:
-      type: object
-      properties:
-        hooks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Hook'
-      description: List all hooks. Delivers all previously generated hooks.
   securitySchemes:
     apikey:
       type: apiKey

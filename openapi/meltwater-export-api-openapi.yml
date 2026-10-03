@@ -365,38 +365,49 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    source:
-      type: string
-      description: Content source. Accepted values for Explore+ (case-insensitive).
-      enum:
-      - facebook
-      - instagram
-      - reddit
-      - blogs
-      - product_reviews
-      - forums
-      - comments
-      - x
-      - wechat
-      - sina_weibo
-      - pinterest
-      - twitch
-      - tiktok
-      - douyin
-      - little_red_book
-      - google_reviews
-      - threads
-      - kakaotalk
-      - linevoom
-      - news_online
-      - news_print
-      - news_app
-      - broadcast
-      - youku
-      - bilibili
-      - rss
-      - youtube
-      - social_reviews
+    id-filter:
+      type: object
+      properties:
+        all:
+          type: array
+          items:
+            type: integer
+        any:
+          type: array
+          items:
+            type: integer
+        none:
+          type: array
+          items:
+            type: integer
+    error:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code
+          enum:
+          - INVALID_QUERY
+          - RESOURCE_NOT_FOUND
+          - UNAUTHORIZED
+          - FORBIDDEN
+          - RATE_LIMITED
+          - INTERNAL_ERROR
+          - VALIDATION_ERROR
+          - PROVIDER_ERROR
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: object
+          description: Additional error context
+          additionalProperties: true
+        request_id:
+          type: string
+          description: Unique request identifier for debugging
     source-filter:
       type: object
       description: Source filter broken into all / any / none groups, restricted to supported sources.
@@ -413,6 +424,22 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/source'
+    sentiment-filter:
+      type: object
+      description: Sentiment filter broken into all / any / none groups.
+      properties:
+        all:
+          type: array
+          items:
+            $ref: '#/components/schemas/sentiment'
+        any:
+          type: array
+          items:
+            $ref: '#/components/schemas/sentiment'
+        none:
+          type: array
+          items:
+            $ref: '#/components/schemas/sentiment'
     country-filter:
       type: object
       description: Country filter broken into all / any / none groups.
@@ -429,35 +456,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/country'
-    period:
-      type: object
-      description: Time range for the query. One-time queries/exports use start + end; recurring exports instead use cron (optionally with window_size + window_unit) and omit start/end. Exactly one of those two forms must be supplied.
-      oneOf:
-      - required:
-        - start
-        - end
-      - required:
-        - cron
-      properties:
-        start:
-          type: string
-          description: Start of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-01T00:00:00). Required for one-time queries and exports.
-        end:
-          type: string
-          description: End of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-31T23:59:59). Required for one-time queries and exports.
-        window_size:
-          type: integer
-          description: Rolling window size for recurring exports. Optional; combined with window_unit to define the rolling range.
-        window_unit:
-          type: string
-          description: Unit for the rolling window (e.g. day, week) for recurring exports. Optional; the API applies a default when omitted.
-        cron:
-          type: string
-          description: Cron expression scheduling a recurring export. Required for recurring exports.
-    country:
-      type: string
-      description: ISO 3166-1 alpha-2 country code (e.g. us, gb, de). Case-insensitive on input.
-      pattern: ^[A-Za-z]{2}$
     export-query:
       type: object
       description: Request body for creating a content export.
@@ -513,6 +511,29 @@ components:
                   description: Number of documents to sample.
                   minimum: 0
                   maximum: 2000000
+    sentiment:
+      type: string
+      description: Sentiment value (case-insensitive).
+      enum:
+      - positive
+      - negative
+      - neutral
+    detailed-breakdown:
+      type: object
+      description: Selection broken into all / any / none groups. In export responses each entry is enriched with the resolved id and name of the selected resource.
+      properties:
+        all:
+          type: array
+          items:
+            $ref: '#/components/schemas/detailed-breakdown-item'
+        any:
+          type: array
+          items:
+            $ref: '#/components/schemas/detailed-breakdown-item'
+        none:
+          type: array
+          items:
+            $ref: '#/components/schemas/detailed-breakdown-item'
     string-filter:
       type: object
       properties:
@@ -528,41 +549,51 @@ components:
           type: array
           items:
             type: string
-    error:
+    explore-plus-query:
       type: object
+      description: Query for an Explore+ content export. Select saved searches with `searches` (required), and optionally narrow results with `filters`.
       required:
-      - code
-      - message
+      - searches
       properties:
-        code:
-          type: string
-          description: Machine-readable error code
-          enum:
-          - INVALID_QUERY
-          - RESOURCE_NOT_FOUND
-          - UNAUTHORIZED
-          - FORBIDDEN
-          - RATE_LIMITED
-          - INTERNAL_ERROR
-          - VALIDATION_ERROR
-          - PROVIDER_ERROR
-        message:
-          type: string
-          description: Human-readable error message
-        details:
+        searches:
           type: object
-          description: Additional error context
-          additionalProperties: true
-        request_id:
-          type: string
-          description: Unique request identifier for debugging
-    sentiment:
-      type: string
-      description: Sentiment value (case-insensitive).
-      enum:
-      - positive
-      - negative
-      - neutral
+          description: Saved search IDs to export.
+          properties:
+            all:
+              type: array
+              items:
+                type: integer
+            any:
+              type: array
+              items:
+                type: integer
+            none:
+              type: array
+              items:
+                type: integer
+        filters:
+          type: object
+          description: Filters accepted by Explore+ exports.
+          properties:
+            tags:
+              $ref: '#/components/schemas/id-filter'
+            languages:
+              $ref: '#/components/schemas/string-filter'
+            filter_sets:
+              $ref: '#/components/schemas/id-filter'
+            custom_fields:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/id-filter'
+              description: Custom field filters keyed by custom field ID.
+            author_lists:
+              $ref: '#/components/schemas/id-filter'
+            sources:
+              $ref: '#/components/schemas/source-filter'
+            countries:
+              $ref: '#/components/schemas/country-filter'
+            sentiments:
+              $ref: '#/components/schemas/sentiment-filter'
     export:
       type: object
       description: An export job, as returned by the create, list and get export endpoints.
@@ -685,51 +716,10 @@ components:
               updated_at:
                 type: string
                 format: date-time
-    explore-plus-query:
-      type: object
-      description: Query for an Explore+ content export. Select saved searches with `searches` (required), and optionally narrow results with `filters`.
-      required:
-      - searches
-      properties:
-        searches:
-          type: object
-          description: Saved search IDs to export.
-          properties:
-            all:
-              type: array
-              items:
-                type: integer
-            any:
-              type: array
-              items:
-                type: integer
-            none:
-              type: array
-              items:
-                type: integer
-        filters:
-          type: object
-          description: Filters accepted by Explore+ exports.
-          properties:
-            tags:
-              $ref: '#/components/schemas/id-filter'
-            languages:
-              $ref: '#/components/schemas/string-filter'
-            filter_sets:
-              $ref: '#/components/schemas/id-filter'
-            custom_fields:
-              type: object
-              additionalProperties:
-                $ref: '#/components/schemas/id-filter'
-              description: Custom field filters keyed by custom field ID.
-            author_lists:
-              $ref: '#/components/schemas/id-filter'
-            sources:
-              $ref: '#/components/schemas/source-filter'
-            countries:
-              $ref: '#/components/schemas/country-filter'
-            sentiments:
-              $ref: '#/components/schemas/sentiment-filter'
+    country:
+      type: string
+      description: ISO 3166-1 alpha-2 country code (e.g. us, gb, de). Case-insensitive on input.
+      pattern: ^[A-Za-z]{2}$
     detailed-breakdown-item:
       type: object
       description: A selected resource with its resolved id and name.
@@ -738,62 +728,74 @@ components:
           type: integer
         name:
           type: string
-    detailed-breakdown:
+    period:
       type: object
-      description: Selection broken into all / any / none groups. In export responses each entry is enriched with the resolved id and name of the selected resource.
+      description: Time range for the query. One-time queries/exports use start + end; recurring exports instead use cron (optionally with window_size + window_unit) and omit start/end. Exactly one of those two forms must be supplied.
+      oneOf:
+      - required:
+        - start
+        - end
+      - required:
+        - cron
       properties:
-        all:
-          type: array
-          items:
-            $ref: '#/components/schemas/detailed-breakdown-item'
-        any:
-          type: array
-          items:
-            $ref: '#/components/schemas/detailed-breakdown-item'
-        none:
-          type: array
-          items:
-            $ref: '#/components/schemas/detailed-breakdown-item'
-    sentiment-filter:
-      type: object
-      description: Sentiment filter broken into all / any / none groups.
-      properties:
-        all:
-          type: array
-          items:
-            $ref: '#/components/schemas/sentiment'
-        any:
-          type: array
-          items:
-            $ref: '#/components/schemas/sentiment'
-        none:
-          type: array
-          items:
-            $ref: '#/components/schemas/sentiment'
-    id-filter:
-      type: object
-      properties:
-        all:
-          type: array
-          items:
-            type: integer
-        any:
-          type: array
-          items:
-            type: integer
-        none:
-          type: array
-          items:
-            type: integer
-  parameters:
-    CompanyId:
-      name: company_id
-      in: query
-      description: Company which owns the resource. If not specified, your default company is used.
-      required: false
-      schema:
-        type: string
+        start:
+          type: string
+          description: Start of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-01T00:00:00). Required for one-time queries and exports.
+        end:
+          type: string
+          description: End of the date range (ISO 8601 datetime without timezone, e.g. 2024-01-31T23:59:59). Required for one-time queries and exports.
+        window_size:
+          type: integer
+          description: Rolling window size for recurring exports. Optional; combined with window_unit to define the rolling range.
+        window_unit:
+          type: string
+          description: Unit for the rolling window (e.g. day, week) for recurring exports. Optional; the API applies a default when omitted.
+        cron:
+          type: string
+          description: Cron expression scheduling a recurring export. Required for recurring exports.
+    source:
+      type: string
+      description: Content source. Accepted values for Explore+ (case-insensitive).
+      enum:
+      - facebook
+      - instagram
+      - reddit
+      - blogs
+      - product_reviews
+      - forums
+      - comments
+      - x
+      - wechat
+      - sina_weibo
+      - pinterest
+      - twitch
+      - tiktok
+      - douyin
+      - little_red_book
+      - google_reviews
+      - threads
+      - kakaotalk
+      - linevoom
+      - news_online
+      - news_print
+      - news_app
+      - broadcast
+      - youku
+      - bilibili
+      - rss
+      - youtube
+      - social_reviews
   responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+          example:
+            code: UNAUTHORIZED
+            message: Not Authorized
+            request_id: 123e4567-e89b-12d3-a456-426614174000
     TooManyRequests:
       description: The company has been blocked from creating new exports because it has reached its usage limits.
       content:
@@ -807,16 +809,12 @@ components:
               restricted:
               - Review your subscriptions and contact your Meltwater representative to update your limit
             request_id: 123e4567-e89b-12d3-a456-426614174000
-    Unauthorized:
-      description: Authentication required
+    Error:
+      description: Error response
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/error'
-          example:
-            code: UNAUTHORIZED
-            message: Not Authorized
-            request_id: 123e4567-e89b-12d3-a456-426614174000
     NotFound:
       description: Resource not found
       content:
@@ -827,12 +825,14 @@ components:
             code: RESOURCE_NOT_FOUND
             message: Not Found
             request_id: 123e4567-e89b-12d3-a456-426614174000
-    Error:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/error'
+  parameters:
+    CompanyId:
+      name: company_id
+      in: query
+      description: Company which owns the resource. If not specified, your default company is used.
+      required: false
+      schema:
+        type: string
   securitySchemes:
     apiKey:
       type: apiKey

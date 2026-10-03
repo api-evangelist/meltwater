@@ -75,14 +75,31 @@ paths:
       operationId: create-earned-search
 components:
   schemas:
-    TemplateConfiguration:
+    AnalyticsServiceUnavailable:
+      description: ServiceUnavailable
+      example:
+        message: Service Unavailable
+        errors: {}
+      allOf:
+      - $ref: '#/components/schemas/Errors'
+      - type: object
+        properties:
+          message:
+            type: string
+        description: ServiceUnavailable
+    DocumentResponse:
       type: object
-      title: Template Configuration
       properties:
-        name:
-          type: string
-          example: legacy
-          description: The name of the template being requested
+        document_count:
+          type: integer
+          example: 100
+        documents:
+          type: array
+          items:
+            type: object
+            example:
+              id: 123abc123
+              opening_text: This is a document ...
     NotFound:
       required:
       - errors
@@ -106,115 +123,6 @@ components:
         errors:
           :searchId:
           - A Saved Search with that ID could not be found
-    SearchResponse:
-      required:
-      - tz
-      type: object
-      properties:
-        countries:
-          type: array
-          example:
-          - gb
-          - us
-          items:
-            type: string
-        end:
-          type: string
-          example: '2021-09-28T00:00:00'
-        languages:
-          type: array
-          example:
-          - en
-          - fr
-          items:
-            type: string
-        page:
-          maximum: 10
-          type: integer
-          example: 1
-        page_size:
-          maximum: 100
-          minimum: 0
-          type: integer
-          example: 10
-        result:
-          $ref: '#/components/schemas/DocumentResponse'
-        search_id:
-          type: integer
-          example: 12345
-        sentiments:
-          type: array
-          example:
-          - positive
-          - negative
-          items:
-            type: string
-        sort_by:
-          type: string
-          example: date
-          enum:
-          - date
-          - country
-          - sentiment
-          - language
-          - title
-          - reach
-          - relevance
-          - engagement
-          - social_echo
-          - prominence
-          - views
-        sort_order:
-          type: string
-          example: desc
-          enum:
-          - asc
-          - desc
-        sources:
-          type: array
-          example:
-          - x
-          - news
-          items:
-            type: string
-        start:
-          type: string
-          example: '2021-09-27T00:00:00'
-        template:
-          $ref: '#/components/schemas/TemplateConfiguration'
-        tz:
-          type: string
-          example: Europe/London
-    Errors:
-      required:
-      - type
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDetails'
-          description: List of problems with the request
-        type:
-          type: string
-          enum:
-          - NotFound
-          - ServiceUnavailable
-          - Unauthorized
-          - ValidationFailed
-      description: Errors
-      discriminator:
-        propertyName: type
-    Unauthorized:
-      required:
-      - message
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message describing, in brief, the problem.
-      example:
-        message: Unauthorized
     RateLimitedError:
       description: RateLimitedError
       example:
@@ -229,19 +137,6 @@ components:
           message:
             type: string
         description: RateLimitedError
-    DocumentResponse:
-      type: object
-      properties:
-        document_count:
-          type: integer
-          example: 100
-        documents:
-          type: array
-          items:
-            type: object
-            example:
-              id: 123abc123
-              opening_text: This is a document ...
     SearchRequest:
       required:
       - tz
@@ -345,6 +240,26 @@ components:
           - '1111'
           - '2222'
           description: List of author list IDs to filter documents by.
+    Errors:
+      required:
+      - type
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+          description: List of problems with the request
+        type:
+          type: string
+          enum:
+          - NotFound
+          - ServiceUnavailable
+          - Unauthorized
+          - ValidationFailed
+      description: Errors
+      discriminator:
+        propertyName: type
     ErrorDetails:
       required:
       - type
@@ -361,18 +276,103 @@ components:
         details:
           type: string
           description: Details about the error
-    AnalyticsServiceUnavailable:
-      description: ServiceUnavailable
+    Unauthorized:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing, in brief, the problem.
       example:
-        message: Service Unavailable
-        errors: {}
-      allOf:
-      - $ref: '#/components/schemas/Errors'
-      - type: object
-        properties:
-          message:
+        message: Unauthorized
+    SearchResponse:
+      required:
+      - tz
+      type: object
+      properties:
+        countries:
+          type: array
+          example:
+          - gb
+          - us
+          items:
             type: string
-        description: ServiceUnavailable
+        end:
+          type: string
+          example: '2021-09-28T00:00:00'
+        languages:
+          type: array
+          example:
+          - en
+          - fr
+          items:
+            type: string
+        page:
+          maximum: 10
+          type: integer
+          example: 1
+        page_size:
+          maximum: 100
+          minimum: 0
+          type: integer
+          example: 10
+        result:
+          $ref: '#/components/schemas/DocumentResponse'
+        search_id:
+          type: integer
+          example: 12345
+        sentiments:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+        sort_by:
+          type: string
+          example: date
+          enum:
+          - date
+          - country
+          - sentiment
+          - language
+          - title
+          - reach
+          - relevance
+          - engagement
+          - social_echo
+          - prominence
+          - views
+        sort_order:
+          type: string
+          example: desc
+          enum:
+          - asc
+          - desc
+        sources:
+          type: array
+          example:
+          - x
+          - news
+          items:
+            type: string
+        start:
+          type: string
+          example: '2021-09-27T00:00:00'
+        template:
+          $ref: '#/components/schemas/TemplateConfiguration'
+        tz:
+          type: string
+          example: Europe/London
+    TemplateConfiguration:
+      type: object
+      title: Template Configuration
+      properties:
+        name:
+          type: string
+          example: legacy
+          description: The name of the template being requested
   securitySchemes:
     apikey:
       type: apiKey

@@ -2259,28 +2259,6 @@ paths:
       description: ''
 components:
   schemas:
-    Tag:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Tag id
-          example: 12345
-        name:
-          type: string
-          description: Tag name
-          example: My Custom Tag
-      title: Tag
-      example:
-        id: 12345
-        name: My Custom Tag
-      description: Tag
-      additionalProperties: false
-    SearchId:
-      type: integer
     OneTimeExport:
       type: object
       title: One-time export
@@ -2347,13 +2325,8 @@ components:
           - 123
           filter: true
       description: A one-time export
-    RecurringExportRequest:
-      type: object
-      title: Recurring export request
-      properties:
-        recurring_export:
-          $ref: '#/components/schemas/RecurringExport'
-      description: POST body for creating a recurring export
+    SearchId:
+      type: integer
     RecurringExportList:
       type: array
       title: Results
@@ -2381,37 +2354,122 @@ components:
           example: include
           description: Category type
       additionalProperties: false
-    RecurringExportListResponse:
+    RecurringExport:
       type: object
-      title: Recurring export list response
+      title: Recurring export
       required:
-      - recurring_exports
+      - search_ids
       properties:
-        recurring_exports:
-          $ref: '#/components/schemas/RecurringExportList'
-      description: Recurring export list response
-      additionalProperties: false
-    OneTimeExportRequest:
-      type: object
-      title: One-time export request
-      properties:
-        onetime_export:
-          $ref: '#/components/schemas/OneTimeExport'
-      description: POST body for creating a one-time export
-    CustomCategoriesRequestDetails:
-      type: object
-      title: Custom categories details
-      required:
-      - ids
-      properties:
-        ids:
+        window_weekday:
+          type: integer
+          description: 'An integer representation of what day of the week the export window starts. Integer values are: Monday=1, Tuesday=2, Wednesday=3, Thursday=4, Friday=5, Saturday=6, Sunday=7 Defaults to 1'
+          default: 1
+        window_time_unit:
+          type: string
+          enum:
+          - DAY
+          - WEEK
+          - MONTH
+          description: Window Time Unit. The time unit the export window represents. Defaults to "DAY"
+          default: DAY
+        window_time:
+          type: string
+          description: Window Time. The time of day the export window begins. Defaults to "00:00:00"
+          default: 00:00:00
+        window_size:
+          type: integer
+          description: Window size. The number of 'window_time_unit's the export window covers Defaults to 1
+          default: 1
+        window_monthday:
+          type: integer
+          description: An integer representation of what day of the month the export window starts. Integer values 1-28 represent the day of the month e.g. 1 represents 1st, 2 represents the 2nd, etc. Integer value 0 represents the last day of the month. Defaults to 1
+          default: 1
+        timezone:
+          type: string
+          description: Timezone for window_time field. Must be a valid timezone in the IANA database. Defaults to "Etc/UTC"
+          default: Etc/UTC
+        tags:
           type: array
           items:
-            type: integer
-          description: List of custom category ids
-        filter:
-          type: boolean
-          description: Whether to include selected custom categories as filters
+            $ref: '#/components/schemas/Tag'
+          example:
+          - tag
+          description: List of tag names
+        search_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchId'
+          example:
+          - 123
+          description: List of search ids
+        template:
+          $ref: '#/components/schemas/TemplateConfiguration'
+        sample:
+          $ref: '#/components/schemas/SampleConfiguration'
+        format:
+          type: string
+          description: The selected output format for the export
+          enum:
+          - JSON
+          - CSV
+        custom_categories:
+          $ref: '#/components/schemas/CustomCategoriesRequestDetails'
+      example:
+        window_time_unit: DAY
+        window_time: 00:00:00
+        window_size: 1
+        timezone: Etc/UTC
+        tags:
+        - tag
+        search_ids:
+        - 123
+        sample:
+          count: 1200
+          percentage: 25.0
+        template:
+          name: legacy
+        format: JSON
+        custom_categories:
+          ids:
+          - 123
+          filter: true
+      description: A recurring export
+    RecurringExportRequest:
+      type: object
+      title: Recurring export request
+      properties:
+        recurring_export:
+          $ref: '#/components/schemas/RecurringExport'
+      description: POST body for creating a recurring export
+    SampleConfiguration:
+      type: object
+      title: Sample Configuration
+      properties:
+        count:
+          type: integer
+          example: 1200
+          description: Maximum number of documents for the export, max value 2 million docs
+        percentage:
+          type: number
+          format: double
+          example: 50.0
+          description: Percentage of documents for the export
+    SearchDetails:
+      type: object
+      title: Search details
+      required:
+      - name
+      - id
+      properties:
+        name:
+          type: string
+          example: Elections
+          description: Search name
+        id:
+          type: integer
+          example: 123
+          description: Search id
+      additionalProperties: false
     RecurringExportResult:
       type: object
       title: Recurring export
@@ -2498,271 +2556,15 @@ components:
           - CSV
         custom_categories:
           $ref: '#/components/schemas/CustomCategoriesResponseDetails'
-    TemplateConfiguration:
+    RecurringExportListResponse:
       type: object
-      title: Template Configuration
-      properties:
-        name:
-          type: string
-          example: legacy
-          description: The name of the template being requested
-    RecurringExportPreviousRuns:
-      type: object
-      title: Recurring export previous runs
-      properties:
-        status:
-          type: string
-          enum:
-          - PENDING
-          - FINISHED
-          - CANCELLED
-          - EXPIRED
-        start_date:
-          type: string
-          format: datetime
-          example: '2020-03-25T00:00:00.000000Z'
-          description: Start date of the export run (UTC) in ISO 8601 format
-        end_date:
-          type: string
-          format: datetime
-          example: '2020-03-29T23:59:59.000000Z'
-          description: End date of the export run (UTC) in ISO 8601 format
-        inserted_at:
-          type: string
-          description: The datetime the run was created
-          example: '2020-03-25T00:00:00.000000'
-        updated_at:
-          type: string
-          description: The datetime the export was last updated
-          example: '2020-03-25T00:00:00.000000'
-      description: Recurring export previous runs
-      additionalProperties: false
-    OneTimeExportList:
-      type: array
-      title: Results
-      items:
-        $ref: '#/components/schemas/OneTimeExportResult'
-      description: A collection of one-time export results
-    OneTimeExportResponse:
-      type: object
-      title: One-time export Response
+      title: Recurring export list response
       required:
-      - onetime_export
+      - recurring_exports
       properties:
-        onetime_export:
-          $ref: '#/components/schemas/OneTimeExportResult'
-      description: One-time export Response
-      additionalProperties: false
-    SearchDetails:
-      type: object
-      title: Search details
-      required:
-      - name
-      - id
-      properties:
-        name:
-          type: string
-          example: Elections
-          description: Search name
-        id:
-          type: integer
-          example: 123
-          description: Search id
-      additionalProperties: false
-    OneTimeExportListResponse:
-      type: object
-      title: One-time export list response
-      required:
-      - onetime_exports
-      properties:
-        onetime_exports:
-          $ref: '#/components/schemas/OneTimeExportList'
-      description: One-time export list response
-      additionalProperties: false
-    CustomCategoriesResponseDetails:
-      type: object
-      title: Custom categories details
-      properties:
-        ids:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomCategoriesDetails'
-        filter:
-          type: boolean
-          description: Whether to include selected custom categories as filters
-    RecurringExport:
-      type: object
-      title: Recurring export
-      required:
-      - search_ids
-      properties:
-        window_weekday:
-          type: integer
-          description: 'An integer representation of what day of the week the export window starts. Integer values are: Monday=1, Tuesday=2, Wednesday=3, Thursday=4, Friday=5, Saturday=6, Sunday=7 Defaults to 1'
-          default: 1
-        window_time_unit:
-          type: string
-          enum:
-          - DAY
-          - WEEK
-          - MONTH
-          description: Window Time Unit. The time unit the export window represents. Defaults to "DAY"
-          default: DAY
-        window_time:
-          type: string
-          description: Window Time. The time of day the export window begins. Defaults to "00:00:00"
-          default: 00:00:00
-        window_size:
-          type: integer
-          description: Window size. The number of 'window_time_unit's the export window covers Defaults to 1
-          default: 1
-        window_monthday:
-          type: integer
-          description: An integer representation of what day of the month the export window starts. Integer values 1-28 represent the day of the month e.g. 1 represents 1st, 2 represents the 2nd, etc. Integer value 0 represents the last day of the month. Defaults to 1
-          default: 1
-        timezone:
-          type: string
-          description: Timezone for window_time field. Must be a valid timezone in the IANA database. Defaults to "Etc/UTC"
-          default: Etc/UTC
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          example:
-          - tag
-          description: List of tag names
-        search_ids:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchId'
-          example:
-          - 123
-          description: List of search ids
-        template:
-          $ref: '#/components/schemas/TemplateConfiguration'
-        sample:
-          $ref: '#/components/schemas/SampleConfiguration'
-        format:
-          type: string
-          description: The selected output format for the export
-          enum:
-          - JSON
-          - CSV
-        custom_categories:
-          $ref: '#/components/schemas/CustomCategoriesRequestDetails'
-      example:
-        window_time_unit: DAY
-        window_time: 00:00:00
-        window_size: 1
-        timezone: Etc/UTC
-        tags:
-        - tag
-        search_ids:
-        - 123
-        sample:
-          count: 1200
-          percentage: 25.0
-        template:
-          name: legacy
-        format: JSON
-        custom_categories:
-          ids:
-          - 123
-          filter: true
-      description: A recurring export
-    SampleConfiguration:
-      type: object
-      title: Sample Configuration
-      properties:
-        count:
-          type: integer
-          example: 1200
-          description: Maximum number of documents for the export, max value 2 million docs
-        percentage:
-          type: number
-          format: double
-          example: 50.0
-          description: Percentage of documents for the export
-    OneTimeExportResult:
-      type: object
-      title: One-time export
-      required:
-      - end_date
-      - start_date
-      - searches
-      - company_name
-      - id
-      properties:
-        updated_at:
-          type: string
-          description: The datetime the export was last updated
-          example: '2020-03-25T00:00:00.000000'
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-          description: List of tag names used for the export
-        status_reason:
-          type: string
-          description: Optional explanation for current status
-        status:
-          type: string
-          enum:
-          - PENDING
-          - FINISHED
-          - CANCELLED
-          - EXPIRED
-          description: Current status of the one-time export
-        start_date:
-          type: string
-          format: datetime
-          example: '2020-03-25T00:00:00.000000Z'
-          description: Start date of the export (UTC) in ISO 8601 format
-        searches:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchDetails'
-          description: List of searches used for the export
-        template:
-          $ref: '#/components/schemas/TemplateConfiguration'
-        sample:
-          $ref: '#/components/schemas/SampleConfiguration'
-        inserted_at:
-          type: string
-          description: The datetime the export was created
-          example: '2020-03-25T00:00:00.000000'
-        id:
-          type: integer
-          description: ID of the export
-        end_date:
-          type: string
-          format: datetime
-          example: '2020-03-29T23:59:59.000000Z'
-          description: End date of the export (UTC) in ISO 8601 format
-        data_url:
-          type: string
-          description: The URL at which the export data can be retrieved
-          example: https://downloads.exports.meltwater.com/v1/one-time/12345?data_key=abcdef0123456789
-        company_name:
-          type: string
-          description: Company the export belongs to
-        format:
-          type: string
-          description: The selected output format for the export
-          enum:
-          - JSON
-          - CSV
-        custom_categories:
-          $ref: '#/components/schemas/CustomCategoriesResponseDetails'
-    RecurringExportResponse:
-      type: object
-      title: Recurring export Response
-      required:
-      - recurring_export
-      properties:
-        recurring_export:
-          $ref: '#/components/schemas/RecurringExportResult'
-      description: Recurring export Response
+        recurring_exports:
+          $ref: '#/components/schemas/RecurringExportList'
+      description: Recurring export list response
       additionalProperties: false
     RecurringExportShowResponse:
       type: object
@@ -2865,6 +2667,204 @@ components:
           items:
             $ref: '#/components/schemas/RecurringExportPreviousRuns'
           description: List of previous runs for the recurring export
+    Tag:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Tag id
+          example: 12345
+        name:
+          type: string
+          description: Tag name
+          example: My Custom Tag
+      title: Tag
+      example:
+        id: 12345
+        name: My Custom Tag
+      description: Tag
+      additionalProperties: false
+    RecurringExportPreviousRuns:
+      type: object
+      title: Recurring export previous runs
+      properties:
+        status:
+          type: string
+          enum:
+          - PENDING
+          - FINISHED
+          - CANCELLED
+          - EXPIRED
+        start_date:
+          type: string
+          format: datetime
+          example: '2020-03-25T00:00:00.000000Z'
+          description: Start date of the export run (UTC) in ISO 8601 format
+        end_date:
+          type: string
+          format: datetime
+          example: '2020-03-29T23:59:59.000000Z'
+          description: End date of the export run (UTC) in ISO 8601 format
+        inserted_at:
+          type: string
+          description: The datetime the run was created
+          example: '2020-03-25T00:00:00.000000'
+        updated_at:
+          type: string
+          description: The datetime the export was last updated
+          example: '2020-03-25T00:00:00.000000'
+      description: Recurring export previous runs
+      additionalProperties: false
+    OneTimeExportRequest:
+      type: object
+      title: One-time export request
+      properties:
+        onetime_export:
+          $ref: '#/components/schemas/OneTimeExport'
+      description: POST body for creating a one-time export
+    TemplateConfiguration:
+      type: object
+      title: Template Configuration
+      properties:
+        name:
+          type: string
+          example: legacy
+          description: The name of the template being requested
+    OneTimeExportListResponse:
+      type: object
+      title: One-time export list response
+      required:
+      - onetime_exports
+      properties:
+        onetime_exports:
+          $ref: '#/components/schemas/OneTimeExportList'
+      description: One-time export list response
+      additionalProperties: false
+    OneTimeExportResponse:
+      type: object
+      title: One-time export Response
+      required:
+      - onetime_export
+      properties:
+        onetime_export:
+          $ref: '#/components/schemas/OneTimeExportResult'
+      description: One-time export Response
+      additionalProperties: false
+    CustomCategoriesResponseDetails:
+      type: object
+      title: Custom categories details
+      properties:
+        ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomCategoriesDetails'
+        filter:
+          type: boolean
+          description: Whether to include selected custom categories as filters
+    OneTimeExportResult:
+      type: object
+      title: One-time export
+      required:
+      - end_date
+      - start_date
+      - searches
+      - company_name
+      - id
+      properties:
+        updated_at:
+          type: string
+          description: The datetime the export was last updated
+          example: '2020-03-25T00:00:00.000000'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          description: List of tag names used for the export
+        status_reason:
+          type: string
+          description: Optional explanation for current status
+        status:
+          type: string
+          enum:
+          - PENDING
+          - FINISHED
+          - CANCELLED
+          - EXPIRED
+          description: Current status of the one-time export
+        start_date:
+          type: string
+          format: datetime
+          example: '2020-03-25T00:00:00.000000Z'
+          description: Start date of the export (UTC) in ISO 8601 format
+        searches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchDetails'
+          description: List of searches used for the export
+        template:
+          $ref: '#/components/schemas/TemplateConfiguration'
+        sample:
+          $ref: '#/components/schemas/SampleConfiguration'
+        inserted_at:
+          type: string
+          description: The datetime the export was created
+          example: '2020-03-25T00:00:00.000000'
+        id:
+          type: integer
+          description: ID of the export
+        end_date:
+          type: string
+          format: datetime
+          example: '2020-03-29T23:59:59.000000Z'
+          description: End date of the export (UTC) in ISO 8601 format
+        data_url:
+          type: string
+          description: The URL at which the export data can be retrieved
+          example: https://downloads.exports.meltwater.com/v1/one-time/12345?data_key=abcdef0123456789
+        company_name:
+          type: string
+          description: Company the export belongs to
+        format:
+          type: string
+          description: The selected output format for the export
+          enum:
+          - JSON
+          - CSV
+        custom_categories:
+          $ref: '#/components/schemas/CustomCategoriesResponseDetails'
+    OneTimeExportList:
+      type: array
+      title: Results
+      items:
+        $ref: '#/components/schemas/OneTimeExportResult'
+      description: A collection of one-time export results
+    RecurringExportResponse:
+      type: object
+      title: Recurring export Response
+      required:
+      - recurring_export
+      properties:
+        recurring_export:
+          $ref: '#/components/schemas/RecurringExportResult'
+      description: Recurring export Response
+      additionalProperties: false
+    CustomCategoriesRequestDetails:
+      type: object
+      title: Custom categories details
+      required:
+      - ids
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
+          description: List of custom category ids
+        filter:
+          type: boolean
+          description: Whether to include selected custom categories as filters
   securitySchemes:
     apikey:
       type: apiKey

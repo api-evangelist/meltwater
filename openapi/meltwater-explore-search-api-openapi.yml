@@ -126,26 +126,41 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    explore_plus.Template:
+    controllers.APIValidationError:
       type: object
       properties:
-        name:
-          type: string
-          example: api.json
-    controllers.APIError:
-      type: object
-      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
         message:
           type: string
-    explore_plus.Response:
+    explore_plus.StringBreakdown:
       type: object
       properties:
-        count:
-          type: integer
-        documents:
+        all:
           type: array
+          example:
+          - abc
+          - def
           items:
-            type: object
+            type: string
+        any:
+          type: array
+          example:
+          - abc
+          - def
+          items:
+            type: string
+        none:
+          type: array
+          example:
+          - abc
+          - def
+          items:
+            type: string
     explore_plus.Filters:
       type: object
       properties:
@@ -161,6 +176,74 @@ components:
           $ref: '#/components/schemas/explore_plus.SentimentBreakdown'
         sources:
           $ref: '#/components/schemas/explore_plus.StringBreakdown'
+    explore_plus.Template:
+      type: object
+      properties:
+        name:
+          type: string
+          example: api.json
+    explore_plus.IntBreakdown:
+      type: object
+      properties:
+        all:
+          type: array
+          example:
+          - 123
+          - 456
+          items:
+            type: integer
+        any:
+          type: array
+          example:
+          - 123
+          - 456
+          items:
+            type: integer
+        none:
+          type: array
+          example:
+          - 123
+          - 456
+          items:
+            type: integer
+    explore_plus.SentimentBreakdown:
+      type: object
+      properties:
+        all:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+        any:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+        none:
+          type: array
+          example:
+          - positive
+          - negative
+          items:
+            type: string
+    explore_plus.Response:
+      type: object
+      properties:
+        count:
+          type: integer
+        documents:
+          type: array
+          items:
+            type: object
+    controllers.APIError:
+      type: object
+      properties:
+        message:
+          type: string
     explore_plus.ExplorePlusParameters:
       required:
       - tz
@@ -213,89 +296,6 @@ components:
         tz:
           type: string
           example: Europe/London
-    explore_plus.StringBreakdown:
-      type: object
-      properties:
-        all:
-          type: array
-          example:
-          - abc
-          - def
-          items:
-            type: string
-        any:
-          type: array
-          example:
-          - abc
-          - def
-          items:
-            type: string
-        none:
-          type: array
-          example:
-          - abc
-          - def
-          items:
-            type: string
-    controllers.APIValidationError:
-      type: object
-      properties:
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        message:
-          type: string
-    explore_plus.SentimentBreakdown:
-      type: object
-      properties:
-        all:
-          type: array
-          example:
-          - positive
-          - negative
-          items:
-            type: string
-        any:
-          type: array
-          example:
-          - positive
-          - negative
-          items:
-            type: string
-        none:
-          type: array
-          example:
-          - positive
-          - negative
-          items:
-            type: string
-    explore_plus.IntBreakdown:
-      type: object
-      properties:
-        all:
-          type: array
-          example:
-          - 123
-          - 456
-          items:
-            type: integer
-        any:
-          type: array
-          example:
-          - 123
-          - 456
-          items:
-            type: integer
-        none:
-          type: array
-          example:
-          - 123
-          - 456
-          items:
-            type: integer
   securitySchemes:
     apikey:
       type: apiKey

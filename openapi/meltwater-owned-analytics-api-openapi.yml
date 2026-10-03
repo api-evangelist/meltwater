@@ -533,22 +533,7 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    lib.SupportedSource:
-      type: object
-      properties:
-        account_metrics:
-          type: array
-          items:
-            $ref: '#/components/schemas/lib.Metric'
-        name:
-          type: string
-        post_metrics:
-          type: array
-          items:
-            $ref: '#/components/schemas/lib.Metric'
-        source:
-          type: string
-    heatmap.AccountNumericMetrics:
+    numeric.AccountNumericMetrics:
       required:
       - daily_values
       - id
@@ -560,7 +545,7 @@ components:
         daily_values:
           type: array
           items:
-            $ref: '#/components/schemas/heatmap.DailyValues'
+            $ref: '#/components/schemas/numeric.DailyValues'
         id:
           type: string
         name:
@@ -569,28 +554,7 @@ components:
           type: string
         username:
           type: string
-    lib.Metric:
-      type: object
-      properties:
-        description:
-          type: string
-        metric:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-    analytics.InsightHeatmapValue:
-      required:
-      - hour
-      - value
-      type: object
-      properties:
-        hour:
-          type: integer
-        value:
-          type: number
-    breakdown.MetricsResponse:
+    nested_breakdown.MetricsResponse:
       required:
       - accounts
       type: object
@@ -598,28 +562,39 @@ components:
         accounts:
           type: array
           items:
-            $ref: '#/components/schemas/breakdown.AccountNumericMetrics'
-    breakdown.AccountNumericMetrics:
+            $ref: '#/components/schemas/nested_breakdown.AccountNumericMetrics'
+    analytics.InsightBreakdownValue:
       required:
-      - daily_values
-      - id
-      - name
-      - source
-      - username
+      - key
+      - value
       type: object
       properties:
-        daily_values:
+        key:
+          type: string
+        key_label:
+          type: string
+        value:
+          type: number
+    analytics.InsightNestedBreakdownValue:
+      required:
+      - key
+      - subkey
+      - value
+      type: object
+      properties:
+        key:
+          type: string
+        subkey:
+          type: string
+        value:
+          type: number
+    supported_metrics.Response:
+      type: object
+      properties:
+        sources:
           type: array
           items:
-            $ref: '#/components/schemas/breakdown.DailyValues'
-        id:
-          type: string
-        name:
-          type: string
-        source:
-          type: string
-        username:
-          type: string
+            $ref: '#/components/schemas/lib.SupportedSource'
     social_accounts.Connection:
       required:
       - id
@@ -639,19 +614,57 @@ components:
           type: string
         username:
           type: string
-    analytics.InsightNestedBreakdownValue:
+    heatmap.MetricsResponse:
       required:
-      - key
-      - subkey
-      - value
+      - accounts
       type: object
       properties:
-        key:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/heatmap.AccountNumericMetrics'
+    heatmap.DailyValues:
+      required:
+      - date
+      type: object
+      properties:
+        date:
           type: string
-        subkey:
+        page_fans_heatmap:
+          $ref: '#/components/schemas/analytics.InsightHeatmapValue'
+    numeric.DailyValues:
+      required:
+      - date
+      type: object
+      properties:
+        date:
           type: string
-        value:
-          type: number
+        follower_count:
+          type: integer
+        impressions:
+          type: integer
+        page_fan_removes:
+          type: integer
+        page_fans:
+          type: integer
+        page_fans_ads:
+          type: integer
+        page_impressions:
+          type: integer
+        page_impressions_organic:
+          type: integer
+        page_impressions_paid:
+          type: integer
+        page_post_engagements:
+          type: integer
+        page_vide_views:
+          type: integer
+        profile_views:
+          type: integer
+        total_followers_counts:
+          type: integer
+        website_clicks:
+          type: integer
     posts.Post:
       required:
       - account
@@ -689,138 +702,11 @@ components:
           - My Other Tag
         url:
           type: string
-    accounts.Response:
-      required:
-      - accounts
-      - count
-      type: object
-      properties:
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/social_accounts.Connection'
-        count:
-          type: integer
-    posts.Account:
-      required:
-      - id
-      - name
-      - source
-      - username
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        source:
-          type: string
-        username:
-          type: string
-    supported_metrics.Response:
-      type: object
-      properties:
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/lib.SupportedSource'
-    numeric.MetricsResponse:
-      required:
-      - accounts
-      type: object
-      properties:
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/numeric.AccountNumericMetrics'
-    heatmap.DailyValues:
-      required:
-      - date
-      type: object
-      properties:
-        date:
-          type: string
-        page_fans_heatmap:
-          $ref: '#/components/schemas/analytics.InsightHeatmapValue'
-    nested_breakdown.AccountNumericMetrics:
-      required:
-      - daily_values
-      - id
-      - name
-      - source
-      - username
-      type: object
-      properties:
-        daily_values:
-          type: array
-          items:
-            $ref: '#/components/schemas/nested_breakdown.DailyValues'
-        id:
-          type: string
-        name:
-          type: string
-        source:
-          type: string
-        username:
-          type: string
-    numeric.AccountNumericMetrics:
-      required:
-      - daily_values
-      - id
-      - name
-      - source
-      - username
-      type: object
-      properties:
-        daily_values:
-          type: array
-          items:
-            $ref: '#/components/schemas/numeric.DailyValues'
-        id:
-          type: string
-        name:
-          type: string
-        source:
-          type: string
-        username:
-          type: string
-    ValidationError:
-      type: object
-      properties:
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        message:
-          type: string
     Error:
       type: object
       properties:
         message:
           type: string
-    analytics.InsightBreakdownValue:
-      required:
-      - key
-      - value
-      type: object
-      properties:
-        key:
-          type: string
-        key_label:
-          type: string
-        value:
-          type: number
-    nested_breakdown.DailyValues:
-      required:
-      - date
-      type: object
-      properties:
-        date:
-          type: string
-        demographics_gender_age:
-          $ref: '#/components/schemas/analytics.InsightNestedBreakdownValue'
     posts.PostMetrics:
       required:
       - comments_count
@@ -921,7 +807,85 @@ components:
           type: integer
         video_views:
           type: integer
-    heatmap.MetricsResponse:
+    lib.Metric:
+      type: object
+      properties:
+        description:
+          type: string
+        metric:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+    breakdown.AccountNumericMetrics:
+      required:
+      - daily_values
+      - id
+      - name
+      - source
+      - username
+      type: object
+      properties:
+        daily_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/breakdown.DailyValues'
+        id:
+          type: string
+        name:
+          type: string
+        source:
+          type: string
+        username:
+          type: string
+    heatmap.AccountNumericMetrics:
+      required:
+      - daily_values
+      - id
+      - name
+      - source
+      - username
+      type: object
+      properties:
+        daily_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/heatmap.DailyValues'
+        id:
+          type: string
+        name:
+          type: string
+        source:
+          type: string
+        username:
+          type: string
+    nested_breakdown.DailyValues:
+      required:
+      - date
+      type: object
+      properties:
+        date:
+          type: string
+        demographics_gender_age:
+          $ref: '#/components/schemas/analytics.InsightNestedBreakdownValue'
+    posts.Account:
+      required:
+      - id
+      - name
+      - source
+      - username
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        source:
+          type: string
+        username:
+          type: string
+    numeric.MetricsResponse:
       required:
       - accounts
       type: object
@@ -929,8 +893,8 @@ components:
         accounts:
           type: array
           items:
-            $ref: '#/components/schemas/heatmap.AccountNumericMetrics'
-    nested_breakdown.MetricsResponse:
+            $ref: '#/components/schemas/numeric.AccountNumericMetrics'
+    breakdown.MetricsResponse:
       required:
       - accounts
       type: object
@@ -938,7 +902,45 @@ components:
         accounts:
           type: array
           items:
-            $ref: '#/components/schemas/nested_breakdown.AccountNumericMetrics'
+            $ref: '#/components/schemas/breakdown.AccountNumericMetrics'
+    accounts.Response:
+      required:
+      - accounts
+      - count
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/social_accounts.Connection'
+        count:
+          type: integer
+    ValidationError:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        message:
+          type: string
+    lib.SupportedSource:
+      type: object
+      properties:
+        account_metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/lib.Metric'
+        name:
+          type: string
+        post_metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/lib.Metric'
+        source:
+          type: string
     posts.TopPostsResponse:
       required:
       - count
@@ -957,6 +959,37 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/posts.Post'
+    nested_breakdown.AccountNumericMetrics:
+      required:
+      - daily_values
+      - id
+      - name
+      - source
+      - username
+      type: object
+      properties:
+        daily_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/nested_breakdown.DailyValues'
+        id:
+          type: string
+        name:
+          type: string
+        source:
+          type: string
+        username:
+          type: string
+    analytics.InsightHeatmapValue:
+      required:
+      - hour
+      - value
+      type: object
+      properties:
+        hour:
+          type: integer
+        value:
+          type: number
     breakdown.DailyValues:
       required:
       - date
@@ -968,39 +1001,6 @@ components:
           $ref: '#/components/schemas/analytics.InsightBreakdownValue'
         demographics_audience_country:
           $ref: '#/components/schemas/analytics.InsightBreakdownValue'
-    numeric.DailyValues:
-      required:
-      - date
-      type: object
-      properties:
-        date:
-          type: string
-        follower_count:
-          type: integer
-        impressions:
-          type: integer
-        page_fan_removes:
-          type: integer
-        page_fans:
-          type: integer
-        page_fans_ads:
-          type: integer
-        page_impressions:
-          type: integer
-        page_impressions_organic:
-          type: integer
-        page_impressions_paid:
-          type: integer
-        page_post_engagements:
-          type: integer
-        page_vide_views:
-          type: integer
-        profile_views:
-          type: integer
-        total_followers_counts:
-          type: integer
-        website_clicks:
-          type: integer
   securitySchemes:
     apikey:
       type: apiKey
