@@ -1,0 +1,59 @@
+slug: meltwater
+provider: Meltwater
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Listening Analytics
+  spec_file: meltwater-listening-analytics-api-openapi.yml
+  capability_id: BC-400.30
+  capability_id_l1: BC-400
+  capability_name: Market Intelligence Management
+  confidence: 0.8
+  evidence: GET /v3/analytics/{searchId}/top_mentions  The top mentions that occur in a Saved Search;
+    TopEntitiesResponse, SentimentStats
+  reason: Social listening analytics over saved searches — top mentions, entities, keyphrases, sentiment
+    and sources. This is market/media intelligence and customer-insight generation; sub-capability choice
+    is clear though brand or PR framings partially overlap.
+- tag: Owned Analytics
+  spec_file: meltwater-owned-analytics-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.74
+  evidence: GET /v3/owned/accounts "Returns a list of social account connections for a given company/user
+    account"; GET /v3/owned/accounts/posts/top_posts "Allows to fetch the top posts for owned social accounts";
+    schema social_accounts.Connection
+  reason: Metrics, breakdowns, heatmaps and top-post analytics for the organisation's owned social media
+    accounts — performance measurement of owned social channels, which sits in Digital Marketing Management
+    (web, social, marketing automation).
+- tag: Listening Search
+  spec_file: meltwater-listening-search-api-openapi.yml
+  capability_id: BC-400.30
+  capability_id_l1: BC-400
+  capability_name: Market Intelligence Management
+  confidence: 0.72
+  evidence: POST /v3/search/{id} create-earned-search "Search for Meltwater earned data using a saved
+    search and optional filters"
+  reason: Querying earned media/social conversation data is media monitoring and social listening — competitive
+    and customer insight gathering, i.e. Market Intelligence Management.
+- tag: Explore+ Analytics
+  spec_file: meltwater-explore-analytics-api-openapi.yml
+  capability_id: BC-400.30
+  capability_id_l1: BC-400
+  capability_name: Market Intelligence Management
+  confidence: 0.7
+  evidence: POST /v3/explore_plus/analytics/custom  Analyse earned data in your private index; schema
+    explore_plus.SentimentBreakdown
+  reason: Analysis of earned media data with sentiment breakdowns is media/brand intelligence — customer
+    and market insight generation. Could alternatively sit under PR/media relations, so confidence is
+    moderate.

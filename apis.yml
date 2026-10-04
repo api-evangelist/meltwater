@@ -480,6 +480,9 @@ apis:
   - type: HowToGuides
     url: https://developer.meltwater.com/guides/ai-visibility/overview
 common:
+- type: CapabilityMap
+  url: capabilities/meltwater-capability-edges.yml
+  name: Meltwater Business Capability Map
 - type: Overlay
   url: overlays/meltwater-api-v4-overlay.yaml
 - type: AgenticAccess
