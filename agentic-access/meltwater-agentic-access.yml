@@ -1,22 +1,23 @@
-generated: '2026-08-13'
+generated: '2026-09-23'
 method: generated
-source: openapi/meltwater-account-management-api-openapi.yml, openapi/meltwater-bring-your-own-content-byoc-api-openapi.yml,
-  openapi/meltwater-explore-analytics-api-openapi.yml, openapi/meltwater-explore-assets-api-openapi.yml,
-  openapi/meltwater-explore-search-api-openapi.yml, openapi/meltwater-listening-analytics-api-openapi.yml,
+source: openapi/meltwater-account-management-api-openapi.yml, openapi/meltwater-analyze-api-openapi.yml,
+  openapi/meltwater-bring-your-own-content-byoc-api-openapi.yml, openapi/meltwater-explore-analytics-api-openapi.yml,
+  openapi/meltwater-explore-assets-api-openapi.yml, openapi/meltwater-explore-search-api-openapi.yml,
+  openapi/meltwater-export-api-openapi.yml, openapi/meltwater-listening-analytics-api-openapi.yml,
   openapi/meltwater-listening-exports-api-openapi.yml, openapi/meltwater-listening-search-api-openapi.yml,
   openapi/meltwater-listening-search-management-api-openapi.yml, openapi/meltwater-listening-streaming-api-openapi.yml,
-  openapi/meltwater-mira-api-api-openapi.yml, openapi/meltwater-owned-analytics-api-openapi.yml
+  openapi/meltwater-llm-api-openapi.yml, openapi/meltwater-mira-api-api-openapi.yml, openapi/meltwater-owned-analytics-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 80
+  operations: 87
   by_action_class:
-    connected: 48
-    acting: 32
+    connected: 53
+    acting: 34
   by_consequence:
-    read: 48
-    write: 32
+    read: 53
+    write: 34
   human_in_the_loop_required: 0
 operations:
 - path: /v3/accounts/me/companies
@@ -51,6 +52,7 @@ operations:
     audit: none
 - path: /v3/usage/me/metrics/{metric}
   method: get
+  operationId: getV3UsageMeMetricsByMetric
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -60,6 +62,7 @@ operations:
     audit: none
 - path: /v3/usage/me/requests
   method: get
+  operationId: getV3UsageMeRequests
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -67,6 +70,22 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /analytics/analyze
+  method: post
+  operationId: analyze
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /v3/imports/documents
   method: post
   operationId: handleByocDocuments
@@ -85,6 +104,7 @@ operations:
     audit: required
 - path: /v3/imports/batches
   method: get
+  operationId: getV3ImportsBatches
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -94,6 +114,7 @@ operations:
     audit: none
 - path: /v3/imports/batches/{batch_id}
   method: get
+  operationId: getV3ImportsBatchesByBatchId
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -103,6 +124,7 @@ operations:
     audit: none
 - path: /v3/imports/import_tags/{import_tag}
   method: get
+  operationId: getV3ImportsImportTagsByImportTag
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -112,6 +134,7 @@ operations:
     audit: none
 - path: /v3/explore_plus/analytics/custom
   method: post
+  operationId: postV3ExplorePlusAnalyticsCustom
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -127,6 +150,7 @@ operations:
     audit: required
 - path: /v3/explore_plus/analytics/custom/catalog
   method: get
+  operationId: getV3ExplorePlusAnalyticsCustomCatalog
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -136,6 +160,7 @@ operations:
     audit: none
 - path: /v3/explore_plus/assets/custom_fields
   method: get
+  operationId: getV3ExplorePlusAssetsCustomFields
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -145,6 +170,7 @@ operations:
     audit: none
 - path: /v3/explore_plus/assets/custom_fields
   method: post
+  operationId: postV3ExplorePlusAssetsCustomFields
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -160,6 +186,7 @@ operations:
     audit: required
 - path: /v3/explore_plus/assets/custom_fields/{custom_field_id}
   method: get
+  operationId: getV3ExplorePlusAssetsCustomFieldsByCustomFieldId
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -169,6 +196,7 @@ operations:
     audit: none
 - path: /v3/explore_plus/assets/custom_fields/{custom_field_id}
   method: put
+  operationId: putV3ExplorePlusAssetsCustomFieldsByCustomFieldId
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -184,6 +212,7 @@ operations:
     audit: required
 - path: /v3/explore_plus/assets/custom_fields/{custom_field_id}
   method: delete
+  operationId: deleteV3ExplorePlusAssetsCustomFieldsByCustomFieldId
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -199,6 +228,7 @@ operations:
     audit: required
 - path: /v3/explore_plus/assets/custom_fields/{custom_field_id}/values
   method: post
+  operationId: postV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValues
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -214,6 +244,7 @@ operations:
     audit: required
 - path: /v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}
   method: get
+  operationId: getV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValuesByValueId
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -223,6 +254,7 @@ operations:
     audit: none
 - path: /v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}
   method: put
+  operationId: putV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValuesByValueId
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -238,6 +270,7 @@ operations:
     audit: required
 - path: /v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}
   method: delete
+  operationId: deleteV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValuesByValueId
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -253,6 +286,7 @@ operations:
     audit: required
 - path: /v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules
   method: post
+  operationId: postV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValuesByValueIdRules
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -268,6 +302,7 @@ operations:
     audit: required
 - path: /v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules/{rule_id}
   method: get
+  operationId: getV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValuesByValueIdRulesByRuleId
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -277,6 +312,7 @@ operations:
     audit: none
 - path: /v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules/{rule_id}
   method: put
+  operationId: putV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValuesByValueIdRulesByRuleId
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -292,6 +328,7 @@ operations:
     audit: required
 - path: /v3/explore_plus/assets/custom_fields/{custom_field_id}/values/{value_id}/rules/{rule_id}
   method: delete
+  operationId: deleteV3ExplorePlusAssetsCustomFieldsByCustomFieldIdValuesByValueIdRulesByRuleId
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -307,6 +344,7 @@ operations:
     audit: required
 - path: /v3/explore_plus/assets/custom_fields/folders
   method: get
+  operationId: getV3ExplorePlusAssetsCustomFieldsFolders
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -316,6 +354,7 @@ operations:
     audit: none
 - path: /v3/explore_plus/assets/searches
   method: get
+  operationId: getV3ExplorePlusAssetsSearches
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -325,6 +364,7 @@ operations:
     audit: none
 - path: /v3/explore_plus/assets/searches
   method: post
+  operationId: postV3ExplorePlusAssetsSearches
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -340,6 +380,7 @@ operations:
     audit: required
 - path: /v3/explore_plus/assets/searches/{search_id}
   method: get
+  operationId: getV3ExplorePlusAssetsSearchesBySearchId
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -349,6 +390,7 @@ operations:
     audit: none
 - path: /v3/explore_plus/assets/searches/{search_id}
   method: put
+  operationId: putV3ExplorePlusAssetsSearchesBySearchId
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -364,6 +406,7 @@ operations:
     audit: required
 - path: /v3/explore_plus/assets/searches/{search_id}
   method: delete
+  operationId: deleteV3ExplorePlusAssetsSearchesBySearchId
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -379,6 +422,7 @@ operations:
     audit: required
 - path: /v3/explore_plus/assets/searches/folders
   method: get
+  operationId: getV3ExplorePlusAssetsSearchesFolders
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -388,6 +432,53 @@ operations:
     audit: none
 - path: /v3/explore_plus/search
   method: post
+  operationId: postV3ExplorePlusSearch
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /content/export
+  method: get
+  operationId: listExports
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /content/export
+  method: post
+  operationId: createExport
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /content/export/{exportId}
+  method: get
+  operationId: getExport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /content/export/{exportId}
+  method: delete
+  operationId: deleteExport
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -503,6 +594,7 @@ operations:
     audit: none
 - path: /v3/analytics/{searchId}/custom
   method: post
+  operationId: postV3AnalyticsBySearchIdCustom
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -518,6 +610,7 @@ operations:
     audit: required
 - path: /v3/analytics/custom/catalog
   method: get
+  operationId: getV3AnalyticsCustomCatalog
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -735,6 +828,7 @@ operations:
     audit: none
 - path: /v3/tags
   method: post
+  operationId: postV3Tags
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -750,6 +844,7 @@ operations:
     audit: required
 - path: /v3/tags/{tag_id}
   method: delete
+  operationId: deleteV3TagsByTagId
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -867,8 +962,29 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /account/llm/prompts
+  method: get
+  operationId: listLLMPrompts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /account/llm/prompts/folders
+  method: get
+  operationId: listLLMFolders
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /v3/mira/chat
   method: post
+  operationId: postV3MiraChat
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -884,6 +1000,7 @@ operations:
     audit: required
 - path: /v3/mira/responses
   method: post
+  operationId: postV3MiraResponses
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -899,6 +1016,7 @@ operations:
     audit: required
 - path: /v3/mira/projects
   method: get
+  operationId: getV3MiraProjects
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -908,6 +1026,7 @@ operations:
     audit: none
 - path: /v3/owned/accounts
   method: get
+  operationId: getV3OwnedAccounts
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -917,6 +1036,7 @@ operations:
     audit: none
 - path: /v3/owned/accounts/metrics/breakdown
   method: get
+  operationId: getV3OwnedAccountsMetricsBreakdown
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -926,6 +1046,7 @@ operations:
     audit: none
 - path: /v3/owned/accounts/metrics/heatmap
   method: get
+  operationId: getV3OwnedAccountsMetricsHeatmap
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -935,6 +1056,7 @@ operations:
     audit: none
 - path: /v3/owned/accounts/metrics/nested_breakdown
   method: get
+  operationId: getV3OwnedAccountsMetricsNestedBreakdown
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -944,6 +1066,7 @@ operations:
     audit: none
 - path: /v3/owned/accounts/metrics/numeric
   method: get
+  operationId: getV3OwnedAccountsMetricsNumeric
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -953,6 +1076,7 @@ operations:
     audit: none
 - path: /v3/owned/accounts/posts/top_posts
   method: get
+  operationId: getV3OwnedAccountsPostsTopPosts
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -962,6 +1086,7 @@ operations:
     audit: none
 - path: /v3/owned/supported_metrics
   method: get
+  operationId: getV3OwnedSupportedMetrics
   x-agentic-access:
     action-class: connected
     consequence: read

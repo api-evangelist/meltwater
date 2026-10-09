@@ -81,3 +81,19 @@ clients:
 access:
   requires: Meltwater MCP package in the customer subscription
   contact: account manager or Meltwater sales
+rfc9728:
+  endpoint: https://api.meltwater.com/v2/mcp
+  metadata_url: https://api.meltwater.com/.well-known/oauth-protected-resource/v2/mcp
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://api.meltwater.com/v2/mcp
+    authorization_servers:
+    - https://app.meltwater.com
+    scopes_supported:
+    - tools:read
+    - tools:call
+    bearer_methods_supported:
+    - header
