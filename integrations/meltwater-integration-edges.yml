@@ -2,6 +2,7 @@ generated: '2026-10-13'
 method: searched
 checked:
 - https://azuremarketplace.microsoft.com/
+- https://github.com/meltano/hub
 marketplace_apps: []
 edges:
 - partner_name: Microsoft Azure Marketplace
@@ -64,3 +65,34 @@ edges:
   seller_name: Meltwater (UK) Limited
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: Meltano
+  partner: meltano
+  partner_match: aggregator
+  type: marketplace
+  marketplace: meltano-hub
+  channel: elt-connector
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://hub.meltano.com/extractors/tap-meltwater--ella6882
+  category: null
+  contract_reference:
+    register: Meltano Hub (github.com/meltano/hub _data/meltano extractors + loaders)
+    spec_file: null
+    role: elt-connector:meltano-hub
+    registered_name: Meltwater
+    matched_domain: meltwater.com
+    matched_by: domain
+    detected_by: sweep-data-integration.py
+    detected: '2026-10-18'
+    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
+    plugins:
+    - tap-meltwater--ella6882
+    maintenance_status:
+    - active
+    quality:
+    - gold
+    builder: 'community (Meltano Hub variant maintainers: ella6882)'
+  detected_by: sweep-data-integration.py
+  first_seen: '2026-10-18'
+source:
+- https://github.com/meltano/hub
