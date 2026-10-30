@@ -64,26 +64,228 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Meltwater is a media intelligence platform providing REST APIs for media monitoring, social listening, journalist outreach, PR analytics, and brand reputation management. The API enables programmatic access to billions of editorial, blog, and social media conversations across news sources and social networks.
+Meltwater is a media intelligence platform providing REST APIs for media monitoring, social listening, journalist outreach, PR analytics, and brand reputation management. The API enables programmatic access to billions of editorial, blog, and social media conversations across news sources and social networks, with capabilities for searching, exporting, streaming, and analyzing mentions, as well as fetching owned social account analytics.
 
-**Developer Portal:** https://developer.meltwater.com/docs/  
-**Base URL:** https://api.meltwater.com  
-**Status:** https://status.api.meltwater.com  
+**Areas:** Media Monitoring · Social Listening · PR Analytics · Brand Intelligence · News API · Social Analytics · Media Intelligence
 
-## APIs
+## Meltwater on APIs.io
 
-- **Meltwater API** — Core REST API for media monitoring, social listening, mention search/export/stream, and owned social account analytics.
+Everything profiled for Meltwater is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/meltwater/](https://apis.io/providers/meltwater/)** — or go straight to one of the APIs or properties below.
 
-## Resources
+### APIs (16)
 
+- [Meltwater Account Management API](https://apis.io/apis/meltwater/meltwater-account-management-api/) — Account Management API and Usage APIs
+- [Meltwater Bring Your Own Content (BYOC) API](https://apis.io/apis/meltwater/meltwater-bring-your-own-content-byoc-api/) — Upload your own content into the Meltwater Platform.
+- [Meltwater Explore+ Analytics API](https://apis.io/apis/meltwater/meltwater-explore-analytics-api/) — Fetch analytics on data within your private index.
+- [Meltwater Explore+ Assets API](https://apis.io/apis/meltwater/meltwater-explore-assets-api/) — Manage your Explore+ assets including searches and custom fields.
+- [Meltwater Explore+ Search API](https://apis.io/apis/meltwater/meltwater-explore-search-api/) — Export earned documents from your private index.
+- [Meltwater Listening Analytics API](https://apis.io/apis/meltwater/meltwater-listening-analytics-api/) — Analyse multiple types of Meltwater data, run volume time series, top tags and sentiment counts.
+- [Meltwater Listening Exports API](https://apis.io/apis/meltwater/meltwater-listening-exports-api/) — Data exports for onetime and recurring jobs.
+- [Meltwater Listening Search API](https://apis.io/apis/meltwater/meltwater-listening-search-api/) — Search Meltwater data using saved searches to integrate with your own API connectors and internal systems.
+- [Meltwater Listening Search Management API](https://apis.io/apis/meltwater/meltwater-listening-search-management-api/) — Manage Saved Searches
+- [Meltwater Listening Streaming API](https://apis.io/apis/meltwater/meltwater-listening-streaming-api/) — Streaming of Meltwater data to integrate with your internal systems and workflows.
+- [Meltwater Mira API](https://apis.io/apis/meltwater/meltwater-mira-api-api/) — AI-powered chat completion and project listing features.
+- [Meltwater Owned Analytics API](https://apis.io/apis/meltwater/meltwater-owned-analytics-api/) — Retrieve owned social metrics and analytics.
+- [Meltwater MCP](https://apis.io/apis/meltwater/meltwater-mcp/) — Meltwater MCP is a single remote Model Context Protocol server that exposes a customer's Meltwater assets (saved searches, tags and other configured…
+- [Meltwater Analyze API](https://apis.io/apis/meltwater/meltwater-analyze-api/) — Analyze data with metrics and KPIs for LLM prompts
+- [Meltwater Export API](https://apis.io/apis/meltwater/meltwater-export-api/) — Export content and manage export jobs
+- [Meltwater LLM API](https://apis.io/apis/meltwater/meltwater-llm-api/) — Endpoints to list LLM prompts and folders available for analytics
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Meltwater Webhooks](https://apis.io/asyncapis/meltwater/meltwater-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [meltwater-mcp.yml](https://apis.io/servers/meltwater/meltwater-mcp-yml/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Meltwater Agentic Access](https://apis.io/agentic-access/meltwater/meltwater-agentic-access/)
+
+#### JSON Schema (1)
+
+The data models the API reads and writes.
+
+- [Meltwater API Schemas](https://apis.io/schemas/meltwater/meltwater-schemas/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Meltwater Api Context](https://apis.io/jsonld/meltwater/meltwater-api/)
+
+#### Examples (1)
+
+Example requests and responses.
+
+- [Meltwater Api Examples](https://apis.io/examples/meltwater/meltwater-api-examples/)
+
+#### Collections (12)
+
+Postman and Open Collection request collections.
+
+- [Meltwater Account Management API](https://apis.io/collections/meltwater/open-meltwater-account-management-api/)
+- [Meltwater Account Management Bring Your Own Content (BYOC) API](https://apis.io/collections/meltwater/open-meltwater-bring-your-own-content-byoc-api/)
+- [Meltwater Account Management Explore+ Analytics API](https://apis.io/collections/meltwater/open-meltwater-explore-analytics-api/)
+- [Meltwater Account Management Explore+ Assets API](https://apis.io/collections/meltwater/open-meltwater-explore-assets-api/)
+- [Meltwater Account Management Explore+ Search API](https://apis.io/collections/meltwater/open-meltwater-explore-search-api/)
+- [Meltwater Account Management Listening Analytics API](https://apis.io/collections/meltwater/open-meltwater-listening-analytics-api/)
+- [Meltwater Account Management Listening Exports API](https://apis.io/collections/meltwater/open-meltwater-listening-exports-api/)
+- [Meltwater Account Management Listening Search API](https://apis.io/collections/meltwater/open-meltwater-listening-search-api/)
+- [Meltwater Account Management Listening Search Management API](https://apis.io/collections/meltwater/open-meltwater-listening-search-management-api/)
+- [Meltwater Account Management Listening Streaming API](https://apis.io/collections/meltwater/open-meltwater-listening-streaming-api/)
+- [Meltwater Account Management Mira API API](https://apis.io/collections/meltwater/open-meltwater-mira-api-api/)
+- [Meltwater Account Management Owned Analytics API](https://apis.io/collections/meltwater/open-meltwater-owned-analytics-api/)
+
+#### Overlays (28)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Meltwater Account Management Api Overlay](https://apis.io/overlays/meltwater/meltwater-account-management-api-overlay/)
+- [Meltwater Account Management Api Phrasing Overlay](https://apis.io/overlays/meltwater/meltwater-account-management-api-phrasing-overlay/)
+- [Meltwater Analyze Api Phrasing Overlay](https://apis.io/overlays/meltwater/meltwater-analyze-api-phrasing-overlay/)
+- [Meltwater Api V4 Overlay](https://apis.io/overlays/meltwater/meltwater-api-v4-overlay/)
+- [Meltwater Bring Your Own Content Byoc Api Overlay](https://apis.io/overlays/meltwater/meltwater-bring-your-own-content-byoc-api-overlay/)
+- [Meltwater Bring Your Own Content Byoc Api Phrasing Overlay](https://apis.io/overlays/meltwater/meltwater-bring-your-own-content-byoc-api-phrasing-overlay/)
+- [Meltwater Explore Analytics Api Overlay](https://apis.io/overlays/meltwater/meltwater-explore-analytics-api-overlay/)
+- [Meltwater Explore Analytics Api Phrasing Overlay](https://apis.io/overlays/meltwater/meltwater-explore-analytics-api-phrasing-overlay/)
+- [Meltwater Explore Assets Api Overlay](https://apis.io/overlays/meltwater/meltwater-explore-assets-api-overlay/)
+- [Meltwater Explore Assets Api Phrasing Overlay](https://apis.io/overlays/meltwater/meltwater-explore-assets-api-phrasing-overlay/)
+- [Meltwater Explore Search Api Overlay](https://apis.io/overlays/meltwater/meltwater-explore-search-api-overlay/)
+- [Meltwater Explore Search Api Phrasing Overlay](https://apis.io/overlays/meltwater/meltwater-explore-search-api-phrasing-overlay/)
+- [Meltwater Export Api Phrasing Overlay](https://apis.io/overlays/meltwater/meltwater-export-api-phrasing-overlay/)
+- [Meltwater Listening Analytics Api Overlay](https://apis.io/overlays/meltwater/meltwater-listening-analytics-api-overlay/)
+- [Meltwater Listening Analytics Api Phrasing Overlay](https://apis.io/overlays/meltwater/meltwater-listening-analytics-api-phrasing-overlay/)
+- [Meltwater Listening Exports Api Overlay](https://apis.io/overlays/meltwater/meltwater-listening-exports-api-overlay/)
+- [Meltwater Listening Exports Api Phrasing Overlay](https://apis.io/overlays/meltwater/meltwater-listening-exports-api-phrasing-overlay/)
+- [Meltwater Listening Search Api Overlay](https://apis.io/overlays/meltwater/meltwater-listening-search-api-overlay/)
+- [Meltwater Listening Search Api Phrasing Overlay](https://apis.io/overlays/meltwater/meltwater-listening-search-api-phrasing-overlay/)
+- [Meltwater Listening Search Management Api Overlay](https://apis.io/overlays/meltwater/meltwater-listening-search-management-api-overlay/)
+- [Meltwater Listening Search Management Api Phrasing Overlay](https://apis.io/overlays/meltwater/meltwater-listening-search-management-api-phrasing-overlay/)
+- [Meltwater Listening Streaming Api Overlay](https://apis.io/overlays/meltwater/meltwater-listening-streaming-api-overlay/)
+- [Meltwater Listening Streaming Api Phrasing Overlay](https://apis.io/overlays/meltwater/meltwater-listening-streaming-api-phrasing-overlay/)
+- [Meltwater Llm Api Phrasing Overlay](https://apis.io/overlays/meltwater/meltwater-llm-api-phrasing-overlay/)
+- [Meltwater Mira Api Api Overlay](https://apis.io/overlays/meltwater/meltwater-mira-api-api-overlay/)
+- …and 3 more published on APIs.io
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Meltwater — jsonschema rules](https://apis.io/rules/meltwater/meltwater-jsonschema-spectral-rules/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Meltwater Authentication](https://apis.io/security/meltwater/meltwater-authentication/)
+- [Meltwater Domain Security](https://apis.io/security/meltwater/meltwater-domain-security/)
+- [Meltwater Trust Center](https://apis.io/security/meltwater/meltwater-trust-center/)
+- [Meltwater Vulnerability Disclosure](https://apis.io/security/meltwater/meltwater-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Meltwater Scopes](https://apis.io/scopes/meltwater/meltwater-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Meltwater Plans Pricing](https://apis.io/plans/meltwater/meltwater-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Meltwater Rate Limits](https://apis.io/rate-limits/meltwater/meltwater-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Meltwater Finops](https://apis.io/finops/meltwater/meltwater-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.meltwater.com)
 - [Documentation](https://developer.meltwater.com/docs/)
-- [Getting Started](https://developer.meltwater.com/docs/meltwater-api/getting-started/overview/)
-- [API Reference & OpenAPI](https://developer.meltwater.com/api-reference/api-reference-overview/)
-- [Changelog](https://developer.meltwater.com/docs/meltwater-api/help/changelog/)
-- [GitHub Organization](https://github.com/meltwater)
+- [Getting started](https://developer.meltwater.com/guides/getting-started/overview)
+- [API reference](https://developer.meltwater.com/api-reference/api-reference-overview)
+- [Pricing](https://www.meltwater.com/en/suite/data-api-integration)
+- [Support](https://developer.meltwater.com/help/support)
 - [Blog](https://www.meltwater.com/en/blog)
-- [LinkedIn](https://www.linkedin.com/company/meltwater)
+- [Security](https://www.meltwater.com/.well-known/security.txt)
+- [Terms of service](https://www.meltwater.com/en/terms-of-use)
+- [Privacy policy](https://www.meltwater.com/en/privacy)
+- [GitHub](https://github.com/meltwater)
+- [Status](https://status.api.meltwater.com)
 
-## Maintained By
+## API Evangelist rating
 
-Kin Lane (kin@apievangelist.com)
+**Kin Score 71.2** — exemplar · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 67.6 |
+| Contract governance | 28.0 |
+| Operational transparency | 84.2 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 77.6 |
+
+**Agent readiness 61.1** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 45.1** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/meltwater/](https://apis.io/providers/meltwater/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Meltwater: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/meltwater/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
